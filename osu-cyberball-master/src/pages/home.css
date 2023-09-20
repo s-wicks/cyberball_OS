@@ -119,18 +119,18 @@ pre {
 
 .tablinks:hover::before {
     content: attr(data-tooltip); /* Fetch the tooltip text from a 'data-tooltip' attribute on the element */
-    position: absolute;/* !!!delete if short text */
-    bottom: 102%; /* Position tooltip above the tab link */
-    background-color: #fdfdfd86; /* Background of the tooltip */
-    color: #e1e652; /* Text color for the tooltip */
-    padding: 5px 10px; /* Padding around the tooltip text */
-    border-radius: 4px; /* Rounded corners */
-    white-space: nowrap; /* Prevent the tooltip text from wrapping */
-    font-size: 12px; /* Smaller font size */
-    pointer-events: none; /* Ensure the tooltip doesn't block any interactions */
-    opacity: 0; /* Start hidden */
-    transition: opacity 2s ease-in-out; /* Smooth fade in/out */
-    z-index: 10; /* To ensure the tooltip appears above other elements */
+position: absolute; /* Position the tooltip absolutely */
+bottom: 100%; /* Position tooltip above the tab link */
+background-color: #fdfdfd86; /* Background of the tooltip */
+color: #e1e652; /* Text color for the tooltip */
+padding: 10px 15px; /* Padding around the tooltip text */
+border-radius: 20px 20px 20px 0; /* Rounded corners for a chat-like shape, left corner rounded */
+white-space: nowrap; /* Prevent the tooltip text from wrapping */
+font-size: 12px; /* Smaller font size */
+pointer-events: none; /* Ensure the tooltip doesn't block any interactions */
+transition: opacity 0.9s ease-in-out; /* Smooth fade in/out */
+z-index: 12; /* To ensure the tooltip appears above other elements */
+
 }
 
 

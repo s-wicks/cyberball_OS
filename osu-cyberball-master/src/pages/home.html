@@ -86,14 +86,14 @@
             <h1>Cyberball Configuration Builder</h1>
 
             <div class="tabs">
-                <button class="tablinks ${activeTab === 'player' ? 'active' : ''}" click.delegate="activeTab='player'" data-tooltip="Player tool tip">
+                <button class="tablinks ${activeTab === 'player' ? 'active' : ''}" click.delegate="activeTab='player'" data-tooltip="Player settings: Name, Tint Color, Portrait">
                     Player
                 </button>
-                <button class="tablinks ${activeTab === 'cpus' ? 'active' : ''}" click.delegate="activeTab='cpus'" data-tooltip="CPU setting">
+                <button class="tablinks ${activeTab === 'cpus' ? 'active' : ''}" click.delegate="activeTab='cpus'" data-tooltip="CPUs: Manage computer-controlled players (CPU) to add or remove them from gameplay">
                     CPUs
                 </button>
                 <button class="tablinks ${activeTab === 'gameplay' ? 'active' : ''}"
-                        click.delegate="activeTab='gameplay' " data-tooltip="Gameplay ">Gameplay
+                        click.delegate="activeTab='gameplay' " data-tooltip="Gameplay: Main section for configuring in-game settings">Gameplay
                 </button>
             </div>
 
