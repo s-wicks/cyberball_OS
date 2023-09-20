@@ -1,3 +1,78 @@
+<!--<template>-->
+<!--    <!DOCTYPE html>-->
+<!--    <html lang="en">-->
+<!--    <head>-->
+<!--        <meta charset="UTF-8">-->
+<!--                    <img src="../../assets/player.png" alt="Cyberball Sprite">-->
+<!--        <title>Welcome to Cyberball</title>-->
+<!--        <style>-->
+<!--            body {-->
+<!--                font-family: Arial, sans-serif;-->
+<!--                height: 100vh;-->
+<!--                margin: 0;-->
+<!--                display: flex;-->
+<!--                align-items: center;-->
+<!--                justify-content: center;-->
+<!--                background-color: #f7f7f7;-->
+<!--            }-->
+
+<!--            .container {-->
+<!--                text-align: center;-->
+<!--                background-color: #ffffff;-->
+<!--                padding: 50px;-->
+<!--                border-radius: 10px;-->
+<!--                box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);-->
+<!--            }-->
+
+<!--            .welcome-image {-->
+<!--                width: 100%;-->
+<!--                max-width: 300px; /* You can adjust this as per your image */-->
+<!--                margin-bottom: 20px;-->
+<!--            }-->
+
+<!--            h1 {-->
+<!--                margin-bottom: 30px;-->
+<!--                color: #333;-->
+<!--            }-->
+
+<!--            .btn {-->
+<!--                display: inline-block; /* Makes sure the button respects padding and other block properties */-->
+<!--                padding: 10px 20px;-->
+<!--                margin: 5px;-->
+<!--                border: none;-->
+<!--                border-radius: 5px;-->
+<!--                background-color: #007BFF;-->
+<!--                color: #ffffff;-->
+<!--                cursor: pointer;-->
+<!--                transition: background-color 0.3s ease;-->
+<!--                text-decoration: none; /* This line removes the underline */-->
+<!--            }-->
+
+<!--            .btn:hover {-->
+<!--                background-color: #0056b3;-->
+<!--            }-->
+<!--        </style>-->
+<!--    </head>-->
+<!--    <body>-->
+<!--    <div class="container">-->
+<!--        &lt;!&ndash; Replace 'path_to_image.jpg' with the actual path to your image &ndash;&gt;-->
+<!--        &lt;!&ndash;            <img src="../../assets/player.png" alt="Cyberball Sprite">&ndash;&gt;-->
+
+<!--        <h1>Welcome to Cyberball</h1>-->
+
+<!--        &lt;!&ndash; Replace '#' in href with the actual path to your pages &ndash;&gt;-->
+<!--        <a href="#" class="btn">Start From Scratch</a>-->
+<!--        <a href="#" class="btn">Load Preset</a>-->
+<!--        <a href="#" class="btn">Manual</a>-->
+<!--    </div>-->
+<!--    </body>-->
+<!--    </html>-->
+
+<!--</template>-->
+
+
+
+
 <template>
     <require from="resources/value-converters/json-value-converter"></require>
     <require from="resources/value-converters/integer-value-converter"></require>
@@ -28,7 +103,7 @@
                 <h2>Player</h2>
 
                 <div class="input">
-                    <label>Name</label>
+                    <label>Name <span class="tooltip-icon" click.delegate="showInfo('playerName')">?</span></label>
                     <input type="text" value.bind="settings.player.name" keyup.delegate="previewGame()" />
                 </div>
 
@@ -335,11 +410,20 @@
             </div>
     </div>
         <div style="flex: 1; overflow: hidden;margin-top: 60px">
-            <iframe id="gamePreview" style="width: 100%; height:  100%; border: none"></iframe>
+            <iframe id="gamePreview" style="width: 70%; height:  100%; border: none"></iframe>
         </div>
+
+
+
     </div>
 
-<!--    add refresh button to preview rather than live rerender-->
+    <div class="sidebar" ref="sidebar">
+        <button class="close-btn" click.delegate="closeSidebar()">X</button>
+        <h2>Information</h2>
+        <p ref="sidebarContent">Here's some information about your settings...</p>
+    </div>
+
+    <!--    add refresh button to preview rather than live rerender-->
 <!--    //change default name of player -> participant-->
 <!--    //default throw count to ~1000-->
 <!--    add background color tint -->
