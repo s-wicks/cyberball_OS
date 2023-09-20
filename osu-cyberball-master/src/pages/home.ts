@@ -10,6 +10,8 @@ export class HomeViewModel {
     activeCPUTab = 0;
     settings: SettingsModel = defaultSettings;
     clipboard: ClipboardJS;
+    sidebar: HTMLElement;
+    sidebarContent: HTMLElement;
 
     constructor(private signaler: BindingSignaler) {}
 
@@ -24,6 +26,32 @@ export class HomeViewModel {
     unbind() {
         this.clipboard.destroy();
     }
+
+    showInfo(setting: string) {
+        const sidebar = this.sidebar;
+        const content = this.sidebarContent;
+
+        if (sidebar.classList.contains('sidebar-open')) {
+            this.closeSidebar();
+            return;
+        }
+
+        switch (setting) {
+            case 'playerName':
+                content.textContent = "Information about player's name...";
+                break;
+            // Add more cases for other settings
+            default:
+                content.textContent = "Here's some information about your settings...";
+        }
+
+        sidebar.classList.add('sidebar-open');
+    }
+
+    closeSidebar() {
+        this.sidebar.classList.remove('sidebar-open');
+    }
+
 
 
     addCPU() {
@@ -85,7 +113,7 @@ export class HomeViewModel {
         startPreviewButton.addEventListener('click', () => {
             this.previewGame();
         });
-    
+
         // Get the refresh preview button and attach the event
         const refreshPreviewButton = document.getElementById('refreshPreview');
         refreshPreviewButton.addEventListener('click', () => {
@@ -107,7 +135,7 @@ export class HomeViewModel {
         // Set the iframe's source to the game preview URL
         iframe.src = 'about:blank'; // Clear the iframe source
         iframe.src = gamePreviewUrl; // Set the new URL
-        
+
     }
 
     attached() {           // alter ???????????????????????
