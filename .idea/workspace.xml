@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="adding tool tip and side bar pull out" />
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="adding tool tip and side bar pull out">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/game.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,8 +31,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="TypeScript File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/main" />
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -38,6 +59,20 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AlexShaheen&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="3ba1e4cd-6a39-479b-ba78-dd86aaa909fc" />
+        <option name="url" value="https://github.com/zjrw/5916-Group3.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -46,21 +81,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/alexshaheen/IdeaProjects/5916-Group3/osu-cyberball-master/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game" />
+      <recent name="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home" />
+      <recent name="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -71,6 +114,9 @@
       <updated>1695053775192</updated>
       <workItem from="1695053776606" duration="1929000" />
       <workItem from="1695099286908" duration="7197000" />
+      <workItem from="1695233314608" duration="2579000" />
+      <workItem from="1695316927371" duration="606000" />
+      <workItem from="1695757782690" duration="344000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -93,6 +139,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />

@@ -1,0 +1,312 @@
+body {
+    background-color: rgba(24, 24, 24, 0.94); /* This is a dark gray color */
+    color: #EAEAEA; /* This is a light gray color for text, to ensure readability against the dark background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+}
+
+.input label {
+    display: flex;
+    align-items: center;
+}
+
+.tooltip-icon {
+    margin-right: 10px; /* This creates a 10px gap between the blue circle and the input box */
+}
+
+.h2-tooltip {
+    font-size: 1rem; /* Adjust this value to match the size of the tooltip icon next to "Name" */
+    vertical-align: middle; /* This will vertically center the tooltip icon with the text */
+}
+
+
+.input label + * {
+    box-sizing: border-box;
+    max-width: 300px;
+}
+
+.input input[type=text], .input input[type=number], textarea {
+    flex: 1 1 100%;
+    min-width: 0;
+    width: auto;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.input > div {
+    display: flex;
+}
+
+pre {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.bottom-buttons {
+    background-color: #007BFF; /* Blue color */
+    color: #FFFFFF; /* White text color */
+    padding: 10px 20px; /* Padding to make button larger and more clickable */
+    border: none; /* Remove default borders */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Cursor to pointer when hovering over button */
+    transition: background-color 0.3s ease; /* Smooth background-color transition */
+}
+
+/* Hover state */
+.bottom-buttons:hover {
+    background-color: #0056b3; /* Darken the blue color when hovering */
+}
+
+/* Active state (when the button is being clicked) */
+.bottom-buttons:active {
+    background-color: #003d80; /* Even darker blue */
+}
+
+/* Focus state (to maintain accessibility) */
+.bottom-buttons:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Add a blue glow around the button */
+}
+
+.header-container h1,
+.header-container .bottom-buttons {
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Optional: Add some margin between the h1 and the button for spacing */
+.header-container h1 {
+    margin-right: 10px;
+}
+
+.tabs {
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.sub-tabs {
+    margin-bottom: 10px;
+    display: flex;
+    padding: 0;
+
+}
+
+.tablinks {
+    padding: 10px 15px;
+    margin-bottom: -2px; /* This allows the active tab to sit over the border, making it look connected to the content */
+    border: 1px solid #ccc;
+    border-bottom: none;
+    cursor: pointer;
+    background-color: #e0e0e0; /* Default tab color (grey) */
+    transition: background-color 0.3s;
+}
+
+.tablinks:not(:last-child) {
+    margin-right: 5px;
+}
+
+.tablinks:hover {
+    background-color: #d0d0d0;
+    position: relative; /* Needed for positioning the tooltip */
+}
+
+.tablinks:hover::before {
+    content: attr(data-tooltip); /* Fetch the tooltip text from a 'data-tooltip' attribute on the element */
+position: absolute; /* Position the tooltip absolutely */
+bottom: 100%; /* Position tooltip above the tab link */
+background-color: #fdfdfd86; /* Background of the tooltip */
+color: #e1e652; /* Text color for the tooltip */
+padding: 10px 15px; /* Padding around the tooltip text */
+border-radius: 20px 20px 20px 0; /* Rounded corners for a chat-like shape, left corner rounded */
+white-space: nowrap; /* Prevent the tooltip text from wrapping */
+font-size: 12px; /* Smaller font size */
+pointer-events: none; /* Ensure the tooltip doesn't block any interactions */
+transition: opacity 0.9s ease-in-out; /* Smooth fade in/out */
+z-index: 12; /* To ensure the tooltip appears above other elements */
+
+}
+
+
+
+/* Display tooltip when hovering the tab link */
+.tablinks:hover::before {
+    opacity: 1; /* Show the tooltip and arrow */
+}
+
+
+.tablinks.active {
+    background-color: #007BFF; /* Active tab color (blue) */
+    font-weight: bold;
+    border-color: #007BFF;
+    color: white; /* Text color for the active tab */
+}
+
+.bottom-buttons.disabled {
+    background-color: #a5a5a5; /* Grayish color for a disabled look */
+    cursor: not-allowed; /* To indicate it's not clickable */
+    pointer-events: none; /* To ensure it's not clickable */
+    color: #777777; /* Dim the text color for a disabled look */
+}
+
+
+.tablinks:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Add a blue glow around the button */
+}
+
+
+iframe {
+    pointer-events: auto;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #181818;
+    color: #EAEAEA;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 1% 0;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 2%;
+}
+
+nav {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-button {
+    background-color: #333;
+    color: #EAEAEA;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nav-button.active, .nav-button:hover {
+    background-color: #007BFF;
+}
+
+main {
+    width: 78%;
+    margin-left: 2%;
+    background-color: #252525;
+    border-radius: 10px;
+    padding: 2%;
+    overflow: hidden;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content > div {
+    margin: 10px 0;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 2%;
+}
+
+.preview {
+    width: 100%;
+    margin-top: 2%;
+}
+
+.preview-frame {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+
+.tooltip-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Sidebar styles */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -340px; /* Increase this value slightly to ensure the sidebar is completely off-screen */
+    width: 300px;
+    height: 100%;
+    background-color: #252525;
+    padding: 20px;
+    transition: right 0.3s;
+    z-index: 1000; /* Ensure it's on top */
+    color: #EAEAEA;
+
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF0000; /* Red color */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+
+.sidebar-open {
+    right: 0; /* Show the sidebar */
+}
+
+
+
+
