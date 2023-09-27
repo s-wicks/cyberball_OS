@@ -1,0 +1,256 @@
+
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;
+    color: #181818;
+    margin: 0;
+    padding: 0;
+}
+
+iframe {
+    transform: scale(3) translate(-50px, -50px);
+    transform-origin: 100px 100px;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /*//width: 80%; !* This is the current width setting, which is responsive *!*/
+    max-width: 400px; /* This is the maximum width it can grow to */
+    min-width: 400px; /* This is the minimum width it can shrink to */
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #9d9d9d;
+    color: black;
+}
+
+.previous {
+    background-color: #ddd;
+    color: black;
+    position: absolute;
+    top: 50%;  /* This will center the button vertically */
+    left: 0;  /* This will make the button hug the left wall */
+    transform: translateY(-50%); /* This will ensure the button is truly vertically centered */
+    left: 6px;
+}
+
+.next {
+
+    background-color: #ddd;
+    color: black;
+    position: absolute;
+    top: 50%;  /* This will center the button vertically */
+    right: 0;  /* This will make the button hug the right wall */
+    transform: translateY(-50%); /* This will ensure the button is truly vertically centered */
+    right: 6px;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+
+.landing-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 80%;
+    max-width: 1200px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+}
+
+.input label {
+    width: 100px; /* Adjust this width to fit the longest label */
+    text-align: right;
+    margin-right: 10px; /* Space between the label and the input */
+}
+
+
+.input input[type="text"] {
+    max-width: 200px; /* Adjust this value based on your desired width */
+    flex: none; /* This ensures the input doesn't grow or shrink */
+}
+
+.tooltip-icon {
+    margin-right: 1px;
+}
+
+.input-label{
+    margin-bottom: 1px;
+}
+
+.h2-tooltip {
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.input label + * {
+    box-sizing: border-box;
+    max-width: 300px;
+}
+
+.input input[type=text], .input input[type=number], textarea {
+    flex: 1 1 100%;
+    min-width: 0;
+    width: auto;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom-buttons {
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bottom-buttons:hover {
+    background-color: #0056b3;
+}
+
+.bottom-buttons:active {
+    background-color: #003d80;
+}
+
+.bottom-buttons:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+.tabs {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    /* This will ensure the tabs are displayed horizontally and new tabs are added to the left */
+    padding: 0;
+    margin: 0;
+    align-items: flex-start; /* This ensures the tabs hug the top of the container */
+}
+
+
+.tablinks:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.tablinks {
+    padding: 10px 15px;
+    margin-bottom: -2px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    transition: background-color 0.3s;
+}
+
+.tablinks:not(:last-child) {
+    margin-right: 5px;
+}
+
+.tablinks:hover {
+    background-color: #d0d0d0;
+}
+
+.tablinks.active {
+    background-color: #007BFF;
+    font-weight: bold;
+    border-color: #007BFF;
+    color: white;
+}
+
+.bottom-buttons.disabled {
+    background-color: #a5a5a5;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #777777;
+}
+
+.tablinks:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+iframe {
+    pointer-events: auto;
+}
+
+.tooltip-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 300px;
+    height: 100%;
+    background-color: #FFFFFF;
+    padding: 20px;
+    transition: right 0.3s;
+    z-index: 1000;
+    color: #050505;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+.sidebar-open {
+    right: 0;
+}

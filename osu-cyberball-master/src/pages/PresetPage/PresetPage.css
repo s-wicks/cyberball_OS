@@ -1,0 +1,75 @@
+
+h1 {
+    text-align: center;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;
+    color: #181818;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /*//width: 80%; !* This is the current width setting, which is responsive *!*/
+    max-width: 800px; /* This is the maximum width it can grow to */
+    min-width: 400px; /* This is the minimum width it can shrink to */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+th {
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* Tab Styles */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0; /* Optional: Adds a line under the tabs */
+    overflow: hidden; /* Ensures the content inside the tabs doesn't overflow */
+}
+
+.tab-button {
+    flex: 1; /* Makes each tab button take equal width */
+    padding: 10px 20px;
+    margin: 0;
+    cursor: pointer;
+    background-color: #f7f7f7;
+    border: none;
+    transition: background-color 0.3s ease;
+    border-bottom: 2px solid transparent; /* Optional: Adds a bottom border to indicate active tab */
+}
+
+.tab-button:hover {
+    background-color: #e0e0e0;
+}
+
+.tab-button.active {
+    background-color: #007BFF;
+    color: #ffffff;
+    border-bottom: 2px solid #0056b3; /* Optional: Changes the bottom border color for active tab */
+}
+
+/* This style will target the <tr> elements within your table */
+table tr:hover th {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}

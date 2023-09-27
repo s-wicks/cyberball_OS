@@ -1,0 +1,58 @@
+<template>
+    <require from="resources/value-converters/json-value-converter"></require>
+    <require from="resources/value-converters/integer-value-converter"></require>
+    <require from="resources/value-converters/number-value-converter"></require>
+    <require from="resources/value-converters/integer-array-value-converter"></require>
+    <require from="resources/value-converters/flag-value-converter"></require>
+    <require from="./PresetPage.css"></require>
+    <require from="../LandingPage/LandingPage.css"></require>
+
+
+        <div class="landing-page">
+            <div>
+                <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
+                <h1>Cyberball Presets</h1>
+                <div class="tabs">
+
+                    <button class="tab-button ${isPresetsActive ? 'active' : ''}" click.delegate="showTab('presets')">Presets</button>
+                    <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Presets</button>
+                </div>
+                <div class="container" id="presets" css.bind="isPresetsActive ? 'display: block;' : 'display: none;'">
+                <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Gif</th>
+                        </tr>
+                        <tr click.trigger="navigateToPage()">
+
+                            <th> Ostracized Game</th>
+                            <th> player will never get the ball</th>
+                            <th>
+                                <video width="320" height="240" loop autoplay muted>
+                                    <source src="../../../assets/ostracizedMp4.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </th>
+
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="container" id="your-presets" css.bind="isYourPresetsActive ? 'display: block;' : 'display: none;'">
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+
+                        </tr>
+
+                        <!-- Add your rows here -->
+                    </table>
+                </div>
+            </div>
+        </div>
+</template>
+
+
+

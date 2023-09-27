@@ -1,0 +1,52 @@
+.landing-page {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    position: relative; /* Added for positioning */
+}
+
+.landing-page .container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative; /* Added for positioning */
+}
+
+.landing-page .welcome-image {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+    position: relative; /* Position the image relative to its parent (.landing-page) */
+    display: block; /* Ensure the image takes its own block-level space */
+    margin: 0 auto; /* Center the image horizontally within .landing-page */
+}
+
+
+.landing-page h1 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.landing-page .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.landing-page .btn:hover {
+    background-color: #0056b3;
+}
+
