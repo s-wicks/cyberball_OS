@@ -264,6 +264,7 @@ export class CyberballScene extends Phaser.Scene {
 
         // Stop future throws:
         clearTimeout(this.activeTimeout);
+        // @ts-ignore
         this.playerGroup.children.each(child => child.removeAllListeners());
 
         // Draw game over screen:

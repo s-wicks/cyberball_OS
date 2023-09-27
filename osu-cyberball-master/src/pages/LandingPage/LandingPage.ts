@@ -10,12 +10,14 @@ export class LandingPage {
 
     startFromScratch() {
         // Navigate to the home route
+        console.log(this.router);
         this.router.navigateToRoute('home');
     }
 
     loadPreset() {
         // Logic to load a preset
-        this.router.navigateToRoute('presetPage');
+        console.log(this.router);
+        this.router.navigateToRoute('PresetPage');
     }
 
     openManual() {
