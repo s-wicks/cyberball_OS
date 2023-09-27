@@ -1,0 +1,386 @@
+<template>
+    <require from="resources/value-converters/json-value-converter"></require>
+    <require from="resources/value-converters/integer-value-converter"></require>
+    <require from="resources/value-converters/number-value-converter"></require>
+    <require from="resources/value-converters/integer-array-value-converter"></require>
+    <require from="resources/value-converters/flag-value-converter"></require>
+    <require from="./home.css"></require>
+    <require from="../LandingPage/LandingPage.css"></require>
+
+    <div class="landing-page">
+
+        <div>
+            <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
+            <h1>Cyberball Configuration Builder</h1>
+            <div class="container">
+
+                <!-- Player Tab -->
+                <div if.bind="activeTab === 'player'" class="tabcontent">
+
+                    <h2>Player <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('playerHeader')">?</span>
+                    </h2>
+                    <div style="width: 100%; height: 40%; overflow: hidden; position: relative; margin-bottom: -40px ">
+                        <iframe id="gamePreview" style="transform: scale(1.67) translateX(-4%) translateY(-35%); width: 60%; height: 60%; border: none; margin: 0;"></iframe>
+                    </div>
+
+
+                    <div style="position: relative; z-index: 1;">
+
+                        <div class="input">
+                            <label>Name</label>
+                            <input type="text" value.bind="settings.player.name" keyup.delegate="previewGame()"/>
+
+                        </div>
+
+
+                        <div class="input">
+                            <label>Tint Color</label>
+                            <input type="color" value.bind="settings.player.tint" input.delegate="previewGame()"
+                                   change.delegate="previewGame()"/>
+                        </div>
+
+                        <div class="input">
+                            <label>Portrait</label>
+                            <input type="text" value.bind="settings.player.portrait" keyup.delegate="previewGame()">
+                        </div>
+
+                        <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('playerHeader')">?</span></h2>
+                        <div class="column">
+                            <label>
+                                <input type="checkbox"
+                                       checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1"/>
+                                Throws Elapsed
+                            </label>
+                            <label>
+                                <input type="checkbox"
+                                       checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2"/>
+                                Time
+                                Elapsed
+                            </label>
+                            <label>
+                                <input type="checkbox"
+                                       checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4"/>
+                                Throws Ignored
+                            </label>
+                            <label>
+                                <input type="checkbox"
+                                       checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16"/>
+                                Time
+                                Ignored
+                            </label>
+                            <label>
+                                <input type="checkbox"
+                                       checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8"/>
+                                Other
+                                Players Leaving
+                            </label>
+                        </div>
+
+                        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">
+                            <label>Throws Elapsed Leave Threshold/Variance</label>
+
+                            <div>
+                                <input type="number" value.bind="settings.player.leaveTurn | integer"/>
+                                <input type="number" value.bind="settings.player.leaveTurnVariance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
+                            <label>Time Elapsed Leave Threshold/Variance</label>
+
+                            <div>
+                                <input type="number" value.bind="settings.player.leaveTime | integer"/>
+                                <input type="number" value.bind="settings.player.leaveTimeVariance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4">
+                            <label>Ignored Throws Leave Threshold/Variance</label>
+
+                            <div>
+                                <input type="number" value.bind="settings.player.leaveIgnored | integer"/>
+                                <input type="number" value.bind="settings.player.leaveIgnoredVariance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
+                            <label>Ignored Time Leave Threshold/Variance</label>
+
+                            <div>
+                                <input type="number" value.bind="settings.player.leaveTimeIgnored | integer"/>
+                                <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8">
+                            <label>Others Left Leave Threshold</label>
+
+                            <div>
+                                <input type="number" value.bind="settings.player.leaveOtherLeaver | integer"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CPUs Tab -->
+                <div if.bind="activeTab === 'cpus'" class="tabcontent">
+                    <div class="tab">
+                        <button repeat.for="cpu of settings.computerPlayers"
+                                class="tablinks ${$index === activeCPUTab ? 'active' : ''}"
+                                click.delegate="activeCPUTab = $index">
+                            CPU ${$index + 1}
+                        </button>
+                    </div>
+                    <h2>
+                        CPUs
+                        <button class="bottom-buttons" click.delegate="addCPU()">+ Add CPU</button>
+                        <button class="bottom-buttons ${settings.computerPlayers.length == 1 ? 'disabled' : ''}"
+                                click.delegate="removeCPU()">- Remove CPU
+                        </button>
+                    </h2>
+
+                    <!-- Sub-tabs for each CPU -->
+
+
+                    <!-- Details for each CPU -->
+                    <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
+                        <div class="input">
+                            <label>Name</label>
+                            <input type="text" value.bind="cpu.name"/>
+                        </div>
+
+                        <div class="input">
+                            <label>Tint Color</label>
+                            <input type="color" value.bind="cpu.tint"/>
+                        </div>
+
+                        <div class="input">
+                            <label>Portrait</label>
+                            <input type="text" value.bind="cpu.portrait"/>
+                        </div>
+
+                        <div class="input">
+                            <label>Throw Delay</label>
+                            <input type="number" value.bind="cpu.throwDelay | integer"/>
+                        </div>
+
+                        <div class="input">
+                            <label>Throw Delay Variance</label>
+                            <input type="number" value.bind="cpu.throwDelayVariance | integer"/>
+                        </div>
+
+                        <div class="input">
+                            <label>Catch Delay</label>
+                            <input type="number" value.bind="cpu.catchDelay | integer"/>
+                        </div>
+
+                        <div class="input">
+                            <label>Catch Delay Variance</label>
+                            <input type="number" value.bind="cpu.catchDelayVariance | integer"/>
+                        </div>
+
+
+                        <div class="input">
+                            <label>Target Preference</label>
+
+                            <div>
+                                <input repeat.for="target of cpu.targetPreference" type="number"
+                                       value.bind="cpu.targetPreference[$index] | integer"/>
+                            </div>
+                        </div>
+
+                        <div>Leave Triggers</div>
+                        <div class="column">
+                            <label>
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1"/>
+                                Throws
+                                Elapsed
+                            </label>
+                            <label>
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2"/> Time
+                                Elapsed
+                            </label>
+                            <label>
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4"/>
+                                Throws
+                                Ignored
+                            </label>
+                            <label>
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16"/> Time
+                                Ignored
+                            </label>
+                            <label>
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8"/> Other
+                                Players Leaving
+                            </label>
+                        </div>
+
+                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">
+                            <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
+
+                            <div>
+                                <input type="number" value.bind="cpu.leaveTurn | integer"/>
+                                <input type="number" value.bind="cpu.leaveTurnVariance | integer"/>
+                                <input type="number" value.bind="cpu.leaveTurnChance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">
+                            <label>Time Elapsed Leave Threshold/Variance/Chance</label>
+
+                            <div>
+                                <input type="number" value.bind="cpu.leaveTime | integer"/>
+                                <input type="number" value.bind="cpu.leaveTimeVariance | integer"/>
+                                <input type="number" value.bind="cpu.leaveTimeChance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4">
+                            <label>Ignored Throws Leave Threshold/Variance/Chance</label>
+
+                            <div>
+                                <input type="number" value.bind="cpu.leaveIgnored | integer"/>
+                                <input type="number" value.bind="cpu.leaveIgnoredVariance | integer"/>
+                                <input type="number" value.bind="cpu.leaveIgnoredChance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">
+                            <label>Ignored Time Leave Threshold/Variance/Chance</label>
+
+                            <div>
+                                <input type="number" value.bind="cpu.leaveTimeIgnored | integer"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnoredVariance | integer"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnoredChance | integer"/>
+                            </div>
+                        </div>
+
+                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8">
+                            <label>Others Left Leave Threshold/Chance</label>
+
+                            <div>
+                                <input type="number" value.bind="cpu.leaveOtherLeaver | integer"/>
+                                <input type="number" value.bind="cpu.leaveOtherLeaverChance | integer"/>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- Gameplay Tab -->
+                <div if.bind="activeTab === 'gameplay'" class="tabcontent">
+                    <h2>Gameplay</h2>
+
+                    <div class="input">
+                        <label>Throw Count</label>
+                        <input type="number" value.bind="settings.throwCount | integer"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Time Limit</label>
+                        <input type="number" value.bind="settings.timeLimit | integer"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Display Time Limit</label>
+                        <input type="checkbox" checked.bind="settings.displayTimeLimit"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Time Limit Label</label>
+                        <input type="text" value.bind="settings.timeLimitText"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Ball Speed</label>
+                        <input type="number" value.bind="settings.ballSpeed | integer"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Ball Tint Color</label>
+                        <input type="color" value.bind="settings.ballTint"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Portrait Height</label>
+                        <input type="number" value.bind="settings.portraitHeight | integer"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Use Schedule</label>
+                        <input type="checkbox" checked.bind="settings.useSchedule"/>
+                    </div>
+
+                    <div class="input" if.bind="settings.useSchedule">
+                        <label>Schedule</label>
+                        <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea>
+                    </div>
+
+                    <div class="input">
+                        <label>Schedule Honors Throw Count</label>
+                        <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Game Over Text</label>
+                        <input type="text" value.bind="settings.gameOverText"/>
+                    </div>
+
+                    <div class="input">
+                        <label>Game Over Opacity</label>
+                        <input type="number" min="0" max="1" step="0.1" value.bind="settings.gameOverOpacity | number"/>
+                    </div>
+                </div>
+                <div if.bind="activeTab === 'buttons'" class="tabcontent">
+                    <div class="button-container">
+                        <div class="button-container">
+                            <!--                make sure these buttons work-->
+                            <button class="bottom-buttons" id="copy1" data-clipboard-target="#code">&#10697; Copy Link</button>
+                            <!--                            <button class="bottom-buttons" id="copy2" data-clipboard-text.bind="clipboardText">Copy Settings-->
+                            </button>
+                            <!--                            <button class="bottom-buttons" click.delegate="saveSettings()">Save</button>-->
+                            <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
+
+                            <button class="bottom-buttons">Save To Preset</button>
+                            <!--                            <div id="previewControls">-->
+                            <!--                                <button class="bottom-buttons" id="startPreview">Preview</button>-->
+                            <!--                                <button class="bottom-buttons" id="refreshPreview">Refresh</button>-->
+                            <!--                            </div>-->
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="navigation-buttons">
+                    <a href="#" if.bind="activeTab !== 'player'" class="previous round" click.delegate="previousTab()">
+                        &#8249;
+                    </a>
+
+                    <!-- Next Button: Only show if on 'player', 'cpus', or 'gameplay' -->
+                    <a href="#" if.bind="activeTab !== 'buttons'" class="next round" click.delegate="nextTab()">
+                        &#8250;
+                    </a>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="sidebar" ref="sidebar">
+        <button class="close-btn" click.delegate="closeSidebar()">X</button>
+        <h2>Information</h2>
+        <p ref="sidebarContent">Here's some information about your settings...</p>
+    </div>
+
+
+
+</template>
+
+
+

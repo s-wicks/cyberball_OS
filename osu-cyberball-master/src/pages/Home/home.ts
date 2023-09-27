@@ -39,7 +39,7 @@ export class HomeViewModel {
                 newContent = "Information about player's name...";
                 break;
             case 'playerHeader':
-                newContent = "This is the player that your participant will control. ...";
+                newContent = "Name info and potential side effects, color, and portrait... ";
                 break;
             // Add more cases for other settings
             default:
@@ -141,16 +141,12 @@ export class HomeViewModel {
 
     previewGame() {
         // Get the URL for the game preview
-        const gamePreviewUrl = "https://www.youtube.com/watch?v=OwQ_VyOUGmY";
-
+        const gamePreviewUrl = this.url;
         // Get the iframe element
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
-        //if (iframe.src === '' || iframe.src === 'about:blank') {
-        //iframe.style.display = 'block';
         // Set the iframe's source to the game preview URL
         iframe.src = 'about:blank'; // Clear the iframe source
         iframe.src = gamePreviewUrl; // Set the new URL
-
     }
 
     attached() {           // alter ???????????????????????
@@ -173,6 +169,25 @@ export class HomeViewModel {
     }
 
 
+    nextTab() {
+        if (this.activeTab === 'player') {
+            this.activeTab = 'cpus';
+        } else if (this.activeTab === 'cpus') {
+            this.activeTab = 'gameplay';
+        } else if (this.activeTab === 'gameplay') {
+            this.activeTab = 'buttons';
+        }
+    }
+
+    previousTab() {
+        if (this.activeTab === 'buttons') {
+            this.activeTab = 'gameplay';
+        } else if (this.activeTab === 'gameplay') {
+            this.activeTab = 'cpus';
+        } else if (this.activeTab === 'cpus') {
+            this.activeTab = 'player';
+        }
+    }
 
     @computedFrom('settings', 'settings.player', 'settings.computerPlayers', 'settings.someOtherProperty', 'settings.anotherProperty')
     get settingsForPreview() {

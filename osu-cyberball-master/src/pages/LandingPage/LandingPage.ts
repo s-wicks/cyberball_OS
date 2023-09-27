@@ -15,7 +15,7 @@ export class LandingPage {
 
     loadPreset() {
         // Logic to load a preset
-        console.log("Loading preset...");
+        this.router.navigateToRoute('presetPage');
     }
 
     openManual() {

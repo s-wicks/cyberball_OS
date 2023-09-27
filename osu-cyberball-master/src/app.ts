@@ -12,6 +12,7 @@ export class App {
             { route: ['', 'LandingPage'], name: 'LandingPage', moduleId: 'pages/LandingPage/LandingPage' },
             { route: 'home', name: 'home', moduleId: 'pages/Home/home' },
             { route: 'game', name: 'game', moduleId: 'pages/Game/game' },
+            { route: 'presetPage', name: 'presetPage', moduleId: 'pages/PresetPage/presetPage' },
             { route: 'message-test', name: 'message-test', moduleId: 'pages/message-test' }
         ]);
 

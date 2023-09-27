@@ -4,23 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="adding tool tip and side bar pull out">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.ts" afterDir="false" />
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="good save spot">
+      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/presetPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/game.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +55,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -117,6 +115,7 @@
       <workItem from="1695233314608" duration="2579000" />
       <workItem from="1695316927371" duration="606000" />
       <workItem from="1695757782690" duration="344000" />
+      <workItem from="1695800193148" duration="6658000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

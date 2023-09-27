@@ -1,7 +1,85 @@
+
+
+
 body {
-    background-color: rgba(24, 24, 24, 0.94); /* This is a dark gray color */
-    color: #EAEAEA; /* This is a light gray color for text, to ensure readability against the dark background */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;
+    color: #181818;
+    margin: 0;
+    padding: 0;
+}
+
+iframe {
+    transform: scale(3) translate(-50px, -50px);
+    transform-origin: 100px 100px;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /*//width: 80%; !* This is the current width setting, which is responsive *!*/
+    max-width: 400px; /* This is the maximum width it can grow to */
+    min-width: 400px; /* This is the minimum width it can shrink to */
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #9d9d9d;
+    color: black;
+}
+
+.previous {
+    background-color: #ddd;
+    color: black;
+    position: absolute;
+    top: 50%;  /* This will center the button vertically */
+    left: 0;  /* This will make the button hug the left wall */
+    transform: translateY(-50%); /* This will ensure the button is truly vertically centered */
+    left: 6px;
+}
+
+.next {
+
+    background-color: #ddd;
+    color: black;
+    position: absolute;
+    top: 50%;  /* This will center the button vertically */
+    right: 0;  /* This will make the button hug the right wall */
+    transform: translateY(-50%); /* This will ensure the button is truly vertically centered */
+    right: 6px;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+
+.landing-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 80%;
+    max-width: 1200px;
 }
 
 .input {
@@ -10,19 +88,29 @@ body {
 }
 
 .input label {
-    display: flex;
-    align-items: center;
+    width: 100px; /* Adjust this width to fit the longest label */
+    text-align: right;
+    margin-right: 10px; /* Space between the label and the input */
+}
+
+
+.input input[type="text"] {
+    max-width: 200px; /* Adjust this value based on your desired width */
+    flex: none; /* This ensures the input doesn't grow or shrink */
 }
 
 .tooltip-icon {
-    margin-right: 10px; /* This creates a 10px gap between the blue circle and the input box */
+    margin-right: 1px;
+}
+
+.input-label{
+    margin-bottom: 1px;
 }
 
 .h2-tooltip {
-    font-size: 1rem; /* Adjust this value to match the size of the tooltip icon next to "Name" */
-    vertical-align: middle; /* This will vertically center the tooltip icon with the text */
+    font-size: 1rem;
+    vertical-align: middle;
 }
-
 
 .input label + * {
     box-sizing: border-box;
@@ -40,74 +128,54 @@ body {
     flex-direction: column;
 }
 
-.input > div {
-    display: flex;
-}
-
-pre {
-    max-width: 100%;
-    overflow-x: auto;
-}
-
 .bottom-buttons {
-    background-color: #007BFF; /* Blue color */
-    color: #FFFFFF; /* White text color */
-    padding: 10px 20px; /* Padding to make button larger and more clickable */
-    border: none; /* Remove default borders */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Cursor to pointer when hovering over button */
-    transition: background-color 0.3s ease; /* Smooth background-color transition */
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Hover state */
 .bottom-buttons:hover {
-    background-color: #0056b3; /* Darken the blue color when hovering */
+    background-color: #0056b3;
 }
 
-/* Active state (when the button is being clicked) */
 .bottom-buttons:active {
-    background-color: #003d80; /* Even darker blue */
+    background-color: #003d80;
 }
 
-/* Focus state (to maintain accessibility) */
 .bottom-buttons:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Add a blue glow around the button */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
-
-.header-container h1,
-.header-container .bottom-buttons {
-    margin-top: 10px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* Optional: Add some margin between the h1 and the button for spacing */
-.header-container h1 {
-    margin-right: 10px;
-}
-
 .tabs {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
+    /* This will ensure the tabs are displayed horizontally and new tabs are added to the left */
     padding: 0;
     margin: 0;
+    align-items: flex-start; /* This ensures the tabs hug the top of the container */
 }
 
-.sub-tabs {
-    margin-bottom: 10px;
-    display: flex;
-    padding: 0;
 
+.tablinks:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .tablinks {
     padding: 10px 15px;
-    margin-bottom: -2px; /* This allows the active tab to sit over the border, making it look connected to the content */
+    margin-bottom: -2px;
     border: 1px solid #ccc;
     border-bottom: none;
     cursor: pointer;
-    background-color: #e0e0e0; /* Default tab color (grey) */
+    background-color: #e0e0e0;
     transition: background-color 0.3s;
 }
 
@@ -117,144 +185,29 @@ pre {
 
 .tablinks:hover {
     background-color: #d0d0d0;
-    position: relative; /* Needed for positioning the tooltip */
 }
-
-.tablinks:hover::before {
-    content: attr(data-tooltip); /* Fetch the tooltip text from a 'data-tooltip' attribute on the element */
-position: absolute; /* Position the tooltip absolutely */
-bottom: 100%; /* Position tooltip above the tab link */
-background-color: #fdfdfd86; /* Background of the tooltip */
-color: #e1e652; /* Text color for the tooltip */
-padding: 10px 15px; /* Padding around the tooltip text */
-border-radius: 20px 20px 20px 0; /* Rounded corners for a chat-like shape, left corner rounded */
-white-space: nowrap; /* Prevent the tooltip text from wrapping */
-font-size: 12px; /* Smaller font size */
-pointer-events: none; /* Ensure the tooltip doesn't block any interactions */
-transition: opacity 0.9s ease-in-out; /* Smooth fade in/out */
-z-index: 12; /* To ensure the tooltip appears above other elements */
-
-}
-
-
-
-/* Display tooltip when hovering the tab link */
-.tablinks:hover::before {
-    opacity: 1; /* Show the tooltip and arrow */
-}
-
 
 .tablinks.active {
-    background-color: #007BFF; /* Active tab color (blue) */
+    background-color: #007BFF;
     font-weight: bold;
     border-color: #007BFF;
-    color: white; /* Text color for the active tab */
+    color: white;
 }
 
 .bottom-buttons.disabled {
-    background-color: #a5a5a5; /* Grayish color for a disabled look */
-    cursor: not-allowed; /* To indicate it's not clickable */
-    pointer-events: none; /* To ensure it's not clickable */
-    color: #777777; /* Dim the text color for a disabled look */
+    background-color: #a5a5a5;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #777777;
 }
-
 
 .tablinks:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Add a blue glow around the button */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
-
 
 iframe {
     pointer-events: auto;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #181818;
-    color: #EAEAEA;
-    margin: 0;
-    padding: 0;
-}
-
-
-
-.header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    padding: 1% 0;
-}
-
-.logo {
-    width: 60px;
-    height: 60px;
-    margin-right: 20px;
-}
-
-.content {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 2%;
-}
-
-nav {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.nav-button {
-    background-color: #333;
-    color: #EAEAEA;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.nav-button.active, .nav-button:hover {
-    background-color: #007BFF;
-}
-
-main {
-    width: 78%;
-    margin-left: 2%;
-    background-color: #252525;
-    border-radius: 10px;
-    padding: 2%;
-    overflow: hidden;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content > div {
-    margin: 10px 0;
-}
-
-.actions {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 2%;
-}
-
-.preview {
-    width: 100%;
-    margin-top: 2%;
-}
-
-.preview-frame {
-    width: 100%;
-    height: 500px;
-    border: none;
 }
 
 .tooltip-icon {
@@ -267,31 +220,27 @@ main {
     text-align: center;
     line-height: 20px;
     cursor: pointer;
-    margin-left: 10px;
-}
 
-/* Sidebar styles */
+}
 
 .sidebar {
     position: fixed;
     top: 0;
-    right: -340px; /* Increase this value slightly to ensure the sidebar is completely off-screen */
+    right: -340px;
     width: 300px;
     height: 100%;
-    background-color: #252525;
+    background-color: #FFFFFF;
     padding: 20px;
     transition: right 0.3s;
-    z-index: 1000; /* Ensure it's on top */
-    color: #EAEAEA;
-
+    z-index: 1000;
+    color: #050505;
 }
-
 
 .close-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #FF0000; /* Red color */
+    background-color: #FF0000;
     color: #FFFFFF;
     border: none;
     border-radius: 50%;
@@ -302,11 +251,6 @@ main {
     cursor: pointer;
 }
 
-
 .sidebar-open {
-    right: 0; /* Show the sidebar */
+    right: 0;
 }
-
-
-
-
