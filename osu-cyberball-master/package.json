@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/clipboard": "^2.0.7",
+    "aurelia": "^2.0.0-beta.8",
     "aurelia-animator-css": "^1.0.4",
     "aurelia-bootstrapper": "^2.3.2",
     "clipboard": "^2.0.10",

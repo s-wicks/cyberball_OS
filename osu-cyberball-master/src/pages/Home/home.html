@@ -340,8 +340,7 @@
                             </button>
 <!--                            <button class="bottom-buttons" click.delegate="saveSettings()">Save</button>-->
                             <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
-
-                            <button class="bottom-buttons">Save To Preset</button>
+                            <button class="bottom-buttons" click.delegate="saveSettingsToLocalStorage()">&#129514; Save To Preset</button>
 <!--                            <div id="previewControls">-->
 <!--                                <button class="bottom-buttons" id="startPreview">Preview</button>-->
 <!--                                <button class="bottom-buttons" id="refreshPreview">Refresh</button>-->
@@ -376,6 +375,25 @@
 <!--        Add units-->
 
 
+    </div>
+
+    <div class="modal" if.bind="showModal">
+        <div class="modal-content">
+            <h2>Save as Preset</h2>
+            <div class="input">
+                <label>Preset Name:</label>
+                <input type="text" value.bind="presetName">
+            </div>
+            <div class="input">
+                <label>Description:</label>
+                <textarea value.bind="presetDescription"></textarea>
+            </div>
+            <div class="modal-buttons">
+                <burun
+                    tton click.delegate="cancelSave()">Cancel</buruntton>
+                <button click.delegate="confirmSave()">Save</button>
+            </div>
+        </div>
     </div>
 
     <div class="sidebar" ref="sidebar">

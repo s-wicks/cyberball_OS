@@ -3,6 +3,9 @@ import {autoinject,computedFrom} from 'aurelia-framework';
 import { SettingsModel, defaultSettings } from "models/settings-model";
 import { CpuSettingsModel } from 'models/cpu-settings-model';
 import ClipboardJS from 'clipboard';
+import {PresetPage} from "../PresetPage/PresetPage";
+import {SettingsService} from "../Setting-Service";
+
 
 @autoinject()
 export class HomeViewModel {
@@ -13,8 +16,12 @@ export class HomeViewModel {
     sidebar: HTMLElement;
     sidebarContent: HTMLElement;
     currentSetting: string = '';
+    showModal: boolean = false;
+    presetName: string = '';
+    presetDescription: string = '';
 
-    constructor(private signaler: BindingSignaler) {}
+
+    constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {}
 
     bind() {
         this.clipboard = new ClipboardJS('#copy');
@@ -149,7 +156,10 @@ export class HomeViewModel {
         iframe.src = gamePreviewUrl; // Set the new URL
     }
 
-    attached() {           // alter ???????????????????????
+    attached() {
+        if (this.settingsService.settings) {
+            this.settings = this.settingsService.settings;
+        }
         this.setupButtons();
         this.updatePreviewOnInputChange();
     }
@@ -195,6 +205,38 @@ export class HomeViewModel {
     }
 
 
+
+
+
+    // Add these methods to your HomeViewModel class
+
+    saveSettingsToLocalStorage() {
+        this.showModal = true; // Show the modal when "Save to Preset" is clicked
+    }
+
+    cancelSave() {
+        this.showModal = false; // Hide the modal when "Cancel" is clicked
+        this.presetName = ''; // Clear the preset name
+        this.presetDescription = ''; // Clear the preset description
+    }
+
+    confirmSave() {
+        if (this.presetName.trim() === '') {
+            alert('Please enter a preset name.');
+            return;
+        }
+
+        // Save to local storage
+        const presetData = {
+            description: this.presetDescription,
+            settings: this.settings
+        };
+        localStorage.setItem(this.presetName, JSON.stringify(presetData));
+
+        this.showModal = false; // Hide the modal after saving
+        this.presetName = ''; // Clear the preset name
+        this.presetDescription = ''; // Clear the preset description
+    }
 
 
 }

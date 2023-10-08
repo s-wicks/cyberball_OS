@@ -15,7 +15,7 @@
                 <div class="tabs">
 
                     <button class="tab-button ${isPresetsActive ? 'active' : ''}" click.delegate="showTab('presets')">Presets</button>
-                    <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Presets</button>
+                    <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Games</button>
                 </div>
                 <div class="container" id="presets" css.bind="isPresetsActive ? 'display: block;' : 'display: none;'">
                 <table>
@@ -44,10 +44,16 @@
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
-
+                            <th></th>
                         </tr>
 
-                        <!-- Add your rows here -->
+                        <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset.name)">
+                            <td>${preset.name}</td>
+                            <td>${preset.description}</td>
+                            <td>
+                                <button class="delete-btn" click.trigger="deletePreset(preset.name)">X</button>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
