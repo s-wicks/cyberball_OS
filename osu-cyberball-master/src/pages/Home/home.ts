@@ -4,6 +4,7 @@ import { SettingsModel, defaultSettings } from "models/settings-model";
 import { CpuSettingsModel } from 'models/cpu-settings-model';
 import ClipboardJS from 'clipboard';
 import {PresetPage} from "../PresetPage/PresetPage";
+import nodemailer from 'nodemailer';
 import {SettingsService} from "../Setting-Service";
 
 
@@ -22,6 +23,7 @@ export class HomeViewModel {
 
 
     constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {}
+
 
     bind() {
         this.clipboard = new ClipboardJS('#copy');
@@ -237,6 +239,42 @@ export class HomeViewModel {
         this.presetName = ''; // Clear the preset name
         this.presetDescription = ''; // Clear the preset description
     }
+
+    async sendEmailWithVariable(variableValue: string): Promise<void> {
+        // Create a Nodemailer transporter using SMTP (you can adjust this to your needs)
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com', // Replace with your SMTP server host
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: 'c@gmail.com', // Replace with your email
+                pass: 'pizza'    // Replace with your email password
+            }
+        });
+
+        // Email data
+        const mailOptions = {
+            from: 'cyberball77@gmail.com', // Sender address
+            to: 'cyberball77@gmail.com',    // List of recipients
+            subject: 'Test Email',          // Subject line
+            text: `Here's the variable value: ${variableValue}` // Plain text body
+        };
+
+        try {
+            // Send the email
+            const info = await transporter.sendMail(mailOptions);
+            console.log(`Email sent: ${info.response}`);
+        } catch (error) {
+            console.error(`Error sending email: ${error}`);
+        }
+    }
+
+
+
+
+// Example usage:
+// Call this function when a button is clicked or any other event is triggered
+   // sendEmailWithVariable('This is the variable value');
 
 
 }

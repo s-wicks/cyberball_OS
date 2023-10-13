@@ -31,6 +31,7 @@
                         <input type="text" value.bind="settings.player.name" keyup.delegate="previewGame()"/>
 
                     </div>
+<!--                        <button click.delegate="sendEmailWithVariable('Your variable value here')">Send Email</button>-->
 
 
                     <div class="input">
@@ -159,8 +160,9 @@
                         </div>
 
                         <div class="input">
-                            <label>Throw Delay</label>
-                            <input type="number" value.bind="cpu.throwDelay | integer"/>
+                            <label>Throw Delay (ms)</label>
+                            <input type="number" value.bind="cpu.throwDelay | integer" placeholder="Enter delay in milliseconds" class="ms-input"/>
+                            <small class="helper-text">(ms)</small>
                         </div>
 
                         <div class="input">
@@ -389,8 +391,7 @@
                 <textarea value.bind="presetDescription"></textarea>
             </div>
             <div class="modal-buttons">
-                <burun
-                    tton click.delegate="cancelSave()">Cancel</buruntton>
+                <button click.delegate="cancelSave()">Cancel</button>
                 <button click.delegate="confirmSave()">Save</button>
             </div>
         </div>

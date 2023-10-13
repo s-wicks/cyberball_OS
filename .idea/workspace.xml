@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="good save spot">
-      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Setting-Service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Game/game.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,6 +128,8 @@
       <workItem from="1696363097085" duration="2157000" />
       <workItem from="1696439774954" duration="2871000" />
       <workItem from="1696468573383" duration="608000" />
+      <workItem from="1696795096459" duration="1307000" />
+      <workItem from="1697165416216" duration="2824000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -173,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695853530571</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="good save spot">
+      <option name="closed" value="true" />
+      <created>1696795134224</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696795134224</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
