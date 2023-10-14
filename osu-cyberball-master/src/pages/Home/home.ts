@@ -1,10 +1,10 @@
 import {BindingSignaler} from 'aurelia-templating-resources';
-import {autoinject,computedFrom} from 'aurelia-framework';
-import { SettingsModel, defaultSettings } from "models/settings-model";
-import { CpuSettingsModel } from 'models/cpu-settings-model';
+import {autoinject, computedFrom} from 'aurelia-framework';
+import {SettingsModel, defaultSettings} from "models/settings-model";
+import {CpuSettingsModel} from 'models/cpu-settings-model';
 import ClipboardJS from 'clipboard';
-import {PresetPage} from "../PresetPage/PresetPage";
-import nodemailer from 'nodemailer';
+
+
 import {SettingsService} from "../Setting-Service";
 
 
@@ -20,9 +20,13 @@ export class HomeViewModel {
     showModal: boolean = false;
     presetName: string = '';
     presetDescription: string = '';
+    showFileModal: boolean = false;  // Used to show/hide the modal
+    fileName: string = '';           // Stores the filename entered by the user
 
 
-    constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {}
+
+    constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {
+    }
 
 
     bind() {
@@ -77,14 +81,13 @@ export class HomeViewModel {
     }
 
 
-
     addCPU() {
         this.settings.computerPlayers.push(new CpuSettingsModel({
             name: `Player ${this.settings.computerPlayers.length + 2}`
         }));
 
         this.settings.computerPlayers.forEach(cpu => {
-            while(cpu.targetPreference.length != this.settings.computerPlayers.length)
+            while (cpu.targetPreference.length != this.settings.computerPlayers.length)
                 cpu.targetPreference.push(0);
         });
 
@@ -93,7 +96,7 @@ export class HomeViewModel {
     }
 
     removeCPU() {
-        if(this.settings.computerPlayers.length > 1) {
+        if (this.settings.computerPlayers.length > 1) {
             this.settings.computerPlayers.pop();
 
             this.settings.computerPlayers.forEach(cpu => {
@@ -111,8 +114,6 @@ export class HomeViewModel {
     }
 
 
-
-
     get url() {
         let url = document.location.origin + document.location.pathname;
 
@@ -125,10 +126,10 @@ export class HomeViewModel {
     testGame() {
         window.open(this.url);
     }
+
     get clipboardText() {
         return JSON.stringify(this.settings, null, 2);
     }
-
 
 
     setupButtons() {
@@ -142,10 +143,12 @@ export class HomeViewModel {
         const refreshPreviewButton = document.getElementById('refreshPreview');
         refreshPreviewButton.addEventListener('click', () => {
             const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
-            iframe.src = 'about:blank'; setTimeout(() => {iframe.src = this.url;}, 100);
+            iframe.src = 'about:blank';
+            setTimeout(() => {
+                iframe.src = this.url;
+            }, 100);
         });
     }
-
 
 
     previewGame() {
@@ -207,9 +210,6 @@ export class HomeViewModel {
     }
 
 
-
-
-
     // Add these methods to your HomeViewModel class
 
     saveSettingsToLocalStorage() {
@@ -240,33 +240,51 @@ export class HomeViewModel {
         this.presetDescription = ''; // Clear the preset description
     }
 
-    async sendEmailWithVariable(variableValue: string): Promise<void> {
-        // Create a Nodemailer transporter using SMTP (you can adjust this to your needs)
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com', // Replace with your SMTP server host
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: 'c@gmail.com', // Replace with your email
-                pass: 'pizza'    // Replace with your email password
-            }
-        });
+    public saveSettingsToFile(): void {
+        this.showFileModal = true;  // Show the file modal when "Save to File" is clicked
+    }
 
-        // Email data
-        const mailOptions = {
-            from: 'cyberball77@gmail.com', // Sender address
-            to: 'cyberball77@gmail.com',    // List of recipients
-            subject: 'Test Email',          // Subject line
-            text: `Here's the variable value: ${variableValue}` // Plain text body
-        };
+    cancelFileSave() {
+        this.showFileModal = false;   // Hide the file modal when "Cancel" is clicked
+        this.fileName = '';           // Clear the filename
+    }
 
-        try {
-            // Send the email
-            const info = await transporter.sendMail(mailOptions);
-            console.log(`Email sent: ${info.response}`);
-        } catch (error) {
-            console.error(`Error sending email: ${error}`);
+    // public saveSettingsToFile(): void {
+    //     const settingsString = JSON.stringify(this.settings, null, 2); // Pretty print the JSON
+    //     const blob = new Blob([settingsString], { type: 'text/plain;charset=utf-8' });
+    //
+    //     const a = document.createElement('a');
+    //     const url = window.URL.createObjectURL(blob);
+    //     a.href = url;
+    //     a.download = 'settings.txt';
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     window.URL.revokeObjectURL(url);
+    //     document.body.removeChild(a);
+    // }
+
+    confirmFileSave() {
+        if (this.fileName.trim() === '') {
+            alert('Please enter a file name.');
+            return;
         }
+
+        const settingsString = JSON.stringify(this.settings, null, 2);
+        const blob = new Blob([settingsString], { type: 'text/plain;charset=utf-8' });
+
+        const a = document.createElement('a');
+        const url = window.URL.createObjectURL(blob);
+        a.href = url;
+        // Add .txt extension if not provided
+        a.download = this.fileName.endsWith('.txt') ? this.fileName : `${this.fileName}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        // After saving, reset the values and close the modal
+        this.showFileModal = false;
+        this.fileName = '';
     }
 
 
@@ -274,7 +292,7 @@ export class HomeViewModel {
 
 // Example usage:
 // Call this function when a button is clicked or any other event is triggered
-   // sendEmailWithVariable('This is the variable value');
+    // sendEmailWithVariable('This is the variable value');
 
 
 }

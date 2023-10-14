@@ -16,6 +16,7 @@
 
                     <button class="tab-button ${isPresetsActive ? 'active' : ''}" click.delegate="showTab('presets')">Presets</button>
                     <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Games</button>
+                    <button class="tab-button ${isLoadFromFile ? 'active' : ''}" click.delegate="showTab('load-file')">Load File</button>
                 </div>
                 <div class="container" id="presets" css.bind="isPresetsActive ? 'display: block;' : 'display: none;'">
                 <table>
@@ -55,6 +56,12 @@
                             </td>
                         </tr>
                     </table>
+                </div>
+
+                <div class="container" id="load-file" css.bind="isLoadFromFile ? 'display: block;' : 'display: none;'">
+                    <div>
+                        <input type="file" id="fileUpload" change.delegate="handleFileUpload($event)">
+                    </div>
                 </div>
             </div>
         </div>

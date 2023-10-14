@@ -31,7 +31,6 @@
                         <input type="text" value.bind="settings.player.name" keyup.delegate="previewGame()"/>
 
                     </div>
-<!--                        <button click.delegate="sendEmailWithVariable('Your variable value here')">Send Email</button>-->
 
 
                     <div class="input">
@@ -87,7 +86,7 @@
                     </div>
 
                     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
-                        <label>Time Elapsed Leave Threshold/Variance</label>
+                        <label>Time Elapsed Leave (ms) Threshold/Variance (ms)</label>
 
                         <div>
                             <input type="number" value.bind="settings.player.leaveTime | integer"/>
@@ -105,7 +104,7 @@
                     </div>
 
                     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
-                        <label>Ignored Time Leave Threshold/Variance</label>
+                        <label>Ignored Time Leave (ms) Threshold/Variance (ms)</label>
 
                         <div>
                             <input type="number" value.bind="settings.player.leaveTimeIgnored | integer"/>
@@ -162,21 +161,20 @@
                         <div class="input">
                             <label>Throw Delay (ms)</label>
                             <input type="number" value.bind="cpu.throwDelay | integer" placeholder="Enter delay in milliseconds" class="ms-input"/>
-                            <small class="helper-text">(ms)</small>
                         </div>
 
                         <div class="input">
-                            <label>Throw Delay Variance</label>
+                            <label>Throw Delay Variance (ms)</label>
                             <input type="number" value.bind="cpu.throwDelayVariance | integer"/>
                         </div>
 
                         <div class="input">
-                            <label>Catch Delay</label>
+                            <label>Catch Delay (ms)</label>
                             <input type="number" value.bind="cpu.catchDelay | integer"/>
                         </div>
 
                         <div class="input">
-                            <label>Catch Delay Variance</label>
+                            <label>Catch Delay Variance (ms)</label>
                             <input type="number" value.bind="cpu.catchDelayVariance | integer"/>
                         </div>
 
@@ -227,7 +225,7 @@
                         </div>
 
                         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">
-                            <label>Time Elapsed Leave Threshold/Variance/Chance</label>
+                            <label>Time Elapsed Leave (ms)Threshold/Variance/Chance (ms)</label>
 
                             <div>
                                 <input type="number" value.bind="cpu.leaveTime | integer"/>
@@ -247,7 +245,7 @@
                         </div>
 
                         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">
-                            <label>Ignored Time Leave Threshold/Variance/Chance</label>
+                            <label>Ignored Time Leave (ms) Threshold/Variance/Chance (ms)</label>
 
                             <div>
                                 <input type="number" value.bind="cpu.leaveTimeIgnored | integer"/>
@@ -279,7 +277,7 @@
                     </div>
 
                     <div class="input">
-                        <label>Time Limit</label>
+                        <label>Time Limit (ms) </label>
                         <input type="number" value.bind="settings.timeLimit | integer"/>
                     </div>
 
@@ -343,7 +341,10 @@
 <!--                            <button class="bottom-buttons" click.delegate="saveSettings()">Save</button>-->
                             <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
                             <button class="bottom-buttons" click.delegate="saveSettingsToLocalStorage()">&#129514; Save To Preset</button>
-<!--                            <div id="previewControls">-->
+                            <button class="bottom-buttons" click.delegate="saveSettingsToFile()">&#128190; Save To File</button>
+
+
+                            <!--                            <div id="previewControls">-->
 <!--                                <button class="bottom-buttons" id="startPreview">Preview</button>-->
 <!--                                <button class="bottom-buttons" id="refreshPreview">Refresh</button>-->
 <!--                            </div>-->
@@ -378,6 +379,21 @@
 
 
     </div>
+
+    <div class="modal" if.bind="showFileModal">
+        <div class="modal-content">
+            <h2>Save to File</h2>
+            <div class="input">
+                <label>File Name:</label>
+                <input type="text" value.bind="fileName" placeholder="Enter filename">
+            </div>
+            <div class="modal-buttons">
+                <button click.delegate="cancelFileSave()">Cancel</button>
+                <button click.delegate="confirmFileSave()">Save</button>
+            </div>
+        </div>
+    </div>
+
 
     <div class="modal" if.bind="showModal">
         <div class="modal-content">

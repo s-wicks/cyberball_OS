@@ -87,11 +87,7 @@ a:hover {
     align-items: center;
 }
 
-.ms-input {
-    padding-right: 30px; /* space for "ms" and a little extra */
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><text x="0" y="15" font-family="Arial" font-size="15" fill="%23888">ms</text></svg>') no-repeat right center;
-    background-size: 20px 20px;
-}
+
 
 .input label {
     width: 100px; /* Adjust this width to fit the longest label */

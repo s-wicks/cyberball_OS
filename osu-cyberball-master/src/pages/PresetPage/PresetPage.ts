@@ -11,6 +11,10 @@ export class PresetPage {
     constructor(private router: Router, private settingsService: SettingsService) {}
 
 
+    public get isLoadFromFile(): boolean {
+        return this.activeTab === 'load-file';
+    }
+
     attached() {
         console.log("attached method called");
         this.loadPresetsFromLocalStorage();
@@ -58,6 +62,10 @@ export class PresetPage {
         return this.activeTab === 'your-presets';
     }
 
+    public get (): boolean {
+        return this.activeTab === 'load-file';
+    }
+
     public navigateToPage(): void {
         this.router.navigate('home');
     }
@@ -69,5 +77,36 @@ export class PresetPage {
         // Remove the preset from the presets array
         this.presets = this.presets.filter(p => p.name !== presetName);
     }
+    public handleFileUpload(event: any): void {
+        const file = event.target.files[0];
+        if (!file) {
+            console.error("No file chosen");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = (loadEvent: any) => {
+            try {
+                const parsedData = JSON.parse(loadEvent.target.result as string);
+                if (parsedData) {
+                    this.settingsService.settings = parsedData; // Update the settings in the service without checking for a `settings` property since the file directly contains the settings
+                    this.navigateToConfigurationBuilder();  // Method to navigate to configuration builder
+                } else {
+                    console.error("Invalid file format");
+                }
+            } catch (error) {
+                console.error("Error parsing the file", error);
+            }
+        };
+
+        reader.readAsText(file);
+    }
+    public navigateToConfigurationBuilder(): void {
+        this.router.navigate('home');
+    }
+
+
+
 
 }
