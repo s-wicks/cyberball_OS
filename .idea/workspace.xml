@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +123,7 @@
       <workItem from="1697165416216" duration="7474000" />
       <workItem from="1697226651094" duration="652000" />
       <workItem from="1697242167553" duration="1489000" />
-      <workItem from="1697310404878" duration="3186000" />
+      <workItem from="1697310404878" duration="3974000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -188,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697313162581</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
+      <option name="closed" value="true" />
+      <created>1697313637284</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1697313637284</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

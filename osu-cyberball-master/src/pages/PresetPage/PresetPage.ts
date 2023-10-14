@@ -89,6 +89,7 @@ export class PresetPage {
         reader.onload = (loadEvent: any) => {
             try {
                 const parsedData = JSON.parse(loadEvent.target.result as string);
+                parsedData.player.tint = "#FFFFFF";
                 if (parsedData) {
                     this.settingsService.settings = parsedData; // Update the settings in the service without checking for a `settings` property since the file directly contains the settings
                     this.navigateToConfigurationBuilder();  // Method to navigate to configuration builder
