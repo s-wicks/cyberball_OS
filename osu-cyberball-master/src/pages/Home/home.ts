@@ -167,7 +167,17 @@ export class HomeViewModel {
             });
         });
     }
-
+    convertToMap(str: string): Map<number, number[]> {
+        const lines = str.split('\n');
+        const map = new Map<number, number[]>();
+      
+        for (const line of lines) {
+          const [key, ...values] = line.split(',').map(Number);
+          map.set(key, values);
+        }
+      
+        return map;
+      }
 
     nextTab() {
         if (this.activeTab === 'player') {
@@ -175,6 +185,7 @@ export class HomeViewModel {
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'gameplay';
         } else if (this.activeTab === 'gameplay') {
+            
             this.activeTab = 'buttons';
         }
     }

@@ -313,7 +313,8 @@
 
                     <div class="input" if.bind="settings.useSchedule">
                         <label>Schedule</label>
-                        <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea>
+                        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+                        <textarea value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
                     </div>
 
                     <div class="input">
