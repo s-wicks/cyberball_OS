@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
-                        <label>Time Elapsed Leave (ms) Threshold/Variance (ms)</label>
+                        <label>Time Elapsed Leave (s) Threshold/Variance (s)</label>
 
                         <div>
                             <input type="number" value.bind="settings.player.leaveTime | integer"/>
@@ -225,7 +225,7 @@
                         </div>
 
                         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">
-                            <label>Time Elapsed Leave (ms)Threshold/Variance/Chance (ms)</label>
+                            <label>Time Elapsed Leave (s)Threshold/Variance/Chance (s)</label>
 
                             <div>
                                 <input type="number" value.bind="cpu.leaveTime | integer"/>
