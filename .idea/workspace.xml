@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="good save spot">
-      <change afterPath="$PROJECT_DIR$/osu-cyberball-master/assets/ostracizedMp4.mp4" afterDir="false" />
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/presetPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +111,24 @@
       <workItem from="1695757782690" duration="344000" />
       <workItem from="1695800193148" duration="14080000" />
       <workItem from="1695839031381" duration="47000" />
+      <workItem from="1695839082873" duration="427000" />
+      <workItem from="1695839861108" duration="4000" />
+      <workItem from="1695853512353" duration="23000" />
+      <workItem from="1695854541915" duration="604000" />
+      <workItem from="1695944526503" duration="910000" />
+      <workItem from="1695946518255" duration="736000" />
+      <workItem from="1696143903030" duration="4602000" />
+      <workItem from="1696262811421" duration="5880000" />
+      <workItem from="1696363097085" duration="2157000" />
+      <workItem from="1696439774954" duration="2871000" />
+      <workItem from="1696468573383" duration="608000" />
+      <workItem from="1696795096459" duration="1307000" />
+      <workItem from="1697165416216" duration="7474000" />
+      <workItem from="1697226651094" duration="652000" />
+      <workItem from="1697242167553" duration="1489000" />
+      <workItem from="1697310404878" duration="4584000" />
+      <workItem from="1697336903187" duration="602000" />
+      <workItem from="1697470408526" duration="932000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -144,7 +154,63 @@
       <option name="project" value="LOCAL" />
       <updated>1695806888881</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="good save spot">
+      <option name="closed" value="true" />
+      <created>1695839233890</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695839233890</updated>
+    </task>
+    <task id="LOCAL-00005" summary="good save spot">
+      <option name="closed" value="true" />
+      <created>1695853530571</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1695853530571</updated>
+    </task>
+    <task id="LOCAL-00006" summary="good save spot">
+      <option name="closed" value="true" />
+      <created>1696795134224</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696795134224</updated>
+    </task>
+    <task id="LOCAL-00007" summary="good save spot">
+      <option name="closed" value="true" />
+      <created>1697168594072</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697168594072</updated>
+    </task>
+    <task id="LOCAL-00008" summary="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
+      <option name="closed" value="true" />
+      <created>1697313162580</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1697313162581</updated>
+    </task>
+    <task id="LOCAL-00009" summary="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
+      <option name="closed" value="true" />
+      <created>1697313637284</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1697313637284</updated>
+    </task>
+    <task id="LOCAL-00010" summary="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
+      <option name="closed" value="true" />
+      <created>1697314979156</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1697314979156</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,6 +231,7 @@
     <MESSAGE value="test" />
     <MESSAGE value="adding tool tip and side bar pull out" />
     <MESSAGE value="good save spot" />
-    <option name="LAST_COMMIT_MESSAGE" value="good save spot" />
+    <MESSAGE value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
+    <option name="LAST_COMMIT_MESSAGE" value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
   </component>
 </project>

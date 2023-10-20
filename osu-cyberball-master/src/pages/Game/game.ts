@@ -58,4 +58,9 @@ export class GameViewModel {
 
         this.chatMessage = '';
     }
+
+
+
+
+
 }
