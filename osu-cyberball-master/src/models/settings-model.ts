@@ -14,9 +14,8 @@ export class SettingsModel {
 
     useSchedule: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
-    schedule: Array<number> = [
-        1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0
-    ];
+    schedule: Map<number, Array<number>>; 
+    scheduleText:string;
 
     // Graphics
     baseUrl: string = './assets';

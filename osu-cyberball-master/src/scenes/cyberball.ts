@@ -19,6 +19,10 @@ export class CyberballScene extends Phaser.Scene {
     private cpuSprites: Phaser.GameObjects.Sprite[] = [];
     private timeLimitText: Phaser.GameObjects.Text;
 
+
+    private currentIndexText: Phaser.GameObjects.Text; //for current player
+    private scheduleIndexText: Phaser.GameObjects.Text; //for next player
+
     // Gameplay Mechanics:
 
     private playerHasBall = true;
@@ -35,6 +39,7 @@ export class CyberballScene extends Phaser.Scene {
     // Stats:
 
     private throwCount = 0;
+    private currentIndex = 0;// record current player
     private scheduleIndex = 0;
     private lastTime: number;
     private startTime: number;
@@ -43,7 +48,19 @@ export class CyberballScene extends Phaser.Scene {
         super({});
 
         this.settings = settings;
+        this.settings.schedule = this.convertToMap(this.settings.scheduleText);
     }
+    private convertToMap(str: string): Map<number, number[]> {
+        const lines = str.split('\n');
+        const map = new Map<number, number[]>();
+      
+        for (const line of lines) {
+          const [key, ...values] = line.split(',').map(Number);
+          map.set(key, values);
+        }
+      
+        return map;
+      }
 
     public preload() {
         this.load.crossOrigin = 'anonymous';
@@ -139,6 +156,7 @@ export class CyberballScene extends Phaser.Scene {
             cpuSprite.setInteractive();
             cpuSprite.on('pointerdown', (e) => {
                 if (this.playerHasBall) {
+                 
                     // Ensure player and ball are facing the correct way on touch devices:
                     this.playerSprite.flipX = this.input.x < this.playerSprite.x;
 
@@ -180,9 +198,13 @@ export class CyberballScene extends Phaser.Scene {
         this.lastTime = this.startTime;
 
         if (this.settings.timeLimit > 0 && this.settings.displayTimeLimit) {
-            this.timeLimitText = this.add.text(this.sys.canvas.width - 10, 10, this.getTimeString(), textStyle);
+            this.timeLimitText = this.add.text(10, 10, this.getTimeString(), textStyle);
             this.timeLimitText.setOrigin(1, 0);
         }
+
+        // schedule
+        this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle); 
+        this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle); 
     }
 
     public update() {
@@ -306,6 +328,13 @@ export class CyberballScene extends Phaser.Scene {
         let ballTargetPosition = this.getCaughtBallPosition(receiver);
         this.physics.moveTo(this.ballSprite, ballTargetPosition.x, ballTargetPosition.y, this.settings.ballSpeed);
     }
+    private getRandomDigit(number: number): number {
+        const digits = Array.from(String(number), Number);
+      
+        const randomIndex = Math.floor(Math.random() * digits.length);
+      
+        return digits[randomIndex];
+      }
 
     public catchBall(receiver: Phaser.GameObjects.Sprite) {
         // Update trackers:
@@ -381,7 +410,6 @@ export class CyberballScene extends Phaser.Scene {
         // The game ends at the end of the schedule or when reaching the throw count.
 
         if (
-            (this.settings.useSchedule && this.scheduleIndex === this.settings.schedule.length) ||
             (this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
             (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount)
         ) {
@@ -403,16 +431,80 @@ export class CyberballScene extends Phaser.Scene {
                 ballPosition = this.getActiveBallPosition(receiver);
                 this.ballSprite.x = ballPosition.x;
                 this.ballSprite.y = ballPosition.y;
+                let id = this.playerGroup.getChildren().indexOf(receiver);
 
                 this.activeTimeout = setTimeout(() => {
-                    if (this.settings.useSchedule) {
-                        // Skip self and absent players in schedule.
-                        while(this.settings.schedule[this.scheduleIndex] === this.playerGroup.getChildren().indexOf(receiver) &&
-                            !this.absentPlayers.includes(this.settings.schedule[this.scheduleIndex]))
-                            this.scheduleIndex++
+                    let scheduleQueue  = this.settings.schedule.get(id);
+                    if (this.settings.useSchedule && scheduleQueue) {
+                        
+                        let nextRand = 0;
+                        if(scheduleQueue.length > 0){
+                            nextRand = scheduleQueue[0];
+                        }else{
+                            const scheduleMap = this.convertToMap(this.settings.scheduleText);
+                                
+                            this.settings.schedule.set(id,scheduleMap.get(id));
+                        }
+                        let next = this.getRandomDigit(nextRand);
 
-                        this.throwBall(receiver, this.playerGroup.getChildren()[this.settings.schedule[this.scheduleIndex]] as Phaser.GameObjects.Sprite)
-                        this.scheduleIndex++;
+                        // Skip self and absent players in schedule.
+                        while(next === this.playerGroup.getChildren().indexOf(receiver) &&
+                            !this.absentPlayers.includes(next)){
+                            //this.scheduleIndex++;
+                            if(scheduleQueue.length > 0){
+                                const nextRand = scheduleQueue.shift();
+                                if(nextRand){
+                                    next = this.getRandomDigit(nextRand);
+                                }else{
+                                    next = 0;
+                                    break;
+                                }
+                            }else{
+                                next = 0;
+                                break;
+                            }
+
+                        }
+
+                        this.throwBall(receiver, this.playerGroup.getChildren()[next] as Phaser.GameObjects.Sprite)
+                        
+
+                        // show current player
+                        this.currentIndex = next;
+                        if(this.currentIndex ===0){
+                            this.currentIndexText.setText(`current player: You`);
+                        }
+                        else{
+                            this.currentIndexText.setText(`current player: ${this.settings.computerPlayers[this.currentIndex-1].name}`);
+                            //seperate because dont know next one is player or cpu
+                        }
+                        scheduleQueue.shift();
+                        // if(scheduleQueue == undefined || scheduleQueue.length == 0){
+                        //     const scheduleMap = this.convertToMap(this.settings.scheduleText);
+                            
+                        //     this.settings.schedule.set(id,scheduleMap.get(id));
+
+                        // }else{
+                        //     this.settings.schedule.set(id,scheduleQueue);
+                        // }
+                        
+                        if(scheduleQueue.length > 0){
+                            this.scheduleIndex = this.getRandomDigit(scheduleQueue[0]);
+                        }else{
+                            this.scheduleIndex = 0;
+                            
+                        }
+
+                        // show next player
+                        if(this.scheduleIndex===0){
+                            this.scheduleIndexText.setText(`next player: You`);
+                        }
+                        else{
+                            this.scheduleIndexText.setText(`next player: ${this.settings.computerPlayers[this.scheduleIndex-1].name}`);
+                        }
+
+
+
                     } else {
                         let random = Math.random() * 100;
 
