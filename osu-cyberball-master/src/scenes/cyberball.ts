@@ -48,7 +48,10 @@ export class CyberballScene extends Phaser.Scene {
         super({});
 
         this.settings = settings;
-        this.settings.schedule = this.convertToMap(this.settings.scheduleText);
+        if(this.settings.useSchedule){
+
+            this.settings.schedule = this.convertToMap(this.settings.scheduleText);
+        }
     }
     private convertToMap(str: string): Map<number, number[]> {
         const lines = str.split('\n');
@@ -203,8 +206,8 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         // schedule
-        this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle); 
-        this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle); 
+        // this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle); 
+        // this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle); 
     }
 
     public update() {
@@ -328,6 +331,7 @@ export class CyberballScene extends Phaser.Scene {
         let ballTargetPosition = this.getCaughtBallPosition(receiver);
         this.physics.moveTo(this.ballSprite, ballTargetPosition.x, ballTargetPosition.y, this.settings.ballSpeed);
     }
+    
     private getRandomDigit(number: number): number {
         const digits = Array.from(String(number), Number);
       
@@ -410,6 +414,7 @@ export class CyberballScene extends Phaser.Scene {
         // The game ends at the end of the schedule or when reaching the throw count.
 
         if (
+           
             (this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
             (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount)
         ) {
@@ -434,27 +439,34 @@ export class CyberballScene extends Phaser.Scene {
                 let id = this.playerGroup.getChildren().indexOf(receiver);
 
                 this.activeTimeout = setTimeout(() => {
-                    let scheduleQueue  = this.settings.schedule.get(id);
-                    if (this.settings.useSchedule && scheduleQueue) {
+                    
+                    if (this.settings.useSchedule ) {
+                        let scheduleQueue  = this.settings.schedule.get(id);
                         
                         let nextRand = 0;
-                        if(scheduleQueue.length > 0){
+                        if(scheduleQueue && scheduleQueue.length > 0){
                             nextRand = scheduleQueue[0];
                         }else{
-                            const scheduleMap = this.convertToMap(this.settings.scheduleText);
-                                
-                            this.settings.schedule.set(id,scheduleMap.get(id));
+                            this.postEvent('throw-count-met');
+                            this.gameOver();
+                            return;
+                            // const scheduleMap = this.convertToMap(this.settings.scheduleText); 
+                            // this.settings.schedule.set(id, scheduleMap.get(id));
                         }
+                   
                         let next = this.getRandomDigit(nextRand);
+                        if(next == 0){
+                            console.log("next is the player....")
+                        }
 
                         // Skip self and absent players in schedule.
                         while(next === this.playerGroup.getChildren().indexOf(receiver) &&
                             !this.absentPlayers.includes(next)){
                             //this.scheduleIndex++;
                             if(scheduleQueue.length > 0){
-                                const nextRand = scheduleQueue.shift();
-                                if(nextRand){
-                                    next = this.getRandomDigit(nextRand);
+                                const tmpRand = scheduleQueue.shift();
+                                if(tmpRand){
+                                    next = this.getRandomDigit(tmpRand);
                                 }else{
                                     next = 0;
                                     break;
@@ -470,14 +482,14 @@ export class CyberballScene extends Phaser.Scene {
                         
 
                         // show current player
-                        this.currentIndex = next;
-                        if(this.currentIndex ===0){
-                            this.currentIndexText.setText(`current player: You`);
-                        }
-                        else{
-                            this.currentIndexText.setText(`current player: ${this.settings.computerPlayers[this.currentIndex-1].name}`);
-                            //seperate because dont know next one is player or cpu
-                        }
+                        // this.currentIndex = next;
+                        // if(this.currentIndex ===0){
+                        //     this.currentIndexText.setText(`current player: You`);
+                        // }
+                        // else{
+                        //     this.currentIndexText.setText(`current player: ${this.settings.computerPlayers[this.currentIndex-1].name}`);
+                        //     //seperate because dont know next one is player or cpu
+                        // }
                         scheduleQueue.shift();
                         // if(scheduleQueue == undefined || scheduleQueue.length == 0){
                         //     const scheduleMap = this.convertToMap(this.settings.scheduleText);
@@ -488,20 +500,20 @@ export class CyberballScene extends Phaser.Scene {
                         //     this.settings.schedule.set(id,scheduleQueue);
                         // }
                         
-                        if(scheduleQueue.length > 0){
-                            this.scheduleIndex = this.getRandomDigit(scheduleQueue[0]);
-                        }else{
-                            this.scheduleIndex = 0;
+                        // if(scheduleQueue.length > 0){
+                        //     this.scheduleIndex = this.getRandomDigit(scheduleQueue[0]);
+                        // }else{
+                        //     this.scheduleIndex = 0;
                             
-                        }
+                        // }
 
-                        // show next player
-                        if(this.scheduleIndex===0){
-                            this.scheduleIndexText.setText(`next player: You`);
-                        }
-                        else{
-                            this.scheduleIndexText.setText(`next player: ${this.settings.computerPlayers[this.scheduleIndex-1].name}`);
-                        }
+                        // // show next player
+                        // if(this.scheduleIndex===0){
+                        //     this.scheduleIndexText.setText(`next player: You`);
+                        // }
+                        // else{
+                        //     this.scheduleIndexText.setText(`next player: ${this.settings.computerPlayers[this.scheduleIndex-1].name}`);
+                        // }
 
 
 
