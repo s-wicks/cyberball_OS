@@ -90,16 +90,61 @@ a:hover {
 
 
 .input label {
-    width: 100px; /* Adjust this width to fit the longest label */
-    text-align: right;
+    flex: 1; /* Allow label to grow as needed */
+    text-align: left; /* Left-align the label text */
     margin-right: 10px; /* Space between the label and the input */
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
+.input input[type="number"] {
+    flex: 1; /* Allow input to take up the remaining space */
+    max-width: 200px; /* Remove max-width to allow it to grow */
+
+}
 
 .input input[type="text"] {
-    max-width: 200px; /* Adjust this value based on your desired width */
-    flex: none; /* This ensures the input doesn't grow or shrink */
+    flex: 1; /* Allow input to take up the remaining space */
+    max-width: 200px; /* Remove max-width to allow it to grow */
+
 }
+
+.input input[type="checkbox"] {
+   margin-right: 185px;
+
+}
+
+.input input[type="color"] {
+    margin-right: 150px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.input input[type="range"] {
+    margin-right: 30px;
+
+}
+
+.range-container {
+    display: flex;
+    align-items: center;
+}
+
+.range-value {
+    margin-left: 2px; /* Add some spacing between the range input and the value */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+.button-container button {
+    display: block;
+    margin-bottom: 5px;
+}
+
 
 .tooltip-icon {
     margin-right: 1px;
@@ -119,6 +164,13 @@ a:hover {
     max-width: 300px;
 }
 
+.description-header {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 8px; /* Add space below the headers */
+    display: block; /* Ensure each header is on a new line */
+}
+
 .input input[type=text], .input input[type=number], textarea {
     flex: 1 1 100%;
     min-width: 0;
@@ -129,6 +181,14 @@ a:hover {
     display: flex;
     flex-direction: column;
 }
+
+.target-preference-inputs {
+    display: flex;
+}
+
+
+
+
 
 .bottom-buttons {
     background-color: #007BFF;
@@ -223,6 +283,13 @@ iframe {
     line-height: 20px;
     cursor: pointer;
 
+}
+
+.cpuButtons{
+    margin-bottom: 10px;
+}
+.configHeader{
+    text-align: center;
 }
 
 .sidebar {

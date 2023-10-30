@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="done tasks such as save to file, add ms to times, made it so you can set a duration for the game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +131,10 @@
       <workItem from="1697242167553" duration="1489000" />
       <workItem from="1697310404878" duration="4584000" />
       <workItem from="1697336903187" duration="602000" />
-      <workItem from="1697470408526" duration="932000" />
+      <workItem from="1697470408526" duration="6212000" />
+      <workItem from="1697649644520" duration="599000" />
+      <workItem from="1698184671068" duration="15499000" />
+      <workItem from="1698678467270" duration="63000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -210,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697314979156</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="done tasks such as save to file, add ms to times, made it so you can set a duration for the game">
+      <option name="closed" value="true" />
+      <created>1697471366956</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1697471366956</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,6 +246,7 @@
     <MESSAGE value="adding tool tip and side bar pull out" />
     <MESSAGE value="good save spot" />
     <MESSAGE value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
-    <option name="LAST_COMMIT_MESSAGE" value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
+    <MESSAGE value="done tasks such as save to file, add ms to times, made it so you can set a duration for the game" />
+    <option name="LAST_COMMIT_MESSAGE" value="done tasks such as save to file, add ms to times, made it so you can set a duration for the game" />
   </component>
 </project>

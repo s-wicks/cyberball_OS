@@ -45,6 +45,20 @@ export class CyberballScene extends Phaser.Scene {
         this.settings = settings;
     }
 
+    public validateInputValue(value: any, defaultValue: any = 0): any {
+        const parsedValue = parseInt(value, 10);
+
+        // Check if parsing was successful and the parsed value is not NaN.
+        if (!isNaN(parsedValue)) {
+            return parsedValue;
+        } else {
+            // Parsing failed, return the default value.
+            return defaultValue;
+        }
+    }
+
+
+
     public preload() {
         this.load.crossOrigin = 'anonymous';
 
