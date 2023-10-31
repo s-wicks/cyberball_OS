@@ -9,13 +9,56 @@
     position: relative; /* Added for positioning */
 }
 
+.flex-container {
+    display: flex;
+    align-items: start; /* Align items to the top */
+    justify-content: center;
+    border: none;
+}
+
+#gamePreview:focus {
+    outline: none;
+}
+
+#gamePreview, .iframe-wrapper {
+    box-shadow: none;
+}
+
+
+#gamePreview, .iframe-wrapper {
+    background-color: transparent;
+}
+
+
+
 .landing-page .container {
+    /*text-align: center;*/
+    /*background-color: #ffffff;*/
+    /*padding: 50px;*/
+    /*border-radius: 10px;*/
+    /*box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);*/
+    /*position: relative; !* Added for positioning *!*/
+    position: relative;
     text-align: center;
     background-color: #ffffff;
     padding: 50px;
     border-radius: 10px;
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    position: relative; /* Added for positioning */
+}
+
+.iframe-wrapper {
+    border: none;
+    position: absolute;
+    left: 450px;
+    top: 700px;
+    height: 50%; /* Half the height of the container */
+    width: 300px/* Your desired width */;
+}
+
+#gamePreview {
+    border: none;
+    height: 50%; /* Make iframe take full height of its parent */
+    width: 50%; /* Make iframe take full width of its parent */
 }
 
 .landing-page .welcome-image {

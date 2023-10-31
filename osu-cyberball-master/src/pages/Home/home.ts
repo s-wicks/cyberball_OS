@@ -35,6 +35,13 @@ export class HomeViewModel {
     }
 
 
+    refreshIframe() {
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement | null;
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.location.reload();
+        }
+    }
+
     bind() {
         this.clipboard = new ClipboardJS('#copy');
 

@@ -201,6 +201,20 @@ a:hover {
     transition: background-color 0.3s ease;
 }
 
+.refresh-button {
+    position: absolute;      /* Positioning relative to the container */
+    bottom: 10px;            /* Distance from the bottom */
+    left: 10px;              /* Distance from the left */
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 5px 10px;       /* Smaller padding */
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;         /* Smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 .bottom-buttons:hover {
     background-color: #0056b3;
 }
