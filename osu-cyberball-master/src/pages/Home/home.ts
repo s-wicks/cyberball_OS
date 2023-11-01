@@ -62,31 +62,19 @@ export class HomeViewModel {
         let newContent = '';
         switch (setting) {
             case 'color':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can edit the color of the participant’s player by clicking on the box next to “Tint Color” to bring up a color palette.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-                    'Here, you will edit the color of the participant’s player. By clicking on the box next to “Color,” a color palette will come up that you can use to determine the color you would like to fill in the participant’s player. You can also enter values into the RGB scales if you would like to find a color of your choosing this way. We recommend using <a href="https://www.color-hex.com" target="_blank">color-hex.com</a> when trying to find specific RGB values when choosing the color to make your participant’s player. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit the color of the participant’s player by clicking on the box next to “Tint Color” to bring up a color palette.<br><br>'
                 break;
             case 'playerHeader':
-                newContent = '<span class="description-header">Brief Description:</span><br>This is the player the participant in your study will control.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-                    'This is the player the participant in your study will control. The participant will use this player to throw and catch a virtual ball with one or more computer-controlled avatars. In this respective section, you have the option to edit the name of the player the participant will be using, the color of the participant’s player, and the image that will be attached to the participant’s player during the game (“Portrait”). Click for more information.';
+                newContent = '<span class="description-header">Brief Description:</span><br>This is the player the participant in your study will control.<br><br>'
                 break;
             case 'portrait':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can insert an image that will be placed below the participant’s player. Be sure to include your image with (format dimensions).<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-                    'This is where you will insert a portrait presented below the participant’s player. By using an image with (specific setting), you will be able to insert any image of your choosing. Anything larger than (specific setting) will not load. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can insert an image that will be placed below the participant’s player. Be sure to include your image with (format dimensions).<br><br>'
                 break;
             case 'leaveTrigger':
-                newContent = '<span class="description-header">Brief Description:</span><br>By editing the “Leave Triggers” settings, you are indicating when the participant is presented with a button they can click to leave the game.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-                    'By editing the “Leave Triggers” settings, you are setting when the participant is presented with a button they can click to leave Cyberball. In this respective section, you have the option to choose when the participant is presented with a button to leave based on how many throws are performed collectively between the participant and the computer-controlled players (“Throws Elapsed”), how long the game is played (“Time Elapsed”), how many times the participant is ignored by the computer-controlled players (“Throws Ignored”), the accumulation of the time the player is ignored by the computer-controlled players (“Time Ignored”), or based on how many other computer-controlled players left the game (“Other Players Leaving”). Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>By editing the “Leave Triggers” settings, you are indicating when the participant is presented with a button they can click to leave the game.<br><br>'
                 break;
             case 'throwsElapsed':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can set the number of throws between all players before the participant is given the option to leave the game.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-                    'Here, you will set the number of throws that must be thrown between all players (including the participant) before the participant is given the option to leave the game. After the set number of throws, a red, “next” button will appear in Qualtrics that the participant will click on to leave the game.\n' +
-                    '\n' +
-                    'For example, if you wanted to see how soon the participant would leave after 30 throws, you would set the value under “Throws Elapsed Leave Threshold” to 30. You also have the option to add variability to the number of total throws before the participant is give the option to leave by setting the throws elapsed variance. Let’s use 5-toss variance as an example. By placing a variance of 5 under “Variance” for our 30-toss example, the games will now range from 25 to 35 tosses total before a participant is presented with a button they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set the number of throws between all players before the participant is given the option to leave the game.<br><br>'
                 break;
             case 'timeElapsed':
                 newContent = '<span class="description-header">Brief Description:</span><br>You can set how much time has to pass before the participant is given the option to leave the game.<br><br>' +
@@ -101,40 +89,22 @@ export class HomeViewModel {
                     'Leave Threshold” to 10. You can also use the throws ignored variance to add variability in the amount of throws participants are ignored for before the participant is given the option to leave. Let’s use a 3-throws variance as an example. By placing a variance of 3 under “Variance” for our 10-throws-ignored example, the games will now range from 7-13 throws where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time. Click for more information.'
                 break;
             case 'timeIgnored':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can set how long the participant is ignored by the computer-controlled players before they are given the option to leave the game.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-                    'Here, you will set how long the participant is ignored by the computer-controlled players before they are given the option to leave the game. After the set time of being ignored has passed, a red, “next” button will appear in Qualtrics that the participant will click to leave the game.\n' +
-                    '\n' +
-                    'For example, if you wanted to see how soon the participant would leave after being ignored for 45 seconds by the computer-controlled players, you would set the value under “Ignored Time Leave Threshold” to 45. You also have the option to add variability to the amount of time participants are ignored for before the participant is given the option to leave with time ignored variance. Let’s use a 15-second variance as an example. By placing a variance of 15 under “Variance” for our 45-second example, the games will now range from 30-60 seconds where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set how long the participant is ignored by the computer-controlled players before they are given the option to leave the game.<br><br>'
                 break;
             case 'otherPlayersLeaving':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can set how many computer-controlled players leave the game before the participant is given the option to leave.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-                    'Here, you will set how many computer-controlled players leave the game before the participant is given the option to leave. After the set number of players leave, a red, “next” button will appear in Qualtrics that the participant can click to leave the game.\n' +
-                    '\n' +
-                    'For example, if you wanted to see how soon the participant would leave after 2 of the computer-controlled players in your study left, you would set the value under “Other Players Leaving” to 2. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set how many computer-controlled players leave the game before the participant is given the option to leave.<br><br>'
                 break;
             case 'cpus':
-                newContent = '<span class="description-header">Brief Description:</span><br>This is the computer-controlled player that your participant will play a virtual game of catch-and-toss with. You can also add additional computer-controlled players<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-               'This is the computer-controlled player that your participant will play a virtual game of catch-and-toss with. The CPUs will conduct themselves in different ways throughout the game depending on the settings you, as the researcher, set for them. In this respective section, you have the option to edit the name of the computer-controlled player, the color of the computer-controlled player, and the image that will be attached to the computer-controlled player during the game (“Portrait”). You also have the option to add additional CPUs if you would like more than one computer-controlled player to participate with the participant’s player by clicking on “Add CPU”. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>This is the computer-controlled player that your participant will play a virtual game of catch-and-toss with. You can also add additional computer-controlled players<br><br>'
                 break;
             case 'throwDelay':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how long the computer-controlled player stands in a “throw-ready” stance before they actually throw the ball<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-'You can edit how long the computer-controlled player stands in a “throw-ready” stance before they actually throw the ball. For example, a value of 500 in the Throw Delay column will result in the computer-controlled player standing in a “throw-ready” stance for 5 seconds before they throw the ball to their next target. You also have the option to add variability to how long the computer-controlled player stays in this stance before they throw the ball. Let’s use a variance of 200 as an example. By placing a variance of 200 for our 500-valued throw delay, the computer-controlled player will now hold the ball for 3-7 seconds before they throw the ball to their next target. This allows you the opportunity to lower participants’ suspicion by not having the computer-controlled player in the “throw-ready” position for the same amount of time each time they get in position before throwing. Each computer-controlled player that you choose to add can be set with a unique throw delay, as well as a unique variance. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how long the computer-controlled player stands in a “throw-ready” stance before they actually throw the ball<br><br>'
                 break;
             case 'catchDelay':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how long the computer-controlled player stands with the ball after catching it before they prepare to throw the ball.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-'You can edit how long the computer-controlled player stands with the ball after catching it before they prepare to throw the ball. For example, a value of 500 in the Catch Delay column will result in the computer-controlled player standing in a “caught-ball” stance for 5 seconds before they move into a “throw-ready” stance. You also have the option to add variability to how long the computer-controlled player stays in this stance before they move into their “throw-ready” stance. Let’s use a variance of 200 as an example. By placing a variance of 200 for our 500-valued catch delay, the computer-controlled player will now hold the ball for 3-7 seconds before they move into their “throw-ready” stance. This allows you the opportunity to lower participants’ suspicion by not having the computer-controlled player in the “caught-ball” position for the same amount of time each time they get the ball before moving into the “throw-ready” position. Each computer-controlled player that you choose to add can be set with a unique catch delay, as well as a unique variance. Click for more information.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how long the computer-controlled player stands with the ball after catching it before they prepare to throw the ball.<br><br>'
                 break;
             case 'targetPreference':
-                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how often the computer-controlled player throws to the participant’s player and additional CPU players you add.<br><br>' +
-                    '<span class="description-header">Full Description:</span><br>' +
-'You can edit how often the computer-controlled player throws to the participant’s player and additional CPU players you add. For example, if you had a study that consisted of the participant’s player, the original computer-controlled player that you have\n' +
-                    '\n' +
-                    'been editing, and a computer-controlled player that you chose to add, you would enter two values that would constitute how often the computer-controlled player that you have been editing will throw to the other two players. In this example, if you were to place 50 in one box and 50 in the second box, the computer-controlled player that you have been editing will equally throw the ball to the other two players throughout the game (50%/50%). The first box’s value represents the share of throws that the participant’s player will receive from this computer-controlled player, while the second box’s value represents the share of throws that the added CPU will receive.'
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how often the computer-controlled player throws to the participant’s player and additional CPU players you add.<br><br>'
                 break;
 
             // Add more cases for other settings
@@ -166,6 +136,8 @@ export class HomeViewModel {
 
 
     addCPU() {
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
+        iframe.src = this.url;
         this.settings.computerPlayers.push(new CpuSettingsModel({
             name: `Player ${this.settings.computerPlayers.length + 2}`
         }));
@@ -180,6 +152,8 @@ export class HomeViewModel {
     }
 
     removeCPU() {
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
+        iframe.src = this.url;
         if (this.settings.computerPlayers.length > 1) {
             this.settings.computerPlayers.pop();
 
@@ -216,6 +190,11 @@ export class HomeViewModel {
     }
 
 
+    copyIframeToClipboard(): void {
+        const iframeString = `<iframe id="cyberball" width="100%" height="580" src="${this.url}"></iframe>`;
+        navigator.clipboard.writeText(iframeString);
+    }
+
     setupButtons() {
         // Get the start preview button and attach the event
         const startPreviewButton = document.getElementById('startPreview');
@@ -234,6 +213,10 @@ export class HomeViewModel {
         });
     }
 
+    updateUrl(){
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
+        iframe.src = this.url;
+    }
 
     previewGame() {
         // Get the URL for the game preview
@@ -276,6 +259,7 @@ export class HomeViewModel {
         } else if (this.activeTab === 'gameplay') {
             this.activeTab = 'buttons';
         }
+        this.closeSidebar();
     }
 
     previousTab() {
@@ -286,6 +270,7 @@ export class HomeViewModel {
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'player';
         }
+        this.closeSidebar();
     }
 
     @computedFrom('settings', 'settings.player', 'settings.computerPlayers', 'settings.someOtherProperty', 'settings.anotherProperty')

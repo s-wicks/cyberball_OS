@@ -27,51 +27,51 @@
 
                     <div class="input">
                         <label>Name</label>
-                        <input type="text" value.bind="settings.player.name" keyup.delegate="previewGame()"/>
+                        <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
 
                     </div>
 
                         <div class="input">
                             <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-                            <input type="text" value.bind="settings.player.portrait" keyup.delegate="previewGame()">
+                            <input type="text" value.bind="settings.player.portrait" input.delegate="updateUrl()">
                         </div>
 
                     <div class="input">
                         <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span></label>
-                        <input type="color" value.bind="settings.player.tint" input.delegate="previewGame()"
-                               change.delegate="previewGame()"/>
+                        <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
+                               change.delegate="updateUrl()"/>
                     </div>
 
                     <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
                     <div class="column">
                         <label>
                             <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1"/>
+                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
                             Throws Elapsed <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
                         </label>
                         <label>
                             <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2"/>
+                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
                             Time
                             Elapsed
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
                         </label>
                         <label>
                             <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4"/>
+                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
                             Throws Ignored
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
                         </label>
                         <label>
                             <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16"/>
+                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
                             Time
                             Ignored
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
                         </label>
                         <label>
                             <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8"/>
+                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
                             Other
                             Players Leaving
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
@@ -82,8 +82,8 @@
                         <label>Throws Elapsed Leave Threshold/Variance</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveTurn"/>
-                            <input type="number" value.bind="settings.player.leaveTurnVariance"/>
+                            <input type="number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
@@ -91,8 +91,8 @@
                         <label>Time Elapsed Leave (s) Threshold/Variance (s)</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveTime"/>
-                            <input type="number" value.bind="settings.player.leaveTimeVariance"/>
+                            <input type="number" value.bind="settings.player.leaveTime" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="settings.player.leaveTimeVariance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
@@ -100,8 +100,8 @@
                         <label>Ignored Throws Leave Threshold/Variance</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveIgnored"/>
-                            <input type="number" value.bind="settings.player.leaveIgnoredVariance"/>
+                            <input type="number" value.bind="settings.player.leaveIgnored" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="settings.player.leaveIgnoredVariance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
@@ -109,8 +109,8 @@
                         <label>Ignored Time Leave (ms) Threshold/Variance (ms)</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveTimeIgnored"/>
-                            <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance"/>
+                            <input type="number" value.bind="settings.player.leaveTimeIgnored" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
                         <label>Others Left Leave Threshold</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveOtherLeaver"/>
+                            <input type="number" value.bind="settings.player.leaveOtherLeaver" input.delegate="updateUrl()"/>
                         </div>
                     </div>
                 </div>
@@ -150,37 +150,38 @@
                     <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
                         <div class="input">
                             <label>Name</label>
-                            <input type="text" value.bind="cpu.name"/>
+                            <input type="text" value.bind="cpu.name" input.delegate="previewGame()" input.delegate="updateUrl()"/>
                         </div>
 
                         <div class="input">
                             <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span> </label>
-                            <input type="color" value.bind="cpu.tint"/>
+                            <input type="color" value.bind="cpu.tint" input.delegate="updateUrl()"
+                                   change.delegate="updateUrl()"/>
                         </div>
 
                         <div class="input">
                             <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-                            <input type="text" value.bind="cpu.portrait"/>
+                            <input type="text" value.bind="cpu.portrait" input.delegate="updateUrl()"/>
                         </div>
 
                         <div class="input">
                             <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwDelay')">?</span></label>
-                            <input type="number" value.bind="cpu.throwDelay" placeholder="Enter delay in milliseconds" class="ms-input"/>
+                            <input type="number" value.bind="cpu.throwDelay" placeholder="Enter delay in milliseconds" class="ms-input" input.delegate="updateUrl()"/>
                         </div>
 
                         <div class="input">
                             <label>Throw Delay Variance (ms)</label>
-                            <input type="number" value.bind="cpu.throwDelayVariance" placeholder="Enter delay in milliseconds"/>
+                            <input type="number" value.bind="cpu.throwDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
                         </div>
 
                         <div class="input">
                             <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('catchDelay')">?</span></label>
-                            <input type="number" value.bind="cpu.catchDelay" placeholder="Enter delay in milliseconds"/>
+                            <input type="number" value.bind="cpu.catchDelay" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
                         </div>
 
                         <div class="input">
                             <label>Catch Delay Variance (ms) </label>
-                            <input type="number" value.bind="cpu.catchDelayVariance" placeholder="Enter delay in milliseconds"/>
+                            <input type="number" value.bind="cpu.catchDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
                         </div>
 
 
@@ -189,36 +190,36 @@
 
                             <div>
                                 <input repeat.for="target of cpu.targetPreference" type="number"
-                                       value.bind="cpu.targetPreference[$index]"/>
+                                       value.bind="cpu.targetPreference[$index]" input.delegate="updateUrl()"/>
                             </div>
                         </div>
 
                         <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
                         <div class="column">
                             <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1"/>
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1" input.delegate="updateUrl()"/>
                                 Throws
                                 Elapsed
                                 <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
                             </label>
                             <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2"/> Time
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2" input.delegate="updateUrl()"/> Time
                                 Elapsed
                                 <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
                             </label>
                             <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4"/>
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4" input.delegate="updateUrl()"/>
                                 Throws
                                 Ignored
                                 <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
                             </label>
                             <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16"/> Time
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16" input.delegate="updateUrl()"/> Time
                                 Ignored
                                 <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
                             </label>
                             <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8"/> Other
+                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8" input.delegate="updateUrl()"/> Other
                                 Players Leaving
                                 <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
                             </label>
@@ -228,9 +229,9 @@
                             <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveTurn"/>
-                                <input type="number" value.bind="cpu.leaveTurnVariance"/>
-                                <input type="number" value.bind="cpu.leaveTurnChance"/>
+                                <input type="number" value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()"/>
                             </div>
                         </div>
 
@@ -238,9 +239,9 @@
                             <label>Time Elapsed Leave (s) Threshold/Variance/Chance (s)</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveTime"/>
-                                <input type="number" value.bind="cpu.leaveTimeVariance"/>
-                                <input type="number" value.bind="cpu.leaveTimeChance"/>
+                                <input type="number" value.bind="cpu.leaveTime" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTimeVariance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTimeChance" input.delegate="updateUrl()"/>
                             </div>
                         </div>
 
@@ -248,9 +249,9 @@
                             <label>Ignored Throws Leave Threshold/Variance/Chance</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveIgnored"/>
-                                <input type="number" value.bind="cpu.leaveIgnoredVariance"/>
-                                <input type="number" value.bind="cpu.leaveIgnoredChance"/>
+                                <input type="number" value.bind="cpu.leaveIgnored" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveIgnoredVariance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveIgnoredChance" input.delegate="updateUrl()"/>
                             </div>
                         </div>
 
@@ -258,9 +259,9 @@
                             <label>Ignored Time Leave (ms) Threshold/Variance/Chance (ms)</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveTimeIgnored"/>
-                                <input type="number" value.bind="cpu.leaveTimeIgnoredVariance"/>
-                                <input type="number" value.bind="cpu.leaveTimeIgnoredChance"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnored" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnoredChance" input.delegate="updateUrl()"/>
                             </div>
                         </div>
 
@@ -268,8 +269,8 @@
                             <label>Others Left Leave Threshold/Chance</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveOtherLeaver"/>
-                                <input type="number" value.bind="cpu.leaveOtherLeaverChance"/>
+                                <input type="number" value.bind="cpu.leaveOtherLeaver" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveOtherLeaverChance" input.delegate="updateUrl()"/>
                             </div>
                         </div>
 
@@ -295,32 +296,36 @@
 
                     <div class="input">
                         <label>Display Time Limit</label>
-                        <input type="checkbox" checked.bind="settings.displayTimeLimit"/>
+                        <input type="checkbox" checked.bind="settings.displayTimeLimit" input.delegate="updateUrl()"/>
                     </div>
 
                     <div class="input">
                         <label>Time Limit Label</label>
-                        <input type="text" value.bind="settings.timeLimitText"/>
+                        <input type="text" value.bind="settings.timeLimitText"  input.delegate="updateUrl()"/>
                     </div>
 
                     <div class="input">
                         <label>Ball Speed</label>
-                        <input type="number" value.bind="settings.ballSpeed"/>
+                        <input type="number" value.bind="settings.ballSpeed" input.delegate="updateUrl()"/>
                     </div>
 
                     <div class="input">
                         <label>Ball Tint Color</label>
-                        <input type="color" value.bind="settings.ballTint"/>
+                        <input type="color" value.bind="settings.ballTint"  input.delegate="updateUrl()"
+                               change.delegate="updateUrl()"/>
+
+
+
                     </div>
 
                     <div class="input">
                         <label>Portrait Height (px)</label>
-                        <input type="number" value.bind="settings.portraitHeight"/>
+                        <input type="number" value.bind="settings.portraitHeight" input.delegate="updateUrl()"/>
                     </div>
 
                     <div class="input">
                         <label>Use Schedule</label>
-                        <input type="checkbox" checked.bind="settings.useSchedule"/>
+                        <input type="checkbox" checked.bind="settings.useSchedule" input.delegate="updateUrl()"/>
                     </div>
 
                     <div class="input" if.bind="settings.useSchedule">
@@ -330,12 +335,12 @@
 
                     <div class="input">
                         <label>Schedule Honors Throw Count</label>
-                        <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount"/>
+                        <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount" input.delegate="updateUrl()"/>
                     </div>
 
                     <div class="input">
                         <label>Game Over Text</label>
-                        <input type="text" value.bind="settings.gameOverText"/>
+                        <input type="text" value.bind="settings.gameOverText" input.delegate="updateUrl()"/>
                     </div>
 
                     <div class="input">
@@ -361,8 +366,7 @@
                             <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
                             <button class="bottom-buttons" click.delegate="saveSettingsToLocalStorage()">&#128190; Save To Preset</button>
                             <button class="bottom-buttons" click.delegate="saveSettingsToFile()">&#128190; Save To File</button>
-                            <button class="bottom-buttons" id="copy" data-clipboard-target="#code">&#10697; Copy Link</button>
-
+                            <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Link</button>
                         </div>
 
 
