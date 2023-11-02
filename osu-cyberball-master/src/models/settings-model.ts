@@ -13,6 +13,7 @@ export class SettingsModel {
     ballSpeed: number = 500;
 
     useSchedule: boolean = false;
+    changeColor: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
     schedule: Map<number, Array<number>>; 
     scheduleText:string;
