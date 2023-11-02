@@ -242,8 +242,8 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         // schedule
-        this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle); 
-        this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle); 
+        // this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle); 
+        // this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle); 
     }
 
     public update() {
@@ -477,35 +477,16 @@ export class CyberballScene extends Phaser.Scene {
                 let id = this.playerGroup.getChildren().indexOf(receiver);
 
                 this.activeTimeout = setTimeout(() => {
-                    
-                    if (this.settings.useSchedule ) {
-                        let scheduleQueue  = this.settings.schedule.get(id + 1);
+                    let scheduleQueue  = this.settings.schedule.get(id);
+                    if (this.settings.useSchedule && scheduleQueue) {
                         
                         let nextRand = 0;
                         if(scheduleQueue && scheduleQueue.length > 0){
                             nextRand = scheduleQueue[0];
                         }else{
-                            this.postEvent('throw-count-met');
-                            this.gameOver();
-                            return;
-                            // const scheduleMap = this.convertToMap(this.settings.scheduleText); 
-                            // this.settings.schedule.set(id, scheduleMap.get(id));
-                        }
-
-                        if(this.settings.changeColor){
-                            this.cpuSprites.forEach(cpu => {
-                                cpu.tint = 0xff0000;
-                            });
-                            this.playerSprite.tint = 0xff0000;
-                      
-                            let joinedPlayers = id + String(nextRand);
-
-                            const digits = Array.from(String(joinedPlayers), Number);
-                            console.log('joinedPlayers', digits);
-                            digits.forEach(id => {
-                                let sprite = this.playerGroup.getChildren()[id-1] as Phaser.GameObjects.Sprite;
-                                sprite.tint = 0x00ff00;
-                            });
+                            const scheduleMap = this.convertToMap(this.settings.scheduleText);
+                                
+                            this.settings.schedule.set(id,scheduleMap.get(id));
                         }
                    
                         let next = this.getRandomDigit(nextRand);
