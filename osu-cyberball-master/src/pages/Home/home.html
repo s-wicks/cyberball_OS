@@ -317,6 +317,12 @@
                         <textarea value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
                     </div>
 
+                    <div class="input" >
+                        <label>Change Color</label>
+                        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+                        <input type="checkbox" checked.bind="settings.changeColor"/>
+                    </div>
+
                     <div class="input">
                         <label>Schedule Honors Throw Count</label>
                         <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount"/>
