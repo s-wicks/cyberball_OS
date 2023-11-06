@@ -69,26 +69,32 @@ export class CyberballScene extends Phaser.Scene {
         // Iterate over each element in the input array
         input.forEach(number => {
             if (number > 9) {
-                // Convert the number to a string to split into individual digits
-                let numberString = number.toString();
-                // If the number has more than one digit, we'll split it at random positions
-                while (numberString.length > 0) {
-                    // Determine a random split position, at least 1 character, up to the length of the number
-                    const splitPosition = Math.floor(Math.random() * (numberString.length - 1)) + 1;
-                    // Take the substring from the start to the random split position and convert it back to a number
-                    newSchedule.push(parseInt(numberString.substring(0, splitPosition)));
-                    // Update the numberString to the remaining part after the split position
-                    numberString = numberString.substring(splitPosition);
+                // Convert the number to a string to get individual digits
+                let digits = number.toString().split('');
+                // Shuffle the digits randomly
+                for (let i = digits.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [digits[i], digits[j]] = [digits[j], digits[i]]; // ES6 array destructuring swap
                 }
+                // Convert each digit back to a number and add to the new schedule
+                digits.forEach(digit => newSchedule.push(parseInt(digit)));
             } else {
                 // If the number is a single digit, just add it to the new schedule
                 newSchedule.push(number);
             }
         });
+        //number of schdules != number of cpus && number in each exists as a cpu index
+        //throw delay
+        //errrrors messages
+        //timing
+
 
         // Return the new array of numbers
         return newSchedule;
     }
+
+
+
 
 
 

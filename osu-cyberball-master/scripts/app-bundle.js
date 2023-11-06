@@ -1005,13 +1005,14 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
         CyberballScene.prototype.addRandomizationToScheduleNumbers = function (input) {
             var newSchedule = [];
             input.forEach(function (number) {
+                var _a;
                 if (number > 9) {
-                    var numberString = number.toString();
-                    while (numberString.length > 0) {
-                        var splitPosition = Math.floor(Math.random() * (numberString.length - 1)) + 1;
-                        newSchedule.push(parseInt(numberString.substring(0, splitPosition)));
-                        numberString = numberString.substring(splitPosition);
+                    var digits = number.toString().split('');
+                    for (var i = digits.length - 1; i > 0; i--) {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        _a = [digits[j], digits[i]], digits[i] = _a[0], digits[j] = _a[1];
                     }
+                    digits.forEach(function (digit) { return newSchedule.push(parseInt(digit)); });
                 }
                 else {
                     newSchedule.push(number);
