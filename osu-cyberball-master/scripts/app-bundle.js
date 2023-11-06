@@ -254,10 +254,8 @@ define('models/settings-model',["require", "exports", "./player-settings-model",
             this.timeLimitText = 'Time Limit:';
             this.ballSpeed = 500;
             this.useSchedule = false;
+            this.changeColor = false;
             this.scheduleHonorsThrowCount = false;
-            this.schedule = [
-                1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0
-            ];
             this.baseUrl = './assets';
             this.ballSprite = 'ball.png';
             this.portraitHeight = 75;
@@ -555,6 +553,16 @@ define('pages/Home/home',["require", "exports", "aurelia-templating-resources", 
                     _this.previewGame();
                 });
             });
+        };
+        HomeViewModel.prototype.convertToMap = function (str) {
+            var lines = str.split('\n');
+            var map = new Map();
+            for (var _i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
+                var line = lines_1[_i];
+                var _a = line.split(',').map(Number), key = _a[0], values = _a.slice(1);
+                map.set(key, values);
+            }
+            return map;
         };
         HomeViewModel.prototype.nextTab = function () {
             if (this.activeTab === 'player') {
@@ -1050,19 +1058,45 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
             _this.showPlayerLeave = false;
             _this.gameEnded = false;
             _this.throwCount = 0;
+            _this.currentIndex = 0;
             _this.scheduleIndex = 0;
             _this.settings = settings;
+            if (_this.settings.useSchedule) {
+                _this.settings.schedule = _this.convertToMap(_this.settings.scheduleText);
+                _this.settings.schedule.forEach(function (value, key) {
+                    _this.settings.schedule.set(key, _this.addRandomizationToScheduleNumbers(value));
+                });
+                console.log(_this.settings.schedule);
+            }
             return _this;
         }
-        CyberballScene.prototype.validateInputValue = function (value, defaultValue) {
-            if (defaultValue === void 0) { defaultValue = 0; }
-            var parsedValue = parseInt(value, 10);
-            if (!isNaN(parsedValue)) {
-                return parsedValue;
+        CyberballScene.prototype.addRandomizationToScheduleNumbers = function (input) {
+            var newSchedule = [];
+            input.forEach(function (number) {
+                var _a;
+                if (number > 9) {
+                    var digits = number.toString().split('');
+                    for (var i = digits.length - 1; i > 0; i--) {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        _a = [digits[j], digits[i]], digits[i] = _a[0], digits[j] = _a[1];
+                    }
+                    digits.forEach(function (digit) { return newSchedule.push(parseInt(digit)); });
+                }
+                else {
+                    newSchedule.push(number);
+                }
+            });
+            return newSchedule;
+        };
+        CyberballScene.prototype.convertToMap = function (str) {
+            var lines = str.split('\n');
+            var map = new Map();
+            for (var _i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
+                var line = lines_1[_i];
+                var _a = line.split(',').map(Number), key = _a[0], values = _a.slice(1);
+                map.set(key, values);
             }
-            else {
-                return defaultValue;
-            }
+            return map;
         };
         CyberballScene.prototype.preload = function () {
             var _this = this;
@@ -1149,6 +1183,31 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
             for (var i = 0; i < this.settings.computerPlayers.length; i++) {
                 _loop_1(i);
             }
+            if (this.settings.useSchedule) {
+                if (this.settings.changeColor) {
+                    this.cpuSprites.forEach(function (cpu) {
+                        cpu.tint = 0xff0000;
+                    });
+                    this.playerSprite.tint = 0xff0000;
+                    if (this.playerHasBall) {
+                        this.playerSprite.tint = 0x00ff00;
+                    }
+                    var playerId = 1;
+                    var scheduleQueue = this.settings.schedule.get(playerId);
+                    var nextRand = 0;
+                    if (scheduleQueue && scheduleQueue.length > 0) {
+                        nextRand = scheduleQueue[0];
+                    }
+                    else {
+                    }
+                    var joinedPlayers = playerId + String(nextRand);
+                    var digits = Array.from(String(joinedPlayers), Number);
+                    digits.forEach(function (id) {
+                        var sprite = _this.playerGroup.getChildren()[id - 1];
+                        sprite.tint = 0x00ff00;
+                    });
+                }
+            }
             var ballPosition = this.getActiveBallPosition(this.playerSprite);
             this.ballSprite = this.physics.add.sprite(ballPosition.x, ballPosition.y, 'ball');
             if (this.settings.ballTint)
@@ -1160,9 +1219,11 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
             this.startTime = Date.now();
             this.lastTime = this.startTime;
             if (this.settings.timeLimit > 0 && this.settings.displayTimeLimit) {
-                this.timeLimitText = this.add.text(this.sys.canvas.width - 10, 10, this.getTimeString(), textStyle);
+                this.timeLimitText = this.add.text(10, 10, this.getTimeString(), textStyle);
                 this.timeLimitText.setOrigin(1, 0);
             }
+            this.currentIndexText = this.add.text(10, 40, "currentIndex: ".concat(this.currentIndex), textStyle);
+            this.scheduleIndexText = this.add.text(10, 70, "scheduleIndex: ".concat(this.scheduleIndex), textStyle);
         };
         CyberballScene.prototype.update = function () {
             var _this = this;
@@ -1245,6 +1306,11 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
             var ballTargetPosition = this.getCaughtBallPosition(receiver);
             this.physics.moveTo(this.ballSprite, ballTargetPosition.x, ballTargetPosition.y, this.settings.ballSpeed);
         };
+        CyberballScene.prototype.getRandomDigit = function (number) {
+            var digits = Array.from(String(number), Number);
+            var randomIndex = Math.floor(Math.random() * digits.length);
+            return digits[randomIndex] - 1;
+        };
         CyberballScene.prototype.catchBall = function (receiver) {
             var _this = this;
             var _a;
@@ -1292,8 +1358,7 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
                         _this.leaveGame(cpu, 'throws ignored');
                 }
             });
-            if ((this.settings.useSchedule && this.scheduleIndex === this.settings.schedule.length) ||
-                (this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
+            if ((this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
                 (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount)) {
                 this.postEvent('throw-count-met');
                 this.gameOver();
@@ -1309,13 +1374,55 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
                     ballPosition = _this.getActiveBallPosition(receiver);
                     _this.ballSprite.x = ballPosition.x;
                     _this.ballSprite.y = ballPosition.y;
+                    var id = _this.playerGroup.getChildren().indexOf(receiver);
                     _this.activeTimeout = setTimeout(function () {
                         if (_this.settings.useSchedule) {
-                            while (_this.settings.schedule[_this.scheduleIndex] === _this.playerGroup.getChildren().indexOf(receiver) &&
-                                !_this.absentPlayers.includes(_this.settings.schedule[_this.scheduleIndex]))
-                                _this.scheduleIndex++;
-                            _this.throwBall(receiver, _this.playerGroup.getChildren()[_this.settings.schedule[_this.scheduleIndex]]);
-                            _this.scheduleIndex++;
+                            var scheduleQueue = _this.settings.schedule.get(id + 1);
+                            var nextRand = 0;
+                            if (scheduleQueue && scheduleQueue.length > 0) {
+                                nextRand = scheduleQueue[0];
+                            }
+                            else {
+                                _this.postEvent('throw-count-met');
+                                _this.gameOver();
+                                return;
+                            }
+                            if (_this.settings.changeColor) {
+                                _this.cpuSprites.forEach(function (cpu) {
+                                    cpu.tint = 0xff0000;
+                                });
+                                _this.playerSprite.tint = 0xff0000;
+                                var joinedPlayers = id + String(nextRand);
+                                var digits = Array.from(String(joinedPlayers), Number);
+                                console.log('joinedPlayers', digits);
+                                digits.forEach(function (id) {
+                                    var sprite = _this.playerGroup.getChildren()[id - 1];
+                                    sprite.tint = 0x00ff00;
+                                });
+                            }
+                            var next = _this.getRandomDigit(nextRand);
+                            if (next == 0) {
+                                console.log("next is the player....");
+                            }
+                            while (next === _this.playerGroup.getChildren().indexOf(receiver) &&
+                                !_this.absentPlayers.includes(next)) {
+                                if (scheduleQueue.length > 0) {
+                                    var tmpRand = scheduleQueue.shift();
+                                    if (tmpRand) {
+                                        next = _this.getRandomDigit(tmpRand);
+                                    }
+                                    else {
+                                        next = 0;
+                                        break;
+                                    }
+                                }
+                                else {
+                                    next = 0;
+                                    break;
+                                }
+                            }
+                            _this.throwBall(receiver, _this.playerGroup.getChildren()[next]);
+                            scheduleQueue.shift();
                         }
                         else {
                             var random = Math.random() * 100;
