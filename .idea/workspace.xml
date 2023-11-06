@@ -8,8 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/PresetPage/PresetPage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +44,7 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="rework-ui" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
