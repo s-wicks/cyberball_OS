@@ -48,40 +48,48 @@ export class CyberballScene extends Phaser.Scene {
         super({});
 
         this.settings = settings;
+
         if(this.settings.useSchedule){
 
-            this.settings.schedule = this.convertToMap(this.addRandomizationToScheduleText(this.settings.scheduleText));
+            this.settings.schedule = this.convertToMap(this.settings.scheduleText);
+
+            //here for each value in this.settings.schedule run addRandomizationToScheduleText
+            //and update this.settings.
+            this.settings.schedule.forEach((value, key) => {
+                this.settings.schedule.set(key, this.addRandomizationToScheduleNumbers(value));
+            });
+            console.log(this.settings.schedule)
         }
     }
 
-    private addRandomizationToScheduleText(input: string): string {
-        // Split the input string by commas
-        const splitByCommas = input.split(',');
-
+    private addRandomizationToScheduleNumbers(input: number[]): number[] {
         // This array will hold the final sequence of numbers
-        let newSchedule: string[] = [];
+        let newSchedule: number[] = [];
 
-        // Iterate over each element in the split array
-        splitByCommas.forEach(numberString => {
-            if (numberString.length > 1) {
+        // Iterate over each element in the input array
+        input.forEach(number => {
+            if (number > 9) {
+                // Convert the number to a string to split into individual digits
+                let numberString = number.toString();
                 // If the number has more than one digit, we'll split it at random positions
                 while (numberString.length > 0) {
                     // Determine a random split position, at least 1 character, up to the length of the number
                     const splitPosition = Math.floor(Math.random() * (numberString.length - 1)) + 1;
-                    // Take the substring from the start to the random split position
-                    newSchedule.push(numberString.substring(0, splitPosition));
+                    // Take the substring from the start to the random split position and convert it back to a number
+                    newSchedule.push(parseInt(numberString.substring(0, splitPosition)));
                     // Update the numberString to the remaining part after the split position
                     numberString = numberString.substring(splitPosition);
                 }
             } else {
                 // If the number is a single digit, just add it to the new schedule
-                newSchedule.push(numberString);
+                newSchedule.push(number);
             }
         });
 
-        // Join the new sequence of numbers with commas and return
-        return newSchedule.join(',');
+        // Return the new array of numbers
+        return newSchedule;
     }
+
 
 
 

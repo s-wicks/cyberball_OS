@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="done takss such as save to file, add ms to times, made it so you can set a duration for the game">
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="added a fix to scheduler but im not sure how to test it">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/vendor-bundle.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/scenes/cyberball.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +42,7 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="11-2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -211,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697314979156</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added a fix to scheduler but im not sure how to test it">
+      <option name="closed" value="true" />
+      <created>1699288172860</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1699288172860</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +239,7 @@
     <MESSAGE value="adding tool tip and side bar pull out" />
     <MESSAGE value="good save spot" />
     <MESSAGE value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
-    <option name="LAST_COMMIT_MESSAGE" value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
+    <MESSAGE value="added a fix to scheduler but im not sure how to test it" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a fix to scheduler but im not sure how to test it" />
   </component>
 </project>

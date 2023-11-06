@@ -994,26 +994,30 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
             _this.scheduleIndex = 0;
             _this.settings = settings;
             if (_this.settings.useSchedule) {
-                _this.settings.schedule = _this.convertToMap(_this.addRandomizationToScheduleText(_this.settings.scheduleText));
+                _this.settings.schedule = _this.convertToMap(_this.settings.scheduleText);
+                _this.settings.schedule.forEach(function (value, key) {
+                    _this.settings.schedule.set(key, _this.addRandomizationToScheduleNumbers(value));
+                });
+                console.log(_this.settings.schedule);
             }
             return _this;
         }
-        CyberballScene.prototype.addRandomizationToScheduleText = function (input) {
-            var splitByCommas = input.split(',');
+        CyberballScene.prototype.addRandomizationToScheduleNumbers = function (input) {
             var newSchedule = [];
-            splitByCommas.forEach(function (numberString) {
-                if (numberString.length > 1) {
+            input.forEach(function (number) {
+                if (number > 9) {
+                    var numberString = number.toString();
                     while (numberString.length > 0) {
                         var splitPosition = Math.floor(Math.random() * (numberString.length - 1)) + 1;
-                        newSchedule.push(numberString.substring(0, splitPosition));
+                        newSchedule.push(parseInt(numberString.substring(0, splitPosition)));
                         numberString = numberString.substring(splitPosition);
                     }
                 }
                 else {
-                    newSchedule.push(numberString);
+                    newSchedule.push(number);
                 }
             });
-            return newSchedule.join(',');
+            return newSchedule;
         };
         CyberballScene.prototype.convertToMap = function (str) {
             var lines = str.split('\n');
