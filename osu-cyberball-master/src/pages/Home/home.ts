@@ -1,5 +1,5 @@
 import {BindingSignaler} from 'aurelia-templating-resources';
-import {autoinject, computedFrom} from 'aurelia-framework';
+import {autoinject, bindable, computedFrom} from 'aurelia-framework';
 import {SettingsModel, defaultSettings} from "models/settings-model";
 import {CpuSettingsModel} from 'models/cpu-settings-model';
 import ClipboardJS from 'clipboard';
@@ -23,11 +23,24 @@ export class HomeViewModel {
     showFileModal: boolean = false;  // Used to show/hide the modal
     fileName: string = '';           // Stores the filename entered by the user
 
+    @bindable sliderValue = this.settings.gameOverOpacity;
+
+    updateOpacity() {
+        this.settings.gameOverOpacity = this.sliderValue / 100;
+        this.previewGame(); // Optionally, trigger a preview update
+    }
 
 
     constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {
     }
 
+
+    refreshIframe() {
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement | null;
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.location.reload();
+        }
+    }
 
     bind() {
         this.clipboard = new ClipboardJS('#copy');
@@ -48,12 +61,52 @@ export class HomeViewModel {
         // Determine the content for the setting
         let newContent = '';
         switch (setting) {
-            case 'playerName':
-                newContent = "Information about player's name...";
+            case 'color':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit the color of the participant’s player by clicking on the box next to “Tint Color” to bring up a color palette.<br><br>'
                 break;
             case 'playerHeader':
-                newContent = "Name info and potential side effects, color, and portrait... ";
+                newContent = '<span class="description-header">Brief Description:</span><br>This is the player the participant in your study will control.<br><br>'
                 break;
+            case 'portrait':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can insert an image that will be placed below the participant’s player. Be sure to include your image with (format dimensions).<br><br>'
+                break;
+            case 'leaveTrigger':
+                newContent = '<span class="description-header">Brief Description:</span><br>By editing the “Leave Triggers” settings, you are indicating when the participant is presented with a button they can click to leave the game.<br><br>'
+                break;
+            case 'throwsElapsed':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set the number of throws between all players before the participant is given the option to leave the game.<br><br>'
+                break;
+            case 'timeElapsed':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set how much time has to pass before the participant is given the option to leave the game.<br><br>' +
+                    'Here, you will set the amount of time that has to pass before the participant is given the opportunity to leave the game. After the set amount of time has passed, a red, “next” button will appear in Qualtrics that the participant will click to leave the game. For example, if you wanted to see how soon the participant would leave after 60 seconds of being in the game, you would set the value under “Time Elapsed Leave Threshold” to 60. You also have the option to add variability to the amount of time that has to pass before the participant is given the option to leave with time elapsed variance. Let’s use a 20-second variance as an example. By placing a variance of 20 under “Variance” for our 60-second example, the games will now range from 40 to 80 seconds total before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time. Click for more information.'
+                break;
+            case 'throwsIgnored':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set how many times the participant is ignored by the computer-controlled players before they are given the option to leave the game.<br><br>' +
+                    'Here, you will set the number of times the participant has to be ignored by the computer-controlled players before the participant is given the opportunity to leave the game. After being ignored for the set number of times has passed, a red, “next” button will appear in Qualtrics that the participant will click to leave the game.\n' +
+                    '\n' +
+                    'For example, if you wanted to see how soon the participant would leave after being ignored 10 times by the computer-controlled players, you would set the value under “Ignored Throws\n' +
+                    '\n' +
+                    'Leave Threshold” to 10. You can also use the throws ignored variance to add variability in the amount of throws participants are ignored for before the participant is given the option to leave. Let’s use a 3-throws variance as an example. By placing a variance of 3 under “Variance” for our 10-throws-ignored example, the games will now range from 7-13 throws where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time. Click for more information.'
+                break;
+            case 'timeIgnored':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set how long the participant is ignored by the computer-controlled players before they are given the option to leave the game.<br><br>'
+                break;
+            case 'otherPlayersLeaving':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can set how many computer-controlled players leave the game before the participant is given the option to leave.<br><br>'
+                break;
+            case 'cpus':
+                newContent = '<span class="description-header">Brief Description:</span><br>This is the computer-controlled player that your participant will play a virtual game of catch-and-toss with. You can also add additional computer-controlled players<br><br>'
+                break;
+            case 'throwDelay':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how long the computer-controlled player stands in a “throw-ready” stance before they actually throw the ball<br><br>'
+                break;
+            case 'catchDelay':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how long the computer-controlled player stands with the ball after catching it before they prepare to throw the ball.<br><br>'
+                break;
+            case 'targetPreference':
+                newContent = '<span class="description-header">Brief Description:</span><br>You can edit how often the computer-controlled player throws to the participant’s player and additional CPU players you add.<br><br>'
+                break;
+
             // Add more cases for other settings
             default:
                 newContent = "Here's some information about your settings...";
@@ -67,7 +120,7 @@ export class HomeViewModel {
         }
 
         // Update the content and the current setting
-        content.textContent = newContent;
+        content.innerHTML = newContent;
         this.currentSetting = setting;
 
         // Open the sidebar if it's not already open
@@ -76,12 +129,15 @@ export class HomeViewModel {
         }
     }
 
+
     closeSidebar() {
         this.sidebar.classList.remove('sidebar-open');
     }
 
 
     addCPU() {
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
+        iframe.src = this.url;
         this.settings.computerPlayers.push(new CpuSettingsModel({
             name: `Player ${this.settings.computerPlayers.length + 2}`
         }));
@@ -96,6 +152,8 @@ export class HomeViewModel {
     }
 
     removeCPU() {
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
+        iframe.src = this.url;
         if (this.settings.computerPlayers.length > 1) {
             this.settings.computerPlayers.pop();
 
@@ -132,6 +190,11 @@ export class HomeViewModel {
     }
 
 
+    copyIframeToClipboard(): void {
+        const iframeString = `<iframe id="cyberball" width="100%" height="580" src="${this.url}"></iframe>`;
+        navigator.clipboard.writeText(iframeString);
+    }
+
     setupButtons() {
         // Get the start preview button and attach the event
         const startPreviewButton = document.getElementById('startPreview');
@@ -150,6 +213,10 @@ export class HomeViewModel {
         });
     }
 
+    updateUrl(){
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
+        iframe.src = this.url;
+    }
 
     previewGame() {
         // Get the URL for the game preview
@@ -203,6 +270,7 @@ export class HomeViewModel {
             
             this.activeTab = 'buttons';
         }
+        this.closeSidebar();
     }
 
     previousTab() {
@@ -213,6 +281,7 @@ export class HomeViewModel {
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'player';
         }
+        this.closeSidebar();
     }
 
     @computedFrom('settings', 'settings.player', 'settings.computerPlayers', 'settings.someOtherProperty', 'settings.anotherProperty')
@@ -281,7 +350,7 @@ export class HomeViewModel {
         }
 
         const settingsString = JSON.stringify(this.settings, null, 2);
-        const blob = new Blob([settingsString], { type: 'text/plain;charset=utf-8' });
+        const blob = new Blob([settingsString], {type: 'text/plain;charset=utf-8'});
 
         const a = document.createElement('a');
         const url = window.URL.createObjectURL(blob);
@@ -297,8 +366,6 @@ export class HomeViewModel {
         this.showFileModal = false;
         this.fileName = '';
     }
-
-
 
 
 // Example usage:

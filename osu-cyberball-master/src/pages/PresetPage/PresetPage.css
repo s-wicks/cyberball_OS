@@ -28,7 +28,7 @@ body {
     position: relative;
     /*//width: 80%; !* This is the current width setting, which is responsive *!*/
     max-width: 800px; /* This is the maximum width it can grow to */
-    min-width: 400px; /* This is the minimum width it can shrink to */
+    min-width: 600px; /* This is the minimum width it can shrink to */
 }
 
 table {
