@@ -48,20 +48,67 @@ export class CyberballScene extends Phaser.Scene {
         super({});
 
         this.settings = settings;
+
         if(this.settings.useSchedule){
 
             this.settings.schedule = this.convertToMap(this.settings.scheduleText);
+
+            //here for each value in this.settings.schedule run addRandomizationToScheduleText
+            //and update this.settings.
+            this.settings.schedule.forEach((value, key) => {
+                this.settings.schedule.set(key, this.addRandomizationToScheduleNumbers(value));
+            });
+            console.log(this.settings.schedule)
         }
     }
+
+    private addRandomizationToScheduleNumbers(input: number[]): number[] {
+        // This array will hold the final sequence of numbers
+        let newSchedule: number[] = [];
+
+        // Iterate over each element in the input array
+        input.forEach(number => {
+            if (number > 9) {
+                // Convert the number to a string to get individual digits
+                let digits = number.toString().split('');
+                // Shuffle the digits randomly
+                for (let i = digits.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [digits[i], digits[j]] = [digits[j], digits[i]]; // ES6 array destructuring swap
+                }
+                // Convert each digit back to a number and add to the new schedule
+                digits.forEach(digit => newSchedule.push(parseInt(digit)));
+            } else {
+                // If the number is a single digit, just add it to the new schedule
+                newSchedule.push(number);
+            }
+        });
+        //number of schdules != number of cpus && number in each exists as a cpu index
+        //throw delay
+        //errrrors messages
+        //timing
+
+
+        // Return the new array of numbers
+        return newSchedule;
+    }
+
+
+
+
+
+
+
+
     private convertToMap(str: string): Map<number, number[]> {
         const lines = str.split('\n');
         const map = new Map<number, number[]>();
-      
+
         for (const line of lines) {
           const [key, ...values] = line.split(',').map(Number);
           map.set(key, values);
         }
-      
+
         return map;
       }
 
@@ -72,12 +119,21 @@ export class CyberballScene extends Phaser.Scene {
         this.load.image('ball', `${this.settings.baseUrl}/${this.settings.ballSprite}`);
         this.load.multiatlas('player', `${this.settings.baseUrl}/player.json`, 'assets');
 
-        if(this.settings.player.portrait)
-            this.load.image('playerPortrait', 'https://cors-anywhere.herokuapp.com/' + this.settings.player.portrait);
+        if(this.settings.player.portrait){
+            let data = new Image();
+
+            // data.src = this.settings.player.portraitBuff as string;
+
+            this.textures.addBase64('playerPortrait', this.settings.player.portraitBuff);
+            // this.load.image('playerPortrait', 'https://cors-anywhere.herokuapp.com/' + this.settings.player.portrait);
+
+        }
 
         this.settings.computerPlayers.forEach((cpu, i) => {
-            if(cpu.portrait)
-                this.load.image('cpuPortrait' + i, 'https://cors-anywhere.herokuapp.com/' + cpu.portrait);
+            if(cpu.portrait){
+                this.textures.addBase64('cpuPortrait' + i, cpu.portraitBuff);
+            }
+                // this.load.image('cpuPortrait' + i, 'https://cors-anywhere.herokuapp.com/' + cpu.portrait);
         });
     }
 
@@ -135,7 +191,7 @@ export class CyberballScene extends Phaser.Scene {
             this.playerSprite.setData('leaveTimeIgnored', Date.now() + this.getVariantValue(this.settings.player.leaveTimeIgnored, this.settings.player.leaveTimeIgnoredVariance) * 1000);
         }
 
-        
+
 
         // CPU:
 
@@ -143,7 +199,7 @@ export class CyberballScene extends Phaser.Scene {
             let cpuPosition = this.getCPUPosition(i);
             let cpuSprite: Phaser.GameObjects.Sprite = this.playerGroup.create(cpuPosition.x, cpuPosition.y, 'player', 'idle/1.png');
 
-           
+
 
             cpuSprite.setData('name-object', this.add.text(cpuPosition.x, cpuPosition.y + cpuSprite.height / 2 + 10, this.settings.computerPlayers[i].name, textStyle).setOrigin(0.5));
 
@@ -163,8 +219,8 @@ export class CyberballScene extends Phaser.Scene {
             cpuSprite.setInteractive();
             cpuSprite.on('pointerdown', (e) => {
                 if (this.playerHasBall) {
-                    
-                 
+
+
                     // Ensure player and ball are facing the correct way on touch devices:
                     this.playerSprite.flipX = this.input.x < this.playerSprite.x;
 
@@ -187,7 +243,7 @@ export class CyberballScene extends Phaser.Scene {
             this.cpuSprites.push(cpuSprite);
         }
         if (this.settings.useSchedule ) {
-            
+
             if(this.settings.changeColor){
                 this.cpuSprites.forEach(cpu => {
                     cpu.tint = 0xff0000;
@@ -198,24 +254,24 @@ export class CyberballScene extends Phaser.Scene {
                 }
                 const playerId = 1;
                 let scheduleQueue  = this.settings.schedule.get(playerId);
-                        
+
                 let nextRand = 0;
                 if(scheduleQueue && scheduleQueue.length > 0){
                     nextRand = scheduleQueue[0];
                 }else{
                     //throw an error
                 }
-                
+
                 let joinedPlayers = playerId + String(nextRand);
 
                 const digits = Array.from(String(joinedPlayers), Number);
-          
+
                 digits.forEach(id => {
                     let sprite = this.playerGroup.getChildren()[id-1] as Phaser.GameObjects.Sprite;
                     sprite.tint = 0x00ff00;
                 });
             }
-                        
+
         }
 
         // Ball:
@@ -242,14 +298,14 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         // schedule
-        // this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle); 
-        // this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle); 
+        this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle);
+        this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle);
     }
 
     public update() {
         if(this.gameEnded)
             return;
-        
+
         if (this.playerHasBall) {
             this.playerSprite.play('active');
             this.playerSprite.flipX = this.input.x < this.playerSprite.x;
@@ -367,17 +423,17 @@ export class CyberballScene extends Phaser.Scene {
         let ballTargetPosition = this.getCaughtBallPosition(receiver);
         this.physics.moveTo(this.ballSprite, ballTargetPosition.x, ballTargetPosition.y, this.settings.ballSpeed);
     }
-    
+
     private getRandomDigit(number: number): number {
         const digits = Array.from(String(number), Number);
-      
+
         const randomIndex = Math.floor(Math.random() * digits.length);
-      
+
         return digits[randomIndex] - 1;
       }
 
     public catchBall(receiver: Phaser.GameObjects.Sprite) {
-        
+
 
         // Update trackers:
 
@@ -452,7 +508,7 @@ export class CyberballScene extends Phaser.Scene {
         // The game ends at the end of the schedule or when reaching the throw count.
 
         if (
-           
+
             (this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
             (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount)
         ) {
@@ -477,18 +533,37 @@ export class CyberballScene extends Phaser.Scene {
                 let id = this.playerGroup.getChildren().indexOf(receiver);
 
                 this.activeTimeout = setTimeout(() => {
-                    let scheduleQueue  = this.settings.schedule.get(id);
-                    if (this.settings.useSchedule && scheduleQueue) {
-                        
+
+                    if (this.settings.useSchedule ) {
+                        let scheduleQueue  = this.settings.schedule.get(id + 1);
+
                         let nextRand = 0;
                         if(scheduleQueue && scheduleQueue.length > 0){
                             nextRand = scheduleQueue[0];
                         }else{
-                            const scheduleMap = this.convertToMap(this.settings.scheduleText);
-                                
-                            this.settings.schedule.set(id,scheduleMap.get(id));
+                            this.postEvent('throw-count-met');
+                            this.gameOver();
+                            return;
+                            // const scheduleMap = this.convertToMap(this.settings.scheduleText);
+                            // this.settings.schedule.set(id, scheduleMap.get(id));
                         }
-                   
+
+                        if(this.settings.changeColor){
+                            this.cpuSprites.forEach(cpu => {
+                                cpu.tint = 0xff0000;
+                            });
+                            this.playerSprite.tint = 0xff0000;
+
+                            let joinedPlayers = id + String(nextRand);
+
+                            const digits = Array.from(String(joinedPlayers), Number);
+                            console.log('joinedPlayers', digits);
+                            digits.forEach(id => {
+                                let sprite = this.playerGroup.getChildren()[id-1] as Phaser.GameObjects.Sprite;
+                                sprite.tint = 0x00ff00;
+                            });
+                        }
+
                         let next = this.getRandomDigit(nextRand);
                         if(next == 0){
                             console.log("next is the player....")
@@ -514,7 +589,7 @@ export class CyberballScene extends Phaser.Scene {
                         }
 
                         this.throwBall(receiver, this.playerGroup.getChildren()[next] as Phaser.GameObjects.Sprite)
-                        
+
 
                         // show current player
                         // this.currentIndex = next;
@@ -528,18 +603,18 @@ export class CyberballScene extends Phaser.Scene {
                         scheduleQueue.shift();
                         // if(scheduleQueue == undefined || scheduleQueue.length == 0){
                         //     const scheduleMap = this.convertToMap(this.settings.scheduleText);
-                            
+
                         //     this.settings.schedule.set(id,scheduleMap.get(id));
 
                         // }else{
                         //     this.settings.schedule.set(id,scheduleQueue);
                         // }
-                        
+
                         // if(scheduleQueue.length > 0){
                         //     this.scheduleIndex = this.getRandomDigit(scheduleQueue[0]);
                         // }else{
                         //     this.scheduleIndex = 0;
-                            
+
                         // }
 
                         // // show next player
