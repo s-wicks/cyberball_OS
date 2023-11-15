@@ -139,7 +139,7 @@ export class HomeViewModel {
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
         iframe.src = this.url;
         this.settings.computerPlayers.push(new CpuSettingsModel({
-            name: `Player ${this.settings.computerPlayers.length + 2}`
+            name: `Player ${this.settings.computerPlayers.length + 2}`,
         }));
 
         this.settings.computerPlayers.forEach(cpu => {
@@ -221,21 +221,23 @@ export class HomeViewModel {
         let reader = new FileReader();
         let file = e.target.files[0];
         reader.readAsDataURL(file);
-        this.fileName = file.name;
+     
         reader.onload = () => {
-            console.log(reader.result);
+          
             this.settings.player.portraitBuff = reader.result as ArrayBuffer;
             this.updateUrl();
         };
     }
     cpuFileSelected(cpu:CpuSettingsModel, e:any) {
         console.log(cpu);
+      
+        if(e.target.files.length == 0) return;
         let reader = new FileReader();
         let file = e.target.files[0];
         reader.readAsDataURL(file);
-        this.fileName = file.name;
+       
         reader.onload = () => {
-            console.log(reader.result);
+           
             cpu.portraitBuff = reader.result as ArrayBuffer;
             this.updateUrl();
         };
@@ -287,6 +289,9 @@ export class HomeViewModel {
     nextTab() {
         if (this.activeTab === 'player') {
             this.activeTab = 'cpus';
+            this.settings.computerPlayers.forEach(cpu => {
+                cpu.portrait = "";
+            });
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'gameplay';
         } else if (this.activeTab === 'gameplay') {
@@ -301,6 +306,9 @@ export class HomeViewModel {
             this.activeTab = 'gameplay';
         } else if (this.activeTab === 'gameplay') {
             this.activeTab = 'cpus';
+            this.settings.computerPlayers.forEach(cpu => {
+                cpu.portrait = "";
+            });
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'player';
         }

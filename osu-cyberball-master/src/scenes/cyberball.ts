@@ -119,7 +119,7 @@ export class CyberballScene extends Phaser.Scene {
         this.load.image('ball', `${this.settings.baseUrl}/${this.settings.ballSprite}`);
         this.load.multiatlas('player', `${this.settings.baseUrl}/player.json`, 'assets');
 
-        if(this.settings.player.portrait){
+        if(this.settings.player.portraitBuff){
             let data = new Image();
 
             // data.src = this.settings.player.portraitBuff as string;
@@ -130,7 +130,7 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         this.settings.computerPlayers.forEach((cpu, i) => {
-            if(cpu.portrait){
+            if(cpu.portraitBuff){
                 this.textures.addBase64('cpuPortrait' + i, cpu.portraitBuff);
             }
                 // this.load.image('cpuPortrait' + i, 'https://cors-anywhere.herokuapp.com/' + cpu.portrait);
