@@ -213,35 +213,6 @@ export class HomeViewModel {
         });
     }
 
-    updateUrl(){
-        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
-        iframe.src = this.url;
-    }
-    fileSelected(e:any) {
-        let reader = new FileReader();
-        let file = e.target.files[0];
-        reader.readAsDataURL(file);
-     
-        reader.onload = () => {
-          
-            this.settings.player.portraitBuff = reader.result as ArrayBuffer;
-            this.updateUrl();
-        };
-    }
-    cpuFileSelected(cpu:CpuSettingsModel, e:any) {
-        console.log(cpu);
-      
-        if(e.target.files.length == 0) return;
-        let reader = new FileReader();
-        let file = e.target.files[0];
-        reader.readAsDataURL(file);
-       
-        reader.onload = () => {
-           
-            cpu.portraitBuff = reader.result as ArrayBuffer;
-            this.updateUrl();
-        };
-    }
 
     previewGame() {
         // Get the URL for the game preview
