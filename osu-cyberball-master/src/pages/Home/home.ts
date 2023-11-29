@@ -10,8 +10,8 @@ import {SettingsService} from "../Setting-Service";
 
 @autoinject()
 export class HomeViewModel {
-    activeTab = 'player';
-    activeCPUTab = 0;
+     activeTab = 'player';
+     activeCPUTab = 0;
     settings: SettingsModel = defaultSettings;
     clipboard: ClipboardJS;
     sidebar: HTMLElement;
@@ -32,10 +32,15 @@ export class HomeViewModel {
 
 
     constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {
+
     }
 
+    getNumberOrZero(value) {
+        return value === null || isNaN(value) ? 0 : Number(value);
+    }
 
     refreshIframe() {
+        this.convertStringsToNumbers(this.settings);
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement | null;
         if (iframe && iframe.contentWindow) {
             iframe.contentWindow.location.reload();
@@ -182,7 +187,20 @@ export class HomeViewModel {
     }
 
     testGame() {
+        this.convertStringsToNumbers(this.settings);
         window.open(this.url);
+    }
+
+    convertStringsToNumbers(obj) {
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (typeof obj[key] === 'string' && !isNaN(obj[key]) && obj[key].trim() !== '') {
+                    obj[key] = Number(obj[key]);
+                } else if (obj[key] instanceof Object) {
+                    this.convertStringsToNumbers(obj[key]);
+                }
+            }
+        }
     }
 
     get clipboardText() {
@@ -213,10 +231,12 @@ export class HomeViewModel {
         });
     }
 
-    updateUrl(){
+    updateUrl() {
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
         iframe.src = this.url;
     }
+
+
 
     previewGame() {
         // Get the URL for the game preview
@@ -366,6 +386,10 @@ export class HomeViewModel {
         this.showFileModal = false;
         this.fileName = '';
     }
+
+
+
+
 
 
 // Example usage:

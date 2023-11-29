@@ -82,7 +82,7 @@
                         <label>Throws Elapsed Leave Threshold/Variance</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
+                            <input type= "number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
                             <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()"/>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         <button repeat.for="cpu of settings.computerPlayers"
                                 class="tablinks ${$index === activeCPUTab ? 'active' : ''}"
                                 click.delegate="activeCPUTab = $index">
-                            CPU ${$index + 1}
+                            Player ${$index + 2}
                         </button>
                     </div>
                     <h2>
@@ -229,7 +229,7 @@
                             <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
+                                <input type='number' value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
                                 <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()"/>
                                 <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()"/>
                             </div>

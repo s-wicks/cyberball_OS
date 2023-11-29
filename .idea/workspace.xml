@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="added a fix to scheduler but im not sure how to test it">
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="fixed leave triggers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/LandingPage/LandingPage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +131,8 @@
       <workItem from="1697470408526" duration="932000" />
       <workItem from="1699935327245" duration="17000" />
       <workItem from="1700600533306" duration="1533000" />
+      <workItem from="1701211042206" duration="1547000" />
+      <workItem from="1701212596190" duration="7673000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -284,6 +285,7 @@
     <MESSAGE value="good save spot" />
     <MESSAGE value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
     <MESSAGE value="added a fix to scheduler but im not sure how to test it" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a fix to scheduler but im not sure how to test it" />
+    <MESSAGE value="fixed leave triggers" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed leave triggers" />
   </component>
 </project>
