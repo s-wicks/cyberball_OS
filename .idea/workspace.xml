@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="fixed leave triggers">
-      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.html" afterDir="false" />
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="readded preview">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +128,7 @@
       <workItem from="1699935327245" duration="17000" />
       <workItem from="1700600533306" duration="1533000" />
       <workItem from="1701211042206" duration="1547000" />
-      <workItem from="1701212596190" duration="7892000" />
+      <workItem from="1701212596190" duration="8736000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -266,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701237374422</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="readded preview">
+      <option name="closed" value="true" />
+      <created>1701237614278</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1701237614278</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +298,7 @@
     <MESSAGE value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
     <MESSAGE value="added a fix to scheduler but im not sure how to test it" />
     <MESSAGE value="fixed leave triggers" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed leave triggers" />
+    <MESSAGE value="readded preview" />
+    <option name="LAST_COMMIT_MESSAGE" value="readded preview" />
   </component>
 </project>
