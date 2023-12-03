@@ -236,6 +236,29 @@ export class HomeViewModel {
         iframe.src = this.url;
     }
 
+    fileSelected(e:any) {
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.readAsDataURL(file);
+        this.fileName = file.name;
+        reader.onload = () => {
+            console.log(reader.result);
+            this.settings.player.portraitBuff = reader.result as ArrayBuffer;
+            this.updateUrl();
+        };
+    }
+    cpuFileSelected(cpu:CpuSettingsModel, e:any) {
+        console.log(cpu);
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.readAsDataURL(file);
+        this.fileName = file.name;
+        reader.onload = () => {
+            console.log(reader.result);
+            cpu.portraitBuff = reader.result as ArrayBuffer;
+            this.updateUrl();
+        };
+    }
 
 
     previewGame() {
