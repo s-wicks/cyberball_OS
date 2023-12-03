@@ -20,9 +20,6 @@ export class CyberballScene extends Phaser.Scene {
     private timeLimitText: Phaser.GameObjects.Text;
 
 
-    private currentIndexText: Phaser.GameObjects.Text; //for current player
-    private scheduleIndexText: Phaser.GameObjects.Text; //for next player
-
     // Gameplay Mechanics:
 
     private playerHasBall = true;
@@ -39,8 +36,7 @@ export class CyberballScene extends Phaser.Scene {
     // Stats:
 
     private throwCount = 0;
-    private currentIndex = 0;// record current player
-    private scheduleIndex = 0;
+
     private lastTime: number;
     private startTime: number;
 
@@ -284,13 +280,10 @@ export class CyberballScene extends Phaser.Scene {
         this.lastTime = this.startTime;
 
         if (this.settings.timeLimit > 0 && this.settings.displayTimeLimit) {
-            this.timeLimitText = this.add.text(10, 10, this.getTimeString(), textStyle);
+            this.timeLimitText = this.add.text(this.sys.canvas.width - 10, 10, this.getTimeString(), textStyle);
             this.timeLimitText.setOrigin(1, 0);
         }
 
-        // schedule
-        this.currentIndexText = this.add.text(10, 40, `currentIndex: ${this.currentIndex}`, textStyle);
-        this.scheduleIndexText = this.add.text(10, 70, `scheduleIndex: ${this.scheduleIndex}`, textStyle);
     }
 
     public update() {
