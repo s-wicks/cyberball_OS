@@ -144,7 +144,7 @@ export class HomeViewModel {
         // const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
         // iframe.src = this.url;
         this.settings.computerPlayers.push(new CpuSettingsModel({
-            name: `Player ${this.settings.computerPlayers.length + 2}`
+            name: `Player ${this.settings.computerPlayers.length + 2}`,
         }));
 
         this.settings.computerPlayers.forEach(cpu => {
@@ -284,6 +284,9 @@ export class HomeViewModel {
     nextTab() {
         if (this.activeTab === 'player') {
             this.activeTab = 'cpus';
+            this.settings.computerPlayers.forEach(cpu => {
+                cpu.portrait = "";
+            });
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'gameplay';
         } else if (this.activeTab === 'gameplay') {
@@ -298,6 +301,9 @@ export class HomeViewModel {
             this.activeTab = 'gameplay';
         } else if (this.activeTab === 'gameplay') {
             this.activeTab = 'cpus';
+            this.settings.computerPlayers.forEach(cpu => {
+                cpu.portrait = "";
+            });
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'player';
         }

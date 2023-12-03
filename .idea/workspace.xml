@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="readded preview">
+=======
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="SAVING">
+>>>>>>> main
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +43,11 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+<<<<<<< HEAD
         <entry key="$PROJECT_DIR$" value="test" />
+=======
+        <entry key="$PROJECT_DIR$" value="rework-ui" />
+>>>>>>> main
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -210,6 +218,7 @@
       <option name="project" value="LOCAL" />
       <updated>1697314979156</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00011" summary="added a fix to scheduler but im not sure how to test it">
       <option name="closed" value="true" />
       <created>1699288172860</created>
@@ -275,6 +284,41 @@
       <updated>1701237614278</updated>
     </task>
     <option name="localTasksCounter" value="19" />
+=======
+    <task id="LOCAL-00011" summary="done tasks such as save to file, add ms to times, made it so you can set a duration for the game">
+      <option name="closed" value="true" />
+      <created>1697471366956</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1697471366956</updated>
+    </task>
+    <task id="LOCAL-00012" summary="SAVING">
+      <option name="closed" value="true" />
+      <created>1698678564694</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1698678564694</updated>
+    </task>
+    <task id="LOCAL-00013" summary="SAVING">
+      <option name="closed" value="true" />
+      <created>1698795995997</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698795995997</updated>
+    </task>
+    <task id="LOCAL-00014" summary="SAVING">
+      <option name="closed" value="true" />
+      <created>1698864857711</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1698864857711</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+>>>>>>> main
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,9 +340,15 @@
     <MESSAGE value="adding tool tip and side bar pull out" />
     <MESSAGE value="good save spot" />
     <MESSAGE value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
+<<<<<<< HEAD
     <MESSAGE value="added a fix to scheduler but im not sure how to test it" />
     <MESSAGE value="fixed leave triggers" />
     <MESSAGE value="readded preview" />
     <option name="LAST_COMMIT_MESSAGE" value="readded preview" />
+=======
+    <MESSAGE value="done tasks such as save to file, add ms to times, made it so you can set a duration for the game" />
+    <MESSAGE value="SAVING" />
+    <option name="LAST_COMMIT_MESSAGE" value="SAVING" />
+>>>>>>> main
   </component>
 </project>
