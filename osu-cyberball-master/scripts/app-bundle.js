@@ -507,6 +507,7 @@ define('pages/Home/home',["require", "exports", "aurelia-templating-resources", 
             for (var key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     if (typeof obj[key] === 'string' && !isNaN(obj[key]) && obj[key].trim() !== '') {
+                        console.log(obj[key]);
                         obj[key] = Number(obj[key]);
                     }
                     else if (obj[key] instanceof Object) {

@@ -188,6 +188,7 @@ export class HomeViewModel {
 
     testGame() {
         this.convertStringsToNumbers(this.settings);
+
         window.open(this.url);
     }
 
@@ -195,6 +196,7 @@ export class HomeViewModel {
         for (let key in obj) {
             if (obj.hasOwnProperty(key)) {
                 if (typeof obj[key] === 'string' && !isNaN(obj[key]) && obj[key].trim() !== '') {
+                    console.log(obj[key])
                     obj[key] = Number(obj[key]);
                 } else if (obj[key] instanceof Object) {
                     this.convertStringsToNumbers(obj[key]);
