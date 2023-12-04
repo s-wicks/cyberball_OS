@@ -5,6 +5,7 @@ export class PlayerSettingsModel {
     tint?: string;
 
     portrait?: string;
+    portraitBuff?: ArrayBuffer;
 
     /** Actions that may trigger a leave by this player. */
     leaveTrigger?: LeaveTrigger = LeaveTrigger.None;

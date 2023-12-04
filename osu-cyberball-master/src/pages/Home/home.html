@@ -33,7 +33,7 @@
 
                         <div class="input">
                             <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-                            <input type="text" value.bind="settings.player.portrait" input.delegate="updateUrl()">
+                            <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
                         </div>
 
                     <div class="input">
@@ -161,7 +161,7 @@
 
                         <div class="input">
                             <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-                            <input type="text" value.bind="cpu.portrait" input.delegate="updateUrl()"/>
+                            <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
                         </div>
 
                         <div class="input">
