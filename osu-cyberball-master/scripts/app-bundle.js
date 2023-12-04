@@ -507,7 +507,6 @@ define('pages/Home/home',["require", "exports", "aurelia-templating-resources", 
             for (var key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     if (typeof obj[key] === 'string' && !isNaN(obj[key]) && obj[key].trim() !== '') {
-                        console.log(obj[key]);
                         obj[key] = Number(obj[key]);
                     }
                     else if (obj[key] instanceof Object) {
@@ -610,6 +609,7 @@ define('pages/Home/home',["require", "exports", "aurelia-templating-resources", 
             configurable: true
         });
         HomeViewModel.prototype.saveSettingsToLocalStorage = function () {
+            this.convertStringsToNumbers(this.settings);
             this.showModal = true;
         };
         HomeViewModel.prototype.cancelSave = function () {
@@ -632,6 +632,7 @@ define('pages/Home/home',["require", "exports", "aurelia-templating-resources", 
             this.presetDescription = '';
         };
         HomeViewModel.prototype.saveSettingsToFile = function () {
+            this.convertStringsToNumbers(this.settings);
             this.showFileModal = true;
         };
         HomeViewModel.prototype.cancelFileSave = function () {

@@ -186,17 +186,16 @@ export class HomeViewModel {
         return url;
     }
 
-    testGame() {
-        this.convertStringsToNumbers(this.settings);
+     testGame() {
+         this.convertStringsToNumbers(this.settings);
 
         window.open(this.url);
     }
 
-    convertStringsToNumbers(obj) {
+ convertStringsToNumbers(obj) {
         for (let key in obj) {
             if (obj.hasOwnProperty(key)) {
                 if (typeof obj[key] === 'string' && !isNaN(obj[key]) && obj[key].trim() !== '') {
-                    console.log(obj[key])
                     obj[key] = Number(obj[key]);
                 } else if (obj[key] instanceof Object) {
                     this.convertStringsToNumbers(obj[key]);
@@ -315,6 +314,7 @@ export class HomeViewModel {
     // Add these methods to your HomeViewModel class
 
     saveSettingsToLocalStorage() {
+        this.convertStringsToNumbers(this.settings);
         this.showModal = true; // Show the modal when "Save to Preset" is clicked
     }
 
@@ -325,6 +325,7 @@ export class HomeViewModel {
     }
 
     confirmSave() {
+
         if (this.presetName.trim() === '') {
             alert('Please enter a preset name.');
             return;
@@ -343,6 +344,7 @@ export class HomeViewModel {
     }
 
     public saveSettingsToFile(): void {
+        this.convertStringsToNumbers(this.settings);
         this.showFileModal = true;  // Show the file modal when "Save to File" is clicked
     }
 
