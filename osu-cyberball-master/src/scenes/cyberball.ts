@@ -316,6 +316,7 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         // Player may leave after time has passed:
+
         if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
                 Date.now() > this.playerSprite.getData('leaveTime')) {
             this.showPlayerLeave = true;
@@ -687,11 +688,11 @@ export class CyberballScene extends Phaser.Scene {
             console.log('distribute after', i, cpu.targetPreference);
         });
 
-        // If there is only one player left, end the game:
-        if (this.absentPlayers.length >= this.settings.computerPlayers.length) {
-            this.gameOver();
-            return;
-        }
+        // // If there is only one player left, end the game:
+        // if (this.absentPlayers.length >= this.settings.computerPlayers.length) {
+        //     this.gameOver();
+        //     return;
+        // }
 
         // Check if this triggers other players leaving:
 

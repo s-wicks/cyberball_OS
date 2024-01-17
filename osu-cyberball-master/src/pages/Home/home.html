@@ -125,10 +125,10 @@
                     <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
 </div>
                 <!-- CPUs Tab -->
-                <div if.bind="activeTab === 'cpus'" class="tabcontent">
-                    <div class="tab">
+                <div if.bind="activeTab === 'cpus'">
+                    <div class="tab-container">
                         <button repeat.for="cpu of settings.computerPlayers"
-                                class="tablinks ${$index === activeCPUTab ? 'active' : ''}"
+                                class="tab ${$index === activeCPUTab ? 'active' : ''}"
                                 click.delegate="activeCPUTab = $index">
                             Player ${$index + 2}
                         </button>
