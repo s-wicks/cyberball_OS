@@ -1,4 +1,14 @@
-# CSE 5911 - Spring 2024
+# CyberballOS
+An updated easy-implemented, open-source ball-toss game to study group dynamics
 
-# Codebase Repository (Github):
-# https://github.com/zjrw/5916-Group3
+# Link to site:
+--
+
+# Publication:
+--
+
+# CSE 5911 - Spring 2024
+Spring 2024 Codebase Repository: --
+
+# Previous Codebase Repositories:
+Fall 2023 Codebase Repository: https://github.com/zjrw/5916-Group3
