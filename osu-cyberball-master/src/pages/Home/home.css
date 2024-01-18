@@ -227,16 +227,50 @@ a:hover {
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
-.tabs {
-    position: absolute;
-    top: 0;
-    right: 0;
+/* Container for the tabs */
+
+/* Container for the tabs */
+.tab-container {
     display: flex;
-    /* This will ensure the tabs are displayed horizontally and new tabs are added to the left */
-    padding: 0;
-    margin: 0;
-    align-items: flex-start; /* This ensures the tabs hug the top of the container */
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
 }
+
+/* Individual tabs */
+.tab {
+    padding: 10px 15px; /* Adjust padding to your preference */
+    margin: 0;
+    flex: 0 0 20%;
+    box-sizing: border-box;
+    background-color: #007bff; /* This is a generic blue, replace with your specific blue color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for a button-like appearance */
+    color: white; /* White text color for contrast */
+    cursor: pointer; /* Changes the cursor to indicate the tab is clickable */
+    text-align: center; /* Center the text inside the tab/button */
+    font-weight: bold; /* Makes the text bold */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for tabs */
+.tab:hover {
+    background-color: #0056b3; /* Darker blue on hover, adjust the color to match your design */
+}
+
+/* Active tab style */
+.tab.active {
+    background-color: #004080; /* Even darker blue for the active tab */
+    color: #fff;
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 600px) {
+    .tab {
+        flex: 0 0 100%;
+    }
+}
+
 
 
 .tablinks:first-child {
@@ -364,3 +398,5 @@ iframe {
     justify-content: space-between;
     margin-top: 20px;
 }
+
+

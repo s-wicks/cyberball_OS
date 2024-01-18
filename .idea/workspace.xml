@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="readded preview">
+=======
     <list default="true" id="1df60617-51f0-4cdd-ba34-15f42a967405" name="Changes" comment="SAVING">
+>>>>>>> main
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/scripts/app-bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/osu-cyberball-master/src/pages/Home/home.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +28,7 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
+    <option name="BRANCH" value="origin/rework-ui" />
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -39,7 +46,11 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+<<<<<<< HEAD
+        <entry key="$PROJECT_DIR$" value="test" />
+=======
         <entry key="$PROJECT_DIR$" value="rework-ui" />
+>>>>>>> main
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -124,11 +135,13 @@
       <workItem from="1697242167553" duration="1489000" />
       <workItem from="1697310404878" duration="4584000" />
       <workItem from="1697336903187" duration="602000" />
-      <workItem from="1697470408526" duration="6212000" />
-      <workItem from="1697649644520" duration="599000" />
-      <workItem from="1698184671068" duration="15499000" />
-      <workItem from="1698678467270" duration="1774000" />
-      <workItem from="1698793896986" duration="10992000" />
+      <workItem from="1697470408526" duration="932000" />
+      <workItem from="1699935327245" duration="17000" />
+      <workItem from="1700600533306" duration="1533000" />
+      <workItem from="1701211042206" duration="1547000" />
+      <workItem from="1701212596190" duration="8736000" />
+      <workItem from="1701361826518" duration="1292000" />
+      <workItem from="1701630238919" duration="685000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -210,6 +223,73 @@
       <option name="project" value="LOCAL" />
       <updated>1697314979156</updated>
     </task>
+<<<<<<< HEAD
+    <task id="LOCAL-00011" summary="added a fix to scheduler but im not sure how to test it">
+      <option name="closed" value="true" />
+      <created>1699288172860</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1699288172860</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added a fix to scheduler but im not sure how to test it">
+      <option name="closed" value="true" />
+      <created>1699297831298</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1699297831298</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added a fix to scheduler but im not sure how to test it">
+      <option name="closed" value="true" />
+      <created>1699461037836</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1699461037836</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added a fix to scheduler but im not sure how to test it">
+      <option name="closed" value="true" />
+      <created>1699461405203</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1699461405203</updated>
+    </task>
+    <task id="LOCAL-00015" summary="added a fix to scheduler but im not sure how to test it">
+      <option name="closed" value="true" />
+      <created>1699461709625</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1699461709625</updated>
+    </task>
+    <task id="LOCAL-00016" summary="added a fix to scheduler but im not sure how to test it">
+      <option name="closed" value="true" />
+      <created>1699935336144</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1699935336144</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fixed leave triggers">
+      <option name="closed" value="true" />
+      <created>1701237374422</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1701237374422</updated>
+    </task>
+    <task id="LOCAL-00018" summary="readded preview">
+      <option name="closed" value="true" />
+      <created>1701237614278</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1701237614278</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+=======
     <task id="LOCAL-00011" summary="done tasks such as save to file, add ms to times, made it so you can set a duration for the game">
       <option name="closed" value="true" />
       <created>1697471366956</created>
@@ -243,6 +323,7 @@
       <updated>1698864857711</updated>
     </task>
     <option name="localTasksCounter" value="15" />
+>>>>>>> main
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,8 +345,15 @@
     <MESSAGE value="adding tool tip and side bar pull out" />
     <MESSAGE value="good save spot" />
     <MESSAGE value="done takss such as save to file, add ms to times, made it so you can set a duration for the game" />
+<<<<<<< HEAD
+    <MESSAGE value="added a fix to scheduler but im not sure how to test it" />
+    <MESSAGE value="fixed leave triggers" />
+    <MESSAGE value="readded preview" />
+    <option name="LAST_COMMIT_MESSAGE" value="readded preview" />
+=======
     <MESSAGE value="done tasks such as save to file, add ms to times, made it so you can set a duration for the game" />
     <MESSAGE value="SAVING" />
     <option name="LAST_COMMIT_MESSAGE" value="SAVING" />
+>>>>>>> main
   </component>
 </project>

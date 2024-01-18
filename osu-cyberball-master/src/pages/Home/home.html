@@ -82,7 +82,7 @@
                         <label>Throws Elapsed Leave Threshold/Variance</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
+                            <input type= "number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
                             <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()"/>
                         </div>
                     </div>
@@ -125,12 +125,12 @@
                     <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
 </div>
                 <!-- CPUs Tab -->
-                <div if.bind="activeTab === 'cpus'" class="tabcontent">
-                    <div class="tab">
+                <div if.bind="activeTab === 'cpus'">
+                    <div class="tab-container">
                         <button repeat.for="cpu of settings.computerPlayers"
-                                class="tablinks ${$index === activeCPUTab ? 'active' : ''}"
+                                class="tab ${$index === activeCPUTab ? 'active' : ''}"
                                 click.delegate="activeCPUTab = $index">
-                            CPU ${$index + 1}
+                            Player ${$index + 2}
                         </button>
                     </div>
                     <h2>
@@ -229,7 +229,7 @@
                             <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
+                                <input type='number' value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
                                 <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()"/>
                                 <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()"/>
                             </div>
@@ -330,7 +330,14 @@
 
                     <div class="input" if.bind="settings.useSchedule">
                         <label>Schedule</label>
-                        <textarea value.bind="settings.scheduleArray & updateTrigger:'blur'"></textarea>
+                        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+                        <textarea value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
+                    </div>
+
+                    <div class="input" >
+                        <label>Change Color</label>
+                        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+                        <input type="checkbox" checked.bind="settings.changeColor"/>
                     </div>
 
                     <div class="input">
@@ -382,14 +389,9 @@
                         &#8250;
                     </a>
                 </div>
-
             </div>
-</div>
-
+            </div>
         </div>
-
-
-
     </div>
 
     <div class="modal" if.bind="showFileModal">
