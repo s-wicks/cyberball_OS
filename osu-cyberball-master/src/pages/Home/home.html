@@ -282,7 +282,16 @@
                 <!-- Gameplay Tab -->
                 <div if.bind="activeTab === 'gameplay'" class="tabcontent">
                     <h2>Gameplay</h2>
-
+                    <div clas="input">
+                    <form>
+                        <label for="selectedGameOverCondition">Select game end condition:</label>
+                        <select id="selectedGameOverCondition" value.bind="selectedGameOverCondition">
+                            <option value="time">Throw Count</option>
+                            <option value="score">Time Limit</option>
+                            <option value="allCpuLeft">All CPU's Left</option>
+                        </select>
+                    </form>
+                    </div>
                     <div class="input">
                         <label>Throw Count</label>
                         <input type="number" value.bind="settings.throwCount" />

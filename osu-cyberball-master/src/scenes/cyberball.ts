@@ -296,6 +296,13 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     public update() {
+        //checks game ending conditions
+        if (this.absentPlayers.length >= this.settings.computerPlayers.length) {
+            this.gameOver();
+            return;
+        }
+
+
         if(this.gameEnded)
             return;
 
@@ -688,11 +695,8 @@ export class CyberballScene extends Phaser.Scene {
             console.log('distribute after', i, cpu.targetPreference);
         });
 
-        // // If there is only one player left, end the game:
-        // if (this.absentPlayers.length >= this.settings.computerPlayers.length) {
-        //     this.gameOver();
-        //     return;
-        // }
+        // If there is only one player left, end the game:
+
 
         // Check if this triggers other players leaving:
 

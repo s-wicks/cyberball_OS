@@ -8,7 +8,20 @@ body {
     margin: 0;
     padding: 0;
 }
+select {
+    width: 50%; /* Make the select box full width */
+    padding: 8px; /* Add some padding */
+    margin: 10px 0; /* Add some margin above and below the select box */
+    display: inline-block; /* Ensure the select box does not fill the entire width */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Add some rounded corners */
+    box-sizing: border-box; /* Adjust the box-sizing */
+}
 
+label {
+    margin-bottom: 5px;
+    display: inline-block;
+}
 iframe {
     transform: scale(3) translate(-50px, -50px);
     transform-origin: 100px 100px;

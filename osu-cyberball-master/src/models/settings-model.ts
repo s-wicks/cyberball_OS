@@ -15,8 +15,9 @@ export class SettingsModel {
     useSchedule: boolean = false;
     changeColor: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
-    schedule: Map<number, Array<number>>; 
+    schedule: Map<number, Array<number>>;
     scheduleText:string;
+    selectedGameOverCondition: string = 'throwCount';
 
     // Graphics
     baseUrl: string = './assets';
