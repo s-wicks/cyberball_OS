@@ -1377,6 +1377,8 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
             if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & leave_trigger_1.LeaveTrigger.Turn) === leave_trigger_1.LeaveTrigger.Turn) {
                 var leaveThrows = this.getVariantValue(this.settings.player.leaveTurn, this.settings.player.leaveTurnVariance);
                 if (this.throwCount >= leaveThrows) {
+                    console.log("throwcount: " + this.throwCount);
+                    console.log("leave throws:" + leaveThrows);
                     this.showPlayerLeave = true;
                     this.postEvent('player-may-leave', {
                         reason: 'throws elapsed'
@@ -1587,8 +1589,8 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
         };
         CyberballScene.prototype.postEvent = function (type, data) {
             if (data === void 0) { data = {}; }
-            console.log('post event: ' + type, data);
-            window.parent.postMessage(__assign({ type: type }, data), '*');
+            console.log('post event: top, specified origin ' + type, data);
+            window.top.postMessage(__assign({ type: type }, data), 'https://osunewarkcotc.az1.qualtrics.com');
         };
         return CyberballScene;
     }(phaser_1.default.Scene));
