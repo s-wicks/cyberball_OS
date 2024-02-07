@@ -1,0 +1,91 @@
+<template>
+    <require from="resources/value-converters/json-value-converter"></require>
+    <require from="resources/value-converters/integer-value-converter"></require>
+    <require from="resources/value-converters/number-value-converter"></require>
+    <require from="resources/value-converters/integer-array-value-converter"></require>
+    <require from="resources/value-converters/flag-value-converter"></require>
+
+    <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('playerHeader')">?</span>
+    </h2>
+    <div class="two-column-grid">
+        <label>Name</label>
+        <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
+
+
+            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
+            <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
+
+        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span></label>
+        <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
+                change.delegate="updateUrl()"/>
+    </div>
+    <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
+    <div class="three-column-grid">
+        <input type="checkbox"
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
+        Throws Elapsed <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
+        <input type="checkbox"
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
+        Time
+        Elapsed
+        <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
+        <input type="checkbox"
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
+        Throws Ignored
+        <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
+        <input type="checkbox"
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
+        Time
+        Ignored
+        <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
+        <input type="checkbox"
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
+        Other
+        Players Leaving
+        <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
+    </div>
+
+    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">
+        <label>Throws Elapsed Leave Threshold/Variance</label>
+
+        <div>
+            <input type= "number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()"/>
+        </div>
+    </div>
+
+    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
+        <label>Time Elapsed Leave (s) Threshold/Variance (s)</label>
+
+        <div>
+            <input type="number" value.bind="settings.player.leaveTime" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveTimeVariance" input.delegate="updateUrl()"/>
+        </div>
+    </div>
+
+    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4">
+        <label>Ignored Throws Leave Threshold/Variance</label>
+
+        <div>
+            <input type="number" value.bind="settings.player.leaveIgnored" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveIgnoredVariance" input.delegate="updateUrl()"/>
+        </div>
+    </div>
+
+    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
+        <label>Ignored Time Leave (ms) Threshold/Variance (ms)</label>
+
+        <div>
+            <input type="number" value.bind="settings.player.leaveTimeIgnored" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
+        </div>
+    </div>
+
+    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8">
+        <label>Others Left Leave Threshold</label>
+
+        <div>
+            <input type="number" value.bind="settings.player.leaveOtherLeaver" input.delegate="updateUrl()"/>
+        </div>
+    </div>
+</template>
