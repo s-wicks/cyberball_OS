@@ -8,399 +8,322 @@
     <require from="../LandingPage/LandingPage.css"></require>
 
     <div class="landing-page">
+        <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
+        <h1 class="configHeader">Cyberball Configuration Builder</h1>
+        <div class="container">
 
-        <div>
-            <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
-            <h1 class="configHeader">Cyberball Configuration Builder</h1>
-            <div class="flex-container">
-                <div class="iframe-wrapper">
-                <iframe id="gamePreview"></iframe>
+            <!-- Player Tab -->
+            <div if.bind="activeTab === 'player'" class="tabcontent">
+
+                <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('playerHeader')">?</span>
+                </h2>
+                <div class="two-column-grid">
+                    <label>Name</label>
+                    <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
+
+
+                        <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
+                        <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
+
+                    <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span></label>
+                    <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
+                            change.delegate="updateUrl()"/>
+                </div>
+                <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
+                <div class="three-column-grid">
+                    <input type="checkbox"
+                            checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
+                    Throws Elapsed <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
+                    <input type="checkbox"
+                            checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
+                    Time
+                    Elapsed
+                    <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
+                    <input type="checkbox"
+                            checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
+                    Throws Ignored
+                    <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
+                    <input type="checkbox"
+                            checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
+                    Time
+                    Ignored
+                    <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
+                    <input type="checkbox"
+                            checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
+                    Other
+                    Players Leaving
+                    <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
+                </div>
+
+                <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">
+                    <label>Throws Elapsed Leave Threshold/Variance</label>
+
+                    <div>
+                        <input type= "number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
+                        <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()"/>
+                    </div>
+                </div>
+
+                <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
+                    <label>Time Elapsed Leave (s) Threshold/Variance (s)</label>
+
+                    <div>
+                        <input type="number" value.bind="settings.player.leaveTime" input.delegate="updateUrl()"/>
+                        <input type="number" value.bind="settings.player.leaveTimeVariance" input.delegate="updateUrl()"/>
+                    </div>
+                </div>
+
+                <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4">
+                    <label>Ignored Throws Leave Threshold/Variance</label>
+
+                    <div>
+                        <input type="number" value.bind="settings.player.leaveIgnored" input.delegate="updateUrl()"/>
+                        <input type="number" value.bind="settings.player.leaveIgnoredVariance" input.delegate="updateUrl()"/>
+                    </div>
+                </div>
+
+                <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
+                    <label>Ignored Time Leave (ms) Threshold/Variance (ms)</label>
+
+                    <div>
+                        <input type="number" value.bind="settings.player.leaveTimeIgnored" input.delegate="updateUrl()"/>
+                        <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
+                    </div>
+                </div>
+
+                <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8">
+                    <label>Others Left Leave Threshold</label>
+
+                    <div>
+                        <input type="number" value.bind="settings.player.leaveOtherLeaver" input.delegate="updateUrl()"/>
+                    </div>
+                </div>
             </div>
-            <div class="container">
+                <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
+            <!-- CPUs Tab -->
+            <div if.bind="activeTab === 'cpus'">
+                <div class="tab-container">
+                    <button repeat.for="cpu of settings.computerPlayers"
+                            class="tab ${$index === activeCPUTab ? 'active' : ''}"
+                            click.delegate="activeCPUTab = $index">
+                        Player ${$index + 2}
+                    </button>
+                </div>
+                <h2>
+                    CPUs <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('cpus')">?</span>
+                </h2>
+                <div class="cpuButtons">
+                    <button class="bottom-buttons" click.delegate="addCPU()">+ Add CPU</button>
+                    <button class="bottom-buttons ${settings.computerPlayers.length == 1 ? 'disabled' : ''}"
+                            click.delegate="removeCPU()">- Remove CPU
+                    </button>
+                </div>
 
-                <!-- Player Tab -->
-                <div if.bind="activeTab === 'player'" class="tabcontent">
+                <!-- Sub-tabs for each CPU -->
 
-                    <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('playerHeader')">?</span>
-                    </h2>
-                    <div style="position: relative; z-index: 1;">
 
-                    <div class="input">
+                <!-- Details for each CPU -->
+                <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
+                    <div class="two-column-grid">
                         <label>Name</label>
-                        <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
+                        <input type="text" value.bind="cpu.name" input.delegate="previewGame()" input.delegate="updateUrl()"/>
+
+                        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span> </label>
+                        <input type="color" value.bind="cpu.tint" input.delegate="updateUrl()"
+                                change.delegate="updateUrl()"/>
+
+                        <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
+                        <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
+
+                        <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwDelay')">?</span></label>
+                        <input type="number" value.bind="cpu.throwDelay" placeholder="Enter delay in milliseconds" class="ms-input" input.delegate="updateUrl()"/>
+
+                        <label>Throw Delay Variance (ms)</label>
+                        <input type="number" value.bind="cpu.throwDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
+
+                        <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('catchDelay')">?</span></label>
+                        <input type="number" value.bind="cpu.catchDelay" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
+
+                        <label>Catch Delay Variance (ms) </label>
+                        <input type="number" value.bind="cpu.catchDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
+
 
                     </div>
-
-                        <div class="input">
-                            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-                            <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
-                        </div>
-
-                    <div class="input">
-                        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span></label>
-                        <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
-                               change.delegate="updateUrl()"/>
+                    
+                    <label>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span></label>
+                    <div>
+                        <input repeat.for="target of cpu.targetPreference" type="number"
+                                value.bind="cpu.targetPreference[$index]" input.delegate="updateUrl()"/>
                     </div>
 
                     <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
-                    <div class="column">
-                        <label>
-                            <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
-                            Throws Elapsed <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
-                        </label>
-                        <label>
-                            <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
-                            Time
+                    <div class="three-column-grid">
+                            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1" input.delegate="updateUrl()"/>
+                            Throws
+                            Elapsed
+                            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
+                            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2" input.delegate="updateUrl()"/> Time
                             Elapsed
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
-                        </label>
-                        <label>
-                            <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
-                            Throws Ignored
+                            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4" input.delegate="updateUrl()"/>
+                            Throws
+                            Ignored
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
-                        </label>
-                        <label>
-                            <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
-                            Time
+                            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16" input.delegate="updateUrl()"/> Time
                             Ignored
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
-                        </label>
-                        <label>
-                            <input type="checkbox"
-                                   checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
-                            Other
+                            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8" input.delegate="updateUrl()"/> Other
                             Players Leaving
                             <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
-                        </label>
                     </div>
 
-                    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">
-                        <label>Throws Elapsed Leave Threshold/Variance</label>
+                    <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">
+                        <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
 
                         <div>
-                            <input type= "number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
-                            <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()"/>
+                            <input type='number' value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
-                    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
-                        <label>Time Elapsed Leave (s) Threshold/Variance (s)</label>
+                    <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">
+                        <label>Time Elapsed Leave (s) Threshold/Variance/Chance (s)</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveTime" input.delegate="updateUrl()"/>
-                            <input type="number" value.bind="settings.player.leaveTimeVariance" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTime" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTimeVariance" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTimeChance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
-                    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4">
-                        <label>Ignored Throws Leave Threshold/Variance</label>
+                    <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4">
+                        <label>Ignored Throws Leave Threshold/Variance/Chance</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveIgnored" input.delegate="updateUrl()"/>
-                            <input type="number" value.bind="settings.player.leaveIgnoredVariance" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveIgnored" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveIgnoredVariance" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveIgnoredChance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
-                    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
-                        <label>Ignored Time Leave (ms) Threshold/Variance (ms)</label>
+                    <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">
+                        <label>Ignored Time Leave (ms) Threshold/Variance/Chance (ms)</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveTimeIgnored" input.delegate="updateUrl()"/>
-                            <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTimeIgnored" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveTimeIgnoredChance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
 
-                    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8">
-                        <label>Others Left Leave Threshold</label>
+                    <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8">
+                        <label>Others Left Leave Threshold/Chance</label>
 
                         <div>
-                            <input type="number" value.bind="settings.player.leaveOtherLeaver" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveOtherLeaver" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.leaveOtherLeaverChance" input.delegate="updateUrl()"/>
                         </div>
                     </div>
-                </div>
-                    <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
-</div>
-                <!-- CPUs Tab -->
-                <div if.bind="activeTab === 'cpus'">
-                    <div class="tab-container">
-                        <button repeat.for="cpu of settings.computerPlayers"
-                                class="tab ${$index === activeCPUTab ? 'active' : ''}"
-                                click.delegate="activeCPUTab = $index">
-                            Player ${$index + 2}
-                        </button>
-                    </div>
-                    <h2>
-                        CPUs <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('cpus')">?</span>
-                    </h2>
-                    <div class="cpuButtons">
-                        <button class="bottom-buttons" click.delegate="addCPU()">+ Add CPU</button>
-                        <button class="bottom-buttons ${settings.computerPlayers.length == 1 ? 'disabled' : ''}"
-                                click.delegate="removeCPU()">- Remove CPU
-                        </button>
-                    </div>
 
-                    <!-- Sub-tabs for each CPU -->
-
-
-                    <!-- Details for each CPU -->
-                    <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
-                        <div class="input">
-                            <label>Name</label>
-                            <input type="text" value.bind="cpu.name" input.delegate="previewGame()" input.delegate="updateUrl()"/>
-                        </div>
-
-                        <div class="input">
-                            <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span> </label>
-                            <input type="color" value.bind="cpu.tint" input.delegate="updateUrl()"
-                                   change.delegate="updateUrl()"/>
-                        </div>
-
-                        <div class="input">
-                            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-                            <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
-                        </div>
-
-                        <div class="input">
-                            <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwDelay')">?</span></label>
-                            <input type="number" value.bind="cpu.throwDelay" placeholder="Enter delay in milliseconds" class="ms-input" input.delegate="updateUrl()"/>
-                        </div>
-
-                        <div class="input">
-                            <label>Throw Delay Variance (ms)</label>
-                            <input type="number" value.bind="cpu.throwDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
-                        </div>
-
-                        <div class="input">
-                            <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('catchDelay')">?</span></label>
-                            <input type="number" value.bind="cpu.catchDelay" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
-                        </div>
-
-                        <div class="input">
-                            <label>Catch Delay Variance (ms) </label>
-                            <input type="number" value.bind="cpu.catchDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
-                        </div>
-
-
-                        <div class="input">
-                            <label>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span></label>
-
-                            <div>
-                                <input repeat.for="target of cpu.targetPreference" type="number"
-                                       value.bind="cpu.targetPreference[$index]" input.delegate="updateUrl()"/>
-                            </div>
-                        </div>
-
-                        <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
-                        <div class="column">
-                            <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1" input.delegate="updateUrl()"/>
-                                Throws
-                                Elapsed
-                                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
-                            </label>
-                            <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2" input.delegate="updateUrl()"/> Time
-                                Elapsed
-                                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
-                            </label>
-                            <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4" input.delegate="updateUrl()"/>
-                                Throws
-                                Ignored
-                                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
-                            </label>
-                            <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16" input.delegate="updateUrl()"/> Time
-                                Ignored
-                                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
-                            </label>
-                            <label>
-                                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8" input.delegate="updateUrl()"/> Other
-                                Players Leaving
-                                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
-                            </label>
-                        </div>
-
-                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">
-                            <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
-
-                            <div>
-                                <input type='number' value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()"/>
-                            </div>
-                        </div>
-
-                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">
-                            <label>Time Elapsed Leave (s) Threshold/Variance/Chance (s)</label>
-
-                            <div>
-                                <input type="number" value.bind="cpu.leaveTime" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeChance" input.delegate="updateUrl()"/>
-                            </div>
-                        </div>
-
-                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4">
-                            <label>Ignored Throws Leave Threshold/Variance/Chance</label>
-
-                            <div>
-                                <input type="number" value.bind="cpu.leaveIgnored" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveIgnoredVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveIgnoredChance" input.delegate="updateUrl()"/>
-                            </div>
-                        </div>
-
-                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">
-                            <label>Ignored Time Leave (ms) Threshold/Variance/Chance (ms)</label>
-
-                            <div>
-                                <input type="number" value.bind="cpu.leaveTimeIgnored" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeIgnoredChance" input.delegate="updateUrl()"/>
-                            </div>
-                        </div>
-
-                        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8">
-                            <label>Others Left Leave Threshold/Chance</label>
-
-                            <div>
-                                <input type="number" value.bind="cpu.leaveOtherLeaver" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveOtherLeaverChance" input.delegate="updateUrl()"/>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
-                </div>
-
-                <!-- Gameplay Tab -->
-                <div if.bind="activeTab === 'gameplay'" class="tabcontent">
-                    <h2>Gameplay</h2>
-                    <div clas="input">
-                    <form>
-                        <label for="selectedGameOverCondition">Select game end condition:</label>
-                        <select id="selectedGameOverCondition" value.bind="selectedGameOverCondition">
-                            <option value="time">Throw Count</option>
-                            <option value="score">Time Limit</option>
-                            <option value="allCpuLeft">All CPU's Left</option>
-                        </select>
-                    </form>
-                    </div>
-                    <div class="input">
-                        <label>Throw Count</label>
-                        <input type="number" value.bind="settings.throwCount" />
-                    </div>
-
-
-                    <div class="input">
-                        <label>Time Limit (ms) </label>
-                        <input type="number" value.bind="settings.timeLimit"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Display Time Limit</label>
-                        <input type="checkbox" checked.bind="settings.displayTimeLimit" input.delegate="updateUrl()"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Time Limit Label</label>
-                        <input type="text" value.bind="settings.timeLimitText"  input.delegate="updateUrl()"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Ball Speed</label>
-                        <input type="number" value.bind="settings.ballSpeed" input.delegate="updateUrl()"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Ball Tint Color</label>
-                        <input type="color" value.bind="settings.ballTint"  input.delegate="updateUrl()"
-                               change.delegate="updateUrl()"/>
-
-
-
-                    </div>
-
-                    <div class="input">
-                        <label>Portrait Height (px)</label>
-                        <input type="number" value.bind="settings.portraitHeight" input.delegate="updateUrl()"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Use Schedule</label>
-                        <input type="checkbox" checked.bind="settings.useSchedule" input.delegate="updateUrl()"/>
-                    </div>
-
-                    <div class="input" if.bind="settings.useSchedule">
-                        <label>Schedule</label>
-                        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
-                        <textarea value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
-                    </div>
-
-                    <div class="input" >
-                        <label>Change Color</label>
-                        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
-                        <input type="checkbox" checked.bind="settings.changeColor"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Schedule Honors Throw Count</label>
-                        <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount" input.delegate="updateUrl()"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Game Over Text</label>
-                        <input type="text" value.bind="settings.gameOverText" input.delegate="updateUrl()"/>
-                    </div>
-
-                    <div class="input">
-                        <label>Game Over Opacity (%)</label>
-                        <div class="range-container">
-                            <input
-                                type="range"
-                                min="0"
-                                max="100"
-                                step="1"
-                                value.bind="sliderValue"
-                                change.delegate="updateOpacity()"
-                            />
-                            <span class="range-value">${sliderValue}%</span>
-                        </div>
-                        <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
-                    </div>
 
                 </div>
-                <div if.bind="activeTab === 'buttons'" class="tabcontent">
-
-                        <div class="button-container">
-                            <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
-                            <button class="bottom-buttons" click.delegate="saveSettingsToLocalStorage()">&#128190; Save To Preset</button>
-                            <button class="bottom-buttons" click.delegate="saveSettingsToFile()">&#128190; Save To File</button>
-                            <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Link</button>
-                        </div>
-
-
-                    <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
-                </div>
-                <div class="navigation-buttons">
-                    <a href="#" if.bind="activeTab !== 'player'" class="previous round" click.delegate="previousTab()">
-                        &#8249;
-                    </a>
-
-                    <!-- Next Button: Only show if on 'player', 'cpus', or 'gameplay' -->
-                    <a href="#" if.bind="activeTab !== 'buttons'" class="next round" click.delegate="nextTab()">
-                        &#8250;
-                    </a>
-                </div>
+                <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
             </div>
+
+            <!-- Gameplay Tab -->
+            <div if.bind="activeTab === 'gameplay'" class="tabcontent">
+                <h2>Gameplay</h2>
+                <div clas="input">
+                <form>
+                    <label for="selectedGameOverCondition">Select game end condition:</label>
+                    <select id="selectedGameOverCondition" value.bind="selectedGameOverCondition">
+                        <option value="time">Throw Count</option>
+                        <option value="score">Time Limit</option>
+                        <option value="allCpuLeft">All CPU's Left</option>
+                    </select>
+                </form>
+                </div>
+
+                <div class="two-column-grid">
+                    <label>Throw Count</label>
+                    <input type="number" value.bind="settings.throwCount" />
+
+
+                    <label>Time Limit (ms) </label>
+                    <input type="number" value.bind="settings.timeLimit"/>
+
+                    <label>Display Time Limit</label>
+                    <input type="checkbox" checked.bind="settings.displayTimeLimit" input.delegate="updateUrl()"/>
+
+                    <label>Time Limit Label</label>
+                    <input type="text" value.bind="settings.timeLimitText"  input.delegate="updateUrl()"/>
+
+                    <label>Ball Speed</label>
+                    <input type="number" value.bind="settings.ballSpeed" input.delegate="updateUrl()"/>
+
+                    <label>Ball Tint Color</label>
+                    <input type="color" value.bind="settings.ballTint"  input.delegate="updateUrl()"
+                            change.delegate="updateUrl()"/>
+
+                    <label>Portrait Height (px)</label>
+                    <input type="number" value.bind="settings.portraitHeight" input.delegate="updateUrl()"/>
+
+                    <label>Use Schedule</label>
+                    <input type="checkbox" checked.bind="settings.useSchedule" input.delegate="updateUrl()"/>
+
+                    <label if.bind="settings.useSchedule">Schedule</label>
+                    <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+                    <textarea if.bind="settings.useSchedule" value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
+
+                    <label>Change Color</label>
+                    <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+                    <input type="checkbox" checked.bind="settings.changeColor"/>
+
+                    <label>Schedule Honors Throw Count</label>
+                    <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount" input.delegate="updateUrl()"/>
+
+                    <label>Game Over Text</label>
+                    <input type="text" value.bind="settings.gameOverText" input.delegate="updateUrl()"/>
+
+                    <label>Game Over Opacity (%)</label>
+                    <div class="range-container">
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            step="1"
+                            value.bind="sliderValue"
+                            change.delegate="updateOpacity()"
+                        />
+                        <span class="range-value">${sliderValue}%</span>
+                    </div>
+                    <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
+                </div>
+
             </div>
+            <div if.bind="activeTab === 'buttons'" class="tabcontent">
+
+                    <div class="button-container">
+                        <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
+                        <button class="bottom-buttons" click.delegate="saveSettingsToLocalStorage()">&#128190; Save To Preset</button>
+                        <button class="bottom-buttons" click.delegate="saveSettingsToFile()">&#128190; Save To File</button>
+                        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Link</button>
+                    </div>
+
+
+                <button class="refresh-button" click.delegate="refreshIframe()">Refresh Iframe</button>
+            </div>
+            <a href="#" if.bind="activeTab !== 'player'" class="previous round" click.delegate="previousTab()">
+                &#8249;
+            </a>
+
+            <!-- Next Button: Only show if on 'player', 'cpus', or 'gameplay' -->
+            <a href="#" if.bind="activeTab !== 'buttons'" class="next round" click.delegate="nextTab()">
+                &#8250;
+            </a>
         </div>
+        <iframe id="gamePreview"></iframe>
     </div>
 
     <div class="modal" if.bind="showFileModal">
