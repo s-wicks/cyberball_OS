@@ -237,6 +237,12 @@ export class HomeViewModel {
         });
     }
 
+    checkEmptyNumber(e:any) {
+        if (e.target.value.length === 0 && e.target.type === 'number') {
+            e.target.value = "0"
+        }
+    }
+
     updateUrl() {
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
         iframe.src = this.url;

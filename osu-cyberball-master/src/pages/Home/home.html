@@ -166,22 +166,26 @@
 
                         <div class="input">
                             <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwDelay')">?</span></label>
-                            <input type="number" value.bind="cpu.throwDelay" placeholder="Enter delay in milliseconds" class="ms-input" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.throwDelay" placeholder="Enter delay in milliseconds" class="ms-input" input.delegate="updateUrl()"
+                                    blur.trigger="checkEmptyNumber($event)"/>
                         </div>
 
                         <div class="input">
                             <label>Throw Delay Variance (ms)</label>
-                            <input type="number" value.bind="cpu.throwDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.throwDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"
+                                    blur.trigger="checkEmptyNumber($event)"/>
                         </div>
 
                         <div class="input">
                             <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('catchDelay')">?</span></label>
-                            <input type="number" value.bind="cpu.catchDelay" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.catchDelay" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"
+                                    blur.trigger="checkEmptyNumber($event)"/>
                         </div>
 
                         <div class="input">
                             <label>Catch Delay Variance (ms) </label>
-                            <input type="number" value.bind="cpu.catchDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
+                            <input type="number" value.bind="cpu.catchDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"
+                                    blur.trigger="checkEmptyNumber($event)"/>
                         </div>
 
 
@@ -190,7 +194,7 @@
 
                             <div>
                                 <input repeat.for="target of cpu.targetPreference" type="number"
-                                       value.bind="cpu.targetPreference[$index]" input.delegate="updateUrl()"/>
+                                       value.bind="cpu.targetPreference[$index]" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                             </div>
                         </div>
 
@@ -229,9 +233,9 @@
                             <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
 
                             <div>
-                                <input type='number' value.bind="cpu.leaveTurn" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTurn" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                             </div>
                         </div>
 
@@ -239,9 +243,9 @@
                             <label>Time Elapsed Leave (s) Threshold/Variance/Chance (s)</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveTime" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeChance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTime" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveTimeVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveTimeChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                             </div>
                         </div>
 
@@ -249,9 +253,9 @@
                             <label>Ignored Throws Leave Threshold/Variance/Chance</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveIgnored" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveIgnoredVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveIgnoredChance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveIgnored" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveIgnoredVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveIgnoredChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                             </div>
                         </div>
 
@@ -259,9 +263,9 @@
                             <label>Ignored Time Leave (ms) Threshold/Variance/Chance (ms)</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveTimeIgnored" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveTimeIgnoredChance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnored" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnoredVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveTimeIgnoredChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                             </div>
                         </div>
 
@@ -269,8 +273,8 @@
                             <label>Others Left Leave Threshold/Chance</label>
 
                             <div>
-                                <input type="number" value.bind="cpu.leaveOtherLeaver" input.delegate="updateUrl()"/>
-                                <input type="number" value.bind="cpu.leaveOtherLeaverChance" input.delegate="updateUrl()"/>
+                                <input type="number" value.bind="cpu.leaveOtherLeaver" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                                <input type="number" value.bind="cpu.leaveOtherLeaverChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                             </div>
                         </div>
 
@@ -285,13 +289,13 @@
 
                     <div class="input">
                         <label>Throw Count</label>
-                        <input type="number" value.bind="settings.throwCount" />
+                        <input type="number" value.bind="settings.throwCount" blur.trigger="checkEmptyNumber($event)"/>
                     </div>
 
 
                     <div class="input">
                         <label>Time Limit (ms) </label>
-                        <input type="number" value.bind="settings.timeLimit"/>
+                        <input type="number" value.bind="settings.timeLimit" blur.trigger="checkEmptyNumber($event)"/>
                     </div>
 
                     <div class="input">
@@ -306,7 +310,7 @@
 
                     <div class="input">
                         <label>Ball Speed</label>
-                        <input type="number" value.bind="settings.ballSpeed" input.delegate="updateUrl()"/>
+                        <input type="number" value.bind="settings.ballSpeed" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                     </div>
 
                     <div class="input">
@@ -320,7 +324,7 @@
 
                     <div class="input">
                         <label>Portrait Height (px)</label>
-                        <input type="number" value.bind="settings.portraitHeight" input.delegate="updateUrl()"/>
+                        <input type="number" value.bind="settings.portraitHeight" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
                     </div>
 
                     <div class="input">
