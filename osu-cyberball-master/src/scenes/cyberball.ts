@@ -457,8 +457,6 @@ export class CyberballScene extends Phaser.Scene {
         if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Turn) === LeaveTrigger.Turn) {
             let leaveThrows = this.getVariantValue(this.settings.player.leaveTurn, this.settings.player.leaveTurnVariance);
             if (this.throwCount >= leaveThrows) {
-                console.log("throwcount: " + this.throwCount);
-                console.log("leave throws:" + leaveThrows);
                 this.showPlayerLeave = true;
                 this.postEvent('player-may-leave', {
                     reason: 'throws elapsed'
@@ -808,10 +806,11 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     postEvent(type: string, data: any = {}): void {
-        console.log('post event: top, specified origin ' + type, data);
+        console.log('post event: ' + type, data);
+
         window.parent.postMessage({
             type: type,
             ...data
-        }, 'https://osunewarkcotc.az1.qualtrics.com');
+        }, '*');
     }
 }
