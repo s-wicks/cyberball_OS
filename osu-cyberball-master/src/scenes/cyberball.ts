@@ -809,7 +809,7 @@ export class CyberballScene extends Phaser.Scene {
     postEvent(type: string, data: any = {}): void {
         console.log('post event: ' + type, data);
 
-        window.top.postMessage({
+        window.parent.postMessage({
             type: type,
             ...data
         }, '*');
