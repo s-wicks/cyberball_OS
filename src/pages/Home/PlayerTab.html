@@ -1,4 +1,5 @@
 <template>
+<div if.bind="activeTab === 'player'" class="tabcontent">
     <require from="resources/value-converters/json-value-converter"></require>
     <require from="resources/value-converters/integer-value-converter"></require>
     <require from="resources/value-converters/number-value-converter"></require>
@@ -88,4 +89,5 @@
             <input type="number" value.bind="settings.player.leaveOtherLeaver" input.delegate="updateUrl()"/>
         </div>
     </div>
+</div>
 </template>

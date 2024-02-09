@@ -1,4 +1,5 @@
 <template>
+<div if.bind="activeTab === 'gameplay'" class="tabcontent">
     <h2>Gameplay</h2>
     <div clas="input">
     <form>
@@ -65,4 +66,5 @@
             <span class="range-value">${sliderValue}%</span>
         </div>
     </div>
+</div>
 </template>

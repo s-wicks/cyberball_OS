@@ -1,4 +1,5 @@
 <template>
+<div if.bind="activeTab === 'buttons'" class="tabcontent">
     <div class="button-container">
         <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
         <button class="bottom-buttons" click.delegate="saveSettingsToLocalStorage()">&#128190; Save To Preset</button>
@@ -38,4 +39,5 @@
             </div>
         </div>
     </div>
+</div>
 </template>
