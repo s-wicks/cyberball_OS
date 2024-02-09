@@ -323,7 +323,9 @@ export class CyberballScene extends Phaser.Scene {
         }
 
 
-
+        this.postEvent('player-may-leave', {
+            reason: "time elapsed"
+        });
 
 this.postEvent("why is leaveTime Not working", {
     showPlayerLeave: !this.showPlayerLeave,
@@ -334,7 +336,7 @@ this.postEvent("why is leaveTime Not working", {
     playerSpriteLeaveTimeData: this.playerSprite.getData('leaveTime'),
     wholeCheck: !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
         Date.now() > this.playerSprite.getData('leaveTime')
-})
+});
         if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
                 Date.now() > this.playerSprite.getData('leaveTime')) {
             this.showPlayerLeave = true;
