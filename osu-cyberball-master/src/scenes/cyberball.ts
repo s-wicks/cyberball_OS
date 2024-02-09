@@ -322,8 +322,19 @@ export class CyberballScene extends Phaser.Scene {
             });
         }
 
-        // Player may leave after time has passed:
 
+
+
+this.postEvent("why is leaveTime Not working", {
+    showPlayerLeave: !this.showPlayerLeave,
+    settingsPlayerLeaveTrigger: this.settings.player.leaveTrigger,
+    leaveTriggerTime: LeaveTrigger.Time,
+    bitWiseCheck: (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time,
+    nowDate: Date.now(),
+    playerSpriteLeaveTimeData: this.playerSprite.getData('leaveTime'),
+    wholeCheck: !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
+        Date.now() > this.playerSprite.getData('leaveTime')
+})
         if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
                 Date.now() > this.playerSprite.getData('leaveTime')) {
             this.showPlayerLeave = true;
@@ -333,7 +344,7 @@ export class CyberballScene extends Phaser.Scene {
 
         }
         // Player may leave after ignored for a time:
-        else if (!this.playerHasBall && !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored &&
+        else if (!this.playerHasBall && !this.showPlayerLeave && ( this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored)=== LeaveTrigger.TimeIgnored &&
                     Date.now() > this.playerSprite.getData('leaveTimeIgnored')) {
             this.showPlayerLeave = true;
             this.postEvent('player-may-leave', {

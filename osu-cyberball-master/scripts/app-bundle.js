@@ -1588,7 +1588,7 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
         CyberballScene.prototype.postEvent = function (type, data) {
             if (data === void 0) { data = {}; }
             console.log('post event: ' + type, data);
-            window.top.postMessage(__assign({ type: type }, data), '*');
+            window.parent.postMessage(__assign({ type: type }, data), '*');
         };
         return CyberballScene;
     }(phaser_1.default.Scene));
