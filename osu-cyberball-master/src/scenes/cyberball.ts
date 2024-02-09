@@ -323,10 +323,6 @@ export class CyberballScene extends Phaser.Scene {
         }
 
 
-        this.postEvent('player-may-leave', {
-            reason: "time elapsed"
-        });
-
 this.postEvent("why is leaveTime Not working", {
     showPlayerLeave: !this.showPlayerLeave,
     settingsPlayerLeaveTrigger: this.settings.player.leaveTrigger,
@@ -343,7 +339,6 @@ this.postEvent("why is leaveTime Not working", {
             this.postEvent('player-may-leave', {
                 reason: "time elapsed"
             });
-
         }
         // Player may leave after ignored for a time:
         else if (!this.playerHasBall && !this.showPlayerLeave && ( this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored)=== LeaveTrigger.TimeIgnored &&
