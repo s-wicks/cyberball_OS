@@ -289,7 +289,7 @@ export class HomeViewModel {
 
     updatePreviewOnInputChange() {     // alter ???????????????????????
         // Get all the input elements inside the input divs
-        const inputElements = document.querySelectorAll('.input input');
+        const inputElements = document.querySelectorAll('input');
 
         // Attach the previewGame function to the input change event of each input element
         inputElements.forEach(input => {
