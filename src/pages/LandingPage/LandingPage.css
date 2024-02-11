@@ -22,7 +22,9 @@ body {
 
 iframe {
     border: none;
-    height: 500px;
+    width: 80%;
+    aspect-ratio: 2;
+    margin: 2em;
 }
 
 .welcome-image {

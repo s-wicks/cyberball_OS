@@ -49,10 +49,6 @@ export class HomeViewModel {
 
     bind() {
         this.clipboard = new ClipboardJS('#copy');
-
-        setTimeout(() => {
-            this.previewGame();
-        }, 0);
     }
 
     unbind() {
@@ -219,24 +215,6 @@ export class HomeViewModel {
         navigator.clipboard.writeText(iframeString);
     }
 
-    setupButtons() {
-        // Get the start preview button and attach the event
-        const startPreviewButton = document.getElementById('startPreview');
-        startPreviewButton.addEventListener('click', () => {
-            this.previewGame();
-        });
-
-        // Get the refresh preview button and attach the event
-        const refreshPreviewButton = document.getElementById('refreshPreview');
-        refreshPreviewButton.addEventListener('click', () => {
-            const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
-            iframe.src = 'about:blank';
-            setTimeout(() => {
-                iframe.src = this.url;
-            }, 100);
-        });
-    }
-
     updateUrl() {
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
         iframe.src = this.url;
@@ -281,23 +259,9 @@ export class HomeViewModel {
         if (this.settingsService.settings) {
             this.settings = this.settingsService.settings;
         }
-        this.setupButtons();
-        this.updatePreviewOnInputChange();
+        this.previewGame();
     }
 
-    // ... rest of your class methods ...
-
-    updatePreviewOnInputChange() {     // alter ???????????????????????
-        // Get all the input elements inside the input divs
-        const inputElements = document.querySelectorAll('input');
-
-        // Attach the previewGame function to the input change event of each input element
-        inputElements.forEach(input => {
-            input.addEventListener('input', () => {
-                this.previewGame();
-            });
-        });
-    }
     convertToMap(str: string): Map<number, number[]> {
         const lines = str.split('\n');
         const map = new Map<number, number[]>();
