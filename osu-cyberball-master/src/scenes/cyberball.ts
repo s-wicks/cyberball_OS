@@ -180,7 +180,7 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         if((this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time) {
-            this.playerSprite.setData('leaveTime', Date.now() + this.getVariantValue(this.settings.player.leaveTime, this.settings.player.leaveTimeVariance) * 1000);
+            this.playerSprite.setData('leaveTime', Date.now() + this.settings.player.leaveTime * 1000);
         }
 
         if((this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored) {
