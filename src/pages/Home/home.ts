@@ -215,7 +215,15 @@ export class HomeViewModel {
         navigator.clipboard.writeText(iframeString);
     }
 
-    updateUrl() {
+    checkEmptyNumber(e: FocusEvent): void {
+        let inputElement = (e.target as HTMLInputElement);
+        if (inputElement.value.length === 0 && inputElement.type === 'number') {
+            inputElement.value = "0";
+        }
+        console.log("Test");
+    }
+
+    updateUrl(): void {
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
         iframe.src = this.url;
     }

@@ -58,8 +58,8 @@
         <label>Throws Elapsed Leave Threshold/Variance</label>
 
         <div>
-            <input type= "number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()"/>
+            <input type= "number" value.bind="settings.player.leaveTurn" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            <input type="number" value.bind="settings.player.leaveTurnVariance"  input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
         </div>
     </div>
 
@@ -67,8 +67,8 @@
         <label>Time Elapsed Leave (s) Threshold/Variance (s)</label>
 
         <div>
-            <input type="number" value.bind="settings.player.leaveTime" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveTimeVariance" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveTime" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            <input type="number" value.bind="settings.player.leaveTimeVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
         </div>
     </div>
 
@@ -76,8 +76,8 @@
         <label>Ignored Throws Leave Threshold/Variance</label>
 
         <div>
-            <input type="number" value.bind="settings.player.leaveIgnored" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveIgnoredVariance" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveIgnored" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            <input type="number" value.bind="settings.player.leaveIgnoredVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
         </div>
     </div>
 
@@ -85,8 +85,8 @@
         <label>Ignored Time Leave (ms) Threshold/Variance (ms)</label>
 
         <div>
-            <input type="number" value.bind="settings.player.leaveTimeIgnored" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveTimeIgnored" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
         </div>
     </div>
 
@@ -94,7 +94,7 @@
         <label>Others Left Leave Threshold</label>
 
         <div>
-            <input type="number" value.bind="settings.player.leaveOtherLeaver" input.delegate="updateUrl()"/>
+            <input type="number" value.bind="settings.player.leaveOtherLeaver" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
         </div>
     </div>
 </div>
