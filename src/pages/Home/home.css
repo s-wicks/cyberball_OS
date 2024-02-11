@@ -1,11 +1,3 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f7f7f7;
-    color: #181818;
-    margin: 0;
-    padding: 0;
-}
-
 select {
     border: 1px solid #ccc; /* Add a border */
     border-radius: 4px; /* Add some rounded corners */
@@ -46,10 +38,6 @@ a:hover {
 
 .button-container button {
     margin: 0.3em;
-}
-
-.tooltip-icon {
-    margin-right: 1px;
 }
 
 .h2-tooltip {
@@ -106,21 +94,18 @@ a:hover {
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
-/* Container for the tabs */
 
 /* Container for the tabs */
 .tab-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: flex-start;
 }
 
 /* Individual tabs */
 .tab {
     padding: 10px 15px; /* Adjust padding to your preference */
     margin: 0;
-    flex: 0 0 20%;
     box-sizing: border-box;
     background-color: #007bff; /* This is a generic blue, replace with your specific blue color */
     border: none; /* Remove default border */
@@ -150,51 +135,6 @@ a:hover {
     }
 }
 
-
-
-.tablinks:first-child {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.tablinks {
-    padding: 10px 15px;
-    margin-bottom: -2px;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    cursor: pointer;
-    background-color: #e0e0e0;
-    transition: background-color 0.3s;
-}
-
-.tablinks:not(:last-child) {
-    margin-right: 5px;
-}
-
-.tablinks:hover {
-    background-color: #d0d0d0;
-}
-
-.tablinks.active {
-    background-color: #007BFF;
-    font-weight: bold;
-    border-color: #007BFF;
-    color: white;
-}
-
-.bottom-buttons.disabled {
-    background-color: #a5a5a5;
-    cursor: not-allowed;
-    pointer-events: none;
-    color: #777777;
-}
-
-.tablinks:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
-}
-
 iframe {
     pointer-events: auto;
 }
@@ -209,13 +149,13 @@ iframe {
     text-align: center;
     line-height: 20px;
     cursor: pointer;
-
 }
 
-.cpuButtons{
+.cpuButtons {
     margin-bottom: 10px;
 }
-.configHeader{
+
+.configHeader {
     text-align: center;
 }
 
@@ -278,4 +218,24 @@ iframe {
     margin-top: 20px;
 }
 
+.two-column-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
 
+.two-column-grid * {
+    margin: 0.2em 0.5em;
+}
+
+input[type="checkbox"] {
+    margin-right: auto;
+}
+
+.target-preference-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.target-preference-list input {
+    width: fit-content;
+}

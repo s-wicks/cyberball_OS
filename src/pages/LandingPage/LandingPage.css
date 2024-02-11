@@ -1,30 +1,23 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    align-items: center;
-    justify-content: center;
     background-color: #f7f7f7;
 }
 
-.two-column-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.three-column-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
 .container {
-    width: 80%;
-    text-align: center;
+    min-width: 20%;
+    max-width: 80%;
+    width: max-content;
     background-color: #ffffff;
     padding: 50px;
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
     position: relative;
+}
+
+.container h2 {
+    text-align: center;
 }
 
 iframe {
@@ -38,7 +31,6 @@ iframe {
     margin: 0 auto;
     padding: 1em;
 }
-
 
 h1 {
     margin-bottom: 30px;
