@@ -398,7 +398,9 @@ export class HomeViewModel {
     }
 
 
-
+    showModal2(event) {
+        event.target.parentElement.nextElementSibling.showModal();
+    }
 
 
 

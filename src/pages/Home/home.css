@@ -159,6 +159,13 @@ iframe {
     text-align: center;
 }
 
+dialog.new-sidebar {
+    margin: auto;
+    border: none;
+    box-shadow: 5px 5px 10px 0 black;
+}
+
+
 .sidebar {
     position: fixed;
     top: 0;
