@@ -179,6 +179,13 @@ export class CyberballScene extends Phaser.Scene {
             image.setScale(this.settings.portraitHeight / image.height);
         }
 
+        this.postEvent("leaveTimeDataCreate", {
+            nowDate: Date.now(),
+            settingsPlayerLeaveTime: this.settings.player.leaveTime,
+            leaveTimeMultiplied: this.settings.player.leaveTime * 1000,
+            total: Date.now() + this.settings.player.leaveTime * 1000
+        });
+
         if((this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time) {
             this.playerSprite.setData('leaveTime', Date.now() + this.settings.player.leaveTime * 1000);
         }
