@@ -1,0 +1,145 @@
+<template>
+<div if.bind="activeTab === 'cpus'">
+    <require from="resources/value-converters/json-value-converter"></require>
+    <require from="resources/value-converters/integer-value-converter"></require>
+    <require from="resources/value-converters/number-value-converter"></require>
+    <require from="resources/value-converters/integer-array-value-converter"></require>
+    <require from="resources/value-converters/flag-value-converter"></require>
+    
+    <div class="tab-container">
+        <button repeat.for="cpu of settings.computerPlayers"
+                class="tab ${$index === activeCPUTab ? 'active' : ''}"
+                click.delegate="activeCPUTab = $index">
+            Player ${$index + 2}
+        </button>
+    </div>
+    <h2>
+        CPUs <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('cpus')">?</span>
+    </h2>
+    <div class="cpuButtons">
+        <button class="bottom-buttons" click.delegate="addCPU()">+ Add CPU</button>
+        <button class="bottom-buttons ${settings.computerPlayers.length == 1 ? 'disabled' : ''}"
+                click.delegate="removeCPU()">- Remove CPU
+        </button>
+    </div>
+    <!-- Sub-tabs for each CPU -->
+
+
+    <!-- Details for each CPU -->
+    <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
+        <div class="two-column-grid">
+            <label>Name</label>
+            <input type="text" value.bind="cpu.name" input.delegate="previewGame()" input.delegate="updateUrl()"/>
+
+            <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span> </label>
+            <input type="color" value.bind="cpu.tint" input.delegate="updateUrl()"
+                    change.delegate="updateUrl()"/>
+
+            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
+            <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
+
+            <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwDelay')">?</span></label>
+            <input type="number" value.bind="cpu.throwDelay" placeholder="Enter delay in milliseconds" class="ms-input" input.delegate="updateUrl()"
+                blur.trigger="checkEmptyNumber($event)"/>
+
+            <label>Throw Delay Variance (ms)</label>
+            <input type="number" value.bind="cpu.throwDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"
+                blur.trigger="checkEmptyNumber($event)"/>
+
+            <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('catchDelay')">?</span></label>
+            <input type="number" value.bind="cpu.catchDelay" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"
+                blur.trigger="checkEmptyNumber($event)"/>
+
+            <label>Catch Delay Variance (ms) </label>
+            <input type="number" value.bind="cpu.catchDelayVariance" placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"
+                blur.trigger="checkEmptyNumber($event)"/>
+
+
+        </div>
+        
+        <h2>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span></h2>
+        <div class="target-preference-list">
+            <input repeat.for="target of cpu.targetPreference" type="number"
+                    value.bind="cpu.targetPreference[$index]" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+        </div>
+
+        <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
+        <div class="two-column-grid">
+            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1" input.delegate="updateUrl()" />
+            <div>
+                Throws Elapsed
+                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
+            </div>
+            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2" input.delegate="updateUrl()" />
+            <div>
+                Time Elapsed
+                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
+            </div>
+            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4" input.delegate="updateUrl()" />
+            <div>
+                Throws Ignored
+                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
+            </div>
+            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16" input.delegate="updateUrl()" />
+            <div>
+                Time Ignored
+                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
+            </div>
+            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8" input.delegate="updateUrl()" />
+            <div>
+                Other Players Leaving
+                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
+            </div>
+        </div>
+
+        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">
+            <label>Throws Elapsed Leave Threshold/Variance/Chance</label>
+
+            <div>
+                <input type='number' value.bind="cpu.leaveTurn" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveTurnVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveTurnChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            </div>
+        </div>
+
+        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">
+            <label>Time Elapsed Leave (s) Threshold/Variance/Chance (s)</label>
+
+            <div>
+                <input type="number" value.bind="cpu.leaveTime" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveTimeVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveTimeChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            </div>
+        </div>
+
+        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4">
+            <label>Ignored Throws Leave Threshold/Variance/Chance</label>
+
+            <div>
+                <input type="number" value.bind="cpu.leaveIgnored" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveIgnoredVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveIgnoredChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            </div>
+        </div>
+
+        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">
+            <label>Ignored Time Leave (ms) Threshold/Variance/Chance (ms)</label>
+
+            <div>
+                <input type="number" value.bind="cpu.leaveTimeIgnored" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveTimeIgnoredVariance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveTimeIgnoredChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            </div>
+        </div>
+
+        <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8">
+            <label>Others Left Leave Threshold/Chance</label>
+
+            <div>
+                <input type="number" value.bind="cpu.leaveOtherLeaver" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="cpu.leaveOtherLeaverChance" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
