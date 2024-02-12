@@ -807,7 +807,8 @@ this.postEvent("why is leaveTime Not working", {
     }
 
     getVariantValue(base: number, variance: number): number {
-        return base + (Phaser.Math.RND.between(0, variance) * Phaser.Math.RND.sign());
+        return base;
+       // return base + (Phaser.Math.RND.between(0, variance) * Phaser.Math.RND.sign());
     }
 
     checkChance(chance: number): boolean {

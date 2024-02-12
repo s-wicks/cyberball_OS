@@ -1195,6 +1195,12 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
                 var image = this.add.image(portraitPosition.x, portraitPosition.y, 'playerPortrait');
                 image.setScale(this.settings.portraitHeight / image.height);
             }
+            this.postEvent("leaveTimeDataCreate", {
+                nowDate: Date.now(),
+                settingsPlayerLeaveTime: this.settings.player.leaveTime,
+                leaveTimeMultiplied: this.settings.player.leaveTime * 1000,
+                total: Date.now() + this.settings.player.leaveTime * 1000
+            });
             if ((this.settings.player.leaveTrigger & leave_trigger_1.LeaveTrigger.Time) === leave_trigger_1.LeaveTrigger.Time) {
                 this.playerSprite.setData('leaveTime', Date.now() + this.settings.player.leaveTime * 1000);
             }
@@ -1585,7 +1591,7 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
             return new phaser_1.default.Geom.Point(target.x + (target.flipX ? 40 : -40), target.y - 20);
         };
         CyberballScene.prototype.getVariantValue = function (base, variance) {
-            return base + (phaser_1.default.Math.RND.between(0, variance) * phaser_1.default.Math.RND.sign());
+            return base;
         };
         CyberballScene.prototype.checkChance = function (chance) {
             return phaser_1.default.Math.RND.between(0, 100) <= chance;
