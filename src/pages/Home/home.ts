@@ -27,7 +27,8 @@ export class HomeViewModel {
 
     updateOpacity() {
         this.settings.gameOverOpacity = this.sliderValue / 100;
-        this.previewGame(); // Optionally, trigger a preview update
+	// No need to preview the game every time the game over opacity is updated, it's causing bugs
+        // this.previewGame(); // Optionally, trigger a preview update
     }
 
 
