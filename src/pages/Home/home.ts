@@ -27,8 +27,7 @@ export class HomeViewModel {
 
     updateOpacity() {
         this.settings.gameOverOpacity = this.sliderValue / 100;
-        this.previewGame(); // Optionally, trigger a preview update
-    }
+   }
 
 
     constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {
