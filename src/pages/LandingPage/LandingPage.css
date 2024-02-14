@@ -1,69 +1,47 @@
-.landing-page {
+body {
     font-family: Arial, sans-serif;
-    height: 100vh;
     margin: 0;
-    align-items: center;
-    justify-content: center;
     background-color: #f7f7f7;
 }
 
-.flex-container {
-    display: flex;
-    align-items: start; /* Align items to the top */
-    justify-content: center;
-    border: none;
-}
-
-.two-column-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.three-column-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-
-.landing-page .container {
-    /*text-align: center;*/
-    /*background-color: #ffffff;*/
-    /*padding: 50px;*/
-    /*border-radius: 10px;*/
-    /*box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);*/
-    /*position: relative; !* Added for positioning *!*/
-    text-align: center;
+.container {
+    min-width: 20%;
+    max-width: 80%;
+    width: max-content;
     background-color: #ffffff;
     padding: 50px;
+    margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.container h2 {
+    text-align: center;
 }
 
 iframe {
     border: none;
-    height: 500px;
+    width: 80%;
+    aspect-ratio: 2;
+    margin: 2em;
 }
 
-.landing-page .welcome-image {
-    width: 100%;
-    max-width: 300px;
-    margin-bottom: 20px;
-    position: relative; /* Position the image relative to its parent (.landing-page) */
-    display: block; /* Ensure the image takes its own block-level space */
-    margin: 0 auto; /* Center the image horizontally within .landing-page */
+.welcome-image {
+    width: 40%;
+    display: block;
+    margin: 0 auto;
+    padding: 1em;
 }
 
-
-.landing-page h1 {
+h1 {
     margin-bottom: 30px;
     color: #333;
 }
 
-.landing-page .btn {
-    display: inline-block;
+.btn {
     padding: 10px 20px;
     margin: 5px;
-    border: none;
     border-radius: 5px;
     background-color: #007BFF;
     color: #ffffff;
@@ -72,7 +50,7 @@ iframe {
     text-decoration: none;
 }
 
-.landing-page .btn:hover {
+.btn:hover {
     background-color: #0056b3;
 }
 

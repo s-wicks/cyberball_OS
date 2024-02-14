@@ -1,43 +1,10 @@
-
-
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f7f7f7;
-    color: #181818;
-    margin: 0;
-    padding: 0;
-}
 select {
-    width: 50%; /* Make the select box full width */
-    padding: 8px; /* Add some padding */
-    margin: 10px 0; /* Add some margin above and below the select box */
-    display: inline-block; /* Ensure the select box does not fill the entire width */
     border: 1px solid #ccc; /* Add a border */
     border-radius: 4px; /* Add some rounded corners */
-    box-sizing: border-box; /* Adjust the box-sizing */
-}
-
-label {
-    margin-bottom: 5px;
-    display: inline-block;
-}
-
-.container {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 50px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    position: relative;
-    /*//width: 80%; !* This is the current width setting, which is responsive *!*/
-    max-width: 400px; /* This is the maximum width it can grow to */
-    min-width: 400px; /* This is the minimum width it can shrink to */
 }
 
 a {
     text-decoration: none;
-    display: inline-block;
     padding: 8px 16px;
 }
 
@@ -46,83 +13,36 @@ a:hover {
     color: black;
 }
 
-.previous {
+.previous, .next {
     background-color: #ddd;
     color: black;
     position: absolute;
     top: 50%;  /* This will center the button vertically */
-    left: 0;  /* This will make the button hug the left wall */
-    transform: translateY(-50%); /* This will ensure the button is truly vertically centered */
+    border-radius: 50%;
+}
+
+.previous {
     left: 6px;
 }
 
 .next {
-    background-color: #ddd;
-    color: black;
-    position: absolute;
-    top: 50%;  /* This will center the button vertically */
     right: 6px;
 }
 
-.round {
-    border-radius: 50%;
-}
-
-
-.landing-page {
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f7f7f7;
-}
-
-.container {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 50px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 1200px;
-}
-
-.range-container {
-    display: flex;
-    align-items: center;
-}
-
-.range-value {
-    margin-left: 2px; /* Add some spacing between the range input and the value */
-}
-
 .button-container {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
+    width: max-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
 }
 
 .button-container button {
-    display: block;
-    margin-bottom: 5px;
-}
-
-
-.tooltip-icon {
-    margin-right: 1px;
-}
-
-.input-label{
-    margin-bottom: 1px;
+    margin: 0.3em;
 }
 
 .h2-tooltip {
     font-size: 1rem;
     vertical-align: middle;
-}
-
-.input label + * {
-    box-sizing: border-box;
-    max-width: 300px;
 }
 
 .description-header {
@@ -132,24 +52,10 @@ a:hover {
     display: block; /* Ensure each header is on a new line */
 }
 
-.input input[type=text], .input input[type=number], textarea {
-    flex: 1 1 100%;
-    min-width: 0;
-    width: auto;
-}
-
 .column {
     display: flex;
     flex-direction: column;
 }
-
-.target-preference-inputs {
-    display: flex;
-}
-
-
-
-
 
 .bottom-buttons {
     background-color: #007BFF;
@@ -188,21 +94,18 @@ a:hover {
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
-/* Container for the tabs */
 
 /* Container for the tabs */
 .tab-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: flex-start;
 }
 
 /* Individual tabs */
 .tab {
     padding: 10px 15px; /* Adjust padding to your preference */
     margin: 0;
-    flex: 0 0 20%;
     box-sizing: border-box;
     background-color: #007bff; /* This is a generic blue, replace with your specific blue color */
     border: none; /* Remove default border */
@@ -232,51 +135,6 @@ a:hover {
     }
 }
 
-
-
-.tablinks:first-child {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.tablinks {
-    padding: 10px 15px;
-    margin-bottom: -2px;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    cursor: pointer;
-    background-color: #e0e0e0;
-    transition: background-color 0.3s;
-}
-
-.tablinks:not(:last-child) {
-    margin-right: 5px;
-}
-
-.tablinks:hover {
-    background-color: #d0d0d0;
-}
-
-.tablinks.active {
-    background-color: #007BFF;
-    font-weight: bold;
-    border-color: #007BFF;
-    color: white;
-}
-
-.bottom-buttons.disabled {
-    background-color: #a5a5a5;
-    cursor: not-allowed;
-    pointer-events: none;
-    color: #777777;
-}
-
-.tablinks:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
-}
-
 iframe {
     pointer-events: auto;
 }
@@ -291,13 +149,13 @@ iframe {
     text-align: center;
     line-height: 20px;
     cursor: pointer;
-
 }
 
-.cpuButtons{
+.cpuButtons {
     margin-bottom: 10px;
 }
-.configHeader{
+
+.configHeader {
     text-align: center;
 }
 
@@ -360,4 +218,24 @@ iframe {
     margin-top: 20px;
 }
 
+.two-column-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
 
+.two-column-grid * {
+    margin: 0.2em 0.5em;
+}
+
+input[type="checkbox"] {
+    margin-right: auto;
+}
+
+.target-preference-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.target-preference-list input {
+    width: fit-content;
+}
