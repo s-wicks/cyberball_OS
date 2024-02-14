@@ -13,8 +13,13 @@
         <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
 
 
-            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-            <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
+        <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></label>
+        <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h2>Information</h2>
+                <p><span class="description-header">Brief Description:</span><br>You can insert an image that will be placed below the participant’s player. Be sure to include your image with (format dimensions).<br><br></p>
+        </form></dialog>
+        <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
 
         <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span></label>
         <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
