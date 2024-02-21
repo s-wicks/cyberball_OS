@@ -1,0 +1,67 @@
+<template>
+<div if.bind="activeTab === 'gameplay'" class="tabcontent">
+    <h2>Gameplay</h2>
+    <div clas="input">
+    <div class="two-column-grid">
+        <label for="selectedGameOverCondition">Select game end condition:</label>
+        <select id="selectedGameOverCondition" value.bind="selectedGameOverCondition">
+            <option value="time">Throw Count</option>
+            <option value="score">Time Limit</option>
+            <option value="allCpuLeft">All CPU's Left</option>
+        </select>
+
+        <label>Throw Count</label>
+        <input type="number" value.bind="settings.throwCount" blur.trigger="checkEmptyNumber($event)"/>
+
+
+        <label>Time Limit (ms) </label>
+        <input type="number" value.bind="settings.timeLimit" blur.trigger="checkEmptyNumber($event)"/>
+
+        <label>Display Time Limit</label>
+        <input type="checkbox" checked.bind="settings.displayTimeLimit" input.delegate="updateUrl()"/>
+
+        <label>Time Limit Label</label>
+        <input type="text" value.bind="settings.timeLimitText"  input.delegate="updateUrl()"/>
+
+        <label>Ball Speed</label>
+        <input type="number" value.bind="settings.ballSpeed" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+
+        <label>Ball Tint Color</label>
+        <input type="color" value.bind="settings.ballTint"  input.delegate="updateUrl()"
+                change.delegate="updateUrl()"/>
+
+        <label>Portrait Height (px)</label>
+        <input type="number" value.bind="settings.portraitHeight" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+
+        <label>Use Schedule</label>
+        <input type="checkbox" checked.bind="settings.useSchedule" input.delegate="updateUrl()"/>
+
+        <label if.bind="settings.useSchedule">Schedule</label>
+        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+        <textarea if.bind="settings.useSchedule" value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
+
+        <label>Change Color</label>
+        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
+        <input type="checkbox" checked.bind="settings.changeColor"/>
+
+        <label>Schedule Honors Throw Count</label>
+        <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount" input.delegate="updateUrl()"/>
+
+        <label>Game Over Text</label>
+        <input type="text" value.bind="settings.gameOverText" input.delegate="updateUrl()"/>
+
+        <label>Game Over Opacity (%)</label>
+        <div class="range-container">
+            <input
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value.bind="sliderValue"
+                change.delegate="updateOpacity()"
+            />
+            <span class="range-value">${sliderValue}%</span>
+        </div>
+    </div>
+</div>
+</template>
