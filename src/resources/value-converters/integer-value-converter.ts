@@ -1,5 +1,6 @@
 export class IntegerValueConverter {
     fromView(value) {
-        return parseInt(value ?? '0');
+        value = value || 0;
+        return parseInt(value);
     }
 }
