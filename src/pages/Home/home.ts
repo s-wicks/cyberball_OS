@@ -27,9 +27,7 @@ export class HomeViewModel {
 
     updateOpacity() {
         this.settings.gameOverOpacity = this.sliderValue / 100;
-	// No need to preview the game every time the game over opacity is updated, it's causing bugs
-        // this.previewGame(); // Optionally, trigger a preview update
-    }
+   }
 
 
     constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {
@@ -43,6 +41,7 @@ export class HomeViewModel {
     refreshIframe() {
         this.convertStringsToNumbers(this.settings);
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement | null;
+        iframe.src = this.url;
         if (iframe && iframe.contentWindow) {
             iframe.contentWindow.location.reload();
         }
@@ -143,8 +142,6 @@ export class HomeViewModel {
 
 
     addCPU() {
-        // const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
-        // iframe.src = this.url;
         this.settings.computerPlayers.push(new CpuSettingsModel({
             name: `Player ${this.settings.computerPlayers.length + 2}`,
         }));
@@ -155,12 +152,9 @@ export class HomeViewModel {
         });
 
         this.activeCPUTab = this.settings.computerPlayers.length - 1;
-
     }
 
     removeCPU() {
-        // const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
-        // iframe.src = this.url;
         if (this.settings.computerPlayers.length > 1) {
             this.settings.computerPlayers.pop();
 
@@ -171,7 +165,6 @@ export class HomeViewModel {
                 this.activeCPUTab = this.settings.computerPlayers.length - 1;
             }
         }
-
     }
 
     saveSettings() {
@@ -221,7 +214,6 @@ export class HomeViewModel {
         if (inputElement.value.length === 0 && inputElement.type === 'number') {
             inputElement.value = "0";
         }
-        console.log("Test");
     }
 
     updateUrl(): void {
