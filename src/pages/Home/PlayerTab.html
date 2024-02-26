@@ -6,8 +6,13 @@
     <require from="resources/value-converters/integer-array-value-converter"></require>
     <require from="resources/value-converters/flag-value-converter"></require>
 
-    <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('playerHeader')">?</span>
-    </h2>
+    <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></h2>
+    <dialog class="new-sidebar"><form method="dialog">
+        <button class="close-btn" type="submit">X</button>
+        <h3>Information</h3>
+        <p>This is the player the participant in your study will control.</p>
+    </form></dialog>
+
     <div class="two-column-grid">
         <label>Name</label>
         <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
@@ -16,47 +21,83 @@
         <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" type="submit">X</button>
-                <h2>Information</h2>
-                <p><span class="description-header">Brief Description:</span><br>You can insert an image that will be placed below the participant’s player. Be sure to include your image with (format dimensions).<br><br></p>
+                <h3>Information</h3>
+                <p>You can insert an image that will be placed below the participant’s player. Be sure to include your image with (format dimensions).</p>
         </form></dialog>
         <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
 
-        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span></label>
+        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>You can edit the color of the participant’s player by clicking on the box next to “Tint Color” to bring up a color palette.</p>
+        </form></dialog>
         <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
                 change.delegate="updateUrl()"/>
+
     </div>
-    <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
+    <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></h2>
+    <dialog class="new-sidebar"><form method="dialog">
+        <button class="close-btn" type="submit">X</button>
+        <h3>Information</h3>
+        <p>By editing the “Leave Triggers” settings, you are indicating when the participant is presented with a button they can click to leave the game.</p>
+    </form></dialog>
     <div class="two-column-grid">
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
-        <div>
-            Throws Elapsed 
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
-        </div>
+        <label>
+            Throws Elapsed
+            <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>You can set the number of throws between all players before the participant is given the option to leave the game.<br>For example, if you wanted to see how soon the participant would leave after 30 throws, you would set the value under “Throws Elapsed Leave Threshold” to 30. You also have the option to add variability to the number of total throws before the participant is give the option to leave by setting the throws elapsed variance. Let’s use 5-toss variance as an example. By placing a variance of 5 under “Variance” for our 30-toss example, the games will now range from 25 to 35 tosses total before a participant is presented with a button they can click to leave. This allows you the opportunity to lower participants' suspicion by not giving participants the option to leave at the same time.</p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Time Elapsed
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>Here, you will set the amount of time that has to pass before the participant is given the opportunity to leave the game. After the set amount of time has passed, a red, “next” button will appear in Qualtrics that the participant will click to leave the game. For example, if you wanted to see how soon the participant would leave after 60 seconds of being in the game, you would set the value under “Time Elapsed Leave Threshold” to 60. You also have the option to add variability to the amount of time that has to pass before the participant is given the option to leave with time elapsed variance. Let’s use a 20-second variance as an example. By placing a variance of 20 under “Variance” for our 60-second example, the games will now range from 40 to 80 seconds total before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.<br>For example, if you wanted to see how soon the participant would leave after 60 seconds of being in the game, you would set the value under “Time Elapsed Leave Threshold” to 60. You also have the option to add variability to the amount of time that has to pass before the participant is given the option to leave with time elapsed variance. Let’s use a 20-second variance as an example. By placing a variance of 20 under “Variance” for our 60-second example, the games will now range from 40 to 80 seconds total before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.</p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Throws Ignored
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>Here, you will set the number of times the participant has to be ignored by the computer-controlled players before the participant is given the opportunity to leave the game. After being ignored for the set number of times has passed, a red, “next” button will appear in Qualtrics that the participant will click to leave the game.<br>For example, if you wanted to see how soon the participant would leave after being ignored 10 times by the computer-controlled players, you would set the value under “Ignored Throw Leave Threshold” to 10. You can also use the throws ignored variance to add variability in the amount of throws participants are ignored for before the participant is given the option to leave. Let’s use a 3-throws variance as an example. By placing a variance of 3 under “Variance” for our 10-throws-ignored example, the games will now range from 7-13 throws where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.<br>For example, if you wanted to see how soon the participant would leave after being ignored 10 times by the computer-controlled players, you would set the value under “Ignored Throw Leave Threshold” to 10. You can also use the throws ignored variance to add variability in the amount of throws participants are ignored for before the participant is given the option to leave. Let’s use a 3-throws variance as an example. By placing a variance of 3 under “Variance” for our 10-throws-ignored example, the games will now range from 7-13 throws where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.</p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Time Ignored
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>You can set how long the participant is ignored by the computer-controlled players before they are given the option to leave the game.<br>For example, if you wanted to see how soon the participant would leave after being ignored for 45 seconds by the computer-controlled players, you would set the value under “Ignored Time Leave Threshold” to 45. You also have the option to add variability to the amount of time participants are ignored for before the participant is given the option to leave with time ignored variance. Let’s use a 15-second variance as an example. By placing a variance of 15 under “Variance” for our 45-second example, the games will now range from 30-60 seconds where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time. Click for more information.</span></p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Other Players Leaving
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>You can set how many computer-controlled players leave the game before the participant is given the option to leave.<br>For example, if you wanted to see how soon the participant would leave after 2 of the computer-controlled players in your study left, you would set the value under “Other Players Leaving” to 2. Click for more information.</p>
+        </form></dialog>
     </div>
 
     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">

@@ -5,7 +5,7 @@
     <require from="resources/value-converters/number-value-converter"></require>
     <require from="resources/value-converters/integer-array-value-converter"></require>
     <require from="resources/value-converters/flag-value-converter"></require>
-    
+
     <div class="tab-container">
         <button repeat.for="cpu of settings.computerPlayers"
                 class="tab ${$index === activeCPUTab ? 'active' : ''}"
@@ -14,8 +14,13 @@
         </button>
     </div>
     <h2>
-        CPUs <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('cpus')">?</span>
+        CPUs <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
     </h2>
+    <dialog class="new-sidebar"><form method="dialog">
+        <button class="close-btn" type="submit">X</button>
+        <h3>Information</h3>
+        <p>This is the computer-controlled player that your participant will play a virtual game of catch-and-toss with. You can also add additional computer-controlled players.</p>
+    </form></dialog>
     <div class="cpuButtons">
         <button class="bottom-buttons" click.delegate="addCPU()">+ Add CPU</button>
         <button class="bottom-buttons ${settings.computerPlayers.length == 1 ? 'disabled' : ''}"
@@ -31,14 +36,29 @@
             <label>Name</label>
             <input type="text" value.bind="cpu.name" input.delegate="previewGame()" input.delegate="updateUrl()"/>
 
-            <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span> </label>
+            <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can edit the color of this cpu player by clicking on the box next to “Tint Color” to bring up a color palette.</p>
+            </form></dialog>
             <input type="color" value.bind="cpu.tint" input.delegate="updateUrl()"
                     change.delegate="updateUrl()"/>
 
-            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
+            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can edit the color of this cpu player by clicking on the box next to “Tint Color” to bring up a color palette.</p>
+            </form></dialog>
             <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
 
-            <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwDelay')">?</span></label>
+            <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can edit how long the computer-controlled player stands in a “throw-ready” stance before they actually throw the ball<br>For example, a value of 500 in the Throw Delay column will result in the computer-controlled player standing in a “throw-ready” stance for 5 seconds before they throw the ball to their next target. You also have the option to add variability to how long the computer-controlled player stays in this stance before they throw the ball. Let’s use a variance of 200 as an example. By placing a variance of 200 for our 500-valued throw delay, the computer-controlled player will now hold the ball for 3-7 seconds before they throw the ball to their next target. This allows you the opportunity to lower participants’ suspicion by not having the computer-controlled player in the “throw-ready” position for the same amount of time each time they get in position before throwing. Each computer-controlled player that you choose to add can be set with a unique throw delay, as well as a unique variance.</p>
+            </form></dialog>
             <input type="number" value.bind="cpu.throwDelay | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"
                     class="ms-input" input.delegate="updateUrl()"/>
 
@@ -46,7 +66,12 @@
             <input type="number" value.bind="cpu.throwDelayVariance | integer & updateTrigger:'blur'"
                     placeholder="Enter delay in milliseconds" input.delegate="updateUrl()"/>
 
-            <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('catchDelay')">?</span></label>
+            <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can edit how long the computer-controlled player stands with the ball after catching it before they prepare to throw the ball.<br>For example, a value of 500 in the Catch Delay column will result in the computer-controlled player standing in a “caught-ball” stance for 5 seconds before they move into a “throw-ready” stance. You also have the option to add variability to how long the computer-controlled player stays in this stance before they move into their “throw-ready” stance. Let’s use a variance of 200 as an example. By placing a variance of 200 for our 500-valued catch delay, the computer-controlled player will now hold the ball for 3-7 seconds before they move into their “throw-ready” stance. This allows you the opportunity to lower participants’ suspicion by not having the computer-controlled player in the “caught-ball” position for the same amount of time each time they get the ball before moving into the “throw-ready” position. Each computer-controlled player that you choose to add can be set with a unique catch delay, as well as a unique variance. Click for more information.</p>
+            </form></dialog>
             <input type="number" value.bind="cpu.catchDelay | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"
                     input.delegate="updateUrl()"/>
 
@@ -56,40 +81,80 @@
 
 
         </div>
-        
-        <h2>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span></h2>
+
+        <h2>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></h2>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>You can edit how often the computer-controlled player throws to the participant’s player and additional CPU players you add.<br>For example, if you had a study that consisted of the participant’s player, the original computer-controlled player that you have.</p>
+        </form></dialog>
         <div class="target-preference-list">
             <input repeat.for="target of cpu.targetPreference" type="number"
                     value.bind="cpu.targetPreference[$index] | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
         </div>
 
-        <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
+        <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span></h2>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" type="submit">X</button>
+            <h3>Information</h3>
+            <p>By editing the “Leave Triggers” settings, you are indicating when the participant is presented with a button they can click to leave the game.</p>
+        </form></dialog>
         <div class="two-column-grid">
-            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1" input.delegate="updateUrl()" />
-            <div>
+            <input type="checkbox"
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
+            <label>
                 Throws Elapsed
-                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
-            </div>
-            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2" input.delegate="updateUrl()" />
-            <div>
+                <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+            </label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can set the number of throws between all players before the participant is given the option to leave the game.<br>For example, if you wanted to see how soon the participant would leave after 30 throws, you would set the value under “Throws Elapsed Leave Threshold” to 30. You also have the option to add variability to the number of total throws before the participant is give the option to leave by setting the throws elapsed variance. Let’s use 5-toss variance as an example. By placing a variance of 5 under “Variance” for our 30-toss example, the games will now range from 25 to 35 tosses total before a participant is presented with a button they can click to leave. This allows you the opportunity to lower participants' suspicion by not giving participants the option to leave at the same time.</p>
+            </form></dialog>
+            <input type="checkbox"
+                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
+            <label>
                 Time Elapsed
-                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
-            </div>
-            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4" input.delegate="updateUrl()" />
-            <div>
+                <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+            </label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>Here, you will set the amount of time that has to pass before the participant is given the opportunity to leave the game. After the set amount of time has passed, a red, “next” button will appear in Qualtrics that the participant will click to leave the game. For example, if you wanted to see how soon the participant would leave after 60 seconds of being in the game, you would set the value under “Time Elapsed Leave Threshold” to 60. You also have the option to add variability to the amount of time that has to pass before the participant is given the option to leave with time elapsed variance. Let’s use a 20-second variance as an example. By placing a variance of 20 under “Variance” for our 60-second example, the games will now range from 40 to 80 seconds total before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.<br>For example, if you wanted to see how soon the participant would leave after 60 seconds of being in the game, you would set the value under “Time Elapsed Leave Threshold” to 60. You also have the option to add variability to the amount of time that has to pass before the participant is given the option to leave with time elapsed variance. Let’s use a 20-second variance as an example. By placing a variance of 20 under “Variance” for our 60-second example, the games will now range from 40 to 80 seconds total before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.</p>
+            </form></dialog>
+            <input type="checkbox"
+                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
+            <label>
                 Throws Ignored
-                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
-            </div>
-            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16" input.delegate="updateUrl()" />
-            <div>
+                <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+            </label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>Here, you will set the number of times the participant has to be ignored by the computer-controlled players before the participant is given the opportunity to leave the game. After being ignored for the set number of times has passed, a red, “next” button will appear in Qualtrics that the participant will click to leave the game.<br>For example, if you wanted to see how soon the participant would leave after being ignored 10 times by the computer-controlled players, you would set the value under “Ignored Throw Leave Threshold” to 10. You can also use the throws ignored variance to add variability in the amount of throws participants are ignored for before the participant is given the option to leave. Let’s use a 3-throws variance as an example. By placing a variance of 3 under “Variance” for our 10-throws-ignored example, the games will now range from 7-13 throws where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.<br>For example, if you wanted to see how soon the participant would leave after being ignored 10 times by the computer-controlled players, you would set the value under “Ignored Throw Leave Threshold” to 10. You can also use the throws ignored variance to add variability in the amount of throws participants are ignored for before the participant is given the option to leave. Let’s use a 3-throws variance as an example. By placing a variance of 3 under “Variance” for our 10-throws-ignored example, the games will now range from 7-13 throws where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time.</p>
+            </form></dialog>
+            <input type="checkbox"
+                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
+            <label>
                 Time Ignored
-                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
-            </div>
-            <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8" input.delegate="updateUrl()" />
-            <div>
+                <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+            </label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can set how long the participant is ignored by the computer-controlled players before they are given the option to leave the game.<br>For example, if you wanted to see how soon the participant would leave after being ignored for 45 seconds by the computer-controlled players, you would set the value under “Ignored Time Leave Threshold” to 45. You also have the option to add variability to the amount of time participants are ignored for before the participant is given the option to leave with time ignored variance. Let’s use a 15-second variance as an example. By placing a variance of 15 under “Variance” for our 45-second example, the games will now range from 30-60 seconds where the participant is ignored before the participant is presented with a button that they can click to leave. This allows you the opportunity to lower participants’ suspicion by not giving participants the option to leave at the same time. Click for more information.</span></p>
+            </form></dialog>
+            <input type="checkbox"
+                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
+            <label>
                 Other Players Leaving
-                <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
-            </div>
+                <span class="tooltip-icon h2-tooltip" click.delegate="showModal2($event)">?</span>
+            </label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can set how many computer-controlled players leave the game before the participant is given the option to leave.<br>For example, if you wanted to see how soon the participant would leave after 2 of the computer-controlled players in your study left, you would set the value under “Other Players Leaving” to 2. Click for more information.</p>
+            </form></dialog>
         </div>
 
         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">
