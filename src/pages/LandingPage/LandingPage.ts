@@ -20,6 +20,10 @@ export class LandingPage {
         this.router.navigateToRoute('PresetPage');
     }
 
+    loadScheduler() {
+        this.router.navigateToRoute('scheduler');
+    }
+
     openManual() {
         // Logic to open the manual
         console.log("Opening manual...");

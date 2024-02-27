@@ -13,7 +13,8 @@ export class App {
             { route: 'home', name: 'home', moduleId: 'pages/Home/home' },
             { route: 'game', name: 'game', moduleId: 'pages/Game/game' },
             { route: 'PresetPage', name: 'PresetPage', moduleId: 'pages/PresetPage/PresetPage' },
-            { route: 'message-test', name: 'message-test', moduleId: 'pages/message-test' }
+            { route: 'message-test', name: 'message-test', moduleId: 'pages/message-test' },
+            { route: 'scheduler', name: 'scheduler', moduleId: 'pages/scheduler/scheduler' }
         ]);
 
     }
