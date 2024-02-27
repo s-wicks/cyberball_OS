@@ -21,7 +21,9 @@ export class Scheduler {
   }
 
   addThrower(throw_block: Throw) {
-    throw_block.throw_groups.push(new ThrowGroup());
+    let throw_group = new ThrowGroup();
+    throw_group.throwers = new Array(this.throwers.length).fill(false);
+    throw_block.throw_groups.push(throw_group);
   }
 
   removeThrower(throw_block: Throw, index: number) {

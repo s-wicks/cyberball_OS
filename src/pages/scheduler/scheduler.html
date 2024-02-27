@@ -27,16 +27,16 @@
           <div>
             <span>Throwers:</span>
             <template repeat.for="thrower of throwers">
-              <input type="checkbox" />
+              <input type="checkbox" checked.bind="throw_group.throwers[$index]"/>
               <label>${thrower}</label>
             </template>
           </div>
           <div>
             <span>Target:</span>
-            <select>
-              <option>Choose a target</option>
-              <option repeat.for="thrower of throwers">${thrower}</option>
-              <option>any</option>
+            <select value.bind="throw_group.target">
+              <option model.bind="-1">Choose a target</option>
+              <option repeat.for="thrower of throwers" model.bind="$index">${thrower}</option>
+              <option model.bind="-2">any</option>
             </select>
           </div>
         </div>
