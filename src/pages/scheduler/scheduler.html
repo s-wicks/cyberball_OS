@@ -15,7 +15,6 @@
       overflow: auto;
     }
   </style>
-  <button click.trigger="addThrow()">Add throw</button>
 
   <div class="throw-list">
     <div class="throw" repeat.for="throw_block of throw_data">
@@ -43,4 +42,22 @@
       </div>
     </div>
   </div>
+
+  <button click.trigger="addThrow()">Add empty throw</button>
+  <button disabled.bind="!canThrowToSingleCPU" click.trigger="showModal($event)">Throw to single CPU</button>
+  <dialog><form method="dialog">
+    Temp
+  </form></dialog>
+  <button disabled.bind="!canFunnelToCPU" click.trigger="showModal($event)">Funnel to single CPU (2 throws)</button>
+  <dialog><form method="dialog">
+    Temp
+  </form></dialog>
+  <button disabled.bind="!canThrowToPlayer" click.trigger="showModal($event)">Throw to Player</button>
+  <dialog><form method="dialog">
+    Temp
+  </form></dialog>
+
+
+
+
 </template>

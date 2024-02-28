@@ -16,6 +16,10 @@ export class Scheduler {
     this.throw_data.push(new Throw());
   }
 
+  showModal(event) {
+    event.target.nextElementSibling.showModal();
+  }
+
   removeThrow(index: number) {
     this.throw_data.splice(index, 1);
   }
