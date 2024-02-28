@@ -7,9 +7,6 @@
         <label for="selectedGameOverCondition">Select game end condition:</label>
         <select id="selectedGameOverCondition" value.bind="settings.selectedGameOverCondition">
             <option repeat.for="condition of settings.gameOverConditions" model.bind="condition.id">${condition.label}</option>
-            <!-- <option value="throwCount">Throw Count</option>
-            <option value="timeLimit">Time Limit</option>
-            <option value="allCpuLeft">All CPU's Left</option> -->
         </select>
 
         <label>Throw Count</label>
