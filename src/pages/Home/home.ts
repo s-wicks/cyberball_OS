@@ -214,7 +214,6 @@ export class HomeViewModel {
         if (inputElement.value.length === 0 && inputElement.type === 'number') {
             inputElement.value = "0";
         }
-        console.log("Test");
     }
 
     updateUrl(): void {

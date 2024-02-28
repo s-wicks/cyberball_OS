@@ -1,5 +1,6 @@
 <template>
 <div if.bind="activeTab === 'gameplay'" class="tabcontent">
+    <require from="resources/value-converters/integer-value-converter"></require>
     <h2>Gameplay</h2>
     <div clas="input">
     <div class="two-column-grid">
@@ -12,11 +13,11 @@
         </select>
 
         <label>Throw Count</label>
-        <input type="number" value.bind="settings.throwCount" blur.trigger="checkEmptyNumber($event)"/>
+        <input type="number" value.bind="settings.throwCount | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
 
 
         <label>Time Limit (ms) </label>
-        <input type="number" value.bind="settings.timeLimit" blur.trigger="checkEmptyNumber($event)"/>
+        <input type="number" value.bind="settings.timeLimit | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
 
         <label>Display Time Limit</label>
         <input type="checkbox" checked.bind="settings.displayTimeLimit" input.delegate="updateUrl()"/>
@@ -25,14 +26,16 @@
         <input type="text" value.bind="settings.timeLimitText"  input.delegate="updateUrl()"/>
 
         <label>Ball Speed</label>
-        <input type="number" value.bind="settings.ballSpeed" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+        <input type="number" value.bind="settings.ballSpeed | integer & updateTrigger:'blur'" input.delegate="updateUrl()"
+                blur.trigger="checkEmptyNumber($event)"/>
 
         <label>Ball Tint Color</label>
         <input type="color" value.bind="settings.ballTint"  input.delegate="updateUrl()"
                 change.delegate="updateUrl()"/>
 
         <label>Portrait Height (px)</label>
-        <input type="number" value.bind="settings.portraitHeight" input.delegate="updateUrl()" blur.trigger="checkEmptyNumber($event)"/>
+        <input type="number" value.bind="settings.portraitHeight | integer & updateTrigger:'blur'" input.delegate="updateUrl()"
+                blur.trigger="checkEmptyNumber($event)"/>
 
         <label>Use Schedule</label>
         <input type="checkbox" checked.bind="settings.useSchedule" input.delegate="updateUrl()"/>
