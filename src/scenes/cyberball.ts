@@ -374,11 +374,6 @@ export class CyberballScene extends Phaser.Scene {
 
         if (this.settings.timeLimit > 0 && this.settings.displayTimeLimit)
             this.timeLimitText.setText(this.getTimeString());
-
-        // if (this.settings.timeLimit > 0 && Date.now() - this.startTime > this.settings.timeLimit) {
-        //     this.postEvent('global-time-limit');
-        //     this.gameOver();
-        // }
     }
 
     public gameOver() {
