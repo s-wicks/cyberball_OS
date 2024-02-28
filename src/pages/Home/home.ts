@@ -306,7 +306,7 @@ export class HomeViewModel {
     }
 
     @computedFrom('settings', 'settings.player', 'settings.computerPlayers', 'settings.someOtherProperty', 'settings.anotherProperty')
-    get settingsForPreview() {
+    get settingsForPreview() { 
         return this.settings; // Include all relevant settings properties here
     }
 

@@ -297,7 +297,7 @@ export class CyberballScene extends Phaser.Scene {
 
     public update() {
         //checks game ending conditions
-        if (this.settings.selectedGameOverCondition === "allCpuLeft" && this.absentPlayers.length >= this.settings.computerPlayers.length) {
+        if (this.settings.selectedGameOverCondition === "allCPUsLeft" && this.absentPlayers.length >= this.settings.computerPlayers.length) {
             this.gameOver();
             return;
         }
