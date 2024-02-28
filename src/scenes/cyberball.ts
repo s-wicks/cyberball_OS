@@ -297,9 +297,18 @@ export class CyberballScene extends Phaser.Scene {
 
     public update() {
         //checks game ending conditions
-        if (this.absentPlayers.length >= this.settings.computerPlayers.length) {
+        //All CPUs left
+        if (this.settings.selectedGameOverCondition === "allCPUsLeft" && this.absentPlayers.length >= this.settings.computerPlayers.length) {
+            if(!this.gameEnded) this.postEvent('All CPUs left');
             this.gameOver();
             return;
+        }
+        // The game ends at the end of the schedule or when reaching the throw count. Check is done in catchBall to make sure game ends when a player is holding the ball.
+
+        //Time limit
+        if (this.settings.selectedGameOverCondition === "timeLimit" && this.settings.timeLimit > 0 && Date.now() - this.startTime > this.settings.timeLimit) {
+            if(!this.gameEnded) this.postEvent('global-time-limit');
+            this.gameOver();
         }
 
 
@@ -365,11 +374,6 @@ export class CyberballScene extends Phaser.Scene {
 
         if (this.settings.timeLimit > 0 && this.settings.displayTimeLimit)
             this.timeLimitText.setText(this.getTimeString());
-
-        if (this.settings.timeLimit > 0 && Date.now() - this.startTime > this.settings.timeLimit) {
-            this.postEvent('global-time-limit');
-            this.gameOver();
-        }
     }
 
     public gameOver() {
@@ -509,9 +513,9 @@ export class CyberballScene extends Phaser.Scene {
         // The game ends at the end of the schedule or when reaching the throw count.
 
         if (
-
-            (this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
-            (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount)
+            this.settings.selectedGameOverCondition === "throwCount" &&
+            ((this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
+            (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount))
         ) {
             this.postEvent('throw-count-met');
             this.gameOver();

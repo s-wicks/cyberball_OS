@@ -18,6 +18,11 @@ export class SettingsModel {
     schedule: Map<number, Array<number>>;
     scheduleText:string;
     selectedGameOverCondition: string = 'throwCount';
+    gameOverConditions = [
+        { id: 'throwCount', label: 'Throw Count'},
+        { id: 'timeLimit', label: 'Time Limit'},
+        { id: 'allCPUsLeft', label: 'All CPUs Left'}
+    ];
 
     // Graphics
     baseUrl: string = './assets';
