@@ -1,5 +1,7 @@
 import { SettingsModel } from './../models/settings-model';
 import Phaser from 'phaser';
+import CyberballGameController from './cyberball-game-controller';
+import CyberballGameModel from './cyberball-game-model';
 
 const textStyle = { fontFamily: 'Arial', color: '#000000' };
 
@@ -7,20 +9,20 @@ const textStyle = { fontFamily: 'Arial', color: '#000000' };
 export class CyberballScene extends Phaser.Scene {
     public settings: SettingsModel;
 
+    cyberballGameModel: CyberballGameModel;
+    cyberballGameController: CyberballGameController;
+
     // Game Objects:
     private ballSprite: Phaser.GameObjects.Sprite;
     private playerSprite: Phaser.GameObjects.Sprite;
     private playerGroup: Phaser.Physics.Arcade.Group;
-    private cpuSprites: Phaser.GameObjects.Sprite[] = [];
+    private sprites: Map<string, Phaser.GameObjects.Sprite> = new Map();
     private timeLimitText: Phaser.GameObjects.Text;
 
 
     // Gameplay Mechanics:
 
-    private humanPlayerHasBall = true;
-    private ballHeld = true;
     private throwTarget: Phaser.GameObjects.Sprite;
-    private gameEnded = false;
 
     // Stats:
 
@@ -31,13 +33,33 @@ export class CyberballScene extends Phaser.Scene {
 
         this.settings = settings;
 
+        this.cyberballGameModel = new CyberballGameModel();
+        this.cyberballGameModel.playerHoldingBall = this.settings.player.name;
+        this.cyberballGameModel.humanPlayer = this.settings.player.name;
+        for (const cpuSetting of this.settings.computerPlayers) {
+            this.cyberballGameModel.remainingCpuPlayers.add(cpuSetting.name);
+        }
+        this.cyberballGameController = new CyberballGameController(this.cyberballGameModel);
+        this.cyberballGameController.catchBallCallbacks.addCallback("Phaser catch", id => {
+            this.catchBall(this.sprites.get(id), id);
+        });
+        this.cyberballGameController.throwBallCallbacks.addCallback("Phaser throw", (thrower, reciever) => {
+            this.throwBall(this.sprites.get(thrower), this.sprites.get(reciever));
+        });
+        this.cyberballGameController.CPULeaveCallbacks.addCallback("Phaser cpu leave", id => {
+            this.leaveGame(this.sprites.get(id));
+        });
+        this.cyberballGameController.gameEndCallbacks.addCallback("Phaser game end", () => {
+            this.gameOver();
+        })
+
 
         setTimeout(() => {
-            this.leaveGame(this.cpuSprites[0]);
+            this.leaveGame(this.sprites.get(this.settings.computerPlayers[0].name));
         }, 5000);
 
         setTimeout(() => {
-            this.gameOver();
+            this.cyberballGameController.endGame("timeout");
         }, 10000);
     }
 
@@ -99,6 +121,7 @@ export class CyberballScene extends Phaser.Scene {
             image.setScale(this.settings.portraitHeight / image.height);
         }
 
+        this.sprites.set(this.settings.player.name, this.playerSprite);
     }
 
     public createCPU(i: number) {
@@ -117,11 +140,11 @@ export class CyberballScene extends Phaser.Scene {
         cpuSprite.flipX = cpuPosition.x > this.playerSprite.x;
 
         if (this.settings.computerPlayers[i].tint)
-            cpuSprite.setTint(parseInt(this.settings.computerPlayers[i].tint.substr(1), 16));
+            cpuSprite.setTint(parseInt(this.settings.computerPlayers[i].tint.substring(1), 16));
 
         cpuSprite.setInteractive();
         cpuSprite.on('pointerdown', (e) => {
-            if (this.humanPlayerHasBall) {
+            if (this.cyberballGameModel.playerHoldingBall === this.settings.player.name) {
 
 
                 // Ensure player and ball are facing the correct way on touch devices:
@@ -131,11 +154,11 @@ export class CyberballScene extends Phaser.Scene {
                 this.ballSprite.x = ballPosition.x;
                 this.ballSprite.y = ballPosition.y;
 
-                this.throwBall(this.playerSprite, cpuSprite);
+                this.cyberballGameController.throwBall(this.settings.computerPlayers[i].name)
             }
         });
 
-        this.cpuSprites.push(cpuSprite);
+        this.sprites.set(this.settings.computerPlayers[i].name, cpuSprite);
     }
 
     public createCPUs() {
@@ -149,11 +172,12 @@ export class CyberballScene extends Phaser.Scene {
         this.ballSprite = this.physics.add.sprite(ballPosition.x, ballPosition.y, 'ball');
 
         if (this.settings.ballTint)
-            this.ballSprite.setTint(parseInt(this.settings.ballTint.substr(1), 16));
+            this.ballSprite.setTint(parseInt(this.settings.ballTint.substring(1), 16));
 
         this.physics.add.overlap(this.ballSprite, this.playerGroup, (_b, receiver) => {
-            if (!this.ballHeld && receiver === this.throwTarget)
-                this.catchBall(receiver as Phaser.GameObjects.Sprite);
+            if (!this.cyberballGameModel.playerHoldingBall && receiver === this.throwTarget) {
+                this.cyberballGameController.completeCatch();
+            }
         });
     }
 
@@ -175,14 +199,14 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     public updateAnimations() {
-        if (this.humanPlayerHasBall) {
+        if (this.cyberballGameModel.playerHoldingBall === this.settings.player.name) {
             this.playerSprite.play('active');
             this.playerSprite.flipX = this.input.x < this.playerSprite.x;
 
             let ballPosition = this.getActiveBallPosition(this.playerSprite);
             this.ballSprite.x = ballPosition.x;
             this.ballSprite.y = ballPosition.y;
-        } else if (!this.ballHeld) {
+        } else if (!this.cyberballGameModel.playerHoldingBall) {
             // Eyes on the ball:
             this.playerGroup.getChildren().forEach(c => {
                 let sprite = c as Phaser.GameObjects.Sprite;
@@ -193,7 +217,7 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     public update() {
-        if (this.gameEnded)
+        if (this.cyberballGameModel.gameHasEnded)
             return;
 
         this.updateAnimations();
@@ -206,11 +230,6 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     public gameOver() {
-        if (this.gameEnded)
-            return;
-
-        this.gameEnded = true;
-
         // Stop future throws:
         this.playerGroup.children.entries.forEach(child => child.removeAllListeners());
 
@@ -222,7 +241,6 @@ export class CyberballScene extends Phaser.Scene {
     // Mechanics:
 
     public throwBall(thrower: Phaser.GameObjects.Sprite, receiver: Phaser.GameObjects.Sprite) {
-        this.humanPlayerHasBall = this.ballHeld = false;
         this.throwTarget = receiver;
 
         // Player animation:
@@ -237,9 +255,7 @@ export class CyberballScene extends Phaser.Scene {
     }
 
 
-    public catchBall(receiver: Phaser.GameObjects.Sprite) {
-
-        this.ballHeld = true;
+    public catchBall(receiver: Phaser.GameObjects.Sprite, receiverId: string) {
 
         receiver.play('catch');
 
@@ -250,31 +266,20 @@ export class CyberballScene extends Phaser.Scene {
 
         // Prepare for next throw:
 
-        if (receiver === this.playerSprite) {
-            this.humanPlayerHasBall = true;
-        } else {
-
+        if (receiver !== this.playerSprite) {
             setTimeout(() => {
                 receiver.play('active');
 
                 ballPosition = this.getActiveBallPosition(receiver);
                 this.ballSprite.x = ballPosition.x;
                 this.ballSprite.y = ballPosition.y;
-                let id = this.playerGroup.getChildren().indexOf(receiver);
 
                 setTimeout(() => {
-
-                    let random = Math.floor(Math.random() * this.playerGroup.getChildren().length);
-                    // Exclude self
-                    if (random == this.playerGroup.getChildren().indexOf(receiver)) {
-                        if (random == 0) {
-                            random++;
-                        } else {
-                            random--;
-                        }
+                    let name = this.settings.computerPlayers[Math.floor(Math.random() * this.settings.computerPlayers.length)].name;
+                    if (name === receiverId) {
+                        name = this.settings.player.name;
                     }
-
-                    this.throwBall(receiver, this.playerGroup.getChildren()[random] as Phaser.GameObjects.Sprite);
+                    this.cyberballGameController.throwBall(name);
                 }, 500);
             }, 500)
         }

@@ -1,13 +1,5 @@
 import CallbackList from "./callback-list";
-
-class CyberballGameModel {
-    playerHoldingBall?: string; // can be CPU or human
-    throwTarget?: string; // can be CPU or human
-    humanPlayer: string
-    remainingCpuPlayers: Set<string>;
-    humanPlayerMayLeave = false;
-    gameHasEnded = false;
-}
+import CyberballGameModel from "./cyberball-game-model";
 
 export default class CyberballGameController {
     model: CyberballGameModel;
@@ -23,6 +15,9 @@ export default class CyberballGameController {
     }
 
     public removeCPUfromGame(name: string) {
+        if (this.model.gameHasEnded) {
+            return;
+        }
         let isThrowing = this.model.playerHoldingBall == name;
         let isCatching = this.model.throwTarget == name;
         let alreadyLeft = !this.model.remainingCpuPlayers.has(name);
@@ -34,6 +29,9 @@ export default class CyberballGameController {
     }
 
     public throwBall(target: string) {
+        if (this.model.gameHasEnded) {
+            return;
+        }
         if (!this.model.playerHoldingBall) {
             console.warn("Attempting to throw ball when nobody is holding it?");
             return;
@@ -45,6 +43,9 @@ export default class CyberballGameController {
     }
 
     public completeCatch() {
+        if (this.model.gameHasEnded) {
+            return;
+        }
         this.model.playerHoldingBall = this.model.throwTarget;
         this.model.throwTarget = null;
         this.catchBallCallbacks.runCallbacks(this.model.playerHoldingBall);
