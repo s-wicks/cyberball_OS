@@ -291,6 +291,17 @@ define('models/settings-model',["require", "exports", "./player-settings-model",
     });
 });
 ;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -327,6 +338,7 @@ define('pages/Game/game',["require", "exports", "../../scenes/cyberball", "../..
                     default: 'arcade'
                 }
             };
+            this.setupSliderListener();
         };
         GameViewModel.prototype.sendMessage = function () {
             this.chatMessages.push({
@@ -335,13 +347,36 @@ define('pages/Game/game',["require", "exports", "../../scenes/cyberball", "../..
             });
             this.chatMessage = '';
         };
+        GameViewModel.prototype.setupSliderListener = function () {
+            var _this = this;
+            var attemptToBindSlider = function () {
+                var slider = document.getElementById('myRange');
+                if (slider) {
+                    slider.addEventListener('input', function () {
+                        var value = slider.value;
+                        console.log("Slider value changed: ".concat(value));
+                        _this.postEvent('sliderChange', { sliderValue: value });
+                    });
+                }
+                else {
+                    console.error('Slider element not found, retrying...');
+                    setTimeout(attemptToBindSlider, 500);
+                }
+            };
+            attemptToBindSlider();
+        };
+        GameViewModel.prototype.postEvent = function (type, data) {
+            if (data === void 0) { data = {}; }
+            console.log('post event: ' + type, data);
+            window.parent.postMessage(__assign({ type: type }, data), '*');
+        };
         return GameViewModel;
     }());
     exports.GameViewModel = GameViewModel;
 });
 ;
-define('text!pages/Game/game.css',[],function(){return "canvas {\n    max-width: 100%;\n}\n\n.chat-log {\n    border: 1px solid black;\n    border-bottom: 0;\n    height: 100px;\n    overflow-y: auto;\n}\n\n.chat-input {\n    display: flex;\n}\n\n.chat-input input {\n    flex: 1;\n}\n";});;
-define('text!pages/Game/game.html',[],function(){return "<template>\n    <require from=\"./game.css\"></require>\n\n    <phaser-game config.bind=\"gameConfig\"></phaser-game>\n\n    <div if.bind=\"settings.chatEnabled\" class=\"chat\" css=\"width: ${gameWidth}px\">\n        <div class=\"chat-log\">\n            <div repeat.for=\"message of chatMessages\">\n                <strong>${message.sender}</strong>: <span>${message.text}</span>\n            </div>\n        </div>\n\n        <form class=\"chat-input\" submit.delegate=\"sendMessage()\">\n            <input value.bind=\"chatMessage\" />\n            <button type=\"submit\">Send</button>\n        </form>\n    </div>\n</template>\n";});;
+define('text!pages/Game/game.css',[],function(){return "canvas {\n    max-width: 100%;\n}\n\n.chat-log {\n    border: 1px solid black;\n    border-bottom: 0;\n    height: 100px;\n    overflow-y: auto;\n}\n\n.chat-input {\n    display: flex;\n}\n\n.chat-input input {\n    flex: 1;\n}\n\n.slidecontainer {\n    width: 100%; /* Width of the outside container */\n}\n\n.slider {\n    -webkit-appearance: none;\n    width: 100%;\n    height: 15px;\n    border-radius: 5px;\n    background: #d3d3d3;\n    outline: none;\n    opacity: 0.7;\n    -webkit-transition: .2s;\n    transition: opacity .2s;\n}\n\n.slider::-webkit-slider-thumb {\n    -webkit-appearance: none;\n    appearance: none;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    background: url(\"../../../assets/ball.png\");\n    cursor: pointer;\n}\n\n.slider::-moz-range-thumb {\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    background: url(\"../../../assets/ball.png\");\n    cursor: pointer;\n}\n";});;
+define('text!pages/Game/game.html',[],function(){return "<template>\n    <require from=\"./game.css\"></require>\n\n    <phaser-game config.bind=\"gameConfig\"></phaser-game>\n    <body>\n    <div class=\"slidecontainer\">\n        <div>\n            fun meter\n        </div>\n        <input type=\"range\" min=\"1\" max=\"100\" value=\"50\" class=\"slider\" id=\"myRange\">\n    </div>\n    </body>\n    <div if.bind=\"settings.chatEnabled\" class=\"chat\" css=\"width: ${gameWidth}px\">\n        <div class=\"chat-log\">\n            <div repeat.for=\"message of chatMessages\">\n                <strong>${message.sender}</strong>: <span>${message.text}</span>\n            </div>\n        </div>\n\n        <form class=\"chat-input\" submit.delegate=\"sendMessage()\">\n            <input value.bind=\"chatMessage\" />\n            <button type=\"submit\">Send</button>\n        </form>\n    </div>\n</template>\n";});;
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1304,16 +1339,6 @@ define('scenes/cyberball',["require", "exports", "enums/leave-trigger", "phaser"
                         sprite.flipX = _this.ballSprite.x < sprite.x;
                 });
             }
-            this.postEvent("why is leaveTime Not working", {
-                showPlayerLeave: !this.showPlayerLeave,
-                settingsPlayerLeaveTrigger: this.settings.player.leaveTrigger,
-                leaveTriggerTime: leave_trigger_1.LeaveTrigger.Time,
-                bitWiseCheck: (this.settings.player.leaveTrigger & leave_trigger_1.LeaveTrigger.Time) === leave_trigger_1.LeaveTrigger.Time,
-                nowDate: Date.now(),
-                playerSpriteLeaveTimeData: this.playerSprite.getData('leaveTime'),
-                wholeCheck: !this.showPlayerLeave && (this.settings.player.leaveTrigger & leave_trigger_1.LeaveTrigger.Time) === leave_trigger_1.LeaveTrigger.Time &&
-                    Date.now() > this.playerSprite.getData('leaveTime')
-            });
             if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & leave_trigger_1.LeaveTrigger.Time) === leave_trigger_1.LeaveTrigger.Time &&
                 Date.now() > this.playerSprite.getData('leaveTime')) {
                 this.showPlayerLeave = true;

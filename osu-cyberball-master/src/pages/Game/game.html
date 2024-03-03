@@ -2,7 +2,14 @@
     <require from="./game.css"></require>
 
     <phaser-game config.bind="gameConfig"></phaser-game>
-
+    <body>
+    <div class="slidecontainer">
+        <div>
+            fun meter
+        </div>
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    </div>
+    </body>
     <div if.bind="settings.chatEnabled" class="chat" css="width: ${gameWidth}px">
         <div class="chat-log">
             <div repeat.for="message of chatMessages">

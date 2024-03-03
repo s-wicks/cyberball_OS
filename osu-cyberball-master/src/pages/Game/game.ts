@@ -43,6 +43,7 @@ export class GameViewModel {
                 default: 'arcade'
             }
         };
+        this.setupSliderListener();
     }
 
     // Chat:
@@ -59,8 +60,31 @@ export class GameViewModel {
         this.chatMessage = '';
     }
 
+    setupSliderListener() {
+        const attemptToBindSlider = () => {
+            const slider = document.getElementById('myRange') as HTMLInputElement;
+            if (slider) {
+                slider.addEventListener('input', () => {
+                    const value = slider.value;
+                    console.log(`Slider value changed: ${value}`);
+                    this.postEvent('sliderChange', { sliderValue: value });
+                });
+            } else {
+                console.error('Slider element not found, retrying...');
+                setTimeout(attemptToBindSlider, 500); // Retry after a delay
+            }
+        };
+
+        attemptToBindSlider();
+    }
 
 
 
-
+    postEvent(type: string, data: any = {}): void {
+        console.log('post event: ' + type, data);
+        window.parent.postMessage({
+            type,
+            ...data
+        }, '*');
+    }
 }

@@ -330,16 +330,7 @@ export class CyberballScene extends Phaser.Scene {
         }
 
 
-this.postEvent("why is leaveTime Not working", {
-    showPlayerLeave: !this.showPlayerLeave,
-    settingsPlayerLeaveTrigger: this.settings.player.leaveTrigger,
-    leaveTriggerTime: LeaveTrigger.Time,
-    bitWiseCheck: (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time,
-    nowDate: Date.now(),
-    playerSpriteLeaveTimeData: this.playerSprite.getData('leaveTime'),
-    wholeCheck: !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
-        Date.now() > this.playerSprite.getData('leaveTime')
-});
+
         if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
                 Date.now() > this.playerSprite.getData('leaveTime')) {
             this.showPlayerLeave = true;
@@ -469,6 +460,36 @@ this.postEvent("why is leaveTime Not working", {
         // Check for leavers:
 
         // Player may leave after a number of turns:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Turn) === LeaveTrigger.Turn) {
             let leaveThrows = this.getVariantValue(this.settings.player.leaveTurn, this.settings.player.leaveTurnVariance);
@@ -822,7 +843,7 @@ this.postEvent("why is leaveTime Not working", {
         return `${this.settings.timeLimitText} ${time.getUTCMinutes()}:${time.getUTCSeconds() < 10 ? '0' : ''}${time.getUTCSeconds()}`;
     }
 
-    postEvent(type: string, data: any = {}): void {
+     postEvent(type: string, data: any = {}): void {
         console.log('post event: ' + type, data);
 
         window.parent.postMessage({
