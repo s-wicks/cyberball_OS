@@ -1,4 +1,3 @@
-import { Player } from './../models/player-model';
 import { LeaveTrigger } from 'enums/leave-trigger';
 import { SettingsModel } from './../models/settings-model';
 import Phaser from 'phaser';
@@ -20,7 +19,7 @@ export class CyberballScene extends Phaser.Scene {
 
     // Gameplay Mechanics:
 
-    private playerHasBall = true; // TODO what is the difference?
+    private humanPlayerHasBall = true;
     private ballHeld = true;
     private throwTarget: Phaser.GameObjects.Sprite;
 
@@ -188,7 +187,7 @@ export class CyberballScene extends Phaser.Scene {
 
         cpuSprite.setInteractive();
         cpuSprite.on('pointerdown', (e) => {
-            if (this.playerHasBall) {
+            if (this.humanPlayerHasBall) {
 
 
                 // Ensure player and ball are facing the correct way on touch devices:
@@ -226,7 +225,7 @@ export class CyberballScene extends Phaser.Scene {
                     cpu.tint = 0xff0000;
                 });
                 this.playerSprite.tint = 0xff0000;
-                if (this.playerHasBall) {
+                if (this.humanPlayerHasBall) {
                     this.playerSprite.tint = 0x00ff00;
                 }
                 const playerId = 1;
@@ -299,7 +298,7 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     public updateAnimations() {
-        if (this.playerHasBall) {
+        if (this.humanPlayerHasBall) {
             this.playerSprite.play('active');
             this.playerSprite.flipX = this.input.x < this.playerSprite.x;
 
@@ -326,7 +325,7 @@ export class CyberballScene extends Phaser.Scene {
             });
         }
         // Player may leave after ignored for a time:
-        else if (!this.playerHasBall && !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored &&
+        else if (!this.humanPlayerHasBall && !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored &&
             Date.now() > this.playerSprite.getData('leaveTimeIgnored')) {
             this.showPlayerLeave = true;
             this.postEvent('player-may-leave', {
@@ -408,7 +407,7 @@ export class CyberballScene extends Phaser.Scene {
             receiver.setData('leaveTimeIgnored', Date.now() + this.getVariantValue(throwerSettings.leaveTimeIgnored, throwerSettings.leaveTimeIgnoredVariance) * 1000);
         }
 
-        this.playerHasBall = this.ballHeld = false;
+        this.humanPlayerHasBall = this.ballHeld = false;
         this.throwTarget = receiver;
 
         this.throwCount++;
@@ -520,7 +519,7 @@ export class CyberballScene extends Phaser.Scene {
         // Prepare for next throw:
 
         if (receiver === this.playerSprite) {
-            this.playerHasBall = true;
+            this.humanPlayerHasBall = true;
         } else {
             let settings = receiver.getData('settings') as CpuSettingsModel;
 
