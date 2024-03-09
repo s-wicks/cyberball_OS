@@ -2,10 +2,7 @@ import { CyberballScene } from '../../scenes/cyberball';
 import { defaultSettings, SettingsModel } from '../../models/settings-model';
 import Phaser from 'phaser';
 import { PhaserGameCustomElement } from 'resources/phaser-game/phaser-game';
-
-//     // TODO: Use events to talk to Qualtrics?
-//     //setTimeout(() => { window.dispatchEvent(new CustomEvent('complete', { detail: { test: 'test' } }))}, 1000)
-
+import CyberballGameController from 'game/cyberball-game-controller';
 
 export class GameViewModel {
     settings: SettingsModel = defaultSettings;
@@ -19,7 +16,7 @@ export class GameViewModel {
 
     gameConfig: Phaser.Types.Core.GameConfig;
 
-    activate(params) {
+    activate(params: { settings?: string, playerName?: string }) {
         if('settings' in params) {
             this.settings = new SettingsModel(JSON.parse(atob(params.settings)));
         }
@@ -34,33 +31,29 @@ export class GameViewModel {
     }
 
     bind() {
+        let cpuPlayers: Set<string> = new Set();
+        for (const cpuSetting of this.settings.computerPlayers) {
+            cpuPlayers.add(cpuSetting.name);
+        }
+        let cyberballGameController = new CyberballGameController(this.settings.player.name, this.settings.player.name, cpuPlayers);
+        let scene = new CyberballScene(this.settings, cyberballGameController);
+
         this.gameConfig  = {
             type: Phaser.AUTO,
             width: this.gameWidth,
             height: this.gameHeight,
-            scene: new CyberballScene(this.settings),
+            scene,
             physics: {
                 default: 'arcade'
             }
         };
+
+        setTimeout(() => {
+            cyberballGameController.removeCPUfromGame(this.settings.computerPlayers[0].name);
+        }, 5000);
+
+        setTimeout(() => {
+            cyberballGameController.endGame("timeout");
+        }, 10000);
     }
-
-    // Chat:
-
-    chatMessage: string;
-    chatMessages: Array<{sender: string, text: string}> = [];
-
-    sendMessage() {
-        this.chatMessages.push({
-            sender: this.settings.player.name,
-            text: this.chatMessage
-        });
-
-        this.chatMessage = '';
-    }
-
-
-
-
-
 }

@@ -2,7 +2,7 @@ import CallbackList from "./callback-list";
 import CyberballGameModel from "./cyberball-game-model";
 
 export default class CyberballGameController {
-    model: CyberballGameModel;
+    readonly model: CyberballGameModel;
 
     public CPULeaveCallbacks: CallbackList<[string]> = new CallbackList();
     public throwBallCallbacks: CallbackList<[string /* thrower */, string /* receiver */]> = new CallbackList();
@@ -10,8 +10,12 @@ export default class CyberballGameController {
     public humanPlayerMayLeaveCallbacks: CallbackList<[string]> = new CallbackList();
     public gameEndCallbacks: CallbackList<[string]> = new CallbackList();
 
-    constructor(model: CyberballGameModel) {
-        this.model = model;
+    constructor(humanPlayer: string, playerStartingWithBall: string, cpuPlayers: Set<string>) {
+        this.model = new CyberballGameModel();
+        this.model.humanPlayer = humanPlayer;
+        this.model.playerHoldingBall = playerStartingWithBall;
+        this.model.remainingCpuPlayers = cpuPlayers;
+
     }
 
     public removeCPUfromGame(name: string) {
