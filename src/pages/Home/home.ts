@@ -17,10 +17,8 @@ export class HomeViewModel {
     sidebar: HTMLElement;
     sidebarContent: HTMLElement;
     currentSetting: string = '';
-    showModal: boolean = false;
     presetName: string = '';
     presetDescription: string = '';
-    showFileModal: boolean = false;  // Used to show/hide the modal
     fileName: string = '';           // Stores the filename entered by the user
 
     @bindable sliderValue = this.settings.gameOverOpacity;
@@ -54,11 +52,6 @@ export class HomeViewModel {
     unbind() {
         this.clipboard.destroy();
     }
-
-    closeSidebar() {
-        this.sidebar.classList.remove('sidebar-open');
-    }
-
 
     addCPU() {
         this.settings.computerPlayers.push(new CpuSettingsModel({
@@ -206,7 +199,6 @@ export class HomeViewModel {
 
             this.activeTab = 'buttons';
         }
-        this.closeSidebar();
     }
 
     previousTab() {
@@ -220,7 +212,6 @@ export class HomeViewModel {
         } else if (this.activeTab === 'cpus') {
             this.activeTab = 'player';
         }
-        this.closeSidebar();
     }
 
     @computedFrom('settings', 'settings.player', 'settings.computerPlayers', 'settings.someOtherProperty', 'settings.anotherProperty')
@@ -230,24 +221,19 @@ export class HomeViewModel {
 
 
     // Add these methods to your HomeViewModel class
-
-    saveSettingsToLocalStorage() {
-        this.convertStringsToNumbers(this.settings);
-        this.showModal = true; // Show the modal when "Save to Preset" is clicked
-    }
-
-    cancelSave() {
-        this.showModal = false; // Hide the modal when "Cancel" is clicked
+    cancelPresetSave() {
+        (<HTMLDialogElement>document.getElementById("preset_modal")).close(); // Hide the modal when "Cancel" is clicked
         this.presetName = ''; // Clear the preset name
         this.presetDescription = ''; // Clear the preset description
     }
 
-    confirmSave() {
+    confirmPresetSave() {
 
         if (this.presetName.trim() === '') {
             alert('Please enter a preset name.');
             return;
         }
+        this.convertStringsToNumbers(this.settings);
 
         // Save to local storage
         const presetData = {
@@ -256,18 +242,13 @@ export class HomeViewModel {
         };
         localStorage.setItem(this.presetName, JSON.stringify(presetData));
 
-        this.showModal = false; // Hide the modal after saving
+        (<HTMLDialogElement>document.getElementById("preset_modal")).close(); // Hide the modal after saving
         this.presetName = ''; // Clear the preset name
         this.presetDescription = ''; // Clear the preset description
     }
 
-    public saveSettingsToFile(): void {
-        this.convertStringsToNumbers(this.settings);
-        this.showFileModal = true;  // Show the file modal when "Save to File" is clicked
-    }
-
     cancelFileSave() {
-        this.showFileModal = false;   // Hide the file modal when "Cancel" is clicked
+        (<HTMLDialogElement>document.getElementById("file_modal")).close();   // Hide the file modal when "Cancel" is clicked
         this.fileName = '';           // Clear the filename
     }
 
@@ -291,6 +272,7 @@ export class HomeViewModel {
             return;
         }
 
+        this.convertStringsToNumbers(this.settings);
         const settingsString = JSON.stringify(this.settings, null, 2);
         const blob = new Blob([settingsString], {type: 'text/plain;charset=utf-8'});
 
@@ -305,12 +287,12 @@ export class HomeViewModel {
         document.body.removeChild(a);
 
         // After saving, reset the values and close the modal
-        this.showFileModal = false;
+        (<HTMLDialogElement>document.getElementById("file_modal")).close();
         this.fileName = '';
     }
 
 
-    showModal2(event) {
+    openModal(event) {
         event.target.parentElement.nextElementSibling.showModal();
     }
 

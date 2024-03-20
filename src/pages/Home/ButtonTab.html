@@ -2,28 +2,10 @@
 <div if.bind="activeTab === 'buttons'" class="tabcontent">
     <div class="button-container">
         <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
-        <button class="bottom-buttons" click.delegate="saveSettingsToLocalStorage()">&#128190; Save To Preset</button>
-        <button class="bottom-buttons" click.delegate="saveSettingsToFile()">&#128190; Save To File</button>
-        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Link</button>
-    </div>
 
-    <div class="modal" if.bind="showFileModal">
-        <div class="modal-content">
-            <h2>Save to File</h2>
-            <div class="input">
-                <label>File Name:</label>
-                <input type="text" value.bind="fileName" placeholder="Enter filename">
-            </div>
-            <div class="modal-buttons">
-                <button click.delegate="cancelFileSave()">Cancel</button>
-                <button click.delegate="confirmFileSave()">Save</button>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal" if.bind="showModal">
-        <div class="modal-content">
+        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Save To Preset</button></div>
+        <dialog class="new-sidebar" id="preset_modal"><form method="dialog">
+            <button class="close-btn" autofocus click.delegate="cancelPresetSave()">X</button>
             <h2>Save as Preset</h2>
             <div class="input">
                 <label>Preset Name:</label>
@@ -33,11 +15,19 @@
                 <label>Description:</label>
                 <textarea value.bind="presetDescription"></textarea>
             </div>
-            <div class="modal-buttons">
-                <button click.delegate="cancelSave()">Cancel</button>
-                <button click.delegate="confirmSave()">Save</button>
-            </div>
-        </div>
+            <button click.delegate="confirmPresetFileSave()">Save</button>
+        </form></dialog>
+
+        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Save To File</button></div>
+        <dialog class="new-sidebar" id="file_modal"><form method="dialog">
+            <button class="close-btn" autofocus click.delegate="cancelFileSave()">X</button>
+            <h2>Save to File</h2>
+            <label>File Name:</label>
+            <input type="text" value.bind="fileName" placeholder="Enter filename">
+            <button click.delegate="confirmFileSave()">Save</button>
+        </form></dialog>
+
+        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Link</button>
     </div>
 </div>
 </template>
