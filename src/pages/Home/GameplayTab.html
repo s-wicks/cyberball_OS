@@ -5,10 +5,8 @@
     <div clas="input">
     <div class="two-column-grid">
         <label for="selectedGameOverCondition">Select game end condition:</label>
-        <select id="selectedGameOverCondition" value.bind="selectedGameOverCondition">
-            <option value="time">Throw Count</option>
-            <option value="score">Time Limit</option>
-            <option value="allCpuLeft">All CPU's Left</option>
+        <select id="selectedGameOverCondition" value.bind="settings.selectedGameOverCondition">
+            <option repeat.for="condition of settings.gameOverConditions" model.bind="condition.id">${condition.label}</option>
         </select>
 
         <label>Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>

@@ -45,7 +45,7 @@ export class CyberballScene extends Phaser.Scene {
 
         this.settings = settings;
 
-        if(this.settings.useSchedule){
+        if (this.settings.useSchedule) {
 
             this.settings.schedule = this.convertToMap(this.settings.scheduleText);
 
@@ -101,12 +101,12 @@ export class CyberballScene extends Phaser.Scene {
         const map = new Map<number, number[]>();
 
         for (const line of lines) {
-          const [key, ...values] = line.split(',').map(Number);
-          map.set(key, values);
+            const [key, ...values] = line.split(',').map(Number);
+            map.set(key, values);
         }
 
         return map;
-      }
+    }
 
     public preload() {
         this.load.crossOrigin = 'anonymous';
@@ -115,7 +115,7 @@ export class CyberballScene extends Phaser.Scene {
         this.load.image('ball', `${this.settings.baseUrl}/${this.settings.ballSprite}`);
         this.load.multiatlas('player', `${this.settings.baseUrl}/player.json`, 'assets');
 
-        if(this.settings.player.portraitBuff){
+        if (this.settings.player.portraitBuff) {
             let data = new Image();
 
             // data.src = this.settings.player.portraitBuff as string;
@@ -126,10 +126,10 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         this.settings.computerPlayers.forEach((cpu, i) => {
-            if(cpu.portraitBuff){
+            if (cpu.portraitBuff) {
                 this.textures.addBase64('cpuPortrait' + i, cpu.portraitBuff);
             }
-                // this.load.image('cpuPortrait' + i, 'https://cors-anywhere.herokuapp.com/' + cpu.portrait);
+            // this.load.image('cpuPortrait' + i, 'https://cors-anywhere.herokuapp.com/' + cpu.portrait);
         });
     }
 
@@ -167,23 +167,23 @@ export class CyberballScene extends Phaser.Scene {
         this.playerSprite = this.playerGroup.create(playerPosition.x, playerPosition.y, 'player', 'active/1.png');
         this.playerSprite.setData('settings', this.settings.player);
 
-        if(this.settings.player.tint)
+        if (this.settings.player.tint)
             this.playerSprite.setTint(parseInt(this.settings.player.tint.substr(1), 16));
 
         this.playerSprite.setData('name-object', this.add.text(playerPosition.x, playerPosition.y + this.playerSprite.height / 2 + 10, this.settings.player.name, textStyle).setOrigin(0.5));
 
-        if(this.settings.player.portrait) {
+        if (this.settings.player.portrait) {
             var portraitPosition = this.getPlayerPortraitPosition(this.playerSprite);
             var image = this.add.image(portraitPosition.x, portraitPosition.y, 'playerPortrait');
 
             image.setScale(this.settings.portraitHeight / image.height);
         }
 
-        if((this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time) {
+        if ((this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time) {
             this.playerSprite.setData('leaveTime', Date.now() + this.getVariantValue(this.settings.player.leaveTime, this.settings.player.leaveTimeVariance) * 1000);
         }
 
-        if((this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored) {
+        if ((this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored) {
             this.playerSprite.setData('leaveTimeIgnored', Date.now() + this.getVariantValue(this.settings.player.leaveTimeIgnored, this.settings.player.leaveTimeIgnoredVariance) * 1000);
         }
 
@@ -199,7 +199,7 @@ export class CyberballScene extends Phaser.Scene {
 
             cpuSprite.setData('name-object', this.add.text(cpuPosition.x, cpuPosition.y + cpuSprite.height / 2 + 10, this.settings.computerPlayers[i].name, textStyle).setOrigin(0.5));
 
-            if(this.settings.computerPlayers[i].portrait) {
+            if (this.settings.computerPlayers[i].portrait) {
                 var portraitPosition = this.getCPUPortraitPosition(i, cpuSprite);
                 var image = this.add.image(portraitPosition.x, portraitPosition.y, 'cpuPortrait' + i);
 
@@ -209,7 +209,7 @@ export class CyberballScene extends Phaser.Scene {
             cpuSprite.flipX = cpuPosition.x > this.playerSprite.x;
             cpuSprite.setData('settings', this.settings.computerPlayers[i]);
 
-            if(this.settings.computerPlayers[i].tint)
+            if (this.settings.computerPlayers[i].tint)
                 cpuSprite.setTint(parseInt(this.settings.computerPlayers[i].tint.substr(1), 16));
 
             cpuSprite.setInteractive();
@@ -228,19 +228,19 @@ export class CyberballScene extends Phaser.Scene {
                 }
             });
 
-            if((this.settings.computerPlayers[i].leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time) {
+            if ((this.settings.computerPlayers[i].leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time) {
                 cpuSprite.setData('leaveTime', Date.now() + this.getVariantValue(this.settings.computerPlayers[i].leaveTime, this.settings.computerPlayers[i].leaveTimeVariance) * 1000);
             }
 
-            if((this.settings.computerPlayers[i].leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored) {
+            if ((this.settings.computerPlayers[i].leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored) {
                 cpuSprite.setData('leaveTimeIgnored', Date.now() + this.getVariantValue(this.settings.computerPlayers[i].leaveTimeIgnored, this.settings.computerPlayers[i].leaveTimeIgnoredVariance) * 1000);
             }
 
             this.cpuSprites.push(cpuSprite);
         }
-        if (this.settings.useSchedule ) {
+        if (this.settings.useSchedule) {
 
-            if(this.settings.changeColor){
+            if (this.settings.changeColor) {
                 this.cpuSprites.forEach(cpu => {
                     cpu.tint = 0xff0000;
                 });
@@ -249,12 +249,12 @@ export class CyberballScene extends Phaser.Scene {
                     this.playerSprite.tint = 0x00ff00;
                 }
                 const playerId = 1;
-                let scheduleQueue  = this.settings.schedule.get(playerId);
+                let scheduleQueue = this.settings.schedule.get(playerId);
 
                 let nextRand = 0;
-                if(scheduleQueue && scheduleQueue.length > 0){
+                if (scheduleQueue && scheduleQueue.length > 0) {
                     nextRand = scheduleQueue[0];
-                }else{
+                } else {
                     //throw an error
                 }
 
@@ -263,7 +263,7 @@ export class CyberballScene extends Phaser.Scene {
                 const digits = Array.from(String(joinedPlayers), Number);
 
                 digits.forEach(id => {
-                    let sprite = this.playerGroup.getChildren()[id-1] as Phaser.GameObjects.Sprite;
+                    let sprite = this.playerGroup.getChildren()[id - 1] as Phaser.GameObjects.Sprite;
                     sprite.tint = 0x00ff00;
                 });
             }
@@ -275,7 +275,7 @@ export class CyberballScene extends Phaser.Scene {
         let ballPosition = this.getActiveBallPosition(this.playerSprite);
         this.ballSprite = this.physics.add.sprite(ballPosition.x, ballPosition.y, 'ball');
 
-        if(this.settings.ballTint)
+        if (this.settings.ballTint)
             this.ballSprite.setTint(parseInt(this.settings.ballTint.substr(1), 16));
 
         this.physics.add.overlap(this.ballSprite, this.playerGroup, (_b, receiver) => {
@@ -297,13 +297,22 @@ export class CyberballScene extends Phaser.Scene {
 
     public update() {
         //checks game ending conditions
-        if (this.absentPlayers.length >= this.settings.computerPlayers.length) {
+        //All CPUs left
+        if (this.settings.selectedGameOverCondition === "allCPUsLeft" && this.absentPlayers.length >= this.settings.computerPlayers.length) {
+            if (!this.gameEnded) this.postEvent('All CPUs left');
             this.gameOver();
             return;
         }
+        // The game ends at the end of the schedule or when reaching the throw count. Check is done in catchBall to make sure game ends when a player is holding the ball.
+
+        //Time limit
+        if (this.settings.selectedGameOverCondition === "timeLimit" && this.settings.timeLimit > 0 && Date.now() - this.startTime > this.settings.timeLimit) {
+            if (!this.gameEnded) this.postEvent('global-time-limit');
+            this.gameOver();
+        }
 
 
-        if(this.gameEnded)
+        if (this.gameEnded)
             return;
 
         if (this.playerHasBall) {
@@ -324,19 +333,19 @@ export class CyberballScene extends Phaser.Scene {
 
         // Player may leave after time has passed:
 
-        if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
-                Date.now() > this.playerSprite.getData('leaveTime')) {
+        if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
+            Date.now() > this.playerSprite.getData('leaveTime')) {
             this.showPlayerLeave = true;
             this.postEvent('player-may-leave', {
-                reason: 'time elapsed'
+                reason: 'time elapsed', time: (Date.now() - this.startTime) / 1000
             });
         }
         // Player may leave after ignored for a time:
         else if (!this.playerHasBall && !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored &&
-                    Date.now() > this.playerSprite.getData('leaveTimeIgnored')) {
+            Date.now() > this.playerSprite.getData('leaveTimeIgnored')) {
             this.showPlayerLeave = true;
             this.postEvent('player-may-leave', {
-                reason: 'time ignored'
+                reason: 'time ignored', time: (Date.now() - this.startTime) / 1000
             });
         }
 
@@ -350,13 +359,13 @@ export class CyberballScene extends Phaser.Scene {
             let settings = cpu.getData('settings') as CpuSettingsModel;
 
             // CPU may leave after some time
-            if((settings.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
-                    Date.now() > cpu.getData('leaveTime')) {
+            if ((settings.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
+                Date.now() > cpu.getData('leaveTime')) {
                 this.leaveGame(cpu, 'time elapsed');
             }
             // CPU may leave after ignored for a time:
             else if ((settings.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored &&
-                    Date.now() > cpu.getData('leaveTimeIgnored')) {
+                Date.now() > cpu.getData('leaveTimeIgnored')) {
                 this.leaveGame(cpu, 'time ignored');
             }
         });
@@ -365,11 +374,6 @@ export class CyberballScene extends Phaser.Scene {
 
         if (this.settings.timeLimit > 0 && this.settings.displayTimeLimit)
             this.timeLimitText.setText(this.getTimeString());
-
-        if (this.settings.timeLimit > 0 && Date.now() - this.startTime > this.settings.timeLimit) {
-            this.postEvent('global-time-limit');
-            this.gameOver();
-        }
     }
 
     public gameOver() {
@@ -378,7 +382,7 @@ export class CyberballScene extends Phaser.Scene {
 
         this.gameEnded = true;
 
-        this.postEvent('game-end');
+        this.postEvent('game-end', { time: (Date.now() - this.startTime) / 1000 });
 
         // Stop future throws:
         clearTimeout(this.activeTimeout);
@@ -405,7 +409,7 @@ export class CyberballScene extends Phaser.Scene {
 
         // Wait until the player throws the ball to reset their ignored timer, so they cannot ignore themselves.
         let throwerSettings = thrower.getData('settings');
-        if((throwerSettings.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored) {
+        if ((throwerSettings.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored) {
             receiver.setData('leaveTimeIgnored', Date.now() + this.getVariantValue(throwerSettings.leaveTimeIgnored, throwerSettings.leaveTimeIgnoredVariance) * 1000);
         }
 
@@ -431,7 +435,7 @@ export class CyberballScene extends Phaser.Scene {
         const randomIndex = Math.floor(Math.random() * digits.length);
 
         return digits[randomIndex] - 1;
-      }
+    }
 
     public catchBall(receiver: Phaser.GameObjects.Sprite) {
 
@@ -453,28 +457,28 @@ export class CyberballScene extends Phaser.Scene {
         // Check for leavers:
 
         // Player may leave after a number of turns:
-        if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Turn) === LeaveTrigger.Turn) {
+        if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Turn) === LeaveTrigger.Turn) {
             let leaveThrows = this.getVariantValue(this.settings.player.leaveTurn, this.settings.player.leaveTurnVariance);
 
             if (this.throwCount >= leaveThrows) {
                 this.showPlayerLeave = true;
                 this.postEvent('player-may-leave', {
-                    reason: 'throws elapsed'
+                    reason: 'throws elapsed', time: (Date.now() - this.startTime) / 1000
                 });
             }
         }
         // Player may leave after ignored for a number of turns:
-        else if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Ignored) === LeaveTrigger.Ignored) {
+        else if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Ignored) === LeaveTrigger.Ignored) {
             let leaveThrows = this.getVariantValue(this.settings.player.leaveIgnored, this.settings.player.leaveIgnoredVariance);
             let playerThrowsIgnored = this.playerSprite.getData('throwsIgnored') ?? 0;
 
-            if(this.playerSprite != receiver)
+            if (this.playerSprite != receiver)
                 this.playerSprite.setData('throwsIgnored', ++playerThrowsIgnored);
 
             if (playerThrowsIgnored >= leaveThrows) {
                 this.showPlayerLeave = true;
                 this.postEvent('player-may-leave', {
-                    reason: 'throws ignored'
+                    reason: 'throws ignored', time: (Date.now() - this.startTime) / 1000
                 });
             }
         }
@@ -491,14 +495,14 @@ export class CyberballScene extends Phaser.Scene {
             cpu.setData('throwsIgnored', throwsIgnored);
 
             // CPU may leave after a number of turns:
-            if((settings.leaveTrigger & LeaveTrigger.Turn) === LeaveTrigger.Turn) {
+            if ((settings.leaveTrigger & LeaveTrigger.Turn) === LeaveTrigger.Turn) {
                 let leaveThrows = this.getVariantValue(settings.leaveTurn, settings.leaveTurnVariance);
 
                 if (this.throwCount >= leaveThrows && this.checkChance(settings.leaveTurnChance))
                     this.leaveGame(cpu, 'throws elapsed');
             }
             // CPU may leave after ignored for a number of turns:
-            else if((settings.leaveTrigger & LeaveTrigger.Ignored) === LeaveTrigger.Ignored) {
+            else if ((settings.leaveTrigger & LeaveTrigger.Ignored) === LeaveTrigger.Ignored) {
                 let leaveThrows = this.getVariantValue(settings.leaveIgnored, settings.leaveIgnoredVariance);
 
                 if (throwsIgnored >= leaveThrows && this.checkChance(settings.leaveIgnoredChance))
@@ -509,9 +513,9 @@ export class CyberballScene extends Phaser.Scene {
         // The game ends at the end of the schedule or when reaching the throw count.
 
         if (
-
-            (this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
-            (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount)
+            this.settings.selectedGameOverCondition === "throwCount" &&
+            ((this.settings.useSchedule && this.settings.scheduleHonorsThrowCount && this.throwCount >= this.settings.throwCount) ||
+                (!this.settings.useSchedule && this.throwCount >= this.settings.throwCount))
         ) {
             this.postEvent('throw-count-met');
             this.gameOver();
@@ -535,13 +539,13 @@ export class CyberballScene extends Phaser.Scene {
 
                 this.activeTimeout = setTimeout(() => {
 
-                    if (this.settings.useSchedule ) {
-                        let scheduleQueue  = this.settings.schedule.get(id + 1);
+                    if (this.settings.useSchedule) {
+                        let scheduleQueue = this.settings.schedule.get(id + 1);
 
                         let nextRand = 0;
-                        if(scheduleQueue && scheduleQueue.length > 0){
+                        if (scheduleQueue && scheduleQueue.length > 0) {
                             nextRand = scheduleQueue[0];
-                        }else{
+                        } else {
                             this.postEvent('throw-count-met');
                             this.gameOver();
                             return;
@@ -549,7 +553,7 @@ export class CyberballScene extends Phaser.Scene {
                             // this.settings.schedule.set(id, scheduleMap.get(id));
                         }
 
-                        if(this.settings.changeColor){
+                        if (this.settings.changeColor) {
                             this.cpuSprites.forEach(cpu => {
                                 cpu.tint = 0xff0000;
                             });
@@ -560,29 +564,29 @@ export class CyberballScene extends Phaser.Scene {
                             const digits = Array.from(String(joinedPlayers), Number);
                             console.log('joinedPlayers', digits);
                             digits.forEach(id => {
-                                let sprite = this.playerGroup.getChildren()[id-1] as Phaser.GameObjects.Sprite;
+                                let sprite = this.playerGroup.getChildren()[id - 1] as Phaser.GameObjects.Sprite;
                                 sprite.tint = 0x00ff00;
                             });
                         }
 
                         let next = this.getRandomDigit(nextRand);
-                        if(next == 0){
+                        if (next == 0) {
                             console.log("next is the player....")
                         }
 
                         // Skip self and absent players in schedule.
-                        while(next === this.playerGroup.getChildren().indexOf(receiver) &&
-                            !this.absentPlayers.includes(next)){
+                        while (next === this.playerGroup.getChildren().indexOf(receiver) &&
+                            !this.absentPlayers.includes(next)) {
                             //this.scheduleIndex++;
-                            if(scheduleQueue.length > 0){
+                            if (scheduleQueue.length > 0) {
                                 const tmpRand = scheduleQueue.shift();
-                                if(tmpRand){
+                                if (tmpRand) {
                                     next = this.getRandomDigit(tmpRand);
-                                }else{
+                                } else {
                                     next = 0;
                                     break;
                                 }
-                            }else{
+                            } else {
                                 next = 0;
                                 break;
                             }
@@ -675,7 +679,7 @@ export class CyberballScene extends Phaser.Scene {
         console.log('pindex', playerIndex);
 
         this.settings.computerPlayers.forEach((cpu, i) => {
-            if(this.absentPlayers.includes(i + 1))
+            if (this.absentPlayers.includes(i + 1))
                 return;
 
             console.log('distribute before', i, cpu.targetPreference);
@@ -685,7 +689,7 @@ export class CyberballScene extends Phaser.Scene {
             cpu.targetPreference[targetIndex] = 0;
             let total = cpu.targetPreference.reduce((acc, cur) => acc + cur);
 
-            for(let k = 0; k < cpu.targetPreference.length; k++) {
+            for (let k = 0; k < cpu.targetPreference.length; k++) {
                 if (cpu.targetPreference[k] == 0)
                     continue;
 
@@ -700,12 +704,12 @@ export class CyberballScene extends Phaser.Scene {
 
         // Check if this triggers other players leaving:
 
-        if(!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.OtherLeaver) === LeaveTrigger.OtherLeaver) {
+        if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.OtherLeaver) === LeaveTrigger.OtherLeaver) {
             console.log(this.absentPlayers.length, this.settings.player.leaveOtherLeaver);
             if (this.absentPlayers.length >= this.settings.player.leaveOtherLeaver) {
                 this.showPlayerLeave = true;
                 this.postEvent('player-may-leave', {
-                    reason: 'other leavers'
+                    reason: 'other leavers', time: (Date.now() - this.startTime) / 1000
                 });
             }
         }
@@ -719,7 +723,7 @@ export class CyberballScene extends Phaser.Scene {
             if (cpu == this.throwTarget || cpu.getData('absent'))
                 return;
 
-            if((settings.leaveTrigger & LeaveTrigger.OtherLeaver) === LeaveTrigger.OtherLeaver) {
+            if ((settings.leaveTrigger & LeaveTrigger.OtherLeaver) === LeaveTrigger.OtherLeaver) {
                 if (this.absentPlayers.length >= settings.leaveOtherLeaver && this.checkChance(settings.leaveOtherLeaverChance))
                     this.leaveGame(cpu, 'other leavers');
             }
@@ -733,7 +737,7 @@ export class CyberballScene extends Phaser.Scene {
         let padding = 75;
         let extraPadding = this.settings.hasPortraits ? this.settings.portraitHeight + this.settings.portraitPadding * 2 : 0;
 
-        if(this.settings.computerPlayers.length === 1) {
+        if (this.settings.computerPlayers.length === 1) {
             return new Phaser.Geom.Point(
                 this.sys.canvas.width / 2,
                 padding + extraPadding
@@ -750,7 +754,7 @@ export class CyberballScene extends Phaser.Scene {
         );
     }
 
-    getCPUPortraitPosition(i: number, sprite: Phaser.GameObjects.Sprite): Phaser.Geom.Point  {
+    getCPUPortraitPosition(i: number, sprite: Phaser.GameObjects.Sprite): Phaser.Geom.Point {
         let position = this.getCPUPosition(i);
 
         return new Phaser.Geom.Point(
@@ -762,7 +766,7 @@ export class CyberballScene extends Phaser.Scene {
     getPlayerPosition(): Phaser.Geom.Point {
         let padding = 75;
 
-        if(this.settings.hasPortraits)
+        if (this.settings.hasPortraits)
             padding += this.settings.portraitHeight + this.settings.portraitPadding * 2;
 
         return new Phaser.Geom.Point(
