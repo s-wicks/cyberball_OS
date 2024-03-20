@@ -575,8 +575,8 @@ export class CyberballScene extends Phaser.Scene {
                         }
 
                         // Skip self and absent players in schedule.
-                        while (next === this.playerGroup.getChildren().indexOf(receiver) &&
-                            !this.absentPlayers.includes(next)) {
+                        while (next === this.playerGroup.getChildren().indexOf(receiver) ||
+                            this.absentPlayers.includes(next)) {
                             //this.scheduleIndex++;
                             if (scheduleQueue.length > 0) {
                                 const tmpRand = scheduleQueue.shift();
