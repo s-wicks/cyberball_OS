@@ -51,13 +51,9 @@ export class PresetPage {
 
     }
 
-    public loadPresetAndNavigate(presetName: string): void {
-        const presetData = localStorage.getItem(presetName);
-        if (presetData) {
-            const parsedData = JSON.parse(presetData);
-            this.settingsService.settings = parsedData.settings; // Update the settings in the service
-            this.navigateToConfigurationBuilder();
-        }
+    public loadPresetAndNavigate(preset: any): void {
+        this.settingsService.settings = preset.settings; // Update the settings in the service
+        this.navigateToConfigurationBuilder();
     }
 
     public showTab(tabId: string): void {

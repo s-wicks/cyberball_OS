@@ -25,7 +25,7 @@
                             <th>Description</th>
                             <th>Video</th>
                         </tr>
-                        <tr repeat.for="defaultPreset of defaultPresets" click.trigger="navigateToConfigurationBuilder()">
+                        <tr repeat.for="defaultPreset of defaultPresets" click.trigger="loadPresetAndNavigate(defaultPreset)">
 
                             <td>${defaultPreset.name}</td>
                             <td>${defaultPreset.description}</td>
@@ -48,7 +48,7 @@
                             <th></th>
                         </tr>
 
-                        <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset.name)">
+                        <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset)">
                             <td>${preset.name}</td>
                             <td>${preset.description}</td>
                             <td>
