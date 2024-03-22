@@ -1,10 +1,11 @@
 import { autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import {SettingsService} from "../Setting-Service";
+import {SettingsService} from '../Setting-Service';
 
 @autoinject()
 export class PresetPage {
     presets: Array<{name: string, description: string, settings: any}> = [];
+    defaultPresets: Array<{name: string, description: string, video: string, settings: any}> = [];
     public activeTab: string = 'presets';
     settings: any;
 
@@ -16,8 +17,19 @@ export class PresetPage {
     }
 
     attached() {
-        console.log("attached method called");
+        this.loadDefaultPresets();
         this.loadPresetsFromLocalStorage();
+    }
+
+    public async loadDefaultPresets(): Promise<any> {
+        try {
+            this.defaultPresets = await fetch('../../../assets/defaultPresets.json')
+            .then(response => response.json())
+        } catch (error) {
+            console.error('promise rejected', error)
+        }
+        // this.defaultPresets = require('./defaultPresets.json');
+        console.log('loaded default presets', this.defaultPresets);
     }
 
     public loadPresetsFromLocalStorage(): void {
