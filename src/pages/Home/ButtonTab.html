@@ -1,12 +1,12 @@
 <template>
 <div if.bind="activeTab === 'buttons'" class="tabcontent">
     <div class="button-container">
-        <button class="bottom-buttons" click.delegate="testGame()">&#129514; Run Game</button>
+        <button class="bottom-buttons" click.delegate="testGame()">&#129514; Preview Game</button>
 
-        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Save To Preset</button></div>
+        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Save Preset</button></div>
         <dialog class="new-sidebar" id="preset_modal"><form method="dialog">
             <button class="close-btn" autofocus click.delegate="cancelPresetSave()">X</button>
-            <h2>Save as Preset</h2>
+            <h2>Save Preset</h2>
             <div class="input">
                 <label>Preset Name:</label>
                 <input type="text" value.bind="presetName">
@@ -18,16 +18,16 @@
             <button click.delegate="confirmPresetFileSave()">Save</button>
         </form></dialog>
 
-        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Save To File</button></div>
+        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Download</button></div>
         <dialog class="new-sidebar" id="file_modal"><form method="dialog">
             <button class="close-btn" autofocus click.delegate="cancelFileSave()">X</button>
-            <h2>Save to File</h2>
+            <h2>Save As</h2>
             <label>File Name:</label>
             <input type="text" value.bind="fileName" placeholder="Enter filename">
             <button click.delegate="confirmFileSave()">Save</button>
         </form></dialog>
 
-        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Link</button>
+        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Embed Code</button>
     </div>
 </div>
 </template>
