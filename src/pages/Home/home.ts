@@ -167,6 +167,12 @@ export class HomeViewModel {
         }
     }
 
+    getPlayerNumber(index: number, parent_index: number) {
+        if(index === 0) return "User Player"
+        else if (index > parent_index) return "CPU Player " + (index + 2);
+        else return "CPU Player " + (index + 1);
+    }
+
     saveSettings() {
         this.signaler.signal('save-settings');
     }

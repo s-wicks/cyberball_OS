@@ -59,8 +59,11 @@
         
         <h2>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span></h2>
         <div class="target-preference-list">
-            <input repeat.for="target of cpu.targetPreference" type="number"
-                    value.bind="cpu.targetPreference[$index] | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
+            <label repeat.for="target of cpu.targetPreference">
+                <span>${getPlayerNumber($index, $parent.$index)}</span>
+                <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger:'blur'" 
+                input.delegate="updateUrl()" />
+            </label>
         </div>
 
         <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
