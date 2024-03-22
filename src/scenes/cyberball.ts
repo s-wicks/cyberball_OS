@@ -134,6 +134,11 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     public create() {
+        let button = this.add.dom(600, 400, 'button', 'width: 100px; height: 50px', 'test button');
+        button.addListener('click');
+        button.on('click', () => {
+            console.log('button pressed');
+        })
         this.cameras.main.setBackgroundColor('#ffffff');
 
         // Animations:
