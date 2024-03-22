@@ -56,7 +56,7 @@ export class PresetPage {
         if (presetData) {
             const parsedData = JSON.parse(presetData);
             this.settingsService.settings = parsedData.settings; // Update the settings in the service
-            this.navigateToPage();
+            this.navigateToConfigurationBuilder();
         }
     }
 
@@ -76,10 +76,6 @@ export class PresetPage {
 
     public get (): boolean {
         return this.activeTab === 'load-file';
-    }
-
-    public navigateToPage(): void {
-        this.router.navigate('home');
     }
 
     public deletePreset(presetName: string): void {
