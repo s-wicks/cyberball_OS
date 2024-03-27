@@ -2,7 +2,12 @@ import { CyberballScene } from '../../scenes/cyberball';
 import { defaultSettings, SettingsModel } from '../../models/settings-model';
 import Phaser from 'phaser';
 import { PhaserGameCustomElement } from 'resources/phaser-game/phaser-game';
-import CyberballGameController from 'game/cyberball-game-controller';
+import CyberballGameController from 'game/CyberballGameController';
+import addCpuTargeting from 'game/CpuTargeting';
+import CyberballGameModel from 'game/CyberballGameModel';
+import addAllCpuLeaveTriggers from 'game/CpuLeaveTriggers';
+import addPlayerMayLeaveTriggers from 'game/PlayerMayLeaveTriggers';
+import addGameOverTriggers from 'game/GameOverTriggers';
 
 export class GameViewModel {
     settings: SettingsModel = defaultSettings;
@@ -31,11 +36,11 @@ export class GameViewModel {
     }
 
     bind() {
-        let cpuPlayers: Set<string> = new Set();
-        for (const cpuSetting of this.settings.computerPlayers) {
-            cpuPlayers.add(cpuSetting.name);
-        }
-        let cyberballGameController = new CyberballGameController(this.settings.player.name, this.settings.player.name, cpuPlayers);
+        let cyberballGameController = new CyberballGameController(CyberballGameModel.humanPlayerId, this.settings.computerPlayers.length);
+        addCpuTargeting(cyberballGameController, this.settings);
+        addAllCpuLeaveTriggers(cyberballGameController, this.settings);
+        addPlayerMayLeaveTriggers(cyberballGameController, this.settings);
+        addGameOverTriggers(cyberballGameController, this.settings);
         let scene = new CyberballScene(this.settings, cyberballGameController);
 
         this.gameConfig  = {
@@ -47,13 +52,5 @@ export class GameViewModel {
                 default: 'arcade'
             }
         };
-
-        setTimeout(() => {
-            cyberballGameController.removeCPUfromGame(this.settings.computerPlayers[0].name);
-        }, 5000);
-
-        setTimeout(() => {
-            cyberballGameController.endGame("timeout");
-        }, 10000);
     }
 }
