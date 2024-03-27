@@ -238,37 +238,6 @@ export class CyberballScene extends Phaser.Scene {
 
             this.cpuSprites.push(cpuSprite);
         }
-        if (this.settings.useSchedule) {
-
-            if (this.settings.changeColor) {
-                this.cpuSprites.forEach(cpu => {
-                    cpu.tint = 0xff0000;
-                });
-                this.playerSprite.tint = 0xff0000;
-                if (this.playerHasBall) {
-                    this.playerSprite.tint = 0x00ff00;
-                }
-                const playerId = 1;
-                let scheduleQueue = this.settings.schedule.get(playerId);
-
-                let nextRand = 0;
-                if (scheduleQueue && scheduleQueue.length > 0) {
-                    nextRand = scheduleQueue[0];
-                } else {
-                    //throw an error
-                }
-
-                let joinedPlayers = playerId + String(nextRand);
-
-                const digits = Array.from(String(joinedPlayers), Number);
-
-                digits.forEach(id => {
-                    let sprite = this.playerGroup.getChildren()[id - 1] as Phaser.GameObjects.Sprite;
-                    sprite.tint = 0x00ff00;
-                });
-            }
-
-        }
 
         // Ball:
 
@@ -551,22 +520,6 @@ export class CyberballScene extends Phaser.Scene {
                             return;
                             // const scheduleMap = this.convertToMap(this.settings.scheduleText);
                             // this.settings.schedule.set(id, scheduleMap.get(id));
-                        }
-
-                        if (this.settings.changeColor) {
-                            this.cpuSprites.forEach(cpu => {
-                                cpu.tint = 0xff0000;
-                            });
-                            this.playerSprite.tint = 0xff0000;
-
-                            let joinedPlayers = id + String(nextRand);
-
-                            const digits = Array.from(String(joinedPlayers), Number);
-                            console.log('joinedPlayers', digits);
-                            digits.forEach(id => {
-                                let sprite = this.playerGroup.getChildren()[id - 1] as Phaser.GameObjects.Sprite;
-                                sprite.tint = 0x00ff00;
-                            });
                         }
 
                         let next = this.getRandomDigit(nextRand);
