@@ -27,7 +27,7 @@ export class SettingsModel {
     baseUrl: string = './assets';
 
     ballSprite: string = 'ball.png';
-    ballTint?: string;
+    ballTint: string = '#ffffff';
 
     portraitHeight: number = 75;
     portraitPadding: number = 10;
