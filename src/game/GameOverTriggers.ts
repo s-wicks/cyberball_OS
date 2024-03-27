@@ -15,7 +15,7 @@ export default function addGameOverTriggers(controller: CyberballGameController,
 }
 
 export function addThrowCountGameOverTrigger(controller: CyberballGameController, throwCount: number) {
-    controller.catchBallCallbacks.addCallback("Game Over", _ => {
+    controller.catchBallCallbacks.addCallback("Game Over", () => {
         if (controller.model.throwCount >= throwCount) {
             controller.endGame("throw-count-met");
         }
@@ -32,8 +32,8 @@ export function addTimeLimitGameOverTrigger(controller: CyberballGameController,
 }
 
 export function addAllCpusLeftGameOverTrigger(controller: CyberballGameController) {
-    controller.CPULeaveCallbacks.addCallback("Game Over", _ => {
-        if (controller.model.remainingCpuPlayers.size === 0) {
+    controller.CPULeaveCallbacks.addCallback("Game Over", () => {
+        if (controller.model.remainingCpuPlayerIds.size === 0) {
             controller.endGame("All CPUs left");
         }
     });

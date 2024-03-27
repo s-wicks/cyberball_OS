@@ -27,12 +27,14 @@ export function addCpuLeaveTriggers(controller: CyberballGameController, setting
         addCpuOtherLeaverLeaveTrigger(controller, index, settings.leaveOtherLeaver, settings.leaveOtherLeaverChance, totalNumberOfCpus);
     }
     if (settings.leaveTrigger & LeaveTrigger.TimeIgnored) {
-        addCpuTimeIgnoredLeaveTrigger(controller, settings, index);
+        let leaveTimeSeconds = settings.leaveTimeIgnored + (Math.random() * 2 - 1) * settings.leaveTimeIgnored;
+        let leaveTimeMilliseconds = leaveTimeSeconds * 1000;
+        addCpuTimeIgnoredLeaveTrigger(controller, index, leaveTimeMilliseconds);
     }
 }
 
 export function addCpuTurnLeaveTrigger(controller: CyberballGameController, index: number, leaveTurn: number, leaveTurnChance: number) {
-    controller.catchBallCallbacks.addCallback(`CPU ${index} LeaveTrigger.Turn`, _ => {
+    controller.catchBallCallbacks.addCallback(`CPU ${index} LeaveTrigger.Turn`, () => {
         let rnd = Math.random() * 100 <= leaveTurnChance;
         if (controller.model.throwCount >= leaveTurn && rnd) {
             controller.removeCPUfromGame(index, 'throws elapsed');
@@ -43,8 +45,11 @@ export function addCpuTurnLeaveTrigger(controller: CyberballGameController, inde
 export function addCpuTimeLeaveTrigger(controller: CyberballGameController, index: number, leaveTime: number) {
     if (leaveTime > 0) {
         setTimeout(() => {
-            // TODO check if cpu can leave / add method to schedule a leave
             controller.removeCPUfromGame(index, 'time elapsed');
+            // need to add a callback just in case this cpu is currenty catching or holding the ball
+            controller.catchBallCallbacks.addCallback(`CPU ${index} LeaveTrigger.Time`, () => {
+                controller.removeCPUfromGame(index, 'time elapsed');
+            });
         }, leaveTime);
     }
 }
@@ -66,15 +71,26 @@ export function addCpuIgnoredLeaveTrigger(controller: CyberballGameController, i
 }
 
 export function addCpuOtherLeaverLeaveTrigger(controller: CyberballGameController, index: number, leaveOtherLeaver: number, leaveOtherLeaverChance: number, totalNumberOfCpus: number) {
-    controller.CPULeaveCallbacks.addCallback(`CPU ${index} LeaveTrigger.OtherLeaver`, _ => {
+    controller.CPULeaveCallbacks.addCallback(`CPU ${index} LeaveTrigger.OtherLeaver`, () => {
         let rnd = Math.random() * 100 <= leaveOtherLeaverChance;
-        let enoughPlayersLeft = totalNumberOfCpus - controller.model.remainingCpuPlayers.size >= leaveOtherLeaver;
+        let enoughPlayersLeft = totalNumberOfCpus - controller.model.remainingCpuPlayerIds.size >= leaveOtherLeaver;
         if (enoughPlayersLeft && rnd) {
             controller.removeCPUfromGame(index, 'other leavers');
         }
     });
 }
 
-export function addCpuTimeIgnoredLeaveTrigger(controller: CyberballGameController, settings: CpuSettingsModel, index: number) {
-    // TODO
+export function addCpuTimeIgnoredLeaveTrigger(controller: CyberballGameController, index: number, leaveTime: number) {
+    const callback = () => {
+        // its ok if this fails because it means that they will be recieving the ball
+        controller.removeCPUfromGame(index, 'time ignored');
+    };
+    let timeout = setTimeout(callback, leaveTime);
+    controller.catchBallCallbacks.addCallback(`CPU ${index} LeaveTrigger.TimeIgnored`, id => {
+        if (id !== index) {
+            return;
+        }
+        clearTimeout(timeout);
+        setTimeout(callback, leaveTime);
+    });
 }
