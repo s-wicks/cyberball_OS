@@ -6,7 +6,7 @@
         <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
         <h1 class="configHeader">Cyberball Configuration Builder</h1>
         <div class="container">
-            <compose view="./PlayerTab.html"></compose>
+            <compose view="./PlayerTab.html"></compose>                
             <compose view="./CpuTab.html"></compose>
             <compose view="./GameplayTab.html"></compose>
             <compose view="./ButtonTab.html"></compose>
@@ -21,4 +21,11 @@
         </div>
         <iframe id="gamePreview"></iframe>
     </div>
+
+    <div class="sidebar" ref="sidebar">
+        <button class="close-btn" click.delegate="closeSidebar()">X</button>
+        <h2>Information</h2>
+        <p ref="sidebarContent">Here's some information about your settings...</p>
+    </div>
+
 </template>
