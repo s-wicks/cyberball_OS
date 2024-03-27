@@ -57,11 +57,15 @@
 
         </div>
         
-        <h2>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span></h2>
+        <h2>
+            Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span><br />
+            <!-- <span class="warning" show.bind="!targetPreferenceIs100(cpu.targetPreference)">Target Preferences must add up to 100</span> -->
+            <span class="warning">Target Preferences must add up to 100</span>
+        </h2>
         <div class="target-preference-list">
             <label repeat.for="target of cpu.targetPreference">
                 <span>${getPlayerNumber($index, $parent.$index)}</span>
-                <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger:'blur'" 
+                <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger:'blur'"
                 input.delegate="updateUrl()" />
             </label>
         </div>

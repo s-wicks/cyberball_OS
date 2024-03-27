@@ -173,6 +173,10 @@ export class HomeViewModel {
         else return "CPU Player " + (index + 1);
     }
 
+    targetPreferenceIs100(targetPreference: Array<number>) {
+        return targetPreference.reduce((partial: number, val: number) => partial + val, 0) === 100;
+    }
+
     saveSettings() {
         this.signaler.signal('save-settings');
     }

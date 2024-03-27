@@ -239,3 +239,8 @@ input[type="checkbox"] {
 .target-preference-list input {
     width: fit-content;
 }
+
+.warning {
+    color: red;
+    font-size: .625em;
+}
