@@ -78,10 +78,6 @@
         <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
         <textarea if.bind="settings.useSchedule" value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
 
-        <label>Change Color</label>
-        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
-        <input type="checkbox" checked.bind="settings.changeColor"/>
-
         <label>Schedule Honors Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
