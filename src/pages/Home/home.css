@@ -33,11 +33,36 @@ a:hover {
     width: max-content;
     display: grid;
     grid-template-columns: 1fr;
+    gap: 0.5em;
     margin: 0 auto;
 }
 
 .button-container button {
-    margin: 0.3em;
+    text-align: left;
+    display: flex;
+    gap: 1em;
+}
+
+.button-container > div {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 0.5em;
+}
+
+.clipboard-container {
+    position: relative;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    width: max-content;
+    top: -100%;
+    transform: translateX(-20%);
+    background-color: #007BFF25;
+    color: #003d80;
+    padding: 0.5em;
+    border-radius: 5px;
 }
 
 .h2-tooltip {
@@ -72,14 +97,8 @@ a:hover {
     position: absolute;      /* Positioning relative to the container */
     bottom: 10px;            /* Distance from the bottom */
     left: 10px;              /* Distance from the left */
-    background-color: #007BFF;
-    color: #FFFFFF;
     padding: 5px 10px;       /* Smaller padding */
-    border: none;
-    border-radius: 5px;
     font-size: 14px;         /* Smaller font size */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .bottom-buttons:hover {

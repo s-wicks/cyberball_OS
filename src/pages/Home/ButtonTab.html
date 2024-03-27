@@ -1,9 +1,15 @@
 <template>
 <div if.bind="activeTab === 'buttons'" class="tabcontent">
     <div class="button-container">
-        <button class="bottom-buttons" click.delegate="testGame()">&#129514; Preview Game</button>
+        <div class="preview-container">
+            <button class="bottom-buttons" click.delegate="testGame()"><span>&#129514;</span><span>Preview Game</span></button>
+            <div class="clipboard-container">
+                <button class="bottom-buttons" click.delegate="copyURL($event)">&#128203;</button>
+                <span class="popup">Link copied!</span>
+            </div>
+        </div>
 
-        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Save Preset</button></div>
+        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190;</span><span>Save Preset</span></button>
         <dialog class="new-sidebar" id="preset_modal"><form method="dialog">
             <button class="close-btn" autofocus click.delegate="cancelPresetSave()">X</button>
             <h2>Save Preset</h2>
@@ -18,7 +24,7 @@
             <button click.delegate="confirmPresetFileSave()">Save</button>
         </form></dialog>
 
-        <div><button class="bottom-buttons" click.delegate="openModal($event)">&#128190; Download</button></div>
+        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190;</span><span>Download</span></button>
         <dialog class="new-sidebar" id="file_modal"><form method="dialog">
             <button class="close-btn" autofocus click.delegate="cancelFileSave()">X</button>
             <h2>Save As</h2>
@@ -27,7 +33,7 @@
             <button click.delegate="confirmFileSave()">Save</button>
         </form></dialog>
 
-        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">&#10697; Copy Embed Code</button>
+        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()"><span>&#10697;</span><span>Copy Embed Code</span></button>
     </div>
 </div>
 </template>
