@@ -94,6 +94,7 @@ export class CyberballScene extends Phaser.Scene {
         this.leaveButton = this.add.dom(600, 400, 'button', 'width: 100px; height: 50px', 'Leave');
         this.leaveButton.addListener('click');
         this.leaveButton.on('click', () => {
+            this.postEvent('player-leave', { time: (Date.now() - this.startTime) / 1000 });
             this.gameOver();
         })
     }
