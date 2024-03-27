@@ -437,6 +437,7 @@ export class CyberballScene extends Phaser.Scene {
 
             if (this.throwCount >= leaveThrows) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'throws elapsed', time: (Date.now() - this.startTime) / 1000
                 });
@@ -452,6 +453,7 @@ export class CyberballScene extends Phaser.Scene {
 
             if (playerThrowsIgnored >= leaveThrows) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'throws ignored', time: (Date.now() - this.startTime) / 1000
                 });
@@ -667,6 +669,7 @@ export class CyberballScene extends Phaser.Scene {
             console.log(this.absentPlayers.length, this.settings.player.leaveOtherLeaver);
             if (this.absentPlayers.length >= this.settings.player.leaveOtherLeaver) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'other leavers', time: (Date.now() - this.startTime) / 1000
                 });
