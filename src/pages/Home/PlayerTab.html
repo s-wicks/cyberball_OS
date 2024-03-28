@@ -6,56 +6,114 @@
     <require from="resources/value-converters/integer-array-value-converter"></require>
     <require from="resources/value-converters/flag-value-converter"></require>
 
-    <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('playerHeader')">?</span>
-    </h2>
+    <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
+    <dialog class="new-sidebar"><form method="dialog">
+        <button class="close-btn" autofocus type="submit">X</button>
+        <h3>Information</h3>
+        <p>This is the player the participant in your study will control.</p>
+    </form></dialog>
+
     <div class="two-column-grid">
         <label>Name</label>
         <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
 
 
-            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('portrait')">?</span></label>
-            <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
+        <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>You can insert an image that will be placed below the participant in the game.</p>
+                <!-- Include maximum image size when implemented -->
+                <!-- <h4>Note</h4>
+                <p>Images must be smaller than (? X ?)</p> -->
+        </form></dialog>
+        <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
 
-        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span></label>
+        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>You can edit the color of the participant’s player by clicking on the box next to <strong>Tint Color</strong> to bring up a color palette.</p>
+        </form></dialog>
         <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
                 change.delegate="updateUrl()"/>
+
     </div>
-    <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
+    <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
+    <dialog class="new-sidebar"><form method="dialog">
+        <button class="close-btn" autofocus type="submit">X</button>
+        <h3>Information</h3>
+        <p>When a <strong>Leave Game</strong> button appears that participants can click to end the game.</p>
+        <h4>Note</h4>
+        <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
+    </form></dialog>
     <div class="two-column-grid">
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
-        <div>
-            Throws Elapsed 
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsElapsed')">?</span>
-        </div>
+        <label>
+            Throws Elapsed
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>The number of throws between all players before the <strong>Leave Game</strong> button appears.</p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Time Elapsed
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeElapsed')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>How long the game is played before the <strong>Leave Game</strong> button appears.</p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Throws Ignored
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('throwsIgnored')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>How many throws occur only between the CPUs before the <strong>Leave Game</strong> button appears for the participant.</p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Time Ignored
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('timeIgnored')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>How much time the CPUs spend throwing to each other before the <strong>Leave Game</strong> button appears for the participant.</p>
+        </form></dialog>
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
-        <div>
+        <label>
             Other Players Leaving
-            <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('otherPlayersLeaving')">?</span>
-        </div>
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>The number of CPUs that must leave before the <strong>Leave Game</strong> button appears for the participant.</p>
+        </form></dialog>
     </div>
 
     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">
-        <label>Throws Elapsed Leave Threshold/Variance</label>
+        <label>Throws Elapsed Leave Threshold/Variance
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>A variance of 2 means participants will be given the <strong>Leave Game</strong> button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
+        </form></dialog>
 
         <div>
             <input type="number" value.bind="settings.player.leaveTurn | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
@@ -64,7 +122,14 @@
     </div>
 
     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
-        <label>Time Elapsed Leave (s) Threshold/Variance (s)</label>
+        <label>Time Elapsed Leave (s) Threshold/Variance (s)
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>A variance of 30 means participants will be given the <strong>Leave Game</strong> button +/- 30 seconds from a 120-second Time Elapsed Threshold (between 90 to 150 seconds).</p>
+        </form></dialog>
 
         <div>
             <input type="number" value.bind="settings.player.leaveTime | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
@@ -73,7 +138,14 @@
     </div>
 
     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4">
-        <label>Ignored Throws Leave Threshold/Variance</label>
+        <label>Ignored Throws Leave Threshold/Variance
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>A variance of 2 means participants will be given the <strong>Leave Game</strong> button +/- 2 throws from a 10 Throws Ignored Threshold (8 to 12 throws).</p>
+        </form></dialog>
 
         <div>
             <input type="number" value.bind="settings.player.leaveIgnored | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
@@ -82,7 +154,14 @@
     </div>
 
     <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
-        <label>Ignored Time Leave (ms) Threshold/Variance (ms)</label>
+        <label>Ignored Time Leave (ms) Threshold/Variance (ms)
+            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+        </label>
+        <dialog class="new-sidebar"><form method="dialog">
+            <button class="close-btn" autofocus type="submit">X</button>
+            <h3>Information</h3>
+            <p>A variance of 15 means participants will be given the <strong>Leave Game</strong> button +/- 15 seconds from a 45-second Ignored Time Threshold (30 to 60 seconds).</p>
+        </form></dialog>
 
         <div>
             <input type="number" value.bind="settings.player.leaveTimeIgnored | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>

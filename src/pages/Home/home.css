@@ -33,11 +33,36 @@ a:hover {
     width: max-content;
     display: grid;
     grid-template-columns: 1fr;
+    gap: 0.5em;
     margin: 0 auto;
 }
 
 .button-container button {
-    margin: 0.3em;
+    text-align: left;
+    display: flex;
+    gap: 1em;
+}
+
+.button-container > div {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 0.5em;
+}
+
+.clipboard-container {
+    position: relative;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    width: max-content;
+    top: -100%;
+    transform: translateX(-20%);
+    background-color: #007BFF25;
+    color: #003d80;
+    padding: 0.5em;
+    border-radius: 5px;
 }
 
 .h2-tooltip {
@@ -66,20 +91,15 @@ a:hover {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    justify-content: center;
 }
 
 .refresh-button {
     position: absolute;      /* Positioning relative to the container */
     bottom: 10px;            /* Distance from the bottom */
     left: 10px;              /* Distance from the left */
-    background-color: #007BFF;
-    color: #FFFFFF;
     padding: 5px 10px;       /* Smaller padding */
-    border: none;
-    border-radius: 5px;
     font-size: 14px;         /* Smaller font size */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .bottom-buttons:hover {
@@ -159,17 +179,11 @@ iframe {
     text-align: center;
 }
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: -340px;
-    width: 300px;
-    height: 100%;
-    background-color: #FFFFFF;
-    padding: 20px;
-    transition: right 0.3s;
-    z-index: 1000;
-    color: #050505;
+dialog.new-sidebar {
+    margin: auto;
+    border: none;
+    box-shadow: 5px 5px 10px 0 black;
+    max-width: 35rem;
 }
 
 .close-btn {
@@ -185,31 +199,6 @@ iframe {
     text-align: center;
     line-height: 25px;
     cursor: pointer;
-}
-
-.sidebar-open {
-    right: 0;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 400px;
 }
 
 .modal-buttons {
