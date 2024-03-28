@@ -91,6 +91,7 @@ a:hover {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    justify-content: center;
 }
 
 .refresh-button {
@@ -182,6 +183,7 @@ dialog.new-sidebar {
     margin: auto;
     border: none;
     box-shadow: 5px 5px 10px 0 black;
+    max-width: 35rem;
 }
 
 .close-btn {

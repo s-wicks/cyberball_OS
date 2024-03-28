@@ -22,7 +22,7 @@
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
-            <p>How many throws between all players before the game ends.</p>
+            <p>How long the game is played before it ends.</p>
         </form></dialog>
         <input type="number" value.bind="settings.timeLimit | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
 
@@ -71,6 +71,12 @@
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
             <p>Allows you to decide on a throw-by-throw basis when each player will receive the ball.</p>
+            <p>Each CPU player needs to be given a schedule starting with 2 then 3 etc. A schedule should contain rows of text in the following form:</p>
+            <code>2,13,3,3,3,3</code>
+            <p>
+                The first number indicates which player the schedule is for. The subsequent numbers indicate which players the CPU will throw to. 
+                For example, <code style="display: inline;">13</code> in the example above means that CPU 2 will throw to player 1 (the human player) and player 3 in their first 2 throws (with a randomized order).
+            </p>
         </form></dialog>
         <input type="checkbox" checked.bind="settings.useSchedule" input.delegate="updateUrl()"/>
 
@@ -84,7 +90,7 @@
             <h3>Information</h3>
             <p>Sets the value in the throw count to override the number of throws placed in scheduler while allowing the order of the scheduler’s values to also occur.</p>
             <h4>Note</h4>
-            <p>With this option on, a value of 10 in the Throw Count box, along with 20 values placed in the Schedule, will result in a game with 10 throws that follows a shortened schedule reflective of the first (10?) values that are placed in the scheduler.</p>
+            <p>With this option on, a value of 10 in the Throw Count box, along with 20 values placed in the Schedule, will result in a game with 10 throws that follows a shortened schedule.</p>
         </form></dialog>
         <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount" input.delegate="updateUrl()"/>
 
@@ -102,7 +108,7 @@
             <h3>Information</h3>
             <p>How transparent the background behind the Game Over text is.</p>
             <h4>Note</h4>
-            <p>A higher percentage will result in more of the screen behind the Game Over text to be less visible. The background will be less transparent</p>
+            <p>A higher percentage will result in more of the screen behind the Game Over text to be less visible. The background will be less transparent.</p>
         </form></dialog>
         <div class="range-container">
             <input
