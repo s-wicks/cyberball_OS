@@ -41,10 +41,6 @@
         <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
         <textarea if.bind="settings.useSchedule" value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
 
-        <label>Change Color</label>
-        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
-        <input type="checkbox" checked.bind="settings.changeColor"/>
-
         <label>Schedule Honors Throw Count</label>
         <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount" input.delegate="updateUrl()"/>
 

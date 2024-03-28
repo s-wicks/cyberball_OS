@@ -29,7 +29,7 @@
     <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
         <div class="two-column-grid">
             <label>Name</label>
-            <input type="text" value.bind="cpu.name" input.delegate="previewGame()" input.delegate="updateUrl()"/>
+            <input type="text" value.bind="cpu.name" input.delegate="updateUrl()"/>
 
             <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('color')">?</span> </label>
             <input type="color" value.bind="cpu.tint" input.delegate="updateUrl()"

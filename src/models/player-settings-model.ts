@@ -2,7 +2,7 @@ import { LeaveTrigger } from "enums/leave-trigger";
 
 export class PlayerSettingsModel {
     name: string;
-    tint?: string;
+    tint: string = '#ffffff';
 
     portrait?: string;
     portraitBuff?: ArrayBuffer;
