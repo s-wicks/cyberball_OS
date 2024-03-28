@@ -30,6 +30,7 @@ export class CyberballScene extends Phaser.Scene {
 
     private absentPlayers: number[] = [];
     private showPlayerLeave: boolean = false;
+    private leaveButton;
 
     private gameEnded = false;
 
@@ -89,12 +90,14 @@ export class CyberballScene extends Phaser.Scene {
         return newSchedule;
     }
 
-
-
-
-
-
-
+    private showLeaveButton() {
+        this.leaveButton = this.add.dom(600, 400, 'button', 'width: 100px; height: 50px', 'Leave');
+        this.leaveButton.addListener('click');
+        this.leaveButton.on('click', () => {
+            this.postEvent('player-leave', { time: (Date.now() - this.startTime) / 1000 });
+            this.gameOver();
+        })
+    }
 
     private convertToMap(str: string): Map<number, number[]> {
         const lines = str.split('\n');
@@ -301,10 +304,10 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         // Player may leave after time has passed:
-
         if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
             Date.now() > this.playerSprite.getData('leaveTime')) {
             this.showPlayerLeave = true;
+            this.showLeaveButton();
             this.postEvent('player-may-leave', {
                 reason: 'time elapsed', time: (Date.now() - this.startTime) / 1000
             });
@@ -313,6 +316,7 @@ export class CyberballScene extends Phaser.Scene {
         else if (!this.playerHasBall && !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored &&
             Date.now() > this.playerSprite.getData('leaveTimeIgnored')) {
             this.showPlayerLeave = true;
+            this.showLeaveButton();
             this.postEvent('player-may-leave', {
                 reason: 'time ignored', time: (Date.now() - this.startTime) / 1000
             });
@@ -361,6 +365,9 @@ export class CyberballScene extends Phaser.Scene {
         // Draw game over screen:
         this.add.rectangle(this.sys.canvas.width / 2, this.sys.canvas.height / 2, this.sys.canvas.width, this.sys.canvas.height, 0xdddddd, this.settings.gameOverOpacity);
         this.add.text(this.sys.canvas.width / 2, this.sys.canvas.height / 2, this.settings.gameOverText, textStyle).setOrigin(0.5);
+
+        // Hide leave button:
+        this.leaveButton.node.style = "visibility: hidden";
     }
 
     // Mechanics:
@@ -431,6 +438,7 @@ export class CyberballScene extends Phaser.Scene {
 
             if (this.throwCount >= leaveThrows) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'throws elapsed', time: (Date.now() - this.startTime) / 1000
                 });
@@ -446,6 +454,7 @@ export class CyberballScene extends Phaser.Scene {
 
             if (playerThrowsIgnored >= leaveThrows) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'throws ignored', time: (Date.now() - this.startTime) / 1000
                 });
@@ -661,6 +670,7 @@ export class CyberballScene extends Phaser.Scene {
             console.log(this.absentPlayers.length, this.settings.player.leaveOtherLeaver);
             if (this.absentPlayers.length >= this.settings.player.leaveOtherLeaver) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'other leavers', time: (Date.now() - this.startTime) / 1000
                 });
