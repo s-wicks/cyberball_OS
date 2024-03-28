@@ -246,6 +246,10 @@ export class CyberballScene extends Phaser.Scene {
 
         if (receiver !== this.playerSprite) {
             setTimeout(() => {
+                if (this.cyberballGameController.model.gameHasEnded) {
+                    return;
+                }
+
                 receiver.play('active');
 
                 ballPosition = this.getActiveBallPosition(receiver);
@@ -253,6 +257,10 @@ export class CyberballScene extends Phaser.Scene {
                 this.ballSprite.y = ballPosition.y;
 
                 setTimeout(() => {
+                    if (this.cyberballGameController.model.gameHasEnded) {
+                        return;
+                    }
+                    
                     this.cyberballGameController.cpuThrowBall();
                 }, cpuSettings.throwDelay + (Math.random() * 2 - 1) * cpuSettings.throwDelayVariance);
             }, cpuSettings.catchDelay + (Math.random() * 2 - 1) * cpuSettings.catchDelayVariance)
