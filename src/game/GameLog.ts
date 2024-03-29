@@ -1,22 +1,25 @@
 import CyberballGameController from "./CyberballGameController";
-let gameLog = [];
-
 
 export function addLogging(controller: CyberballGameController) {
+    let gameLog = [];
 
+    // can elect to use timer/gameclock module here? have to notify game clock of every throw and it can report the waits
     controller.throwBallCallbacks.addCallback("log throw", (thrower, reciever, waitTime) => {
-        LogThrow(thrower, reciever, waitTime)
+        gameLog.push({ "type": "throw", "thrower": thrower, "reciever": reciever, "wait": waitTime });
     });
-    controller.CPULeaveCallbacks.addCallback("log leave", id => {
 
+    controller.CPULeaveCallbacks.addCallback("log leave", (id, reason) => {
+        //TODO implement time 
+        gameLog.push({ "type": "CPU leave", "leaver": id, "reason": reason, "time": null })
     });
+
     controller.humanPlayerMayLeaveCallbacks.addCallback("log player may leave", reason => {
-
+        //TODO implement time 
+        gameLog.push({ "type": "player may leave", "reason": reason, "time": null })
     });
+
     controller.gameEndCallbacks.addCallback("log game end", reason => {
-
+        //TODO implement time 
+        gameLog.push({ "type": "game end", "reason": reason, "time": null })
     });
-}
-function LogThrow(thrower, reciever, waitTime) {
-    gameLog.push({ "type": "throw", "thrower": thrower, "reciever": reciever, "wait": waitTime });
 }
