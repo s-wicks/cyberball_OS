@@ -41,6 +41,10 @@ export class GameViewModel {
             scene: new CyberballScene(this.settings),
             physics: {
                 default: 'arcade'
+            },
+            parent: 'phaser',
+            dom: {
+                createContainer: true
             }
         };
     }
