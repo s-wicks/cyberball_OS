@@ -3,7 +3,7 @@ import CyberballGameController from "./CyberballGameController";
 export function addLogging(controller: CyberballGameController) {
     let gameLog = [];
 
-    // TODO - note - while wait and waitTime have been added to the callback in CyberballGameController they are not implemented
+    // TODO Nate - note - while wait and waitTime have been added to the callback in CyberballGameController they are not implemented
     controller.throwBallCallbacks.addCallback("log throw", (thrower, reciever, waitTime) => {
         gameLog.push({ "type": "throw", "thrower": thrower, "reciever": reciever, "wait": waitTime });
     });
@@ -24,7 +24,7 @@ export function addLogging(controller: CyberballGameController) {
 }
 
 function processAndReportGameLog(gameLog) {
-    // TODO - do postprocessing and format to be one big message
+    // TODO Nate - do postprocessing and format to be one big message
 
-    window.parent.postMessage(null /* TODO*/);
+    window.parent.postMessage(null /* TODO Nate */);
 }

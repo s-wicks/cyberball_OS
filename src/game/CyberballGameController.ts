@@ -52,7 +52,7 @@ export default class CyberballGameController {
         let playerHoldingBall = this.model.playerHoldingBallId;
         this.model.playerHoldingBallId = null;
         this.model.throwTargetId = target;
-        // TODO - implement waitTime? currently null
+        // TODO Nate - implement waitTime? currently null
         this.throwBallCallbacks.runCallbacks(playerHoldingBall, target, null);
     }
 
