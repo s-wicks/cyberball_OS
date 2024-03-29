@@ -5,7 +5,7 @@ export default class CyberballGameController {
     readonly model: CyberballGameModel;
 
     public CPULeaveCallbacks: CallbackList<[number /** id */, string /** reason */]> = new CallbackList();
-    public throwBallCallbacks: CallbackList<[number /* thrower */, number /* receiver */]> = new CallbackList();
+    public throwBallCallbacks: CallbackList<[number /* thrower */, number /* receiver */, number /*waitTime*/]> = new CallbackList();
     public catchBallCallbacks: CallbackList<[number]> = new CallbackList();
     public humanPlayerMayLeaveCallbacks: CallbackList<[string]> = new CallbackList();
     public gameEndCallbacks: CallbackList<[string]> = new CallbackList();
@@ -18,7 +18,7 @@ export default class CyberballGameController {
             this.model.remainingCpuPlayerIds.add(i);
         }
     }
-    
+
     public setCpuTargeting(getNextCpuTarget: (thrower: number) => number) {
         this.getNextCpuTarget = getNextCpuTarget;
     }
@@ -52,7 +52,8 @@ export default class CyberballGameController {
         let playerHoldingBall = this.model.playerHoldingBallId;
         this.model.playerHoldingBallId = null;
         this.model.throwTargetId = target;
-        this.throwBallCallbacks.runCallbacks(playerHoldingBall, target);
+        // TODO - implement waitTime
+        this.throwBallCallbacks.runCallbacks(playerHoldingBall, target, null);
     }
 
     public cpuThrowBall() {
