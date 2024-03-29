@@ -95,4 +95,8 @@ export default class CyberballGameController {
         this.model.gameHasEnded = true;
         this.gameEndCallbacks.runCallbacks(reason);
     }
+
+    public reportTimeSinceStart() {
+        return Date.now() - this.model.startTime
+    }
 }

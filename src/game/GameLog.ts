@@ -9,17 +9,14 @@ export function addLogging(controller: CyberballGameController) {
     });
 
     controller.CPULeaveCallbacks.addCallback("log leave", (id, reason) => {
-        //TODO implement time 
-        gameLog.push({ "type": "CPU leave", "leaver": id, "reason": reason, "time": null })
+        gameLog.push({ "type": "CPU leave", "leaver": id, "reason": reason, "time": this.cyberballGameController.reportTimeSinceStart() })
     });
 
     controller.humanPlayerMayLeaveCallbacks.addCallback("log player may leave", reason => {
-        //TODO implement time 
-        gameLog.push({ "type": "player may leave", "reason": reason, "time": null })
+        gameLog.push({ "type": "player may leave", "reason": reason, "time": this.cyberballGameController.reportTimeSinceStart() })
     });
 
     controller.gameEndCallbacks.addCallback("log game end", reason => {
-        //TODO implement time 
-        gameLog.push({ "type": "game end", "reason": reason, "time": null })
+        gameLog.push({ "type": "game end", "reason": reason, "time": this.cyberballGameController.reportTimeSinceStart() })
     });
 }

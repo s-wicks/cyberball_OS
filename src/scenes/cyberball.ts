@@ -260,7 +260,7 @@ export class CyberballScene extends Phaser.Scene {
                     if (this.cyberballGameController.model.gameHasEnded) {
                         return;
                     }
-                    
+
                     this.cyberballGameController.cpuThrowBall();
                 }, cpuSettings.throwDelay + (Math.random() * 2 - 1) * cpuSettings.throwDelayVariance);
             }, cpuSettings.catchDelay + (Math.random() * 2 - 1) * cpuSettings.catchDelayVariance)
@@ -343,7 +343,7 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     getTimeString(): string {
-        let timeRemaining = this.settings.timeLimit - (Date.now() - this.cyberballGameController.model.startTime);
+        let timeRemaining = this.settings.timeLimit - this.cyberballGameController.reportTimeSinceStart();
         let time = new Date(timeRemaining < 0 ? 0 : timeRemaining);
 
         return `${this.settings.timeLimitText} ${time.getUTCMinutes()}:${time.getUTCSeconds() < 10 ? '0' : ''}${time.getUTCSeconds()}`;
