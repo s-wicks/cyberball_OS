@@ -34,3 +34,92 @@ test('human throw to cpu', () => {
     expect(controller.model.playerHoldingBallId).toBe(1);
     expect(controller.model.throwTargetId).toBeNull();
 })
+
+test('cpu throw to human', () => {
+    let controller = new CyberballGameController(0, 5);
+
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+
+    expect(controller.model.playerHoldingBallId).toBe(0);
+    expect(controller.model.throwTargetId).toBeNull();
+
+    controller.throwBall(CyberballGameModel.humanPlayerId);
+
+    expect(controller.model.playerHoldingBallId).toBeNull();
+    expect(controller.model.throwTargetId).toBe(CyberballGameModel.humanPlayerId);
+
+    controller.completeCatch();
+
+    expect(controller.model.playerHoldingBallId).toBe(CyberballGameModel.humanPlayerId);
+    expect(controller.model.throwTargetId).toBeNull();
+})
+
+test('human tries to throw to self', () => {
+    let controller = new CyberballGameController(CyberballGameModel.humanPlayerId, 5);
+
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+
+    expect(controller.model.playerHoldingBallId).toBe(CyberballGameModel.humanPlayerId);
+    expect(controller.model.throwTargetId).toBeNull();
+
+    controller.throwBall(CyberballGameModel.humanPlayerId);
+
+    expect(controller.model.playerHoldingBallId).toBe(CyberballGameModel.humanPlayerId);
+    expect(controller.model.throwTargetId).toBeNull();
+})
+
+test('cpu tries to throw to self', () => {
+    let controller = new CyberballGameController(0, 5);
+
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+
+    expect(controller.model.playerHoldingBallId).toBe(0);
+    expect(controller.model.throwTargetId).toBeNull();
+
+    controller.throwBall(0);
+
+    expect(controller.model.playerHoldingBallId).toBe(0);
+    expect(controller.model.throwTargetId).toBeNull();
+})
