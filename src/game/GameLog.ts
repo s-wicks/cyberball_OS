@@ -1,23 +1,30 @@
 import CyberballGameController from "./CyberballGameController";
 
 let numPlayers = 0;
+let gameLog = [];
+let timeAtCatch = 0;
 
+/**
+ * NOTE!!!
+ * Whenever providing a thrower or reciever ID, please give the value
+ * that the game controller uses (user is -1, first cpu is 0, etc...).
+ * Reformatting into the numbers used on the Qualtrics side is handled
+ * by the logger! (User -1 => Player 1, CPU 0 => Player 2, etc...)
+ * @param controller 
+*/
 export function addLogging(controller: CyberballGameController) {
-    let gameLog = [];
-    let timeAtCatch = 0;
-
     controller.catchBallCallbacks.addCallback("grab time at catch", () => {
         timeAtCatch = controller.reportTimeSinceStart();
     })
 
-    controller.throwBallCallbacks.addCallback("log throw", (thrower, reciever) => {
-        gameLog.push({ "type": "throw", "thrower": thrower, "reciever": reciever, "wait": controller.reportTimeSinceStart() - timeAtCatch });
+    controller.throwBallCallbacks.addCallback("log throw", (throwerID, recieverID) => {
+        gameLog.push({ "type": "throw", "thrower": throwerID + 2, "reciever": recieverID + 2, "wait": controller.reportTimeSinceStart() - timeAtCatch });
 
-        numPlayers = Math.max(numPlayers, thrower + 2, reciever + 2);
+        numPlayers = Math.max(numPlayers, throwerID + 2, recieverID + 2);
     });
 
-    controller.CPULeaveCallbacks.addCallback("log leave", (id, reason) => {
-        gameLog.push({ "type": "CPU leave", "leaver": id, "reason": reason, "time": controller.reportTimeSinceStart() });
+    controller.CPULeaveCallbacks.addCallback("log leave", (cpuID, reason) => {
+        gameLog.push({ "type": "CPU leave", "leaver": cpuID + 2, "reason": reason, "time": controller.reportTimeSinceStart() });
     });
 
     controller.humanPlayerMayLeaveCallbacks.addCallback("log player may leave", reason => {
@@ -27,21 +34,18 @@ export function addLogging(controller: CyberballGameController) {
     controller.gameEndCallbacks.addCallback("log and post game end", reason => {
         gameLog.push({ "type": "game end", "reason": reason, "time": controller.reportTimeSinceStart() });
 
-        processAndReportGameLog(gameLog);
+        processAndReportGameLog(controller.model.throwCount);
     });
 }
 
-function processAndReportGameLog(gameLog) {
-    // Postprocessing
-
+function processAndReportGameLog(throwCount) {
     let throwStats = Array(numPlayers).fill(Array(numPlayers).fill(0));
-    let totalThrows = 0;
 
     for (let entry of gameLog) {
         if (entry.type === "throw") {
-            //account for numbering - user -1 is now index 0, etc
-            throwStats[entry.thrower + 1][entry.reciever + 1]++;
-            totalThrows++;
+            //account for numbering of game log
+            //in game log as player 1 but we use index 0, 2 => 1, etc...
+            throwStats[entry.thrower - 1][entry.reciever - 1]++;
         }
     }
 
@@ -49,7 +53,7 @@ function processAndReportGameLog(gameLog) {
         {
             "game_log": gameLog,
             "throws_formatted": throwStats,
-            "total_throws": totalThrows,
+            "total_throws": throwCount,
             "player_throws_list": buildListOfPlayerThrows(throwStats)
         }
     );
@@ -57,22 +61,22 @@ function processAndReportGameLog(gameLog) {
 
 function buildListOfPlayerThrows(throwStats) {
     let msg = {
-        Player_1_to_Player_2: 0,
-        Player_1_to_Player_3: 0,
-        Player_1_to_Player_4: 0,
-        Player_2_to_Player_1: 0,
-        Player_2_to_Player_3: 0,
-        Player_2_to_Player_4: 0,
-        Player_3_to_Player_1: 0,
-        Player_3_to_Player_2: 0,
-        Player_3_to_Player_4: 0,
+        "Player_1_to_Player_2": 0,
+        "Player_1_to_Player_3": 0,
+        "Player_1_to_Player_4": 0,
+        "Player_2_to_Player_1": 0,
+        "Player_2_to_Player_3": 0,
+        "Player_2_to_Player_4": 0,
+        "Player_3_to_Player_1": 0,
+        "Player_3_to_Player_2": 0,
+        "Player_3_to_Player_4": 0,
     };
 
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            if (i < numPlayers && j < numPlayers) {
+    let loopCount = Math.min(numPlayers, 4)
+    for (let i = 0; i < loopCount; i++) {
+        for (let j = 0; j < loopCount; j++) {
+            if (i != j)
                 msg['Player_' + (i + 1) + '_to_Player_' + (j + 1)] = throwStats[i][j];
-            }
         }
     }
 
