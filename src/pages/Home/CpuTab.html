@@ -27,7 +27,7 @@
 
     <!-- Details for each CPU -->
     <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
-        <div class="two-column-grid">
+        <div class="two-column-grid two-column-grid-no-checkbox">
             <label>Name</label>
             <input type="text" value.bind="cpu.name" input.delegate="updateUrl()"/>
 
@@ -59,16 +59,12 @@
         
         <h2>
             Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('targetPreference')">?</span><br />
-            <!-- <span class="warning" show.bind="!targetPreferenceIs100(cpu.targetPreference)">Target Preferences must add up to 100</span> -->
-            <span class="warning">Target Preferences must add up to 100</span>
+            <span class="warning" show.bind="cpu.targetPrefSum !== 100">Target Preferences must add up to 100</span>
         </h2>
-        <div class="target-preference-list">
-            <label repeat.for="target of cpu.targetPreference">
-                <span>${getPlayerNumber($index, $parent.$index)}</span>
-                <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger:'blur'"
-                input.delegate="updateUrl()" />
-            </label>
-        </div>
+        <label class="two-column-grid" repeat.for="pref of cpu.targetPreference">
+            <span>${getPlayerNumber($index, $parent.$index)}</span>
+            <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger: 'blur'" input.delegate="updateUrl()" />
+        </label>
 
         <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="showInfo('leaveTrigger')">?</span></h2>
         <div class="two-column-grid">
