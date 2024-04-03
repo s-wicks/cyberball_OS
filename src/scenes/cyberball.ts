@@ -364,7 +364,7 @@ export class CyberballScene extends Phaser.Scene {
         this.add.text(this.sys.canvas.width / 2, this.sys.canvas.height / 2, this.settings.gameOverText, textStyle).setOrigin(0.5);
 
         // Hide leave button:
-        this.leaveButton.node.style = "visibility: hidden";
+        if (this.leaveButton != null) this.leaveButton.node.style = "visibility: hidden";
     }
 
     // Mechanics:
