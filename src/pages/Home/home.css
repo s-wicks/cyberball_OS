@@ -220,6 +220,9 @@ iframe {
 
 .two-column-grid {
     display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.two-column-grid:has(input[type="checkbox"]) {
     grid-template-columns: auto 1fr;
 }
 
@@ -229,15 +232,6 @@ iframe {
 
 input[type="checkbox"] {
     margin-right: auto;
-}
-
-.target-preference-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.target-preference-list input {
-    width: fit-content;
 }
 
 .warning {
