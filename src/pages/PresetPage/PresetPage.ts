@@ -21,15 +21,14 @@ export class PresetPage {
         this.loadPresetsFromLocalStorage();
     }
 
-    public async loadDefaultPresets(): Promise<any> {
+    public async loadDefaultPresets(): Promise<void> {
         try {
-            this.defaultPresets = await fetch('../../../assets/defaultPresets.json')
-            .then(response => response.json())
+            let response = await fetch('../../../assets/defaultPresets.json');
+            this.defaultPresets = await response.json();
+            console.log('loaded default presets', this.defaultPresets);
         } catch (error) {
             console.error('promise rejected', error)
         }
-        // this.defaultPresets = require('./defaultPresets.json');
-        console.log('loaded default presets', this.defaultPresets);
     }
 
     public loadPresetsFromLocalStorage(): void {
