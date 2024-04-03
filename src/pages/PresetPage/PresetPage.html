@@ -23,18 +23,18 @@
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Gif</th>
+                            <th>Video</th>
                         </tr>
-                        <tr click.trigger="navigateToPage()">
+                        <tr repeat.for="defaultPreset of defaultPresets" click.trigger="loadPresetAndNavigate(defaultPreset)">
 
-                            <th> Ostracized Game</th>
-                            <th> player will never get the ball</th>
-                            <th>
+                            <td>${defaultPreset.name}</td>
+                            <td>${defaultPreset.description}</td>
+                            <td>
                                 <video width="320" height="240" loop autoplay muted>
-                                    <source src="../../../assets/ostracizedMp4.mp4" type="video/mp4">
+                                    <source src="${defaultPreset.video}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
-                            </th>
+                            </td>
 
                         </tr>
 
@@ -48,7 +48,7 @@
                             <th></th>
                         </tr>
 
-                        <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset.name)">
+                        <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset)">
                             <td>${preset.name}</td>
                             <td>${preset.description}</td>
                             <td>
