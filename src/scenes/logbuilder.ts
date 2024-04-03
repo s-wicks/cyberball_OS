@@ -14,20 +14,41 @@ export class Logger {
         this.numPlayers = Math.max(this.numPlayers, throwerID + 2, recieverID + 2);
     }
 
+    /**
+     * 
+     * @param cpuID the id for the leaver (do not adjust - ex: player 1 is id 0)
+     * @param reason name/description of cpu leave trigger 
+     * @param time time since start of game
+     */
     addCPULeave(cpuID: number, reason: string, time: number) {
         this.gameLog.push({ "type": "CPU leave", "leaver": cpuID, "reason": reason, "time": time });
     }
 
+    /**
+     * 
+     * @param reason name/description of player leave trigger
+     * @param time time since start of game
+     */
     addPlayerMayLeave(reason: string, time: number) {
         this.gameLog.push({ "type": "player may leave", "reason": reason, "time": time });
     }
 
+    /**
+     * 
+     * @param reason description of what condition caused game to end
+     * @param time time since start of game
+     * @param totalThrows total number of throws in the game
+     */
     addGameEnd(reason: string, time: number, totalThrows: number) {
         this.gameLog.push({ "type": "game end", "reason": reason, "time": time });
 
         this.processAndReportGameLog(totalThrows);
     }
 
+    /**
+     * formats and posts message for qualtrics
+     * @param totalThrows 
+     */
     private processAndReportGameLog(totalThrows) {
         // Postprocessing
 
@@ -50,17 +71,22 @@ export class Logger {
         );
     }
 
+    /**
+     * formats list of player throws for `processAndReportGameLog()` message
+     * @param throwStats formatted throws 2d array
+     * @returns player_throws_list
+     */
     private buildListOfPlayerThrows(throwStats) {
         let msg = {
-            Player_1_to_Player_2: 0,
-            Player_1_to_Player_3: 0,
-            Player_1_to_Player_4: 0,
-            Player_2_to_Player_1: 0,
-            Player_2_to_Player_3: 0,
-            Player_2_to_Player_4: 0,
-            Player_3_to_Player_1: 0,
-            Player_3_to_Player_2: 0,
-            Player_3_to_Player_4: 0,
+            "Player_1_to_Player_2": 0,
+            "Player_1_to_Player_3": 0,
+            "Player_1_to_Player_4": 0,
+            "Player_2_to_Player_1": 0,
+            "Player_2_to_Player_3": 0,
+            "Player_2_to_Player_4": 0,
+            "Player_3_to_Player_1": 0,
+            "Player_3_to_Player_2": 0,
+            "Player_3_to_Player_4": 0,
         };
 
         for (let i = 0; i < 4; i++) {
