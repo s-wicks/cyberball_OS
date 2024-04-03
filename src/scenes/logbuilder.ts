@@ -66,6 +66,7 @@ export class Logger {
 
         window.parent.postMessage(
             {
+                "flag": "game_over",
                 "game_log": this.gameLog,
                 "throws_formatted": throwStats,
                 "player_throws_list": this.buildListOfPlayerThrows(throwStats),

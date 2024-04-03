@@ -1,0 +1,124 @@
+The below was copy pasted from qualtrics April 3, 2024 before refactoring.
+
+var throwLog = [];
+var leaveButtonText = 'Leave Game';
+
+Qualtrics.SurveyEngine.addOnload(function () {
+    /* Place your JavaScript here to run when the page loads */
+    this.hideNextButton();
+});
+
+Qualtrics.SurveyEngine.addOnReady(function () {
+    /* Place your JavaScript here to run when the page is fully displayed */
+    var survey = this;
+    window.addEventListener('message', function (e) {
+        switch (e.data.type) {
+            case 'throw':
+            case 'leave':
+                throwLog.push(e.data);
+                break;
+            case 'player-may-leave':
+                throwLog.push(e.data);
+                //TODO replace - with _
+                Qualtrics.SurveyEngine.setEmbeddedData('player-may-leave', JSON.stringify(e.data.time));
+                jQuery('#NextButton').clone()
+                    .attr('disabled', false)
+                    .attr('title', leaveButtonText)
+                    .attr('value', leaveButtonText)
+                    .attr('aria-label', leaveButtonText)
+                    .attr('style', 'margin-right: 10px')
+                    .prependTo('#Buttons')
+                    .one('click', function () {
+                        throwLog.push({
+                            type: 'player-left'
+                        });
+                        // TODO move this ^ into the cyberball game and listen for event
+                        Qualtrics.SurveyEngine.setEmbeddedData('GameLog', JSON.stringify(throwLog));
+
+                        survey.clickNextButton();
+                    });
+                break;
+            case 'game-end':
+                throwLog.push(e.data);
+                Qualtrics.SurveyEngine.setEmbeddedData('totaltime', JSON.stringify(e.data.time));
+                Qualtrics.SurveyEngine.setEmbeddedData('GameLog', JSON.stringify(throwLog));
+                survey.showNextButton();
+
+                // Ends the survey automatically in 3.1 seconds
+                setTimeout(function () {
+                    survey.clickNextButton();
+                }, 3100); // 3100 milliseconds = 3.1 seconds
+
+                break;
+            default:
+        }
+    });
+});
+
+// Quick note - this only works if the page is allowed to go to the final screen (i think)
+Qualtrics.SurveyEngine.addOnPageSubmit(function () {
+    // Code to run when the page is submitted can be added here
+    let sanity = 'Working test.' //to ensure no errors
+
+    // Process throw data into intermediary format and get number of players
+    let numPlayers = 0;
+    // TODO refactoring
+    // make 1d array of names where index is used in throwlognumerics and new names are just popped
+    // use this instead of current charat grab
+    let throwLogNumerics = []; //reformatted throw log - intermediary between log and stats
+    let throwStats; //2d array of throws where arr[thrower][catcher] = number of throws from thrower to catcher
+
+    try { // for my own debugging sanity
+        for (let entry of throwLog) {
+
+            // convert GameLog to simplified format
+            if (entry.type === 'throw') {
+                //potentially breaks - figure out how to just remove 'Player'?
+                throwLogNumerics.push([
+                    Number(entry.thrower.charAt(entry.thrower.length - 1)),
+                    Number(entry.receiver.charAt(entry.receiver.length - 1))
+                ]);
+            }
+        }
+
+        //get numPlayers
+        numPlayers = Math.max(...throwLogNumerics.flat());
+
+        // build 2D array scaffold of throwers and catchers.
+        throwStats = Array(numPlayers).fill().map(() => Array(numPlayers).fill(0));
+
+        // populate the array
+        for (let entry of throwLogNumerics) throwStats[entry[0] - 1][entry[1] - 1]++;
+
+        // output the formatted throws table
+        //TODO replace - with _
+        Qualtrics.SurveyEngine.setEmbeddedData('throws-formatted', JSON.stringify(throwStats));
+
+        //populate the list versions (# to #) of the fields up to 4 players
+        //TODO replace spaces with _ in both code and fields
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                if (i < numPlayers && j < numPlayers) {
+                    // wanted to use template string but had an issue so going slower route
+                    Qualtrics.SurveyEngine.setEmbeddedData('Player ' + (i + 1) + ' to Player ' + (j + 1),
+                        JSON.stringify(throwStats[i][j]));
+                } else {
+                    Qualtrics.SurveyEngine.setEmbeddedData('Player ' + (i + 1) + ' to Player ' + (j + 1), '0');
+                }
+            }
+        }
+
+        //report the total throws
+        Qualtrics.SurveyEngine.setEmbeddedData('TotalThrow', throwStats.flatten(1).reduce((a, b) => a + b, 0));
+
+        //if error, should tell me what it is for help debugging
+        Qualtrics.SurveyEngine.setEmbeddedData('sanity-check', sanity);
+    } catch (error) {
+        Qualtrics.SurveyEngine.setEmbeddedData('sanity-check', error.toString());
+    }
+});
+
+//TODO research if this processes on page closed?
+Qualtrics.SurveyEngine.addOnUnload(function () {
+    //Code here runs when page is unloaded
+});
