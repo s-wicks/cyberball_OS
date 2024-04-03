@@ -10,7 +10,7 @@ export class Logger {
      * @param waitTime the time between a catch and a throw
      */
     addThrow(throwerID: number, recieverID: number, waitTime: number) {
-        this.gameLog.push({ "type": "throw", "thrower": throwerID, "reciever": recieverID, "wait": waitTime });
+        this.gameLog.push({ "type": "throw", "thrower": throwerID + 1, "reciever": recieverID + 1, "wait": waitTime });
 
         this.numPlayers = Math.max(this.numPlayers, throwerID + 1, recieverID + 1);
     }
@@ -60,6 +60,7 @@ export class Logger {
 
         for (let entry of this.gameLog) {
             if (entry.type === "throw") {
+                console.log(entry.thrower)
                 throwStats[entry.thrower - 1][entry.reciever - 1]++;
             }
         }
