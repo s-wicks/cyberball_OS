@@ -4,10 +4,14 @@ let numPlayers = 0;
 
 export function addLogging(controller: CyberballGameController) {
     let gameLog = [];
+    let timeAtCatch = 0;
 
-    // TODO Nate - note - while wait and waitTime have been added to the callback in CyberballGameController they are not implemented
-    controller.throwBallCallbacks.addCallback("log throw", (thrower, reciever, waitTime) => {
-        gameLog.push({ "type": "throw", "thrower": thrower, "reciever": reciever, "wait": waitTime });
+    controller.catchBallCallbacks.addCallback("grab time at catch", () => {
+        timeAtCatch = controller.reportTimeSinceStart();
+    })
+
+    controller.throwBallCallbacks.addCallback("log throw", (thrower, reciever) => {
+        gameLog.push({ "type": "throw", "thrower": thrower, "reciever": reciever, "wait": controller.reportTimeSinceStart() - timeAtCatch });
 
         numPlayers = Math.max(numPlayers, thrower + 2, reciever + 2);
     });

@@ -5,7 +5,7 @@ export default class CyberballGameController {
     readonly model: CyberballGameModel;
 
     public CPULeaveCallbacks: CallbackList<[number /** id */, string /** reason */]> = new CallbackList();
-    public throwBallCallbacks: CallbackList<[number /* thrower */, number /* receiver */, number /*waitTime*/]> = new CallbackList();
+    public throwBallCallbacks: CallbackList<[number /* thrower */, number /* receiver */]> = new CallbackList();
     public catchBallCallbacks: CallbackList<[number]> = new CallbackList();
     public humanPlayerMayLeaveCallbacks: CallbackList<[string]> = new CallbackList();
     public gameEndCallbacks: CallbackList<[string]> = new CallbackList();
@@ -52,8 +52,7 @@ export default class CyberballGameController {
         let playerHoldingBall = this.model.playerHoldingBallId;
         this.model.playerHoldingBallId = null;
         this.model.throwTargetId = target;
-        // TODO Nate - implement waitTime? currently null
-        this.throwBallCallbacks.runCallbacks(playerHoldingBall, target, null);
+        this.throwBallCallbacks.runCallbacks(playerHoldingBall, target);
     }
 
     public cpuThrowBall() {
