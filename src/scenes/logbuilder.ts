@@ -1,7 +1,7 @@
 export class Logger {
-    numPlayers = 0;
-    gameLog = [];
-    humanLeaveReason = ""
+    private numPlayers = 0;
+    private gameLog = [];
+    private humanLeaveReason = ""
 
     /**
      * 
@@ -12,7 +12,7 @@ export class Logger {
     addThrow(throwerID: number, recieverID: number, waitTime: number) {
         this.gameLog.push({ "type": "throw", "thrower": throwerID, "reciever": recieverID, "wait": waitTime });
 
-        this.numPlayers = Math.max(this.numPlayers, throwerID + 2, recieverID + 2);
+        this.numPlayers = Math.max(this.numPlayers, throwerID + 1, recieverID + 1);
     }
 
     /**
@@ -22,7 +22,7 @@ export class Logger {
      * @param time time since start of game
      */
     addCPULeave(cpuID: number, reason: string, time: number) {
-        this.gameLog.push({ "type": "CPU leave", "leaver": cpuID, "reason": reason, "time": time });
+        this.gameLog.push({ "type": "CPU leave", "leaver": cpuID + 1, "reason": reason, "time": time });
     }
 
     /**
@@ -60,8 +60,7 @@ export class Logger {
 
         for (let entry of this.gameLog) {
             if (entry.type === "throw") {
-                //account for numbering - user -1 is now index 0, etc
-                throwStats[entry.thrower + 1][entry.reciever + 1]++;
+                throwStats[entry.thrower - 1][entry.reciever - 1]++;
             }
         }
 
