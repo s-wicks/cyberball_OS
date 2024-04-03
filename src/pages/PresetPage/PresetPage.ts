@@ -1,10 +1,11 @@
 import { autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import {SettingsService} from "../Setting-Service";
+import {SettingsService} from '../Setting-Service';
 
 @autoinject()
 export class PresetPage {
     presets: Array<{name: string, description: string, settings: any}> = [];
+    defaultPresets: Array<{name: string, description: string, video: string, settings: any}> = [];
     public activeTab: string = 'presets';
     settings: any;
 
@@ -16,8 +17,18 @@ export class PresetPage {
     }
 
     attached() {
-        console.log("attached method called");
+        this.loadDefaultPresets();
         this.loadPresetsFromLocalStorage();
+    }
+
+    public async loadDefaultPresets(): Promise<void> {
+        try {
+            let response = await fetch('../../../assets/defaultPresets.json');
+            this.defaultPresets = await response.json();
+            console.log('loaded default presets', this.defaultPresets);
+        } catch (error) {
+            console.error('promise rejected', error)
+        }
     }
 
     public loadPresetsFromLocalStorage(): void {
@@ -39,13 +50,9 @@ export class PresetPage {
 
     }
 
-    public loadPresetAndNavigate(presetName: string): void {
-        const presetData = localStorage.getItem(presetName);
-        if (presetData) {
-            const parsedData = JSON.parse(presetData);
-            this.settingsService.settings = parsedData.settings; // Update the settings in the service
-            this.navigateToPage();
-        }
+    public loadPresetAndNavigate(preset: any): void {
+        this.settingsService.settings = preset.settings; // Update the settings in the service
+        this.navigateToConfigurationBuilder();
     }
 
     public showTab(tabId: string): void {
@@ -64,10 +71,6 @@ export class PresetPage {
 
     public get (): boolean {
         return this.activeTab === 'load-file';
-    }
-
-    public navigateToPage(): void {
-        this.router.navigate('home');
     }
 
     public deletePreset(presetName: string): void {
