@@ -44,7 +44,7 @@ export class GameViewModel {
             },
             parent: 'phaser',
             dom: {
-                createContainer: true
+                createContainer: false
             }
         };
     }
