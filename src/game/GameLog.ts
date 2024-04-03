@@ -3,6 +3,7 @@ import CyberballGameController from "./CyberballGameController";
 let numPlayers = 0;
 let gameLog = [];
 let timeAtCatch = 0;
+let humanLeaveReason = "";
 
 /**
  * NOTE!!!
@@ -29,16 +30,18 @@ export function addLogging(controller: CyberballGameController) {
 
     controller.humanPlayerMayLeaveCallbacks.addCallback("log player may leave", reason => {
         gameLog.push({ "type": "player may leave", "reason": reason, "time": controller.reportTimeSinceStart() });
+
+        humanLeaveReason = reason;
     });
 
     controller.gameEndCallbacks.addCallback("log and post game end", reason => {
         gameLog.push({ "type": "game end", "reason": reason, "time": controller.reportTimeSinceStart() });
 
-        processAndReportGameLog(controller.model.throwCount);
+        processAndReportGameLog(controller.model.throwCount, controller.reportTimeSinceStart());
     });
 }
 
-function processAndReportGameLog(throwCount) {
+function processAndReportGameLog(throwCount, totalTime) {
     let throwStats = Array(numPlayers).fill(Array(numPlayers).fill(0));
 
     for (let entry of gameLog) {
@@ -53,8 +56,10 @@ function processAndReportGameLog(throwCount) {
         {
             "game_log": gameLog,
             "throws_formatted": throwStats,
+            "player_throws_list": buildListOfPlayerThrows(throwStats),
             "total_throws": throwCount,
-            "player_throws_list": buildListOfPlayerThrows(throwStats)
+            "player_may_leave": humanLeaveReason,
+            "total_time": totalTime
         }
     );
 }
