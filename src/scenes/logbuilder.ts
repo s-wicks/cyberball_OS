@@ -60,12 +60,11 @@ export class Logger {
 
         for (let entry of this.gameLog) {
             if (entry.type === "throw") {
-                console.log(entry.thrower)
                 throwStats[entry.thrower - 1][entry.reciever - 1]++;
             }
         }
 
-        window.parent.postMessage(
+        window.postMessage(
             {
                 "flag": "game_over",
                 "game_log": this.gameLog,
@@ -106,4 +105,8 @@ export class Logger {
 
         return msg;
     }
+}
+
+function SendData(msg) {
+    window.parent.postMessage(msg);
 }
