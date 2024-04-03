@@ -95,11 +95,11 @@ export class Logger {
             "Player_3_to_Player_4": 0,
         };
 
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                if (i < this.numPlayers && j < this.numPlayers) {
+        let loopCount = Math.min(this.numPlayers, 4)
+        for (let i = 0; i < loopCount; i++) {
+            for (let j = 0; j < loopCount; j++) {
+                if (i != j)
                     msg['Player_' + (i + 1) + '_to_Player_' + (j + 1)] = throwStats[i][j];
-                }
             }
         }
 
