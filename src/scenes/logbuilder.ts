@@ -1,11 +1,17 @@
-class Logger {
+export class Logger {
     numPlayers = 0;
     gameLog = [];
 
-    addThrow(thrower: number, reciever: number, waitTime: number) {
-        this.gameLog.push({ "type": "throw", "thrower": thrower, "reciever": reciever, "wait": waitTime });
+    /**
+     * 
+     * @param throwerID the id for the thrower (do not adjust - ex: player 1 is id 0)
+     * @param recieverID the id for the reciever (do not adjust - ex: player 1 is id 0)
+     * @param waitTime the time between a catch and a throw
+     */
+    addThrow(throwerID: number, recieverID: number, waitTime: number) {
+        this.gameLog.push({ "type": "throw", "thrower": throwerID, "reciever": recieverID, "wait": waitTime });
 
-        this.numPlayers = Math.max(this.numPlayers, thrower + 2, reciever + 2);
+        this.numPlayers = Math.max(this.numPlayers, throwerID + 2, recieverID + 2);
     }
 
     addCPULeave(cpuID: number, reason: string, time: number) {
@@ -16,23 +22,21 @@ class Logger {
         this.gameLog.push({ "type": "player may leave", "reason": reason, "time": time });
     }
 
-    addGameEnd(reason: string, time: number) {
+    addGameEnd(reason: string, time: number, totalThrows: number) {
         this.gameLog.push({ "type": "game end", "reason": reason, "time": time });
 
-        this.processAndReportGameLog();
+        this.processAndReportGameLog(totalThrows);
     }
 
-    private processAndReportGameLog() {
+    private processAndReportGameLog(totalThrows) {
         // Postprocessing
 
         let throwStats = Array(this.numPlayers).fill(Array(this.numPlayers).fill(0));
-        let totalThrows = 0;
 
         for (let entry of this.gameLog) {
             if (entry.type === "throw") {
                 //account for numbering - user -1 is now index 0, etc
                 throwStats[entry.thrower + 1][entry.reciever + 1]++;
-                totalThrows++;
             }
         }
 
