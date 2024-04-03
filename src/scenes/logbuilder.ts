@@ -1,6 +1,7 @@
 export class Logger {
     numPlayers = 0;
     gameLog = [];
+    humanLeaveReason = ""
 
     /**
      * 
@@ -31,6 +32,8 @@ export class Logger {
      */
     addPlayerMayLeave(reason: string, time: number) {
         this.gameLog.push({ "type": "player may leave", "reason": reason, "time": time });
+
+        this.humanLeaveReason = reason;
     }
 
     /**
@@ -42,14 +45,15 @@ export class Logger {
     addGameEnd(reason: string, time: number, totalThrows: number) {
         this.gameLog.push({ "type": "game end", "reason": reason, "time": time });
 
-        this.processAndReportGameLog(totalThrows);
+        this.processAndReportGameLog(totalThrows, time);
     }
 
     /**
      * formats and posts message for qualtrics
      * @param totalThrows 
+     * @param totalTime 
      */
-    private processAndReportGameLog(totalThrows) {
+    private processAndReportGameLog(totalThrows, totalTime) {
         // Postprocessing
 
         let throwStats = Array(this.numPlayers).fill(Array(this.numPlayers).fill(0));
@@ -65,8 +69,10 @@ export class Logger {
             {
                 "game_log": this.gameLog,
                 "throws_formatted": throwStats,
+                "player_throws_list": this.buildListOfPlayerThrows(throwStats),
                 "total_throws": totalThrows,
-                "player_throws_list": this.buildListOfPlayerThrows(throwStats)
+                "player_may_leave": this.humanLeaveReason,
+                "total_time": totalTime
             }
         );
     }
