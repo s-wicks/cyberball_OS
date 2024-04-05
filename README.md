@@ -23,62 +23,42 @@ HTML View:
 JavaScript:
 
 ```
-var throwLog = [];
-var leaveButtonText = 'Leave Game';
-
-Qualtrics.SurveyEngine.addOnload(function()
-{
-	/*Place your JavaScript here to run when the page loads*/
-	this.hideNextButton();
+Qualtrics.SurveyEngine.addOnload(function() {
+    /* Place your JavaScript here to run when the page loads */
+    this.hideNextButton();
+});
+ 
+Qualtrics.SurveyEngine.addOnReady(function() {
+    /* Place your JavaScript here to run when the page is fully displayed */
+    window.addEventListener('message', (msg) => {
+		//check that this is the end of game message
+        if(msg.data.flag === "game_over"){
+			//end game - 3.1 sec timer
+			setTimeout(()=>{this.clickNextButton();}, 3100);
+			
+			//populate qualtrics fields
+			for (const [key, value] of Object.entries(msg.data)){	
+				
+				//player throw list is itself an object - have to iterate
+				if(key === "player_throws_list"){
+					for(const [throwPath, numThrows] of value){
+						Qualtrics.SurveyEngine.setEmbeddedData(throwPath, numThrows);
+					}
+					
+				} else {
+					Qualtrics.SurveyEngine.setEmbeddedData(key, JSON.stringify(value));
+				}
+			}
+		} //can add elif for error case
+    });
 });
 
-Qualtrics.SurveyEngine.addOnReady(function()
-{
-	/*Place your JavaScript here to run when the page is fully displayed*/
-	var survey = this;
-
-	window.addEventListener('message', function(e) {
-		switch(e.data.type) {
-			case 'throw':
-			case 'leave':
-				throwLog.push(e.data);
-				break;
-			case 'player-may-leave':
-				throwLog.push(e.data);
-
-				jQuery('#NextButton').clone()
-					.attr('disabled', false)
-					.attr('title', leaveButtonText)
-					.attr('value', leaveButtonText)
-					.attr('aria-label', leaveButtonText)
-					.attr('style', 'margin-right: 10px')
-					.prependTo('#Buttons')
-					.one('click', function() {
-						throwLog.push({
-							type: 'player-left'
-						});
-
-						Qualtrics.SurveyEngine.setEmbeddedData('GameLog', JSON.stringify(throwLog));
-
-						survey.clickNextButton();
-					});
-
-				break;
-			case 'game-end':
-				Qualtrics.SurveyEngine.setEmbeddedData('GameLog', JSON.stringify(throwLog));
-
-				survey.showNextButton();
-
-				// Auto-advance?
-				//survey.clickNextButton();
-				break;
-			default:
-		}
-	});
+Qualtrics.SurveyEngine.addOnPageSubmit(function() {
+	// Code to run when the page is submitted can be added here
 });
 
-Qualtrics.SurveyEngine.addOnUnload(function()
-{
-
+//TODO research if this processes on page closed?
+Qualtrics.SurveyEngine.addOnUnload(function() {
+	//Code here runs when page is unloaded
 });
 ```
