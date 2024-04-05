@@ -63,7 +63,7 @@ function processAndReportGameLog(throwCount, totalTime) {
     console.log(msg)
     //note: shouldn't have to - if debugging and need to see data from postMessage(), use
     // `window.addEventListener('message', (post_msg) => console.log(post_msg.data))` in browser console
-    // (post_msg should 100% match the console.log above - resulting in two back to back identical messages)
+    // (post_msg.data should 100% match the console.log above - resulting in two back to back identical messages)
     window.postMessage(msg);
 }
 
