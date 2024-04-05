@@ -56,7 +56,7 @@ export class Logger {
     private processAndReportGameLog(totalThrows, totalTime) {
         // Postprocessing
 
-        let throwStats = Array(this.numPlayers).fill(Array(this.numPlayers).fill(0));
+        let throwStats = Array(this.numPlayers).fill([]).map(() => Array(this.numPlayers).fill(0));
 
         for (let entry of this.gameLog) {
             if (entry.type === "throw") {
@@ -64,6 +64,7 @@ export class Logger {
             }
         }
 
+        //note: if debugging, use `window.addEventListener('message', (msg) => console.log(msg.data))` in browser console
         window.postMessage(
             {
                 "flag": "game_over",
@@ -105,8 +106,4 @@ export class Logger {
 
         return msg;
     }
-}
-
-function SendData(msg) {
-    window.parent.postMessage(msg);
 }
