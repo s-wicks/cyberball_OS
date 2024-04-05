@@ -1,3 +1,4 @@
+import { SettingsModel } from "models/settings-model";
 import CyberballGameController from "./CyberballGameController";
 
 let numPlayers = 0;
@@ -13,15 +14,13 @@ let humanLeaveReason = "";
  * by the logger! (User -1 => Player 1, CPU 0 => Player 2, etc...)
  * @param controller 
 */
-export function addLogging(controller: CyberballGameController) {
+export function addGameLogging(controller: CyberballGameController, settings: SettingsModel) {
     controller.catchBallCallbacks.addCallback("grab time at catch", () => {
         timeAtCatch = controller.reportTimeSinceStart();
     })
 
     controller.throwBallCallbacks.addCallback("log throw", (throwerID, recieverID) => {
         gameLog.push({ "type": "throw", "thrower": throwerID + 2, "reciever": recieverID + 2, "wait": controller.reportTimeSinceStart() - timeAtCatch });
-
-        numPlayers = Math.max(numPlayers, throwerID + 2, recieverID + 2);
     });
 
     controller.CPULeaveCallbacks.addCallback("log leave", (cpuID, reason) => {
@@ -37,6 +36,7 @@ export function addLogging(controller: CyberballGameController) {
     controller.gameEndCallbacks.addCallback("log and post game end", reason => {
         gameLog.push({ "type": "game end", "reason": reason, "time": controller.reportTimeSinceStart() });
 
+        numPlayers = settings.computerPlayers.length + 1;
         processAndReportGameLog(controller.model.throwCount, controller.reportTimeSinceStart());
     });
 }

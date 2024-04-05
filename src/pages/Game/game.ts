@@ -7,6 +7,7 @@ import addCpuTargeting from 'game/CpuTargeting';
 import CyberballGameModel from 'game/CyberballGameModel';
 import addLeaveTriggers from 'game/LeaveTriggers';
 import addGameOverTriggers from 'game/GameOverTriggers';
+import { addGameLogging } from 'game/GameLog';
 
 export class GameViewModel {
     settings: SettingsModel = defaultSettings;
@@ -21,15 +22,15 @@ export class GameViewModel {
     gameConfig: Phaser.Types.Core.GameConfig;
 
     activate(params: { settings?: string, playerName?: string }) {
-        if('settings' in params) {
+        if ('settings' in params) {
             this.settings = new SettingsModel(JSON.parse(atob(params.settings)));
         }
 
-        if('playerName' in params) {
+        if ('playerName' in params) {
             this.settings.player.name = params.playerName;
         }
 
-        if(this.settings.hasPortraits) {
+        if (this.settings.hasPortraits) {
             this.gameHeight += this.settings.portraitHeight * 2 + this.settings.portraitPadding * 4;
         }
     }
@@ -39,9 +40,10 @@ export class GameViewModel {
         addCpuTargeting(cyberballGameController, this.settings);
         addLeaveTriggers(cyberballGameController, this.settings);
         addGameOverTriggers(cyberballGameController, this.settings);
+        addGameLogging(cyberballGameController, this.settings);
         let scene = new CyberballScene(this.settings, cyberballGameController);
 
-        this.gameConfig  = {
+        this.gameConfig = {
             type: Phaser.AUTO,
             width: this.gameWidth,
             height: this.gameHeight,
