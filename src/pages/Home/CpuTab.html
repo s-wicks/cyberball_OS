@@ -114,7 +114,7 @@
         </form></dialog>
         <div class="two-column-grid">
             <input type="checkbox"
-                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
+                checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1" input.delegate="updateUrl()"/>
             <label>
                 Throws Elapsed
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -125,7 +125,7 @@
                 <p>The number of throws between all players before the CPU leaves.</p>
             </form></dialog>
             <input type="checkbox"
-                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
+                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2" input.delegate="updateUrl()"/>
             <label>
                 Time Elapsed
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -136,7 +136,7 @@
                 <p>How much time passes before the CPU leaves.</p>
             </form></dialog>
             <input type="checkbox"
-                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
+                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4" input.delegate="updateUrl()"/>
             <label>
                 Throws Ignored
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -147,7 +147,7 @@
                 <p>How many throws occur only between the other CPUs and participant before the CPU leaves.</p>
             </form></dialog>
             <input type="checkbox"
-                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
+                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16" input.delegate="updateUrl()"/>
             <label>
                 Time Ignored
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -158,7 +158,7 @@
                 <p>How much time the other CPUs and participant spend only throwing to each other before the CPU leaves.</p>
             </form></dialog>
             <input type="checkbox"
-                    checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
+                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8" input.delegate="updateUrl()"/>
             <label>
                 Other Players Leaving
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
