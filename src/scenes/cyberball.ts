@@ -30,6 +30,7 @@ export class CyberballScene extends Phaser.Scene {
 
     private absentPlayers: number[] = [];
     private showPlayerLeave: boolean = false;
+    private leaveButton;
 
     private gameEnded = false;
 
@@ -89,12 +90,14 @@ export class CyberballScene extends Phaser.Scene {
         return newSchedule;
     }
 
-
-
-
-
-
-
+    private showLeaveButton() {
+        this.leaveButton = this.add.dom(600, 400, 'button', 'width: 100px; height: 50px', 'Leave');
+        this.leaveButton.addListener('click');
+        this.leaveButton.on('click', () => {
+            this.postEvent('player-leave', { time: (Date.now() - this.startTime) / 1000 });
+            this.gameOver();
+        })
+    }
 
     private convertToMap(str: string): Map<number, number[]> {
         const lines = str.split('\n');
@@ -238,37 +241,6 @@ export class CyberballScene extends Phaser.Scene {
 
             this.cpuSprites.push(cpuSprite);
         }
-        if (this.settings.useSchedule) {
-
-            if (this.settings.changeColor) {
-                this.cpuSprites.forEach(cpu => {
-                    cpu.tint = 0xff0000;
-                });
-                this.playerSprite.tint = 0xff0000;
-                if (this.playerHasBall) {
-                    this.playerSprite.tint = 0x00ff00;
-                }
-                const playerId = 1;
-                let scheduleQueue = this.settings.schedule.get(playerId);
-
-                let nextRand = 0;
-                if (scheduleQueue && scheduleQueue.length > 0) {
-                    nextRand = scheduleQueue[0];
-                } else {
-                    //throw an error
-                }
-
-                let joinedPlayers = playerId + String(nextRand);
-
-                const digits = Array.from(String(joinedPlayers), Number);
-
-                digits.forEach(id => {
-                    let sprite = this.playerGroup.getChildren()[id - 1] as Phaser.GameObjects.Sprite;
-                    sprite.tint = 0x00ff00;
-                });
-            }
-
-        }
 
         // Ball:
 
@@ -332,10 +304,10 @@ export class CyberballScene extends Phaser.Scene {
         }
 
         // Player may leave after time has passed:
-
         if (!this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.Time) === LeaveTrigger.Time &&
             Date.now() > this.playerSprite.getData('leaveTime')) {
             this.showPlayerLeave = true;
+            this.showLeaveButton();
             this.postEvent('player-may-leave', {
                 reason: 'time elapsed', time: (Date.now() - this.startTime) / 1000
             });
@@ -344,6 +316,7 @@ export class CyberballScene extends Phaser.Scene {
         else if (!this.playerHasBall && !this.showPlayerLeave && (this.settings.player.leaveTrigger & LeaveTrigger.TimeIgnored) === LeaveTrigger.TimeIgnored &&
             Date.now() > this.playerSprite.getData('leaveTimeIgnored')) {
             this.showPlayerLeave = true;
+            this.showLeaveButton();
             this.postEvent('player-may-leave', {
                 reason: 'time ignored', time: (Date.now() - this.startTime) / 1000
             });
@@ -392,6 +365,9 @@ export class CyberballScene extends Phaser.Scene {
         // Draw game over screen:
         this.add.rectangle(this.sys.canvas.width / 2, this.sys.canvas.height / 2, this.sys.canvas.width, this.sys.canvas.height, 0xdddddd, this.settings.gameOverOpacity);
         this.add.text(this.sys.canvas.width / 2, this.sys.canvas.height / 2, this.settings.gameOverText, textStyle).setOrigin(0.5);
+
+        // Hide leave button:
+        if (this.leaveButton != null) this.leaveButton.node.style = "visibility: hidden";
     }
 
     // Mechanics:
@@ -462,6 +438,7 @@ export class CyberballScene extends Phaser.Scene {
 
             if (this.throwCount >= leaveThrows) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'throws elapsed', time: (Date.now() - this.startTime) / 1000
                 });
@@ -477,6 +454,7 @@ export class CyberballScene extends Phaser.Scene {
 
             if (playerThrowsIgnored >= leaveThrows) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'throws ignored', time: (Date.now() - this.startTime) / 1000
                 });
@@ -553,30 +531,14 @@ export class CyberballScene extends Phaser.Scene {
                             // this.settings.schedule.set(id, scheduleMap.get(id));
                         }
 
-                        if (this.settings.changeColor) {
-                            this.cpuSprites.forEach(cpu => {
-                                cpu.tint = 0xff0000;
-                            });
-                            this.playerSprite.tint = 0xff0000;
-
-                            let joinedPlayers = id + String(nextRand);
-
-                            const digits = Array.from(String(joinedPlayers), Number);
-                            console.log('joinedPlayers', digits);
-                            digits.forEach(id => {
-                                let sprite = this.playerGroup.getChildren()[id - 1] as Phaser.GameObjects.Sprite;
-                                sprite.tint = 0x00ff00;
-                            });
-                        }
-
                         let next = this.getRandomDigit(nextRand);
                         if (next == 0) {
                             console.log("next is the player....")
                         }
 
                         // Skip self and absent players in schedule.
-                        while (next === this.playerGroup.getChildren().indexOf(receiver) &&
-                            !this.absentPlayers.includes(next)) {
+                        while (next === this.playerGroup.getChildren().indexOf(receiver) ||
+                            this.absentPlayers.includes(next)) {
                             //this.scheduleIndex++;
                             if (scheduleQueue.length > 0) {
                                 const tmpRand = scheduleQueue.shift();
@@ -708,6 +670,7 @@ export class CyberballScene extends Phaser.Scene {
             console.log(this.absentPlayers.length, this.settings.player.leaveOtherLeaver);
             if (this.absentPlayers.length >= this.settings.player.leaveOtherLeaver) {
                 this.showPlayerLeave = true;
+                this.showLeaveButton();
                 this.postEvent('player-may-leave', {
                     reason: 'other leavers', time: (Date.now() - this.startTime) / 1000
                 });

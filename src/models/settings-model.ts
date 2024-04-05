@@ -13,7 +13,6 @@ export class SettingsModel {
     ballSpeed: number = 500;
 
     useSchedule: boolean = false;
-    changeColor: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
     schedule: Map<number, Array<number>>;
     scheduleText:string;
@@ -28,7 +27,7 @@ export class SettingsModel {
     baseUrl: string = './assets';
 
     ballSprite: string = 'ball.png';
-    ballTint?: string;
+    ballTint: string = '#ffffff';
 
     portraitHeight: number = 75;
     portraitPadding: number = 10;
