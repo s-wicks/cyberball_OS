@@ -37,10 +37,10 @@ export class GameViewModel {
 
     bind() {
         let cyberballGameController = new CyberballGameController(CyberballGameModel.humanPlayerId, this.settings.computerPlayers.length);
+        addGameLogging(cyberballGameController, this.settings);
         addCpuTargeting(cyberballGameController, this.settings);
         addLeaveTriggers(cyberballGameController, this.settings);
         addGameOverTriggers(cyberballGameController, this.settings);
-        addGameLogging(cyberballGameController, this.settings);
         let scene = new CyberballScene(this.settings, cyberballGameController);
 
         this.gameConfig = {
