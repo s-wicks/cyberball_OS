@@ -42,7 +42,7 @@ export function addGameLogging(controller: CyberballGameController, settings: Se
 }
 
 function processAndReportGameLog(throwCount, totalTime) {
-    let throwStats = Array(numPlayers).fill(Array(numPlayers).fill(0));
+    let throwStats = Array(numPlayers).fill([]).map(() => Array(numPlayers).fill(0));
 
     for (let entry of gameLog) {
         if (entry.type === "throw") {
@@ -52,6 +52,7 @@ function processAndReportGameLog(throwCount, totalTime) {
         }
     }
 
+    //note: if debugging, use `window.addEventListener('message', (msg) => console.log(msg.data))` in browser console
     window.parent.postMessage(
         {
             "game_log": gameLog,
