@@ -48,6 +48,10 @@ export class GameViewModel {
             scene,
             physics: {
                 default: 'arcade'
+            },
+            parent: 'phaser',
+            dom: {
+                createContainer: true
             }
         };
     }
