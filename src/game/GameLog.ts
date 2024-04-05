@@ -52,17 +52,19 @@ function processAndReportGameLog(throwCount, totalTime) {
         }
     }
 
-    //note: if debugging, use `window.addEventListener('message', (msg) => console.log(msg.data))` in browser console
-    window.parent.postMessage(
-        {
-            "game_log": gameLog,
-            "throws_formatted": throwStats,
-            "player_throws_list": buildListOfPlayerThrows(throwStats),
-            "total_throws": throwCount,
-            "player_may_leave": humanLeaveReason,
-            "total_time": totalTime
-        }
-    );
+    let msg = {
+        "game_log": gameLog,
+        "throws_formatted": throwStats,
+        "player_throws_list": buildListOfPlayerThrows(throwStats),
+        "total_throws": throwCount,
+        "player_may_leave": humanLeaveReason,
+        "total_time": totalTime
+    };
+    console.log(msg)
+    //note: shouldn't have to - if debugging and need to see data from postMessage(), use
+    // `window.addEventListener('message', (post_msg) => console.log(post_msg.data))` in browser console
+    // (post_msg should 100% match the console.log above - resulting in two back to back identical messages)
+    window.postMessage(msg);
 }
 
 function buildListOfPlayerThrows(throwStats) {
