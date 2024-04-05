@@ -18,7 +18,7 @@ export default class CyberballGameController {
             this.model.remainingCpuPlayerIds.add(i);
         }
     }
-    
+
     public setCpuTargeting(getNextCpuTarget: (thrower: number) => number) {
         this.getNextCpuTarget = getNextCpuTarget;
     }
@@ -93,5 +93,9 @@ export default class CyberballGameController {
         }
         this.model.gameHasEnded = true;
         this.gameEndCallbacks.runCallbacks(reason);
+    }
+
+    public reportTimeSinceStart() {
+        return Date.now() - this.model.startTime
     }
 }
