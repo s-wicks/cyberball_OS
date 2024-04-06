@@ -86,10 +86,7 @@ function addCpuTargetingPreference(controller: CyberballGameController, settings
         let cumultiveDistributionFunction = probablyityDensityFunction.map((sum => value => sum += value)(0));
         let rand = Math.random();
         let index = cumultiveDistributionFunction.findIndex(el => rand <= el);
-        if (index === thrower) {
-            return CyberballGameModel.humanPlayerId;
-        }
-        return index;
+        return index <= thrower ? index - 1 : index;
     });
 
     controller.CPULeaveCallbacks.addCallback("Target Preference", (id) => {
