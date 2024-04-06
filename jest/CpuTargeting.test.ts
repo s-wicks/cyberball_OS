@@ -23,10 +23,11 @@ test('schedule text to map #2', () => {
 })
 
 test('schedule text to map #3', () => {
-    let scheduleText:string = '2, 1';
+    let scheduleText:string = '3, 1, 2, 1\n2, 1, 3, 1';
     let expectedScheduleMap:Map<number, number[]> = new Map<number, number[]>();
 
-    expectedScheduleMap.set(0, [CyberballGameModel.humanPlayerId])
+    expectedScheduleMap.set(0, [CyberballGameModel.humanPlayerId, 1, CyberballGameModel.humanPlayerId]);
+    expectedScheduleMap.set(1, [CyberballGameModel.humanPlayerId, 0, CyberballGameModel.humanPlayerId]);
 
     expect(convertTextToSchedule(scheduleText)).toStrictEqual(expectedScheduleMap);
 })

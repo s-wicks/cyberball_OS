@@ -1,6 +1,7 @@
 import { expect, test } from '@jest/globals';
 import { SettingsModel, defaultSettings } from '../src/models/settings-model';
 import addCpuTargeting from '../src/game/CpuTargeting';
+import addGameOverTriggers from '../src/game/GameOverTriggers';
 import CyberballGameModel from "../src/game/CyberballGameModel";
 import CyberballGameController from '../src/game/CyberballGameController'
 
@@ -277,86 +278,54 @@ test('scheduler test #2', () => {
 })
 
 /*
- * TODO: this test focuses on the randomness of the scheduler
+ * this test focuses on scheduler completing all throws despite randomness
  */
-// test('scheduler test #3', () => {
-//     let controller:CyberballGameController = new CyberballGameController(CyberballGameModel.humanPlayerId, 2);
+test('scheduler test #3', () => {
+    let controller:CyberballGameController = new CyberballGameController(0, 3);
 
-//     controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
-//         fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
-//     }
-//     controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
-//         fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
-//     }
-//     controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
-//         fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
-//     }
-//     controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
-//         fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
-//     }
-//     controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
-//         fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
-//     }
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
 
-//     let settings:SettingsModel = defaultSettings;
-//     settings.useSchedule = true;
-//     settings.scheduleText = '2, 13, 13\n3, 12, 12';
+    controller.gameEndCallbacks.addCallback('testing', reason => {
+        console.log(reason);
+    })
 
-//     addCpuTargeting(controller, settings);
+    let settings:SettingsModel = defaultSettings;
+    settings.useSchedule = true;
+    settings.scheduleText = '2, 34, 34\n3, 24, 24\n4, 23, 23';
+    settings.selectedGameOverCondition = 'throwCount';
+    settings.throwCount = 12;
 
-//     controller.throwBall(0);
-//     controller.completeCatch();
+    addCpuTargeting(controller, settings);
+    addGameOverTriggers(controller, settings);
 
-//     expect(controller.model.playerHoldingBallId).toBe(0);
-//     expect(controller.model.throwTargetId).toBeNull();
+    let counts:Array<number> = [0, 0, 0];
 
-//     controller.cpuThrowBall();
+    while(controller.model.gameHasEnded === false) {
+        controller.cpuThrowBall();
+        counts[controller.model.throwTargetId!]++;
+        controller.completeCatch();
+    }
 
-//     expect(controller.model.playerHoldingBallId).toBeNull();
-//     expect(controller.model.throwTargetId).toBe(1);
+    console.log(counts);
+    console.log(controller.model.throwCount);
+    // need to just count throws
+    for (let i = 0; i < 3; i++) {
+        expect(counts[i]).toEqual(4);
+    }
+})
 
-//     controller.completeCatch();
-
-//     expect(controller.model.playerHoldingBallId).toBe(1);
-//     expect(controller.model.throwTargetId).toBeNull();
-
-//     controller.cpuThrowBall();
-
-//     expect(controller.model.playerHoldingBallId).toBeNull();
-//     expect(controller.model.throwTargetId).toBe(0);
-
-//     controller.completeCatch();
-
-//     expect(controller.model.playerHoldingBallId).toBe(0);
-//     expect(controller.model.throwTargetId).toBeNull();
-
-//     controller.cpuThrowBall();
-
-//     expect(controller.model.playerHoldingBallId).toBeNull();
-//     expect(controller.model.throwTargetId).toBe(1);
-
-//     controller.completeCatch();
-
-//     expect(controller.model.playerHoldingBallId).toBe(1);
-//     expect(controller.model.throwTargetId).toBeNull();
-
-//     controller.cpuThrowBall();
-
-//     expect(controller.model.playerHoldingBallId).toBeNull();
-//     expect(controller.model.throwTargetId).toBe(0);
-
-//     controller.completeCatch();
-
-//     expect(controller.model.playerHoldingBallId).toBe(0);
-//     expect(controller.model.throwTargetId).toBeNull();
-
-//     controller.cpuThrowBall();
-
-//     expect(controller.model.playerHoldingBallId).toBeNull();
-//     expect(controller.model.throwTargetId).toBe(1);
-
-//     controller.completeCatch();
-
-//     expect(controller.model.playerHoldingBallId).toBe(1);
-//     expect(controller.model.throwTargetId).toBeNull();
-// })
+// TODO more tests focusing on randomness of scheduler
