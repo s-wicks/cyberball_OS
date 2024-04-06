@@ -22,6 +22,7 @@ export class CyberballScene extends Phaser.Scene {
     // Gameplay Mechanics:
 
     private throwTarget: Phaser.GameObjects.Sprite;
+    private leaveButton;
 
     constructor(settings: SettingsModel, controller: CyberballGameController) {
         super({});
@@ -41,7 +42,19 @@ export class CyberballScene extends Phaser.Scene {
         this.cyberballGameController.gameEndCallbacks.addCallback("Phaser game end", () => {
             this.gameOver();
         });
+        this.cyberballGameController.humanPlayerMayLeaveCallbacks.addCallback("Phaser player may leave", () => {
+            this.showLeaveButton();
+        });
     }
+    
+    private showLeaveButton() {
+        this.leaveButton = this.add.dom(600, 400, 'button', 'width: 100px; height: 50px', 'Leave');
+        this.leaveButton.addListener('click');
+        this.leaveButton.on('click', () => {
+            this.cyberballGameController.endGame('player-leave');
+        })
+    }
+
 
     public preload() {
         this.load.crossOrigin = 'anonymous';
@@ -213,6 +226,9 @@ export class CyberballScene extends Phaser.Scene {
         // Draw game over screen:
         this.add.rectangle(this.sys.canvas.width / 2, this.sys.canvas.height / 2, this.sys.canvas.width, this.sys.canvas.height, 0xdddddd, this.settings.gameOverOpacity);
         this.add.text(this.sys.canvas.width / 2, this.sys.canvas.height / 2, this.settings.gameOverText, textStyle).setOrigin(0.5);
+
+        // Hide leave button:
+        if (this.leaveButton != null) this.leaveButton.node.style = "visibility: hidden";
     }
 
     // Mechanics:
@@ -260,7 +276,7 @@ export class CyberballScene extends Phaser.Scene {
                     if (this.cyberballGameController.model.gameHasEnded) {
                         return;
                     }
-                    
+
                     this.cyberballGameController.cpuThrowBall();
                 }, cpuSettings.throwDelay + (Math.random() * 2 - 1) * cpuSettings.throwDelayVariance);
             }, cpuSettings.catchDelay + (Math.random() * 2 - 1) * cpuSettings.catchDelayVariance)
@@ -343,7 +359,7 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     getTimeString(): string {
-        let timeRemaining = this.settings.timeLimit - (Date.now() - this.cyberballGameController.model.startTime);
+        let timeRemaining = this.settings.timeLimit - this.cyberballGameController.reportTimeSinceStart();
         let time = new Date(timeRemaining < 0 ? 0 : timeRemaining);
 
         return `${this.settings.timeLimitText} ${time.getUTCMinutes()}:${time.getUTCSeconds() < 10 ? '0' : ''}${time.getUTCSeconds()}`;
