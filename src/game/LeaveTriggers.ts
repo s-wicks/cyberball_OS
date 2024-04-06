@@ -23,8 +23,8 @@ export function addPlayerMayLeaveTriggers(controller: CyberballGameController, s
 }
 
 function shouldDisableLeaveTrigger(settings: CpuSettingsModel | PlayerSettingsModel, leavePercentageAttr: string): boolean {
-    const leavePercentage = leavePercentageAttr in settings ? settings[leavePercentageAttr] : 0;
-    return leavePercentage > Math.random() * 100;
+    const leavePercentage = leavePercentageAttr in settings ? settings[leavePercentageAttr] : 100;
+    return leavePercentage <= Math.random() * 100;
 }
 
 export function addCpuLeaveTriggers(
