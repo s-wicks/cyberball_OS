@@ -29,6 +29,15 @@ a:hover {
     right: 6px;
 }
 
+#home-button {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+}
+#home-button:hover {
+    color: white;
+}
+
 .button-container {
     width: max-content;
     display: grid;
