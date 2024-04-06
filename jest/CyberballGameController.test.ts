@@ -1,9 +1,11 @@
-import { expect, test } from '@jest/globals';
+import { expect, test, jest } from '@jest/globals';
 import { SettingsModel, defaultSettings } from '../src/models/settings-model';
 import addCpuTargeting from '../src/game/CpuTargeting';
 import addGameOverTriggers from '../src/game/GameOverTriggers';
+import addLeaveTriggers from '../src/game/LeaveTriggers';
 import CyberballGameModel from "../src/game/CyberballGameModel";
-import CyberballGameController from '../src/game/CyberballGameController'
+import CyberballGameController from '../src/game/CyberballGameController';
+import { LeaveTrigger } from '../src/enums/leave-trigger';
 
 test('human throw to cpu', () => {
     let controller = new CyberballGameController(CyberballGameModel.humanPlayerId, 5);
@@ -329,3 +331,109 @@ test('scheduler test #3', () => {
 })
 
 // TODO more tests focusing on randomness of scheduler
+
+test('throw count test', () => {
+    let controller:CyberballGameController = new CyberballGameController(0, 2);
+
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+
+    let settings:SettingsModel = defaultSettings;
+    settings.selectedGameOverCondition = 'throwCount';
+    settings.throwCount = 10;
+    settings.computerPlayers[0].targetPreference = [0, 100];
+    settings.computerPlayers[1].targetPreference = [0, 100];
+
+    addGameOverTriggers(controller, settings);
+    addCpuTargeting(controller, settings);
+
+    while(controller.model.gameHasEnded === false) {
+        controller.cpuThrowBall();
+        controller.completeCatch();
+    }
+
+    expect(controller.model.throwCount).toEqual(10);
+})
+
+jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
+test('time limit test', () => {
+    let controller:CyberballGameController = new CyberballGameController(0, 2);
+
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+
+    let settings:SettingsModel = defaultSettings;
+    settings.selectedGameOverCondition = 'timeLimit';
+    settings.timeLimit = 500;
+
+    addGameOverTriggers(controller, settings);
+
+    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 500);
+})
+
+test('all CPUs left', done => {
+    let controller:CyberballGameController = new CyberballGameController(CyberballGameModel.humanPlayerId, 1);
+
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+
+    let settings:SettingsModel = defaultSettings;
+    settings.selectedGameOverCondition = 'allCPUsLeft';
+    settings.computerPlayers[0].leaveTrigger = LeaveTrigger.Turn;
+    settings.computerPlayers[0].leaveTurn = 1;
+    settings.computerPlayers[0].leaveTurnVariance = 0;
+
+    addGameOverTriggers(controller, settings);
+    addLeaveTriggers(controller, settings);
+
+    controller.throwBall(0);
+    controller.completeCatch();
+    controller.throwBall(CyberballGameModel.humanPlayerId);
+    controller.completeCatch();
+
+    setTimeout(() => {
+        expect(controller.model.gameHasEnded).toBeTruthy();
+        done();
+    }, 100);
+    jest.runAllTimers();
+})
