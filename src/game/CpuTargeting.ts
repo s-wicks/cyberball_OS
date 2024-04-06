@@ -90,8 +90,8 @@ function addCpuTargetingPreference(controller: CyberballGameController, settings
     });
 
     controller.CPULeaveCallbacks.addCallback("Target Preference", (id) => {
-        settings.computerPlayers.forEach(cpuSetting => {
-            cpuSetting.targetPreference[id] = 0;
+        settings.computerPlayers.forEach((cpuSetting, index) => {
+            cpuSetting.targetPreference[id > index ? id : id + 1] = 0;
             let sum = cpuSetting.targetPreference.reduce((sum, value) => sum + value);
             if (sum === 0) {
                 console.warn(`All targets for CPU ${id} have left!`);
