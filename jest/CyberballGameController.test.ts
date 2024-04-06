@@ -432,3 +432,41 @@ test('all CPUs left', done => {
     }, 100);
     jest.runAllTimers();
 })
+
+test('test schedule honors throw count', () => {
+    let controller:CyberballGameController = new CyberballGameController(CyberballGameModel.humanPlayerId, 2);
+
+    controller.CPULeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('cpu leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.throwBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('throw ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.catchBallCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('catch ball callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.humanPlayerMayLeaveCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('human player may leave callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+    controller.gameEndCallbacks.exceptionHandler = (exception, callbackId) => {
+        fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
+    }
+
+    let settings:SettingsModel = defaultSettings();
+    settings.useSchedule = true;
+    settings.scheduleHonorsThrowCount = true;
+    settings.throwCount = 2;
+    settings.scheduleText = '2, 1, 1, 1, 1\n3, 1, 1, 1, 1';
+
+    addGameOverTriggers(controller, settings);
+    addCpuTargeting(controller, settings);
+
+    controller.throwBall(0);
+    controller.completeCatch();
+
+    controller.cpuThrowBall();
+    controller.completeCatch();
+
+    expect(controller.model.gameHasEnded).toBeTruthy();
+    expect(controller.model.throwCount).toBe(2);
+})
