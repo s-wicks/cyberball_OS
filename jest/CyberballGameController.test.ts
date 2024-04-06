@@ -151,7 +151,7 @@ test('scheduler test #1', () => {
         fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
     }
 
-    let settings:SettingsModel = defaultSettings;
+    let settings:SettingsModel = defaultSettings();
     settings.useSchedule = true;
     settings.scheduleText = '2, 3, 3, 3, 3\n3, 2, 2, 2, 2';
 
@@ -236,7 +236,7 @@ test('scheduler test #2', () => {
         fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
     }
 
-    let settings:SettingsModel = defaultSettings;
+    let settings:SettingsModel = defaultSettings();
     settings.useSchedule = true;
     settings.scheduleText = '2, 1, 1, 1, 1\n3, 1, 1, 1, 1';
 
@@ -281,6 +281,7 @@ test('scheduler test #2', () => {
 
 /*
  * this test focuses on scheduler completing all throws despite randomness
+ * TODO sometimes fails because scheduler runs out
  */
 test('scheduler test #3', () => {
     let controller:CyberballGameController = new CyberballGameController(0, 3);
@@ -301,11 +302,7 @@ test('scheduler test #3', () => {
         fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
     }
 
-    controller.gameEndCallbacks.addCallback('testing', reason => {
-        console.log(reason);
-    })
-
-    let settings:SettingsModel = defaultSettings;
+    let settings:SettingsModel = defaultSettings();
     settings.useSchedule = true;
     settings.scheduleText = '2, 34, 34\n3, 24, 24\n4, 23, 23';
     settings.selectedGameOverCondition = 'throwCount';
@@ -322,8 +319,6 @@ test('scheduler test #3', () => {
         controller.completeCatch();
     }
 
-    console.log(counts);
-    console.log(controller.model.throwCount);
     // need to just count throws
     for (let i = 0; i < 3; i++) {
         expect(counts[i]).toEqual(4);
@@ -351,21 +346,21 @@ test('throw count test', () => {
         fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
     }
 
-    let settings:SettingsModel = defaultSettings;
+    let settings:SettingsModel = defaultSettings();
     settings.selectedGameOverCondition = 'throwCount';
-    settings.throwCount = 10;
+    settings.throwCount = 15;
     settings.computerPlayers[0].targetPreference = [0, 100];
     settings.computerPlayers[1].targetPreference = [0, 100];
 
     addGameOverTriggers(controller, settings);
     addCpuTargeting(controller, settings);
-
     while(controller.model.gameHasEnded === false) {
         controller.cpuThrowBall();
         controller.completeCatch();
     }
 
-    expect(controller.model.throwCount).toEqual(10);
+    expect(controller.model.gameHasEnded).toBeTruthy();
+    expect(controller.model.throwCount).toEqual(15);
 })
 
 jest.useFakeTimers();
@@ -389,7 +384,7 @@ test('time limit test', () => {
         fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
     }
 
-    let settings:SettingsModel = defaultSettings;
+    let settings:SettingsModel = defaultSettings();
     settings.selectedGameOverCondition = 'timeLimit';
     settings.timeLimit = 500;
 
@@ -417,7 +412,7 @@ test('all CPUs left', done => {
         fail('game end callback exception: ' + exception + 'callbackID: ' + callbackId);
     }
 
-    let settings:SettingsModel = defaultSettings;
+    let settings:SettingsModel = defaultSettings();
     settings.selectedGameOverCondition = 'allCPUsLeft';
     settings.computerPlayers[0].leaveTrigger = LeaveTrigger.Turn;
     settings.computerPlayers[0].leaveTurn = 1;
