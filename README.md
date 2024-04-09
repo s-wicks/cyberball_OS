@@ -29,20 +29,20 @@ Qualtrics.SurveyEngine.addOnload(function() {
  
 Qualtrics.SurveyEngine.addOnReady(function() {
     window.addEventListener('message', (msg) => {
-		setTimeout(() => this.clickNextButton(), 3000);
-		
-		//populate qualtrics fields
-		for (const [key, value] of Object.entries(msg.data)){	
-			
-			//player throw list is itself an object - have to iterate
-			if(key === "player_throws_list"){
-				for(const [throwPath, numThrows] of Object.entries(value)){
-					Qualtrics.SurveyEngine.setEmbeddedData(throwPath, numThrows);
-				}
-			} else {
-				Qualtrics.SurveyEngine.setEmbeddedData(key, JSON.stringify(value));
-			}
-		}
+        setTimeout(() => this.clickNextButton(), 3000);
+        
+        //populate qualtrics fields
+        for (const [key, value] of Object.entries(msg.data)){    
+            
+            //player throw list is itself an object - have to iterate
+            if(key === "player_throws_list"){
+                for(const [throwPath, numThrows] of Object.entries(value)){
+                    Qualtrics.SurveyEngine.setEmbeddedData(throwPath, numThrows);
+                }
+            } else {
+                Qualtrics.SurveyEngine.setEmbeddedData(key, JSON.stringify(value));
+            }
+        }
     });
 });
 ```
