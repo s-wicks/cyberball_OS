@@ -7,6 +7,10 @@ import CyberballGameModel from "../src/game/CyberballGameModel";
 import CyberballGameController from '../src/game/CyberballGameController';
 import { LeaveTrigger } from '../src/enums/leave-trigger';
 
+/*
+ * GENERAL GAME TESTS
+ */
+
 test('human throw to cpu', () => {
     let controller = new CyberballGameController(CyberballGameModel.humanPlayerId, 5);
 
@@ -128,6 +132,10 @@ test('cpu tries to throw to self', () => {
     expect(controller.model.playerHoldingBallId).toBe(0);
     expect(controller.model.throwTargetId).toBeNull();
 })
+
+/*
+ * GAMEPLAY TESTS
+ */
 
 /*
  * this test only has one target per comma and focuses on CPUs
@@ -470,3 +478,12 @@ test('test schedule honors throw count', () => {
     expect(controller.model.gameHasEnded).toBeTruthy();
     expect(controller.model.throwCount).toBe(2);
 })
+
+/*
+ * PLAYER TESTS
+ */
+
+
+/*
+ * CPU TESTS
+ */
