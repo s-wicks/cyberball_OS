@@ -85,6 +85,23 @@ export class HomeViewModel {
         else return "CPU Player " + (index + 1);
     }
 
+    checkTargetPrefTotal(test) {
+        const parent = test.parentElement.parentElement;
+        const allInputs = parent.querySelectorAll('.target-preference input');
+        const warning = parent.querySelector("#target-pref-total-warning");
+        let sum = 0;
+        allInputs.forEach((input) => {
+            sum += parseInt(input.value);
+        });
+        if(warning.classList.contains("hide") && sum !== 100) {
+            warning.classList.remove("hide");
+        }
+        else if(!warning.classList.contains("hide") && sum === 100) {
+            warning.classList.add("hide");
+        }
+        
+    }
+
     saveSettings() {
         this.signaler.signal('save-settings');
     }

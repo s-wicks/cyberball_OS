@@ -224,6 +224,11 @@ input[type="checkbox"] {
 }
 
 .warning {
-    color: red;
     font-size: .625em;
+    color: red;
+    text-align: center;
+}
+
+.hide {
+    display: none;
 }
