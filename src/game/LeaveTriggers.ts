@@ -45,7 +45,6 @@ export function addCpuLeaveTriggers(
     if (settings.leaveTrigger & LeaveTrigger.Turn) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTurnChance')) return;
         let leaveTurn = integralRandom(settings.leaveTurn, settings.leaveTurnVariance);
-        console.log("leave turn", leaveTurn)
         addCpuTurnLeaveTrigger(controller, playerId, leaveCallback, leaveTurn);
     }
     if (settings.leaveTrigger & LeaveTrigger.Time) {
