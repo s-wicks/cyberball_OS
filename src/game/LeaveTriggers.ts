@@ -27,6 +27,14 @@ function shouldDisableLeaveTrigger(settings: CpuSettingsModel | PlayerSettingsMo
     return leavePercentage <= Math.random() * 100;
 }
 
+function floatingRandom(mean: number, variance: number): number {
+    return mean + (Math.random() * 2 * variance - variance);
+}
+
+function integralRandom(mean: number, variance: number): number {
+    return Math.floor(mean + (Math.random() * (2 * variance + 1) - variance));
+}
+
 export function addCpuLeaveTriggers(
     controller: CyberballGameController,
     playerId: number,
@@ -36,18 +44,19 @@ export function addCpuLeaveTriggers(
 ) {
     if (settings.leaveTrigger & LeaveTrigger.Turn) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTurnChance')) return;
-        let leaveTurn = settings.leaveTurn + (Math.random() * 2 - 1) * settings.leaveTurnVariance;
+        let leaveTurn = integralRandom(settings.leaveTurn, settings.leaveTurnVariance);
+        console.log("leave turn", leaveTurn)
         addCpuTurnLeaveTrigger(controller, playerId, leaveCallback, leaveTurn);
     }
     if (settings.leaveTrigger & LeaveTrigger.Time) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTimeChance')) return;
-        let leaveTimeSeconds = settings.leaveTime + (Math.random() * 2 - 1) * settings.leaveTimeVariance;
+        let leaveTimeSeconds = floatingRandom(settings.leaveTime, settings.leaveTimeVariance);
         let leaveTimeMilliseconds = leaveTimeSeconds * 1000;
         addCpuTimeLeaveTrigger(controller, playerId, leaveCallback, leaveTimeMilliseconds);
     }
     if (settings.leaveTrigger & LeaveTrigger.Ignored) {
         if (shouldDisableLeaveTrigger(settings, 'leaveIgnoredChance')) return;
-        let leaveThrows = settings.leaveIgnored + (Math.random() * 2 - 1) * settings.leaveIgnoredVariance;
+        let leaveThrows = integralRandom(settings.leaveIgnored, settings.leaveIgnoredVariance);
         addCpuIgnoredLeaveTrigger(controller, playerId, leaveCallback, leaveThrows);
     }
     if (settings.leaveTrigger & LeaveTrigger.OtherLeaver) {
@@ -56,7 +65,7 @@ export function addCpuLeaveTriggers(
     }
     if (settings.leaveTrigger & LeaveTrigger.TimeIgnored) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTimeIgnoredChance')) return;
-        let leaveTimeMilliseconds = settings.leaveTimeIgnored + (Math.random() * 2 - 1) * settings.leaveTimeIgnored;
+        let leaveTimeMilliseconds = floatingRandom(settings.leaveTimeIgnored, settings.leaveTimeIgnored);
         addCpuTimeIgnoredLeaveTrigger(controller, playerId, leaveCallback, leaveTimeMilliseconds);
     }
 }
