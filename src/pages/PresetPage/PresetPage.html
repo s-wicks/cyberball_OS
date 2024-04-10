@@ -9,59 +9,58 @@
 
 
         <div class="landing-page">
-            <div>
-                <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
-                <h1>Cyberball Presets</h1>
-                <div class="tabs">
+            <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
+            <h1>Cyberball Presets</h1>
+            <div id="home-button-container"><a id="home-button" href="./">Return to Landing Page</a></div>
+            <div class="tabs">
 
-                    <button class="tab-button ${isPresetsActive ? 'active' : ''}" click.delegate="showTab('presets')">Presets</button>
-                    <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Games</button>
-                    <button class="tab-button ${isLoadFromFile ? 'active' : ''}" click.delegate="showTab('load-file')">Load File</button>
-                </div>
-                <div class="container" id="presets" css.bind="isPresetsActive ? 'display: block;' : 'display: none;'">
+                <button class="tab-button ${isPresetsActive ? 'active' : ''}" click.delegate="showTab('presets')">Presets</button>
+                <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Games</button>
+                <button class="tab-button ${isLoadFromFile ? 'active' : ''}" click.delegate="showTab('load-file')">Load File</button>
+            </div>
+            <div class="container" id="presets" css.bind="isPresetsActive ? 'display: block;' : 'display: none;'">
+            <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Video</th>
+                    </tr>
+                    <tr repeat.for="defaultPreset of defaultPresets" click.trigger="loadPresetAndNavigate(defaultPreset)">
+
+                        <td>${defaultPreset.name}</td>
+                        <td>${defaultPreset.description}</td>
+                        <td>
+                            <video width="320" height="240" loop autoplay muted>
+                                <source src="${defaultPreset.video}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+            <div class="container" id="your-presets" css.bind="isYourPresetsActive ? 'display: block;' : 'display: none;'">
                 <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Video</th>
-                        </tr>
-                        <tr repeat.for="defaultPreset of defaultPresets" click.trigger="loadPresetAndNavigate(defaultPreset)">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
 
-                            <td>${defaultPreset.name}</td>
-                            <td>${defaultPreset.description}</td>
-                            <td>
-                                <video width="320" height="240" loop autoplay muted>
-                                    <source src="${defaultPreset.video}" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                            </td>
+                    <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset)">
+                        <td>${preset.name}</td>
+                        <td>${preset.description}</td>
+                        <td>
+                            <button class="delete-btn" click.trigger="deletePreset(preset.name)">X</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-                        </tr>
-
-                    </table>
-                </div>
-                <div class="container" id="your-presets" css.bind="isYourPresetsActive ? 'display: block;' : 'display: none;'">
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th></th>
-                        </tr>
-
-                        <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset)">
-                            <td>${preset.name}</td>
-                            <td>${preset.description}</td>
-                            <td>
-                                <button class="delete-btn" click.trigger="deletePreset(preset.name)">X</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="container" id="load-file" css.bind="isLoadFromFile ? 'display: block;' : 'display: none;'">
-                    <div>
-                        <input type="file" id="fileUpload" change.delegate="handleFileUpload($event)">
-                    </div>
+            <div class="container" id="load-file" css.bind="isLoadFromFile ? 'display: block;' : 'display: none;'">
+                <div>
+                    <input type="file" id="fileUpload" change.delegate="handleFileUpload($event)">
                 </div>
             </div>
         </div>
