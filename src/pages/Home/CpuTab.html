@@ -171,7 +171,7 @@
         </div>
 
         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">
-            <label>Throws Elapsed Leave Threshold/Variance/Chance
+            <label>Throws Elapsed Leave Threshold/Variance/Chance(%)
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
             </label>
             <dialog class="new-sidebar"><form method="dialog">
@@ -188,7 +188,7 @@
         </div>
 
         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">
-            <label>Time Elapsed Leave (ms) Threshold/Variance/Chance (ms)
+            <label>Time Elapsed Leave (ms) Threshold/Variance/Chance(%)
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
             </label>
             <dialog class="new-sidebar"><form method="dialog">
@@ -205,7 +205,7 @@
         </div>
 
         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4">
-            <label>Ignored Throws Leave Threshold/Variance/Chance
+            <label>Ignored Throws Leave Threshold/Variance/Chance(%)
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
             </label>
             <dialog class="new-sidebar"><form method="dialog">
@@ -222,7 +222,7 @@
         </div>
 
         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">
-            <label>Ignored Time Leave (ms) Threshold/Variance/Chance (ms)
+            <label>Ignored Time Leave (ms) Threshold/Variance/Chance(%)
                 <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
             </label>
             <dialog class="new-sidebar"><form method="dialog">
@@ -239,7 +239,7 @@
         </div>
 
         <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8">
-            <label>Others Left Leave Threshold/Chance</label>
+            <label>Others Left Leave Threshold/Chance(%)</label>
 
             <div>
                 <input type="number" value.bind="cpu.leaveOtherLeaver | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
