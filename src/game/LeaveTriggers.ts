@@ -5,7 +5,7 @@ import { LeaveTrigger } from 'enums/leave-trigger';
 import { PlayerSettingsModel } from 'models/player-settings-model';
 import CyberballGameModel from './CyberballGameModel';
 
-export default function addLeaveTriggers(controller: CyberballGameController, settings: SettingsModel) {
+export default function addAllLeaveTriggers(controller: CyberballGameController, settings: SettingsModel) {
     addAllCpuLeaveTriggers(controller, settings);
     addPlayerMayLeaveTriggers(controller, settings);
 }
@@ -13,13 +13,13 @@ export default function addLeaveTriggers(controller: CyberballGameController, se
 export function addAllCpuLeaveTriggers(controller: CyberballGameController, settings: SettingsModel) {
     settings.computerPlayers.forEach((cpuSettings, index) => {
         const callback = (reason: string): void => controller.removeCPUfromGame(index, reason);
-        addCpuLeaveTriggers(controller, index, callback, cpuSettings, settings.computerPlayers.length);
+        addLeaveTriggers(controller, index, callback, cpuSettings, settings.computerPlayers.length);
     });
 }
 
 export function addPlayerMayLeaveTriggers(controller: CyberballGameController, settings: SettingsModel) {
     const callback = (reason: string): void => controller.allowPlayerToLeave(reason);
-    addCpuLeaveTriggers(controller, CyberballGameModel.humanPlayerId, callback, settings.player, settings.computerPlayers.length);
+    addLeaveTriggers(controller, CyberballGameModel.humanPlayerId, callback, settings.player, settings.computerPlayers.length);
 }
 
 function shouldDisableLeaveTrigger(settings: CpuSettingsModel | PlayerSettingsModel, leavePercentageAttr: string): boolean {
@@ -35,7 +35,7 @@ function integralRandom(mean: number, variance: number): number {
     return Math.floor(mean + (Math.random() * (2 * variance + 1) - variance));
 }
 
-export function addCpuLeaveTriggers(
+export function addLeaveTriggers(
     controller: CyberballGameController,
     playerId: number,
     leaveCallback: (reason: string) => void,
@@ -45,31 +45,31 @@ export function addCpuLeaveTriggers(
     if (settings.leaveTrigger & LeaveTrigger.Turn) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTurnChance')) return;
         let leaveTurn = integralRandom(settings.leaveTurn, settings.leaveTurnVariance);
-        addCpuTurnLeaveTrigger(controller, playerId, leaveCallback, leaveTurn);
+        addTurnLeaveTrigger(controller, playerId, leaveCallback, leaveTurn);
     }
     if (settings.leaveTrigger & LeaveTrigger.Time) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTimeChance')) return;
         let leaveTimeSeconds = floatingRandom(settings.leaveTime, settings.leaveTimeVariance);
         let leaveTimeMilliseconds = leaveTimeSeconds * 1000;
-        addCpuTimeLeaveTrigger(controller, playerId, leaveCallback, leaveTimeMilliseconds);
+        addTimeLeaveTrigger(controller, playerId, leaveCallback, leaveTimeMilliseconds);
     }
     if (settings.leaveTrigger & LeaveTrigger.Ignored) {
         if (shouldDisableLeaveTrigger(settings, 'leaveIgnoredChance')) return;
         let leaveThrows = integralRandom(settings.leaveIgnored, settings.leaveIgnoredVariance);
-        addCpuIgnoredLeaveTrigger(controller, playerId, leaveCallback, leaveThrows);
+        addIgnoredLeaveTrigger(controller, playerId, leaveCallback, leaveThrows);
     }
     if (settings.leaveTrigger & LeaveTrigger.OtherLeaver) {
         if (shouldDisableLeaveTrigger(settings, 'leaveOtherLeaverChance')) return;
-        addCpuOtherLeaverLeaveTrigger(controller, playerId, leaveCallback, settings.leaveOtherLeaver, totalNumberOfCpus);
+        addOtherLeaverLeaveTrigger(controller, playerId, leaveCallback, settings.leaveOtherLeaver, totalNumberOfCpus);
     }
     if (settings.leaveTrigger & LeaveTrigger.TimeIgnored) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTimeIgnoredChance')) return;
         let leaveTimeMilliseconds = floatingRandom(settings.leaveTimeIgnored, settings.leaveTimeIgnored);
-        addCpuTimeIgnoredLeaveTrigger(controller, playerId, leaveCallback, leaveTimeMilliseconds);
+        addTimeIgnoredLeaveTrigger(controller, playerId, leaveCallback, leaveTimeMilliseconds);
     }
 }
 
-export function addCpuTurnLeaveTrigger(
+export function addTurnLeaveTrigger(
     controller: CyberballGameController, 
     playerId: number,
     leaveCallback: (reason: string) => void, 
@@ -82,7 +82,7 @@ export function addCpuTurnLeaveTrigger(
     });
 }
 
-export function addCpuTimeLeaveTrigger(
+export function addTimeLeaveTrigger(
     controller: CyberballGameController,
     playerId: number,
     leaveCallback: (reason: string) => void,
@@ -100,7 +100,7 @@ export function addCpuTimeLeaveTrigger(
     }, leaveTime);
 }
 
-export function addCpuIgnoredLeaveTrigger(
+export function addIgnoredLeaveTrigger(
     controller: CyberballGameController,
     playerId: number,
     leaveCallback: (reason: string) => void,
@@ -120,7 +120,7 @@ export function addCpuIgnoredLeaveTrigger(
     });
 }
 
-export function addCpuOtherLeaverLeaveTrigger(
+export function addOtherLeaverLeaveTrigger(
     controller: CyberballGameController,
     playerId: number,
     leaveCallback: (reason: string) => void,
@@ -135,22 +135,33 @@ export function addCpuOtherLeaverLeaveTrigger(
     });
 }
 
-export function addCpuTimeIgnoredLeaveTrigger(
+export function addTimeIgnoredLeaveTrigger(
     controller: CyberballGameController,
     playerId: number,
     leaveCallback: (reason: string) => void,
     leaveTime: number,
 ) {
-    const callback = () => {
-        // its ok if this fails because it means that they will be recieving the ball
-        leaveCallback('time ignored')
-    };
-    let timeout = setTimeout(callback, leaveTime);
-    controller.catchBallCallbacks.addCallback(`Player ${playerId} LeaveTrigger.TimeIgnored`, id => {
-        if (id !== playerId) {
-            return;
+    let lastInteraction = Date.now();
+    controller.throwBallCallbacks.addCallback(`Player ${playerId} LeaveTrigger.TimeIgnored`, (thrower, reciever) => {
+        if (thrower === playerId) {
+            lastInteraction = Date.now();
+
+            setTimeout(() => {
+                let isHolding = controller.model.playerHoldingBallId === thrower;
+                let isCatching = controller.model.throwTargetId === thrower;
+                if (isHolding || isCatching) {
+                    return;
+                }
+                
+                let now = Date.now();
+                let diff = now - lastInteraction;
+                if (diff > leaveTime) {
+                    leaveCallback('time ignored');
+                }
+            }, leaveTime);
         }
-        clearTimeout(timeout);
-        setTimeout(callback, leaveTime);
+        if (reciever === playerId) {
+            lastInteraction = Date.now();
+        }
     });
 }
