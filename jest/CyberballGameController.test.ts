@@ -2,7 +2,7 @@ import { expect, test, jest } from '@jest/globals';
 import { SettingsModel, defaultSettings } from '../src/models/settings-model';
 import addCpuTargeting from '../src/game/CpuTargeting';
 import addGameOverTriggers from '../src/game/GameOverTriggers';
-import addLeaveTriggers from '../src/game/LeaveTriggers';
+import addAllLeaveTriggers from '../src/game/LeaveTriggers';
 import CyberballGameModel from "../src/game/CyberballGameModel";
 import CyberballGameController from '../src/game/CyberballGameController';
 import { LeaveTrigger } from '../src/enums/leave-trigger';
@@ -310,7 +310,7 @@ test('all CPUs left', done => {
     settings.computerPlayers[0].leaveTurnVariance = 0;
 
     addGameOverTriggers(controller, settings);
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.throwBall(0);
     controller.completeCatch();
@@ -361,7 +361,7 @@ test('player throws elapsed leave trigger', () => {
     settings.player.leaveTurn = 2;
     settings.player.leaveTurnVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.throwBall(0);
     controller.completeCatch();
@@ -384,7 +384,7 @@ test('player throws elapsed variance leave trigger', () => {
     settings.player.leaveTurn = 3;
     settings.player.leaveTurnVariance = 1;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
     addCpuTargeting(controller, settings);
 
     while(controller.model.humanPlayerMayLeave === false) {
@@ -406,7 +406,7 @@ test('player time elapsed leave trigger', done => {
     settings.player.leaveTime = 1;
     settings.player.leaveTimeVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     setTimeout(() => {
         expect(controller.model.humanPlayerMayLeave).toBeTruthy();
@@ -425,7 +425,7 @@ test('player time elapsed variance leave trigger', done => {
     settings.player.leaveTime = 2;
     settings.player.leaveTimeVariance = 1;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     const start = Date.now();
     controller.humanPlayerMayLeaveCallbacks.addCallback('start', () => {
@@ -448,7 +448,7 @@ test('player throws ignored leave trigger', () => {
     settings.player.leaveIgnored = 2;
     settings.player.leaveIgnoredVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.throwBall(0);
     controller.completeCatch();
@@ -482,7 +482,7 @@ test('player throws ignored variance leave trigger', () => {
     settings.player.leaveIgnored = 5;
     settings.player.leaveIgnoredVariance = 2;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
     addCpuTargeting(controller, settings);
 
     while(controller.model.humanPlayerMayLeave === false) {
@@ -505,7 +505,7 @@ test('player time ignored leave trigger', done => {
     settings.player.leaveTimeIgnored = 1;
     settings.player.leaveTimeVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     setTimeout(() => {
         controller.throwBall(0);
@@ -529,7 +529,7 @@ test('player other leavers leave trigger', () => {
     settings.player.leaveTrigger = LeaveTrigger.OtherLeaver;
     settings.player.leaveOtherLeaver = 2;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.removeCPUfromGame(0, 'test');
     expect(controller.model.humanPlayerMayLeave).toBeFalsy();
@@ -551,7 +551,7 @@ test('cpu throws elapsed leave trigger', () => {
     settings.computerPlayers[0].leaveTurn = 2;
     settings.computerPlayers[0].leaveTurnVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.throwBall(0);
     controller.completeCatch();
@@ -575,7 +575,7 @@ test('cpu throws elapsed variance leave trigger', () => {
     settings.computerPlayers[0].leaveTurn = 3;
     settings.computerPlayers[0].leaveTurnVariance = 1;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
     addCpuTargeting(controller, settings);
 
     while(controller.model.remainingCpuPlayerIds.has(0)) {
@@ -600,7 +600,7 @@ test('cpu throws elapsed chance leave trigger', () => {
     settings.computerPlayers[0].leaveTurnVariance = 0;
     settings.computerPlayers[0].leaveTurnChance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
     addCpuTargeting(controller, settings);
 
     controller.cpuThrowBall();
@@ -621,7 +621,7 @@ test('cpu time elapsed leave trigger', done => {
     settings.computerPlayers[0].leaveTime = 1;
     settings.computerPlayers[0].leaveTimeVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     setTimeout(() => {
         expect(controller.model.remainingCpuPlayerIds).not.toContain(0);
@@ -640,7 +640,7 @@ test('cpu time elapsed variance leave trigger', done => {
     settings.computerPlayers[0].leaveTime = 2;
     settings.computerPlayers[0].leaveTimeVariance = 1;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     const start = Date.now();
     controller.CPULeaveCallbacks.addCallback('start', () => {
@@ -664,7 +664,7 @@ test('cpu time elapsed leave chance trigger', done => {
     settings.computerPlayers[0].leaveTimeVariance = 0;
     settings.computerPlayers[0].leaveTimeChance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     setTimeout(() => {
         expect(controller.model.remainingCpuPlayerIds).toContain(0);
@@ -683,7 +683,7 @@ test('cpu throws ignored leave trigger', () => {
     settings.computerPlayers[0].leaveIgnored = 2;
     settings.computerPlayers[0].leaveIgnoredVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.throwBall(CyberballGameModel.humanPlayerId);
     controller.completeCatch();
@@ -718,7 +718,7 @@ test('cpu throws ignored variance leave trigger', () => {
     settings.computerPlayers[0].leaveIgnored = 5;
     settings.computerPlayers[0].leaveIgnoredVariance = 2;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
     addCpuTargeting(controller, settings);
 
     while(controller.model.remainingCpuPlayerIds.has(0)) {
@@ -741,7 +741,7 @@ test('cpu throws ignored leave chance trigger', () => {
     settings.computerPlayers[0].leaveIgnoredVariance = 0;
     settings.computerPlayers[0].leaveIgnoredChance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.throwBall(CyberballGameModel.humanPlayerId);
     controller.completeCatch();
@@ -774,7 +774,7 @@ test('cpu time ignored leave trigger', done => {
     settings.computerPlayers[0].leaveTimeIgnored = 1000;
     settings.computerPlayers[0].leaveTimeVariance = 0;
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     setTimeout(() => {
         controller.throwBall(1);
@@ -800,7 +800,7 @@ test('cpu other leavers leave trigger', () => {
     settings.computerPlayers[0].leaveOtherLeaverChance = 100;
     settings.computerPlayers.push(new CpuSettingsModel());
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.removeCPUfromGame(1, 'test');
     expect(controller.model.remainingCpuPlayerIds).toContain(0);
@@ -819,7 +819,7 @@ test('cpu other leavers leave chance trigger', () => {
     settings.computerPlayers[0].leaveOtherLeaverChance = 0;
     settings.computerPlayers.push(new CpuSettingsModel());
 
-    addLeaveTriggers(controller, settings);
+    addAllLeaveTriggers(controller, settings);
 
     controller.removeCPUfromGame(1, 'test');
     expect(controller.model.remainingCpuPlayerIds).toContain(0);
