@@ -516,7 +516,7 @@ test('player time ignored leave trigger', done => {
     setTimeout(() => {
         expect(controller.model.humanPlayerMayLeave).toBeTruthy();
         done();
-    }, 2000);
+    }, 2500);
     jest.runAllTimers();
 })
 
@@ -780,12 +780,12 @@ test('cpu time ignored leave trigger', done => {
         controller.throwBall(1);
         controller.completeCatch();
         expect(controller.model.remainingCpuPlayerIds).toContain(0);
-    }, 1500);
+    }, 800);
 
     setTimeout(() => {
         expect(controller.model.remainingCpuPlayerIds).not.toContain(0);
         done();
-    }, 3000);
+    }, 2500);
     jest.runAllTimers();
 })
 
