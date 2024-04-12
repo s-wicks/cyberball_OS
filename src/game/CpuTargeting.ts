@@ -37,7 +37,7 @@ function addCpuTargetingSchedule(controller: CyberballGameController, settings: 
 
 }
 
-function convertTextToSchedule(str: string): Map<number, number[]> {
+export function convertTextToSchedule(str: string): Map<number, number[]> {
     const lines = str.split('\n');
     const schedule = new Map<number, number[]>();
 

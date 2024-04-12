@@ -12,7 +12,7 @@ import {SettingsService} from "../Setting-Service";
 export class HomeViewModel {
      activeTab = 'player';
      activeCPUTab = 0;
-    settings: SettingsModel = defaultSettings;
+    settings: SettingsModel = defaultSettings();
     clipboard: ClipboardJS;
     sidebar: HTMLElement;
     sidebarContent: HTMLElement;

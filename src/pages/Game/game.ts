@@ -5,12 +5,12 @@ import { PhaserGameCustomElement } from 'resources/phaser-game/phaser-game';
 import CyberballGameController from 'game/CyberballGameController';
 import addCpuTargeting from 'game/CpuTargeting';
 import CyberballGameModel from 'game/CyberballGameModel';
-import addLeaveTriggers from 'game/LeaveTriggers';
+import addAllLeaveTriggers from 'game/LeaveTriggers';
 import addGameOverTriggers from 'game/GameOverTriggers';
 import { addGameLogging } from 'game/GameLog';
 
 export class GameViewModel {
-    settings: SettingsModel = defaultSettings;
+    settings: SettingsModel = defaultSettings();
 
     // Game:
 
@@ -39,7 +39,7 @@ export class GameViewModel {
         let cyberballGameController = new CyberballGameController(CyberballGameModel.humanPlayerId, this.settings.computerPlayers.length);
         addGameLogging(cyberballGameController, this.settings);
         addCpuTargeting(cyberballGameController, this.settings);
-        addLeaveTriggers(cyberballGameController, this.settings);
+        addAllLeaveTriggers(cyberballGameController, this.settings);
         addGameOverTriggers(cyberballGameController, this.settings);
         let scene = new CyberballScene(this.settings, cyberballGameController);
 
