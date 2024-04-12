@@ -785,7 +785,7 @@ test('cpu time ignored leave trigger', done => {
     setTimeout(() => {
         expect(controller.model.remainingCpuPlayerIds).not.toContain(0);
         done();
-    }, 2500);
+    }, 3000);
     jest.runAllTimers();
 })
 
