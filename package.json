@@ -1,6 +1,6 @@
 {
   "name": "cyberball-osu",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A clone of Empirisoft's Cyberball: Cyberball is a virtual ball-toss game that can be used for research on ostracism, social exclusion, or rejection. It has also been used to study discrimination and prejudice (in these instances, Cyberball ball toss choices are used as Dependent Variable).",
   "license": "MIT",
   "dependencies": {
@@ -48,7 +48,7 @@
     "vinyl-fs": "^3.0.3"
   },
   "scripts": {
-    "build": "au build",
+    "build": "au build --env prod",
     "start": "au run",
     "test": "jest"
   },
