@@ -106,7 +106,7 @@ export function addIgnoredLeaveTrigger(
     leaveCallback: (reason: string) => void,
     leaveThrows: number,
 ) {
-    let throwsIgnored = 0;
+    let throwsIgnored = controller.model.playerHoldingBallId === playerId ? 0 : 1;
     controller.catchBallCallbacks.addCallback(`Player ${playerId} LeaveTrigger.Ignored`, id => {
         if (id == playerId) {
             throwsIgnored = 0;
