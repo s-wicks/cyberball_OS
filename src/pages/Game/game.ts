@@ -10,7 +10,7 @@ import addGameOverTriggers from 'game/GameOverTriggers';
 import { addGameLogging } from 'game/GameLog';
 
 export class GameViewModel {
-    settings: SettingsModel = defaultSettings;
+    settings: SettingsModel = defaultSettings();
 
     // Game:
 

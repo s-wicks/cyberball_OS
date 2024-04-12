@@ -47,16 +47,18 @@ export class SettingsModel {
     }
 }
 
-export const defaultSettings = new SettingsModel({
-    player: new PlayerSettingsModel({
-       name: 'Player 1'
-    }),
-    computerPlayers: [
-        new CpuSettingsModel({
-            name: 'Player 2'
+export function defaultSettings() {
+    return new SettingsModel({
+            player: new PlayerSettingsModel({
+            name: 'Player 1'
         }),
-        new CpuSettingsModel({
-            name: 'Player 3'
-        })
-    ]
-});
+        computerPlayers: [
+            new CpuSettingsModel({
+                name: 'Player 2'
+            }),
+            new CpuSettingsModel({
+                name: 'Player 3'
+            })
+        ]
+    })
+}
