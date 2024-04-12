@@ -114,7 +114,7 @@ export function addIgnoredLeaveTrigger(
             throwsIgnored += 1;
         }
 
-        if (throwsIgnored >= leaveThrows) {
+        if (throwsIgnored > leaveThrows) {
             leaveCallback('throws ignored')
         }
     });
