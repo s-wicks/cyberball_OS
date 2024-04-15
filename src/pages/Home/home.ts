@@ -168,6 +168,14 @@ export class HomeViewModel {
             this.updateUrl();
         };
     }
+    clearPlayerPortrait() {
+        this.settings.player.portrait = null;
+        this.settings.player.portraitBuff = null;
+    }
+    clearCPUPortrait(cpu:CpuSettingsModel) {
+        cpu.portrait = null;
+        cpu.portraitBuff = null;
+    }
 
 
     previewGame() {

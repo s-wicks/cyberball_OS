@@ -55,6 +55,7 @@
             <div>
                 <img src.bind="cpu.portraitBuff">
                 <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
+                <button click.delegate="clearCPUPortrait(cpu)">Clear</button>
             </div>
             <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">

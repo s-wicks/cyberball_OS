@@ -30,6 +30,7 @@
         <div>
             <img src.bind="settings.player.portraitBuff">
             <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
+            <button click.delegate="clearPlayerPortrait()">Clear</button>
         </div>
         <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
