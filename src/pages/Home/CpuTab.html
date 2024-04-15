@@ -52,8 +52,10 @@
                 <!-- Include maximum image size when implemented -->
                 <p>You can insert an image that will be placed by the CPU in the game.</p>
             </form></dialog>
-            <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
-
+            <div>
+                <img src.bind="cpu.portraitBuff">
+                <input type="file" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
+            </div>
             <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>

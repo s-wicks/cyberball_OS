@@ -142,6 +142,7 @@ export class HomeViewModel {
     updateUrl(): void {
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
         iframe.src = this.url;
+        console.log(this.settings);
     }
 
     fileSelected(e:any) {

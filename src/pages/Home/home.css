@@ -232,6 +232,14 @@ input[type="checkbox"] {
     margin-right: auto;
 }
 
+input[type="file"] {
+    display: grid;
+}
+
+img {
+    max-width: 300px;
+}
+
 .target-preference-list {
     display: flex;
     flex-direction: column;
