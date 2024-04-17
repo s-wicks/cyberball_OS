@@ -33,7 +33,7 @@ export class SettingsModel {
     portraitPadding: number = 10;
 
     get hasPortraits(): boolean | string {
-        return this.player.portrait || this.computerPlayers.some(cpu => cpu.portrait);
+        return this.player.portraitBuff || this.computerPlayers.some(cpu => cpu.portraitBuff);
     }
 
     // Misc
