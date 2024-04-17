@@ -28,7 +28,7 @@
                 <p>Images must be smaller than (? X ?)</p> -->
         </form></dialog>
         <div class="portrait-div">
-            <img src.bind="settings.player.portraitBuff">
+            <img id="player-portrait-img" class="portrait-img" src.bind="settings.player.portraitBuff">
             <input type="file" class="upload-buttons" id="player-portrait-upload" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
             <label class="upload-labels" for="player-portrait-upload">Choose File</label>
             <button class="upload-labels" click.delegate="clearPlayerPortrait()">Clear</button>

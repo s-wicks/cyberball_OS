@@ -258,7 +258,8 @@ input[type="file"] {
     margin-bottom: 0.5em;
 }
 
-img {
+.portrait-img {
+    display: none;
     max-width: 300px;
 }
 

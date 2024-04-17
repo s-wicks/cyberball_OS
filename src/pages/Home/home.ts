@@ -160,6 +160,8 @@ export class HomeViewModel {
             this.settings.player.portraitBuff = reader.result as ArrayBuffer;
             this.updateUrl();
         };
+        const img = document.getElementById('player-portrait-img') as HTMLImageElement;
+        img.style.display = 'inline';
     }
     cpuFileSelected(cpu:CpuSettingsModel, e:any) {
         console.log(cpu);
