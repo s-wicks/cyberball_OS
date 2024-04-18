@@ -259,7 +259,6 @@ input[type="file"] {
 }
 
 .portrait-img {
-    display: none;
     max-width: 300px;
 }
 

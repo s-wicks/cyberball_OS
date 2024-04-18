@@ -53,8 +53,8 @@
                 <p>You can insert an image that will be placed by the CPU in the game.</p>
             </form></dialog>
             <div class="portrait-div">
-                <img id="cpu-portrait-img-${$index}" class="portrait-img" src.bind="cpu.portraitBuff">
-                <input type="file" class="upload-buttons" id="cpu-portrait-upload-${$index}" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu,$event)"/>
+                <img class="portrait-img" show.bind="cpu.portraitBuff" src.bind="cpu.portraitBuff">
+                <input type="file" class="upload-buttons" id="cpu-portrait-upload-${$index}" value.bind="cpu.portrait" input.delegate="updateUrl()" change.delegate="cpuFileSelected(cpu, $event)"/>
                 <label class="upload-labels" for="cpu-portrait-upload-${$index}">Choose File</label>
                 <button class="upload-labels" click.delegate="clearCPUPortrait(cpu)">Clear</button>
             </div>
