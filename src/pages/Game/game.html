@@ -1,18 +1,4 @@
 <template>
     <require from="./game.css"></require>
-
     <phaser-game config.bind="gameConfig"></phaser-game>
-
-    <div if.bind="settings.chatEnabled" class="chat" css="width: ${gameWidth}px">
-        <div class="chat-log">
-            <div repeat.for="message of chatMessages">
-                <strong>${message.sender}</strong>: <span>${message.text}</span>
-            </div>
-        </div>
-
-        <form class="chat-input" submit.delegate="sendMessage()">
-            <input value.bind="chatMessage" />
-            <button type="submit">Send</button>
-        </form>
-    </div>
 </template>
