@@ -1,14 +1,9 @@
 import { BanterModel } from './banter-model';
 import { PlayerSettingsModel } from './player-settings-model';
-import { computedFrom } from 'aurelia-framework';
 
 export class CpuSettingsModel extends PlayerSettingsModel {
     // A set of weights for each possible target, adding up to 100%.
     targetPreference: Array<number> = [50, 50];
-    @computedFrom('targetPreference')
-    get targetPrefSum() {
-        return this.targetPreference.reduce((sum, val) => sum + val);
-    }
 
     throwDelay: number = 500;
     throwDelayVariance: number = 200;

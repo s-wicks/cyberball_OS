@@ -85,8 +85,8 @@ export class HomeViewModel {
         else return "CPU Player " + (index + 1);
     }
 
-    checkTargetPrefTotal(test) {
-        const parent = test.parentElement.parentElement;
+    checkTargetPrefTotal(target) {
+        const parent = target.parentElement.parentElement;
         const allInputs = parent.querySelectorAll('.target-preference input');
         const warning = parent.querySelector("#target-pref-total-warning");
         let sum = 0;

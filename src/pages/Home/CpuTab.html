@@ -32,7 +32,7 @@
 
     <!-- Details for each CPU -->
     <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
-        <div class="two-column-grid two-column-grid-no-checkbox">
+        <div class="two-column-grid">
             <label>Name</label>
             <input type="text" value.bind="cpu.name" input.delegate="updateUrl()"/>
 
