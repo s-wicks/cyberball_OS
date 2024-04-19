@@ -112,7 +112,7 @@
             <h4>Note</h4>
             <p><strong>Chance</strong> refers to the probability the CPU will leave at the programmed point. E.g., setting <strong>Chance</strong> for leaving at 50% means the CPU will leave 50% of the time.</p>
         </form></dialog>
-        <div class="two-column-grid">
+        <div class="leave-triggers-grid">
             <input type="checkbox" class="grid-checkbox"
                 checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1" input.delegate="updateUrl()"/>
             <label class="grid-label">
@@ -124,28 +124,23 @@
                 <h3>Information</h3>
                 <p>The number of throws between all players before the CPU leaves.</p>
             </form></dialog>
-            <div class="column thresholds" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">
-                <label>
-                    Throws Elapsed Settings
-                    <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-                </label>
-                <dialog class="new-sidebar"><form method="dialog">
-                    <button class="close-btn" autofocus type="submit">X</button>
-                    <h3>Information</h3>
-                    <p>A variance of 2 means the CPU will leave the game +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
-                </form></dialog>
-                
-                <label>
-                    Leave Threshold
+            <div class="column thresholds" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">             
+                <label class="two-column-grid-even">
+                    <span>Leave Threshold</span>
                     <input type='number' value.bind="cpu.leaveTurn | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
                 </label>
-                <label>
-                    Variance
+                <label class="two-column-grid-even">
+                    <span>Variance <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
+                    <dialog class="new-sidebar"><form method="dialog">
+                        <button class="close-btn" autofocus type="submit">X</button>
+                        <h3>Information</h3>
+                        <p>A variance of 2 means the CPU will leave the game +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
+                    </form></dialog>
                     <input type="number" value.bind="cpu.leaveTurnVariance | integer" & updateTrigger:'blur' input.delegate="updateUrl()" >
                 </label>
-                <label>
-                    Chance(%)
-                    <input type="number" value.bind="cpu.leaveTurnChance | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>%
+                <label class="two-column-grid-even">
+                    <span>Chance(%)</span>
+                    <input type="number" value.bind="cpu.leaveTurnChance | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
                 </label>
             </div>
 

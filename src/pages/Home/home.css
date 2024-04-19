@@ -210,10 +210,20 @@ dialog.new-sidebar {
 .two-column-grid {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-areas: "checkbox label" "threshold threshold";
 }
 
-.two-column-grid * {
+.leave-triggers-grid {
+    grid-template-areas: "checkbox label" "threshold threshold";
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.two-column-grid-even {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.two-column-grid *, .leave-triggers-grid * {
     margin: 0.2em 0.5em;
 }
 
