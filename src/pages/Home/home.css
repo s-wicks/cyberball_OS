@@ -210,6 +210,7 @@ dialog.new-sidebar {
 .two-column-grid {
     display: grid;
     grid-template-columns: auto 1fr;
+    grid-template-areas: "checkbox label" "threshold threshold";
 }
 
 .two-column-grid * {
@@ -227,4 +228,14 @@ input[type="checkbox"] {
 
 .target-preference-list input {
     width: fit-content;
+}
+
+.thresholds {
+    grid-area: threshold;
+}
+.grid-label {
+    grid-area: label;
+}
+.grid-checkbox {
+    grid-area: checkbox;
 }
