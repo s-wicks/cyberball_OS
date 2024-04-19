@@ -213,9 +213,12 @@ dialog.new-sidebar {
 }
 
 .leave-triggers-grid {
-    grid-template-areas: "checkbox label" "threshold threshold";
     display: grid;
     grid-template-columns: auto 1fr;
+}
+
+.leave-triggers-grid .column {
+    grid-column: 1 / span 2;
 }
 
 .two-column-grid-even {
@@ -238,14 +241,4 @@ input[type="checkbox"] {
 
 .target-preference-list input {
     width: fit-content;
-}
-
-.thresholds {
-    grid-area: threshold;
-}
-.grid-label {
-    grid-area: label;
-}
-.grid-checkbox {
-    grid-area: checkbox;
 }
