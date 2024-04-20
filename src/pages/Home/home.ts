@@ -142,11 +142,17 @@ export class HomeViewModel {
     updateUrl(): void {
         const iframe = document.getElementById('gamePreview') as HTMLIFrameElement | null;
         iframe.src = this.url;
+        console.log(this.settings);
     }
 
     fileSelected(e:any) {
         let reader = new FileReader();
         let file = e.target.files[0];
+        if (file.size > 1000000) {
+            alert('Portraits greater than 1MB are not allowed as they can cause lag!');
+            this.clearPlayerPortrait();
+            return;
+        }
         reader.readAsDataURL(file);
         this.fileName = file.name;
         reader.onload = () => {
@@ -159,6 +165,11 @@ export class HomeViewModel {
         console.log(cpu);
         let reader = new FileReader();
         let file = e.target.files[0];
+        if (file.size > 1000000) {
+            alert('Portraits greater than 1MB are not allowed as they can cause lag!');
+            this.clearCPUPortrait(cpu);
+            return;
+        }
         reader.readAsDataURL(file);
         this.fileName = file.name;
         reader.onload = () => {
@@ -166,6 +177,14 @@ export class HomeViewModel {
             cpu.portraitBuff = reader.result as ArrayBuffer;
             this.updateUrl();
         };
+    }
+    clearPlayerPortrait() {
+        this.settings.player.portrait = null;
+        this.settings.player.portraitBuff = null;
+    }
+    clearCPUPortrait(cpu:CpuSettingsModel) {
+        cpu.portrait = null;
+        cpu.portraitBuff = null;
     }
 
 

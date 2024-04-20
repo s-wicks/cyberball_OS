@@ -27,8 +27,12 @@
                 <!-- <h4>Note</h4>
                 <p>Images must be smaller than (? X ?)</p> -->
         </form></dialog>
-        <input type="file" value.bind="settings.player.portrait" change.delegate="fileSelected($event)">
-
+        <div class="portrait-div">
+            <img class="portrait-img" show.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
+            <input type="file" class="upload-buttons" id="player-portrait-upload" value.bind="settings.player.portrait" change.delegate="fileSelected($event)">
+            <label class="upload-labels" for="player-portrait-upload">Choose File</label>
+            <button class="upload-labels" click.delegate="clearPlayerPortrait()">Clear</button>
+        </div>
         <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>

@@ -232,6 +232,36 @@ input[type="checkbox"] {
     margin-right: auto;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+.upload-buttons {
+    display: grid;
+}
+
+.upload-labels {
+    display: grid;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+}
+
+.portrait-div {
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.portrait-img {
+    max-width: 300px;
+}
+
 .target-preference-list {
     display: flex;
     flex-direction: column;

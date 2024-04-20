@@ -107,7 +107,7 @@ export class CyberballScene extends Phaser.Scene {
 
         this.playerSprite.setData('name-object', this.add.text(playerPosition.x, playerPosition.y + this.playerSprite.height / 2 + 10, this.settings.player.name, textStyle).setOrigin(0.5));
 
-        if (this.settings.player.portrait) {
+        if (this.settings.player.portraitBuff) {
             var portraitPosition = this.getPlayerPortraitPosition(this.playerSprite);
             var image = this.add.image(portraitPosition.x, portraitPosition.y, 'playerPortrait');
 
@@ -123,7 +123,7 @@ export class CyberballScene extends Phaser.Scene {
 
         cpuSprite.setData('name-object', this.add.text(cpuPosition.x, cpuPosition.y + cpuSprite.height / 2 + 10, this.settings.computerPlayers[i].name, textStyle).setOrigin(0.5));
 
-        if (this.settings.computerPlayers[i].portrait) {
+        if (this.settings.computerPlayers[i].portraitBuff) {
             var portraitPosition = this.getCPUPortraitPosition(i, cpuSprite);
             var image = this.add.image(portraitPosition.x, portraitPosition.y, 'cpuPortrait' + i);
 
