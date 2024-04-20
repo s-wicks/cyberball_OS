@@ -494,7 +494,6 @@ test('player throws ignored variance leave trigger', () => {
     expect(controller.model.throwCount).toBeLessThanOrEqual(7);
 })
 
-// TODO - not working
 test('player time ignored leave trigger', done => {
     let controller:CyberballGameController = new CyberballGameController(CyberballGameModel.humanPlayerId, 2);
 
@@ -763,7 +762,6 @@ test('cpu throws ignored leave chance trigger', () => {
     expect(controller.model.remainingCpuPlayerIds).toContain(0);
 })
 
-// TODO - not working
 test('cpu time ignored leave trigger', done => {
     let controller:CyberballGameController = new CyberballGameController(0, 2);
 
