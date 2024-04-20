@@ -1,13 +1,8 @@
 <template>
 <div if.bind="activeTab === 'buttons'" class="tabcontent">
     <div class="button-container">
-        <div class="preview-container">
-            <button class="bottom-buttons" click.delegate="testGame()"><span>&#129514;</span><span>Preview Game</span></button>
-            <div class="clipboard-container">
-                <button class="bottom-buttons" click.delegate="copyURL($event)">&#128203;</button>
-                <span class="popup">Link copied!</span>
-            </div>
-        </div>
+        <button class="bottom-buttons" click.delegate="testGame()"><span>&#129514;</span><span>Open Game Preview</span></button>
+        
 
         <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190;</span><span>Save Preset</span></button>
         <dialog class="new-sidebar" id="preset_modal"><form method="dialog">
@@ -34,6 +29,7 @@
         </form></dialog>
 
         <button class="bottom-buttons" click.delegate="copyIframeToClipboard()"><span>&#10697;</span><span>Copy Embed Code</span></button>
+        <button class="bottom-buttons" click.delegate="copyURL()"><span>&#10697;</span><span>Copy Game URL</span></button>
     </div>
 </div>
 </template>

@@ -114,15 +114,8 @@ export class HomeViewModel {
         window.open(this.url);
     }
 
-    copyURL(event) {
+    copyURL() {
         navigator.clipboard.writeText(this.url);
-        let popup = event.target.nextElementSibling;
-        if(popup != null){
-            popup.style.display = "block";
-            setTimeout(() => {
-                popup.style.display = "none";
-            }, 1000);
-        }
     }
 
  convertStringsToNumbers(obj) {
