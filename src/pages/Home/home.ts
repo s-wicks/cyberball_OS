@@ -1,5 +1,5 @@
 import {BindingSignaler} from 'aurelia-templating-resources';
-import {autoinject, bindable, computedFrom} from 'aurelia-framework';
+import {autoinject, bindable, computedFrom, observable} from 'aurelia-framework';
 import {SettingsModel, defaultSettings} from "models/settings-model";
 import {CpuSettingsModel} from 'models/cpu-settings-model';
 import ClipboardJS from 'clipboard';
@@ -10,9 +10,9 @@ import {SettingsService} from "../Setting-Service";
 
 @autoinject()
 export class HomeViewModel {
-     activeTab = 'player';
-     activeCPUTab = 0;
+    activeTab = 'player';
     settings: SettingsModel = defaultSettings();
+    @observable activeCPUTab = 0;
     clipboard: ClipboardJS;
     sidebar: HTMLElement;
     sidebarContent: HTMLElement;
@@ -20,13 +20,17 @@ export class HomeViewModel {
     presetName: string = '';
     presetDescription: string = '';
     fileName: string = '';           // Stores the filename entered by the user
+    shouldWarnTargetPref: boolean = false;
 
     @bindable sliderValue = this.settings.gameOverOpacity;
 
     updateOpacity() {
         this.settings.gameOverOpacity = this.sliderValue / 100;
-   }
+    }
 
+    activeCPUTabChanged(index: number) {
+        this.checkTargetPrefTotal(this.settings.computerPlayers[index]);
+    } 
 
     constructor(private signaler: BindingSignaler, private settingsService: SettingsService) {
 
@@ -77,6 +81,17 @@ export class HomeViewModel {
                 this.activeCPUTab = this.settings.computerPlayers.length - 1;
             }
         }
+    }
+
+    getPlayerNumber(index: number, parent_index: number) {
+        if(index === 0) return "User Player"
+        else if (index > parent_index) return "CPU Player " + (index + 2);
+        else return "CPU Player " + (index + 1);
+    }
+
+    checkTargetPrefTotal(cpu: CpuSettingsModel) {
+        let sum = cpu.targetPreference.reduce((sum, value) => sum + value);
+        this.shouldWarnTargetPref = sum < 99.9 || sum > 100.1; 
     }
 
     saveSettings() {

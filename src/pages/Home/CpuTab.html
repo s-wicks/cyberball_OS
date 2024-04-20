@@ -96,15 +96,20 @@
 
         </div>
 
-        <h2>Target Preference <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
+        <h2>
+            Target Preference (%) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
+            <br />
+            <span show.bind="shouldWarnTargetPref" id="target-pref-total-warning" class="warning">Target Preferences must add up to 100</span>
+        </h2>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
             <p>The percentage of throws that the CPU will distribute to other CPUs and the participant.</p>
         </form></dialog>
-        <div class="target-preference-list">
-            <input repeat.for="target of cpu.targetPreference" type="number"
-                    value.bind="cpu.targetPreference[$index] | integer & updateTrigger:'blur'"/>
+        </h2>
+        <div class="two-column-grid target-preference" repeat.for="pref of cpu.targetPreference">
+            <label>${getPlayerNumber($index, $parent.$index)}</label>
+            <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger: 'blur'" blur.trigger="checkTargetPrefTotal(cpu)" />
         </div>
 
         <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>

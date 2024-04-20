@@ -221,7 +221,7 @@ dialog.new-sidebar {
 
 .two-column-grid {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr 1fr;
 }
 
 .leave-triggers-grid {
@@ -242,8 +242,42 @@ dialog.new-sidebar {
     margin: 0.2em 0.5em;
 }
 
+.two-column-grid * {
+    margin: 0.2em 0.5em;
+}
+
 input[type="checkbox"] {
     margin-right: auto;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.upload-buttons {
+    display: grid;
+}
+
+.upload-labels {
+    display: grid;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+}
+
+.portrait-div {
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.portrait-img {
+    max-width: 300px;
 }
 
 input[type="file"] {
@@ -283,4 +317,10 @@ input[type="file"] {
 
 .target-preference-list input {
     width: fit-content;
+}
+
+.warning {
+    font-size: .625em;
+    color: red;
+    text-align: center;
 }
