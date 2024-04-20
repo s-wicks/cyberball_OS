@@ -119,3 +119,8 @@ table tr:hover th {
     max-width: fit-content;
     margin-bottom: 40px;
 }
+
+div.preset-container {
+    margin: 0 auto;
+    display: block;
+}
