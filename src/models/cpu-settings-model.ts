@@ -1,4 +1,3 @@
-import { BanterModel } from './banter-model';
 import { PlayerSettingsModel } from './player-settings-model';
 
 export class CpuSettingsModel extends PlayerSettingsModel {
@@ -11,13 +10,7 @@ export class CpuSettingsModel extends PlayerSettingsModel {
     catchDelay: number = 500;
     catchDelayVariance: number = 200;
 
-    introductionBanter?: BanterModel;
-    throwBanter?: BanterModel
-    catchBanter?: BanterModel
-    leftOutBanter?: BanterModel
-
     boredomBanterThreshold?: number;
-    boredomBanter?: BanterModel;
 
     leaveTurnChance?: number = 100;
     leaveTimeChance?: number = 100;

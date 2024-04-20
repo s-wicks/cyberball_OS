@@ -1,8 +1,7 @@
 import { SettingsModel } from '../models/settings-model';
 import CyberballGameController from './CyberballGameController';
 import { CpuSettingsModel } from 'models/cpu-settings-model';
-import { LeaveTrigger } from 'enums/leave-trigger';
-import { PlayerSettingsModel } from 'models/player-settings-model';
+import { LeaveTrigger, PlayerSettingsModel } from 'models/player-settings-model';
 import CyberballGameModel from './CyberballGameModel';
 
 export default function addAllLeaveTriggers(controller: CyberballGameController, settings: SettingsModel) {
