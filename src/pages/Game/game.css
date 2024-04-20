@@ -21,6 +21,6 @@ phaser-game {
     display: block;
 }
 
-html {
-    overflow: hidden;
+body {
+    margin: 0;
 }

@@ -28,8 +28,9 @@ body {
 
 iframe {
     border: none;
-    aspect-ratio: 81/48;
     width: 100%;
+    min-height: 30vh;
+    height: 100%;
     overflow: hidden;
 }
 
