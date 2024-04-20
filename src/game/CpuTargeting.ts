@@ -80,6 +80,18 @@ function addRandomizationToScheduleNumbers(input: number[]): number[] {
 }
 
 function addCpuTargetingPreference(controller: CyberballGameController, settings: SettingsModel) {
+
+    // We normalize here just in case someone uses a bad setting or the total is not exactly 100 (e.g. 33.3, 33.3, 33.3)
+    settings.computerPlayers.forEach(cpuSetting => {
+        let sum = cpuSetting.targetPreference.reduce((sum, value) => sum + value);
+        if (sum === 0) {
+            console.warn("No targets for CPU?");
+            cpuSetting.throwDelay = 1_000_000_000;
+            return;
+        }
+        cpuSetting.targetPreference = cpuSetting.targetPreference.map(el => el / sum * 100);
+    });
+
     controller.setCpuTargeting(thrower => {
         let targetPreference = settings.computerPlayers[thrower].targetPreference;
         let probablyityDensityFunction = targetPreference.map(el => el / 100);
