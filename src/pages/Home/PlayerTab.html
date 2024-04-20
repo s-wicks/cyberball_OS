@@ -15,7 +15,7 @@
 
     <div class="two-column-grid">
         <label>Name</label>
-        <input type="text" value.bind="settings.player.name" change.delegate="updateUrl()"/>
+        <input type="text" value.bind="settings.player.name"/>
 
 
         <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
@@ -27,16 +27,19 @@
                 <!-- <h4>Note</h4>
                 <p>Images must be smaller than (? X ?)</p> -->
         </form></dialog>
-        <input type="file" value.bind="settings.player.portrait" input.delegate="updateUrl()" change.delegate="fileSelected($event)">
-
+        <div class="portrait-div">
+            <img class="portrait-img" show.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
+            <input type="file" class="upload-buttons" id="player-portrait-upload" value.bind="settings.player.portrait" change.delegate="fileSelected($event)">
+            <label class="upload-labels" for="player-portrait-upload">Choose File</label>
+            <button class="upload-labels" click.delegate="clearPlayerPortrait()">Clear</button>
+        </div>
         <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
             <p>You can edit the color of the participant’s player by clicking on the box next to <strong>Tint Color</strong> to bring up a color palette.</p>
         </form></dialog>
-        <input type="color" value.bind="settings.player.tint" input.delegate="updateUrl()"
-                change.delegate="updateUrl()"/>
+        <input type="color" value.bind="settings.player.tint"/>
 
     </div>
     <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
@@ -47,9 +50,9 @@
         <h4>Note</h4>
         <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
     </form></dialog>
-    <div class="two-column-grid">
+    <div class="leave-triggers-grid">
         <input type="checkbox"
-                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1" input.delegate="updateUrl()"/>
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1"/>
         <label>
             Throws Elapsed
             <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -59,8 +62,24 @@
             <h3>Information</h3>
             <p>The number of throws between all players before the <strong>Leave Game</strong> button appears.</p>
         </form></dialog>
+        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">
+            <label class="two-column-grid-even">
+                <span>Leave Threshold</span>
+                <input type="number" value.bind="settings.player.leaveTurn | integer & updateTrigger:'blur'"/>
+            </label>
+            <label class="two-column-grid-even">
+                <span>Variance <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>A variance of 2 means participants will be given the <strong>Leave Game</strong> button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
+                </form></dialog>
+                <input type="number" value.bind="settings.player.leaveTurnVariance | integer & updateTrigger:'blur'"/>
+            </label>
+        </div>
+
         <input type="checkbox"
-                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2" input.delegate="updateUrl()"/>
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2"/>
         <label>
             Time Elapsed
             <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -70,8 +89,24 @@
             <h3>Information</h3>
             <p>How long the game is played before the <strong>Leave Game</strong> button appears.</p>
         </form></dialog>
+        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
+            <label class="two-column-grid-even">
+                <span>Leave Threshold (ms)</span>
+                <input type="number" value.bind="settings.player.leaveTime | integer & updateTrigger:'blur'"/>
+            </label>
+            <label class="two-column-grid-even">
+                <span>Variance (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>A variance of 30 means participants will be given the <strong>Leave Game</strong> button +/- 30 seconds from a 120-second Time Elapsed Threshold (between 90 to 150 seconds).</p>
+                </form></dialog>
+                <input type="number" value.bind="settings.player.leaveTimeVariance | integer & updateTrigger:'blur'"/>
+            </label>
+        </div>
+
         <input type="checkbox"
-                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4" input.delegate="updateUrl()"/>
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4"/>
         <label>
             Throws Ignored
             <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -81,8 +116,25 @@
             <h3>Information</h3>
             <p>How many throws occur only between the CPUs before the <strong>Leave Game</strong> button appears for the participant.</p>
         </form></dialog>
+        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4">
+            <label class="two-column-grid-even">
+                <span>Leave Threshold</span>
+                <input type="number" value.bind="settings.player.leaveIgnored | integer & updateTrigger:'blur'"/>
+                
+            </label>
+            <label class="two-column-grid-even">
+                <span>Variance <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>A variance of 2 means participants will be given the <strong>Leave Game</strong> button +/- 2 throws from a 10 Throws Ignored Threshold (8 to 12 throws).</p>
+                </form></dialog>
+                <input type="number" value.bind="settings.player.leaveIgnoredVariance | integer & updateTrigger:'blur'"/>
+            </label>
+        </div>
+
         <input type="checkbox"
-                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16" input.delegate="updateUrl()"/>
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16"/>
         <label>
             Time Ignored
             <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -92,8 +144,25 @@
             <h3>Information</h3>
             <p>How much time the CPUs spend throwing to each other before the <strong>Leave Game</strong> button appears for the participant.</p>
         </form></dialog>
+        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
+            <label class="two-column-grid-even">
+                <span>Leave Threshold (ms)</span>
+                <input type="number" value.bind="settings.player.leaveTimeIgnored | integer & updateTrigger:'blur'"/>
+                
+            </label>
+            <label class="two-column-grid-even">
+                <span>Variance (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>A variance of 15 means participants will be given the <strong>Leave Game</strong> button +/- 15 seconds from a 45-second Ignored Time Threshold (30 to 60 seconds).</p>
+                </form></dialog>
+                <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance | integer & updateTrigger:'blur'"/>
+            </label>
+        </div>
+
         <input type="checkbox"
-                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8" input.delegate="updateUrl()"/>
+                checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8"/>
         <label>
             Other Players Leaving
             <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
@@ -103,77 +172,11 @@
             <h3>Information</h3>
             <p>The number of CPUs that must leave before the <strong>Leave Game</strong> button appears for the participant.</p>
         </form></dialog>
-    </div>
-
-    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1">
-        <label>Throws Elapsed Leave Threshold/Variance
-            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-        </label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>A variance of 2 means participants will be given the <strong>Leave Game</strong> button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
-        </form></dialog>
-
-        <div>
-            <input type="number" value.bind="settings.player.leaveTurn | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveTurnVariance | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-        </div>
-    </div>
-
-    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
-        <label>Time Elapsed Leave (s) Threshold/Variance (s)
-            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-        </label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>A variance of 30 means participants will be given the <strong>Leave Game</strong> button +/- 30 seconds from a 120-second Time Elapsed Threshold (between 90 to 150 seconds).</p>
-        </form></dialog>
-
-        <div>
-            <input type="number" value.bind="settings.player.leaveTime | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveTimeVariance | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-        </div>
-    </div>
-
-    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:4">
-        <label>Ignored Throws Leave Threshold/Variance
-            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-        </label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>A variance of 2 means participants will be given the <strong>Leave Game</strong> button +/- 2 throws from a 10 Throws Ignored Threshold (8 to 12 throws).</p>
-        </form></dialog>
-
-        <div>
-            <input type="number" value.bind="settings.player.leaveIgnored | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveIgnoredVariance | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-        </div>
-    </div>
-
-    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
-        <label>Ignored Time Leave (ms) Threshold/Variance (ms)
-            <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-        </label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>A variance of 15 means participants will be given the <strong>Leave Game</strong> button +/- 15 seconds from a 45-second Ignored Time Threshold (30 to 60 seconds).</p>
-        </form></dialog>
-
-        <div>
-            <input type="number" value.bind="settings.player.leaveTimeIgnored | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-            <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
-        </div>
-    </div>
-
-    <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8">
-        <label>Others Left Leave Threshold</label>
-
-        <div>
-            <input type="number" value.bind="settings.player.leaveOtherLeaver | integer & updateTrigger:'blur'" input.delegate="updateUrl()"/>
+        <div class="column" if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:8">
+            <label>
+                <span>Leave Threshold</span>
+                <input type="number" value.bind="settings.player.leaveOtherLeaver | integer & updateTrigger:'blur'"/>
+            </label>
         </div>
     </div>
 </div>
