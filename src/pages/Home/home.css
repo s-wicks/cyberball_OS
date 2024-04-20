@@ -82,6 +82,17 @@ a:hover {
     flex-direction: column;
 }
 
+#home-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+#home-button:hover {
+    color: white;
+}
+
 .bottom-buttons {
     background-color: #007BFF;
     color: #FFFFFF;
@@ -117,6 +128,7 @@ a:hover {
 
 /* Container for the tabs */
 .tab-container {
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -212,12 +224,56 @@ dialog.new-sidebar {
     grid-template-columns: auto 1fr;
 }
 
-.two-column-grid * {
+.leave-triggers-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.leave-triggers-grid .column {
+    grid-column: 1 / span 2;
+}
+
+.two-column-grid-even {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.two-column-grid *, .leave-triggers-grid * {
     margin: 0.2em 0.5em;
 }
 
 input[type="checkbox"] {
     margin-right: auto;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.upload-buttons {
+    display: grid;
+}
+
+.upload-labels {
+    display: grid;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+}
+
+.portrait-div {
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.portrait-img {
+    max-width: 300px;
 }
 
 .target-preference-list {
