@@ -10,8 +10,6 @@ export class CpuSettingsModel extends PlayerSettingsModel {
     catchDelay: number = 500;
     catchDelayVariance: number = 200;
 
-    boredomBanterThreshold?: number;
-
     leaveTurnChance?: number = 100;
     leaveTimeChance?: number = 100;
     leaveIgnoredChance?: number = 100;
