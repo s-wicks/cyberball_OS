@@ -224,7 +224,21 @@ dialog.new-sidebar {
     grid-template-columns: auto 1fr;
 }
 
-.two-column-grid * {
+.leave-triggers-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.leave-triggers-grid .column {
+    grid-column: 1 / span 2;
+}
+
+.two-column-grid-even {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.two-column-grid *, .leave-triggers-grid * {
     margin: 0.2em 0.5em;
 }
 

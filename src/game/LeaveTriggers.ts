@@ -49,8 +49,7 @@ export function addLeaveTriggers(
     }
     if (settings.leaveTrigger & LeaveTrigger.Time) {
         if (shouldDisableLeaveTrigger(settings, 'leaveTimeChance')) return;
-        let leaveTimeSeconds = floatingRandom(settings.leaveTime, settings.leaveTimeVariance);
-        let leaveTimeMilliseconds = leaveTimeSeconds * 1000;
+        let leaveTimeMilliseconds = floatingRandom(settings.leaveTime, settings.leaveTimeVariance);
         addTimeLeaveTrigger(controller, playerId, leaveCallback, leaveTimeMilliseconds);
     }
     if (settings.leaveTrigger & LeaveTrigger.Ignored) {
