@@ -140,7 +140,7 @@ export class HomeViewModel {
     }
 
     updateUrl(): void {
-        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement;
+        const iframe = document.getElementById('gamePreview') as HTMLIFrameElement | null;
         iframe.src = this.url;
     }
 

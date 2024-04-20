@@ -96,3 +96,26 @@ table tr:hover th {
 .delete-btn:hover {
     background-color: darkgrey;
 }
+
+#home-button {
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+#home-button:hover {
+    background-color: #0056b3;
+}
+
+#home-button-container {
+    margin: auto;
+    position: relative;
+    max-width: fit-content;
+    margin-bottom: 40px;
+}
