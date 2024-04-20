@@ -130,7 +130,11 @@ export function addOtherLeaverLeaveTrigger(
     controller.CPULeaveCallbacks.addCallback(`Player ${playerId} LeaveTrigger.OtherLeaver`, () => {
         let enoughPlayersLeft = totalNumberOfCpus - controller.model.remainingCpuPlayerIds.size >= leaveOtherLeaver;
         if (enoughPlayersLeft) {
-            leaveCallback('other leavers')
+            leaveCallback('other leavers');
+            // need to add a callback just in case this cpu is currenty catching or holding the ball
+            controller.throwBallCallbacks.addCallback(`Player ${playerId} LeaveTrigger.OtherLeaver`, () => {
+                leaveCallback('other leavers');
+            });
         }
     });
 }
