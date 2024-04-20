@@ -16,4 +16,8 @@ export class PhaserGameCustomElement {
         this.config.parent = this.element as HTMLElement;
         this.game = new Phaser.Game(this.config);
     }
+
+    attached() {
+        this.game.scale.updateScale();
+    }
 }

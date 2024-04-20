@@ -5,21 +5,22 @@
     <div class="landing-page">
         <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
         <h1 class="configHeader">Cyberball Configuration Builder</h1>
-        <div class="container">
-            <a id="home-button" class="bottom-buttons" href="./">Return to Landing Page</a>
-            <compose view="./PlayerTab.html"></compose>
-            <compose view="./CpuTab.html"></compose>
-            <compose view="./GameplayTab.html"></compose>
-            <compose view="./ButtonTab.html"></compose>
-
-            <button class="refresh-button bottom-buttons" click.delegate="refreshIframe()">Refresh Iframe</button>
-            <a href="#" if.bind="activeTab !== 'player'" class="previous round" click.delegate="previousTab()">
-                &#8249;
-            </a>
-            <a href="#" if.bind="activeTab !== 'buttons'" class="next round" click.delegate="nextTab()">
-                &#8250;
-            </a>
+        <div class="content">
+            <iframe id="gamePreview"></iframe>
+            <div class="container">
+                <a id="home-button" class="bottom-buttons" href="./">Return to Landing Page</a>
+                <compose view="./PlayerTab.html"></compose>
+                <compose view="./CpuTab.html"></compose>
+                <compose view="./GameplayTab.html"></compose>
+                <compose view="./ButtonTab.html"></compose>
+                <button class="refresh-button bottom-buttons" click.delegate="refreshIframe()">Refresh Iframe</button>
+                <a href="#" if.bind="activeTab !== 'player'" class="previous round" click.delegate="previousTab()">
+                    &#8249;
+                </a>
+                <a href="#" if.bind="activeTab !== 'buttons'" class="next round" click.delegate="nextTab()">
+                    &#8250;
+                </a>
+            </div>
         </div>
-        <iframe id="gamePreview"></iframe>
     </div>
 </template>
