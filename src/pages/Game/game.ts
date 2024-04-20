@@ -1,6 +1,6 @@
 import { CyberballScene } from '../../scenes/cyberball';
 import { defaultSettings, SettingsModel } from '../../models/settings-model';
-import Phaser from 'phaser';
+import Phaser, { Scale } from 'phaser';
 import { PhaserGameCustomElement } from 'resources/phaser-game/phaser-game';
 
 //     // TODO: Use events to talk to Qualtrics?
@@ -38,11 +38,13 @@ export class GameViewModel {
             type: Phaser.AUTO,
             width: this.gameWidth,
             height: this.gameHeight,
+            scale: {
+                mode: Scale.ScaleModes.FIT
+            },
             scene: new CyberballScene(this.settings),
             physics: {
                 default: 'arcade'
             },
-            parent: 'phaser',
             dom: {
                 createContainer: true
             }

@@ -16,3 +16,11 @@ canvas {
 .chat-input input {
     flex: 1;
 }
+
+phaser-game {
+    display: block;
+}
+
+html {
+    overflow: hidden;
+}
