@@ -14,7 +14,7 @@ After you install nodejs and download the repository. Run `npm i` to install dep
 
 Run `npm start` to run the website locally.
 
-Run `npm run build` to build a static webpage for a web server. You only need to copy the `scripts` folder and all of the files in the root directory to a web server.
+Run `npm run build` to build a static webpage for a web server. You only need to copy the `scripts` and `assets` folder and all of the files in the root directory to a web server.
 
 ## Usage in Qualtrics
 
