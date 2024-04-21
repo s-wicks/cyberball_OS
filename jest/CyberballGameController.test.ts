@@ -5,7 +5,7 @@ import addGameOverTriggers from '../src/game/GameOverTriggers';
 import addAllLeaveTriggers from '../src/game/LeaveTriggers';
 import CyberballGameModel from "../src/game/CyberballGameModel";
 import CyberballGameController from '../src/game/CyberballGameController';
-import { LeaveTrigger } from '../src/enums/leave-trigger';
+import { LeaveTrigger } from '../src/models/player-settings-model';
 import { CpuSettingsModel } from '../src/models/cpu-settings-model';
 
 afterEach(() => {    
@@ -422,8 +422,8 @@ test('player time elapsed variance leave trigger', done => {
 
     let settings:SettingsModel = defaultSettings();
     settings.player.leaveTrigger = LeaveTrigger.Time;
-    settings.player.leaveTime = 2;
-    settings.player.leaveTimeVariance = 1;
+    settings.player.leaveTime = 2000;
+    settings.player.leaveTimeVariance = 1000;
 
     addAllLeaveTriggers(controller, settings);
 
@@ -636,8 +636,8 @@ test('cpu time elapsed variance leave trigger', done => {
 
     let settings:SettingsModel = defaultSettings();
     settings.computerPlayers[0].leaveTrigger = LeaveTrigger.Time;
-    settings.computerPlayers[0].leaveTime = 2;
-    settings.computerPlayers[0].leaveTimeVariance = 1;
+    settings.computerPlayers[0].leaveTime = 2000;
+    settings.computerPlayers[0].leaveTimeVariance = 1000;
 
     addAllLeaveTriggers(controller, settings);
 
