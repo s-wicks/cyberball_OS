@@ -1,7 +1,7 @@
 [
     {
         "name": "Ostracized Game",
-        "description": "player will never get the ball",
+        "description": "Player will receive the ball just twice early on, and then never get the ball.",
         "video": "../../../assets/ostracized.mp4",
         "settings": {
             "player": {
@@ -94,7 +94,7 @@
     },
     {
         "name": "Inclusion Game",
-        "description": "player is included in the game normally",
+        "description": "Player is included in the game normally",
         "video": "../../../assets/inclusion.mp4",
         "settings": {
             "player": {

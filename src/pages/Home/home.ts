@@ -84,7 +84,7 @@ export class HomeViewModel {
     }
 
     getPlayerNumber(index: number, parent_index: number) {
-        if(index === 0) return "User Player"
+        if(index === 0) return "Human"
         else if (index > parent_index) return "CPU Player " + (index + 2);
         else return "CPU Player " + (index + 1);
     }
