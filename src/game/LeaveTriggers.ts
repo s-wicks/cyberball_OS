@@ -145,21 +145,24 @@ export function addTimeIgnoredLeaveTrigger(
 ) {
     let interactionId = 0;
     let callback = (originalInteractionId: number) => {
-        let isHolding = controller.model.playerHoldingBallId === playerId;
-        let isCatching = controller.model.throwTargetId === playerId;
-        if (isHolding || isCatching) {
-            return;
-        }
-        
-        if (originalInteractionId === interactionId) {
-            leaveCallback('time ignored');
+        return () => {
+            console.log(`callback ${originalInteractionId}`);
+            let isHolding = controller.model.playerHoldingBallId === playerId;
+            let isCatching = controller.model.throwTargetId === playerId;
+            if (isHolding || isCatching) {
+                return;
+            }
+            
+            if (originalInteractionId === interactionId) {
+                leaveCallback('time ignored');
+            }
         }
     };
-    setTimeout(callback, leaveTime);
+    setTimeout(callback(interactionId), leaveTime);
     controller.throwBallCallbacks.addCallback(`Player ${playerId} LeaveTrigger.TimeIgnored`, (thrower, reciever) => {
         if (thrower === playerId) {
             interactionId++;
-            setTimeout(() => callback(interactionId), leaveTime);
+            setTimeout(callback(interactionId), leaveTime);
         }
         if (reciever === playerId) {
             interactionId++;
