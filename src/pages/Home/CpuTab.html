@@ -44,19 +44,21 @@
             </form></dialog>
             <input type="color" value.bind="cpu.tint"/>
 
-            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <!-- TODO: Reimplement portraits to either use a URL or implement image hosting service -->
+            <!-- <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <!-- Include maximum image size when implemented -->
                 <p>You can insert an image that will be placed by the CPU in the game.</p>
+                <h4>Note</h4>
+                <p>Images must be smaller than 1MB</p>
             </form></dialog>
             <div class="portrait-div">
                 <img class="portrait-img" show.bind="cpu.portraitBuff" src.bind="cpu.portraitBuff">
                 <input type="file" class="upload-buttons" id="cpu-portrait-upload-${$index}" value.bind="cpu.portrait" change.delegate="cpuFileSelected(cpu, $event)"/>
                 <label class="upload-labels" for="cpu-portrait-upload-${$index}">Choose File</label>
                 <button class="upload-labels" click.delegate="clearCPUPortrait(cpu)">Clear</button>
-            </div>
+            </div> -->
             <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>

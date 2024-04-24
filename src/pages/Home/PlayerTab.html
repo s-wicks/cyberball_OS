@@ -17,22 +17,21 @@
         <label>Name</label>
         <input type="text" value.bind="settings.player.name"/>
 
-
-        <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <!-- TODO: Reimplement portraits to either use a URL or implement image hosting service -->
+        <!-- <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
                 <p>You can insert an image that will be placed below the participant in the game.</p>
-                <!-- Include maximum image size when implemented -->
-                <!-- <h4>Note</h4>
-                <p>Images must be smaller than (? X ?)</p> -->
+                <h4>Note</h4>
+                <p>Images must be smaller than 1MB</p>
         </form></dialog>
         <div class="portrait-div">
             <img class="portrait-img" show.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
             <input type="file" class="upload-buttons" id="player-portrait-upload" value.bind="settings.player.portrait" change.delegate="fileSelected($event)">
             <label class="upload-labels" for="player-portrait-upload">Choose File</label>
             <button class="upload-labels" click.delegate="clearPlayerPortrait()">Clear</button>
-        </div>
+        </div> -->
         <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
