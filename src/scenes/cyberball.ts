@@ -110,9 +110,21 @@ export class CyberballScene extends Phaser.Scene {
         if (this.settings.player.portraitBuff) {
             var portraitPosition = this.getPlayerPortraitPosition(this.playerSprite);
             var image = this.add.image(portraitPosition.x, portraitPosition.y, 'playerPortrait');
-
-            image.setScale(this.settings.portraitHeight / image.height);
+        
+            // Get original dimensions
+            let originalWidth = image.width;
+            let originalHeight = image.height;
+        
+            // Target dimensions
+            let maxPortraitHeight = this.settings.portraitHeight || 100;  
+            let maxPortraitWidth = 100;  
+        
+            // Calculate scale while maintaining aspect ratio
+            let scale = Math.min(maxPortraitWidth / originalWidth, maxPortraitHeight / originalHeight);
+        
+            image.setScale(scale);
         }
+        
 
         this.sprites.set(CyberballGameModel.humanPlayerId, this.playerSprite);
     }
@@ -126,9 +138,17 @@ export class CyberballScene extends Phaser.Scene {
         if (this.settings.computerPlayers[i].portraitBuff) {
             var portraitPosition = this.getCPUPortraitPosition(i, cpuSprite);
             var image = this.add.image(portraitPosition.x, portraitPosition.y, 'cpuPortrait' + i);
-
-            image.setScale(this.settings.portraitHeight / image.height);
+        
+            let originalWidth = image.width;
+            let originalHeight = image.height;
+        
+            let maxPortraitHeight = this.settings.portraitHeight || 100;  
+            let maxPortraitWidth = 100;  
+        
+            let scale = Math.min(maxPortraitWidth / originalWidth, maxPortraitHeight / originalHeight);
+            image.setScale(scale);
         }
+            
 
         cpuSprite.flipX = cpuPosition.x > this.playerSprite.x;
 
@@ -341,12 +361,13 @@ export class CyberballScene extends Phaser.Scene {
 
     getPlayerPortraitPosition(sprite: Phaser.GameObjects.Sprite): Phaser.Geom.Point {
         var position = this.getPlayerPosition();
-
-        return new Phaser.Geom.Point(
-            position.x,
-            position.y + this.settings.portraitHeight / 2 + this.settings.portraitPadding * 2 + sprite.height / 2 + 10
-        );
+    
+        let maxPortraitHeight = this.settings.portraitHeight || 100;
+        let yOffset = maxPortraitHeight / 2 + this.settings.portraitPadding * 3 + sprite.height / 2 + 10;
+    
+        return new Phaser.Geom.Point(position.x, position.y + yOffset);
     }
+    
 
     // TODO: This is invalid if the sprites are changed.
     getCaughtBallPosition(target: Phaser.GameObjects.Sprite) {
