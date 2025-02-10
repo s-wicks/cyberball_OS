@@ -7,6 +7,23 @@ import ClipboardJS from 'clipboard';
 
 import {SettingsService} from "../Setting-Service";
 
+function b64EncodeUnicode(str: string): string {
+    return btoa(
+        encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, 
+          (match, p1) => String.fromCharCode(parseInt(p1, 16))
+        )
+    );
+}
+
+function b64DecodeUnicode(str: string): string {
+    let decoded = decodeURIComponent(
+        atob(str)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+    );
+    return decoded.replace(/[\x00-\x1F\x7F]/g, "");
+}
 
 @autoinject()
 export class HomeViewModel {
@@ -101,10 +118,17 @@ export class HomeViewModel {
 
     get url() {
         let url = document.location.origin + document.location.pathname;
-
         url += '#game?settings=';
-        url += btoa(JSON.stringify(this.settings));
 
+        let settingsString = JSON.stringify(this.settings, (key, value) => {
+            if (typeof value === "string") {
+                return value.replace(/[\x00-\x1F\x7F]/g, "");
+            }
+            return value;
+        });
+
+        let base64String = b64EncodeUnicode(settingsString);
+        url += b64EncodeUnicode(settingsString);
         return url;
     }
 
@@ -164,9 +188,14 @@ export class HomeViewModel {
         reader.readAsDataURL(file);
         this.fileName = file.name;
         reader.onload = () => {
-            console.log(reader.result);
-            this.settings.player.portraitBuff = reader.result as ArrayBuffer;
-            this.updateUrl();
+            console.log("Player Portrait Uploaded:", reader.result);
+            if (typeof reader.result === "string") {  // 确保是字符串
+                this.settings.player.portraitBuff = reader.result;
+            } else {
+                console.error("Unexpected portrait data format:", reader.result);
+                this.settings.player.portraitBuff = "";
+        }
+        this.updateUrl();
         };
     }
     cpuFileSelected(cpu:CpuSettingsModel, e:any) {
@@ -181,9 +210,14 @@ export class HomeViewModel {
         reader.readAsDataURL(file);
         this.fileName = file.name;
         reader.onload = () => {
-            console.log(reader.result);
-            cpu.portraitBuff = reader.result as ArrayBuffer;
-            this.updateUrl();
+            console.log("CPU Portrait Uploaded:", reader.result);
+            if (typeof reader.result === "string") {
+                cpu.portraitBuff = reader.result;
+            } else {
+                console.error("Unexpected CPU portrait data format:", reader.result);
+                cpu.portraitBuff = "";
+        }
+        this.updateUrl();
         };
     }
     clearPlayerPortrait() {
