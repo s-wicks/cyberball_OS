@@ -60,7 +60,10 @@
 
             <div class="container preset-container" id="load-file" css.bind="isLoadFromFile ? 'display: block;' : 'display: none;'">
                 <div>
-                    <input type="file" id="fileUpload" change.delegate="handleFileUpload($event)">
+                    <label for="portraitUrl">Portrait URL:</label>
+<input type="text" id="portraitUrl" value.bind="portraitUrl" placeholder="Enter image URL">
+<button click.delegate="setPortraitUrl()">Set Image</button>
+<button click.delegate="clearPortrait()">Clear</button>
                 </div>
             </div>
         </div>
