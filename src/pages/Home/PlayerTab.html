@@ -34,6 +34,27 @@
             <button click.delegate="setPlayerPortraitUrl()">Set Image</button>
             <button click.delegate="clearPlayerPortrait()">Clear</button>
         </div>
+        <button class="bottom-buttons" click.delegate="openDefaultPortraitModal($event)">
+            Select a default portrait
+          </button>
+                    
+          <dialog id="default_portraits_modal" class="new-sidebar">
+            <form method="dialog">
+              
+              <button class="close-btn" autofocus type="submit">X</button>
+              <h4>Select a default portrait</h4>
+              <p>Click on the image below to set it as portrait</p>
+          
+              <div class="portrait-options">
+                
+                <img repeat.for="item of settings.defaultPortraits"
+                     src.bind="item"
+                     click.delegate="chooseDefaultPortraitAndClose(item)"
+                     class="default-portrait ${settings.selectedDefaultPortraitIndex === index ? 'selected' : ''}" 
+                     style="width:150px; height:auto; margin:5px; border:1px solid #ccc;"/>
+              </div>
+            </form>
+          </dialog>
         <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>

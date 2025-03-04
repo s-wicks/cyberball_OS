@@ -45,7 +45,17 @@ export class SettingsModel {
     constructor(init?: Partial<SettingsModel>) {
         Object.assign(this, init);
     }
-}
+
+    defaultPortraits: string[] = [
+        'https://i.postimg.cc/ZYWSnMcz/IMG-20200927-182007.jpg',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_82GAiAY7LbdYqs6',
+        'https://drive.google.com/file/d/1tS43nO5tEN1oOUHpFDaEIYk_I_-sY8C-/view?usp=sharing'
+        
+      ];
+
+      selectedDefaultPortraitIndex?: number = undefined;
+    }
+
 
 export function defaultSettings() {
     return new SettingsModel({

@@ -16,7 +16,7 @@ export class GameViewModel {
 
     game: PhaserGameCustomElement;
 
-    gameWidth = 800;
+    gameWidth = 900;
     gameHeight = 460;
 
     gameConfig: Phaser.Types.Core.GameConfig;

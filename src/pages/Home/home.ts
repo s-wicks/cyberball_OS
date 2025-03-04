@@ -25,6 +25,17 @@ function b64DecodeUnicode(str: string): string {
     return decoded.replace(/[\x00-\x1F\x7F]/g, "");
 }
 
+function convertGoogleDriveUrl(url: string): string {
+    // get ID
+    const match = url.match(/\/d\/([^\/]+)\//);
+    if (match && match[1]) {
+        console.log("convertGoogleDriveUrl called with: ", url);
+        // return url
+        return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    }
+    return url; // 如果没有匹配，则直接返回原链接
+  }
+
 @autoinject()
 export class HomeViewModel {
     activeTab = 'player';
@@ -38,6 +49,8 @@ export class HomeViewModel {
     presetDescription: string = '';
     fileName: string = '';           // Stores the filename entered by the user
     shouldWarnTargetPref: boolean = false;
+
+    playerPortraitUrl: string = "";
 
     @bindable sliderValue = this.settings.gameOverOpacity;
 
@@ -68,6 +81,8 @@ export class HomeViewModel {
 
     bind() {
         this.clipboard = new ClipboardJS('#copy');
+
+        console.log("Default Portraits:", this.settings.defaultPortraits);
     }
 
     unbind() {
@@ -140,6 +155,19 @@ export class HomeViewModel {
 
     copyURL() {
         navigator.clipboard.writeText(this.url);
+    }
+
+    setPlayerPortraitUrl(url: string) {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+            finalUrl = convertGoogleDriveUrl(finalUrl);
+
+            finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+        }
+        this.settings.player.portraitBuff = finalUrl;
+    
+        console.log("Set player portrait to:", finalUrl);
+        this.updateUrl();
     }
 
  convertStringsToNumbers(obj) {
@@ -242,9 +270,16 @@ export class HomeViewModel {
 
     attached() {
         if (this.settingsService.settings) {
-            this.settings = this.settingsService.settings;
+          this.settings = this.settingsService.settings;
+          if (!this.settings.defaultPortraits || this.settings.defaultPortraits.length === 0) {
+            
+            this.settings.defaultPortraits = defaultSettings().defaultPortraits;
+          }
         }
         this.previewGame();
+      
+        console.log("Default Portraits:", this.settings.defaultPortraits);
+
     }
 
     convertToMap(str: string): Map<number, number[]> {
@@ -369,9 +404,38 @@ export class HomeViewModel {
     }
 
 
+    openDefaultPortraitModal(event: MouseEvent) {
+        const dialog = document.getElementById("default_portraits_modal") as HTMLDialogElement;
+        if (dialog) {
+          dialog.showModal();
+        }
+    }
+      
+    chooseDefaultPortraitAndClose(url: string) {
+        this.chooseDefaultPortrait(url); //  portraitBuff
+        // close
+        const dialog = document.getElementById("default_portraits_modal") as HTMLDialogElement;
+        if (dialog) {
+          dialog.close();
+        }
+    }
+    
+    chooseDefaultPortrait(url: string) {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+            finalUrl = convertGoogleDriveUrl(finalUrl);
 
-// Example usage:
-// Call this function when a button is clicked or any other event is triggered
+            finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+        }
+
+        this.settings.player.portraitBuff = finalUrl;
+        console.log("Default portrait chosen:", finalUrl);
+            
+        this.updateUrl();
+    }
+
+     // Example usage:
+    // Call this function when a button is clicked or any other event is triggered
     // sendEmailWithVariable('This is the variable value');
 
 

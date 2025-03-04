@@ -339,34 +339,47 @@ export class CyberballScene extends Phaser.Scene {
     // Helpers:
 
     getCPUPosition(i: number): Phaser.Geom.Point {
-        // TODO: Increase padding when portaits are enabled.
-        let padding = 75;
-        let extraPadding = this.settings.hasPortraits ? this.settings.portraitHeight + this.settings.portraitPadding * 2 : 0;
-
-        if (this.settings.computerPlayers.length === 1) {
-            return new Phaser.Geom.Point(
-                this.sys.canvas.width / 2,
-                padding + extraPadding
-            );
-        }
-
-        return new Phaser.Geom.Point(
-            // Evenly divide the width of the screen by the number of players.
-            ((this.sys.canvas.width - (padding * 2)) / (this.settings.computerPlayers.length - 1)) * i + padding,
-            // First and last player are closer in the middle, others stand along the edge.
-            i === 0 || i === this.settings.computerPlayers.length - 1
-                ? (this.sys.canvas.height / 2)
-                : padding + extraPadding
-        );
+        
+        let leftMargin = 200;
+        let rightMargin = 200;
+    
+        // if protrait
+        let extraPadding = this.settings.hasPortraits 
+            ? (this.settings.portraitHeight + this.settings.portraitPadding * 2) 
+            : 0;
+    
+        // compute x
+        let step = (this.sys.canvas.width - leftMargin - rightMargin) 
+                 / (this.settings.computerPlayers.length - 1);
+    
+        let x = leftMargin + step * i;
+        let y = i === 0 || i === this.settings.computerPlayers.length - 1
+            ? this.sys.canvas.height / 2
+            : (75 + extraPadding); // y
+    
+        return new Phaser.Geom.Point(x, y);
     }
 
     getCPUPortraitPosition(i: number, sprite: Phaser.GameObjects.Sprite): Phaser.Geom.Point {
         let position = this.getCPUPosition(i);
-
-        return new Phaser.Geom.Point(
-            position.x,
-            position.y - this.settings.portraitHeight + this.settings.portraitPadding * 2 - sprite.height / 2
-        );
+        let x: number, y: number;
+    
+        if (i === 0) {
+        // left
+            x = position.x - sprite.width / 2 - this.settings.portraitPadding - this.settings.portraitHeight / 2;
+        // mid
+            y = position.y;
+        } else if (i === this.settings.computerPlayers.length - 1) {
+        // right
+            x = position.x + sprite.width / 2 + this.settings.portraitPadding + this.settings.portraitHeight / 2;
+            y = position.y;
+        } else {
+        // up
+            x = position.x;
+            y = position.y - this.settings.portraitHeight + this.settings.portraitPadding * 2 - sprite.height / 2;
+        }
+    
+        return new Phaser.Geom.Point(x, y);
     }
 
     getPlayerPosition(): Phaser.Geom.Point {
