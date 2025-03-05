@@ -28,16 +28,20 @@
                 <p>Images must be smaller than (? X ?)</p> -->
         </form></dialog>
         <div class="portrait-div">
-            <img class="portrait-img" if.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
-            <label for="playerPortraitUrl">Portrait URL:</label>
-            <input type="text" id="playerPortraitUrl" value.bind="settings.player.portraitBuff" placeholder="Enter image URL">
-            <button click.delegate="setPlayerPortraitUrl()">Set Image</button>
-            <button click.delegate="clearPlayerPortrait()">Clear</button>
+            <img style="width: auto; height: 100px; object-fit: cover;" class="portrait-img" if.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
+            <br>
+            <div style="display: flex; align-items: center; gap: 10px; white-space: nowrap;">
+                <label for="playerPortraitUrl" style="white-space: nowrap;">Portrait URL:</label>
+                <input type="text" id="playerPortraitUrl" value.bind="settings.player.portraitBuff" placeholder="Enter image URL">
+            </div>
+            <!-- <button click.delegate="setPlayerPortraitUrl()">Set Image</button> -->
+            <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearPlayerPortrait()">Clear</button>
+            <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultPortraitModal($event)">
+                Select a default portrait
+            </button>
         </div>
-        <button class="bottom-buttons" click.delegate="openDefaultPortraitModal($event)">
-            Select a default portrait
-          </button>
-                    
+        
+            
           <dialog id="default_portraits_modal" class="new-sidebar">
             <form method="dialog">
               
@@ -51,7 +55,7 @@
                      src.bind="item"
                      click.delegate="chooseDefaultPortraitAndClose(item)"
                      class="default-portrait ${settings.selectedDefaultPortraitIndex === index ? 'selected' : ''}" 
-                     style="width:150px; height:auto; margin:5px; border:1px solid #ccc;"/>
+                     style="width:auto; height:100px; margin:5px; border:1px solid #ccc;"/>
               </div>
             </form>
           </dialog>

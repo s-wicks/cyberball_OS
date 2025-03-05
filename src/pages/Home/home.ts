@@ -33,7 +33,7 @@ function convertGoogleDriveUrl(url: string): string {
         // return url
         return `https://drive.google.com/uc?export=view&id=${match[1]}`;
     }
-    return url; // 如果没有匹配，则直接返回原链接
+    return url; 
   }
 
 @autoinject()
@@ -51,6 +51,7 @@ export class HomeViewModel {
     shouldWarnTargetPref: boolean = false;
 
     playerPortraitUrl: string = "";
+    currentCpuForDefault: CpuSettingsModel = null;
 
     @bindable sliderValue = this.settings.gameOverOpacity;
 
@@ -162,13 +163,25 @@ export class HomeViewModel {
         if (finalUrl.includes('drive.google.com')) {
             finalUrl = convertGoogleDriveUrl(finalUrl);
 
-            finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+            // finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
         }
         this.settings.player.portraitBuff = finalUrl;
     
         console.log("Set player portrait to:", finalUrl);
         this.updateUrl();
     }
+
+    setCpuPortraitUrl(cpu: CpuSettingsModel, url: string): void {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+          finalUrl = convertGoogleDriveUrl(finalUrl);
+          
+          // finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+        }
+        cpu.portraitBuff = finalUrl;
+        console.log("Set CPU portrait for", cpu.name, "to:", finalUrl);
+        this.updateUrl();
+      }
 
  convertStringsToNumbers(obj) {
         for (let key in obj) {
@@ -425,7 +438,7 @@ export class HomeViewModel {
         if (finalUrl.includes('drive.google.com')) {
             finalUrl = convertGoogleDriveUrl(finalUrl);
 
-            finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+            // finalUrl = "https://api.allorigins.win/raw?url=" + finalUrl;
         }
 
         this.settings.player.portraitBuff = finalUrl;
@@ -433,6 +446,39 @@ export class HomeViewModel {
             
         this.updateUrl();
     }
+
+    openDefaultCpuPortraitModal(cpu: CpuSettingsModel, event: MouseEvent) {
+        this.currentCpuForDefault = cpu;
+        const dialog = document.getElementById("default_cpu_portraits_modal") as HTMLDialogElement;
+        if (dialog) {
+          dialog.showModal();
+        }
+      }
+      
+      chooseDefaultCpuPortraitAndClose(url: string): void {
+        if (this.currentCpuForDefault) {
+            this.setCpuPortraitUrl(this.currentCpuForDefault, url);
+          } else {
+            console.error("No CPU selected for default portrait");
+          }
+          const dialog = document.getElementById("default_cpu_portraits_modal") as HTMLDialogElement;
+          if (dialog) {
+            dialog.close();
+          }
+        }
+      
+      chooseCpuPortraitUrl(cpu: CpuSettingsModel, url: string): void {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+          finalUrl = convertGoogleDriveUrl(finalUrl);
+          
+          // finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+        }
+        cpu.portraitBuff = finalUrl;
+        console.log("Set CPU portrait for", cpu.name, "to:", finalUrl);
+        this.updateUrl();
+      }
+      
 
      // Example usage:
     // Call this function when a button is clicked or any other event is triggered

@@ -48,7 +48,8 @@ export class GameViewModel {
             width: this.gameWidth,
             height: this.gameHeight,
             scale: {
-                mode: Scale.ScaleModes.FIT
+                mode: Scale.ScaleModes.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
             },
             scene,
             physics: {
