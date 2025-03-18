@@ -47,9 +47,16 @@ export class SettingsModel {
     }
 
     defaultPortraits: string[] = [
-        'https://i.postimg.cc/ZYWSnMcz/IMG-20200927-182007.jpg',
-        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_82GAiAY7LbdYqs6',
-        'https://drive.google.com/file/d/1tS43nO5tEN1oOUHpFDaEIYk_I_-sY8C-/view?usp=sharing'
+        'https://i.postimg.cc/W4jQ3j9H/2.jpg',
+        'https://i.postimg.cc/m2vvv77R/1.jpg',
+        'https://i.postimg.cc/NMjS6Dv8/3.webp',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_DlPQf9wjfoyMdPG',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_8IVmkRqv8V9GWLs',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_01DJWLlvQ8DJMbk',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_3dY8AVAWm0815DD',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_djnWjzYvLRhtiaF',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_88OSdwFkStKYFBH',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cCKy6HqbTnpNKLz',
         
       ];
 
