@@ -257,7 +257,7 @@ export class CyberballScene extends Phaser.Scene {
         this.throwTarget = receiver;
 
         // Player animation:
-
+        thrower.flipX = receiver.x < thrower.x;
         thrower.play('throw');
         thrower.playAfterRepeat('idle');
 
@@ -273,7 +273,6 @@ export class CyberballScene extends Phaser.Scene {
         receiver.play('catch');
 
         // Ball physics:
-
         let ballPosition = this.getCaughtBallPosition(receiver);
         (this.ballSprite.body as Phaser.Physics.Arcade.Body).reset(ballPosition.x, ballPosition.y);
 
@@ -287,6 +286,14 @@ export class CyberballScene extends Phaser.Scene {
                 }
 
                 receiver.play('active');
+
+                // Determine the next target CPU will throw to
+                const nextTargetId = this.cyberballGameController.getNextTarget(receiverId);
+                if (nextTargetId !== null) {
+                    const nextTarget = this.sprites.get(nextTargetId);
+                    // Update orientation to face the next target
+                    receiver.flipX = nextTarget.x < receiver.x;
+                }
 
                 ballPosition = this.getActiveBallPosition(receiver);
                 this.ballSprite.x = ballPosition.x;
@@ -386,3 +393,4 @@ export class CyberballScene extends Phaser.Scene {
         return `${this.settings.timeLimitText} ${time.getUTCMinutes()}:${time.getUTCSeconds() < 10 ? '0' : ''}${time.getUTCSeconds()}`;
     }
 }
+
