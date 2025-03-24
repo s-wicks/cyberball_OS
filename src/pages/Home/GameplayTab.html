@@ -56,14 +56,15 @@
         </form></dialog>
         <input type="color" value.bind="settings.ballTint"/>
 
-        <label>Portrait Height (px) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <!-- TODO: Reimplement portraits to either use a URL or implement image hosting service -->
+        <!-- <label>Portrait Height (px) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
             <p>Adjusts the portrait size of all players.</p>
         </form></dialog>
         <input type="number" value.bind="settings.portraitHeight | integer & updateTrigger:'blur'"
-                blur.trigger="checkEmptyNumber($event)"/>
+                blur.trigger="checkEmptyNumber($event)"/> -->
 
         <label>Use Schedule <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">

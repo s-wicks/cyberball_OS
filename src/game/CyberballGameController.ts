@@ -3,7 +3,7 @@ import CyberballGameModel from "./CyberballGameModel";
 
 export default class CyberballGameController {
     readonly model: CyberballGameModel;
-
+    private nextPlannedTarget: number = null;
     public CPULeaveCallbacks: CallbackList<[number /** id */, string /** reason */]> = new CallbackList();
     public throwBallCallbacks: CallbackList<[number /* thrower */, number /* receiver */]> = new CallbackList();
     public catchBallCallbacks: CallbackList<[number]> = new CallbackList();
@@ -62,7 +62,13 @@ export default class CyberballGameController {
         if (this.model.playerHoldingBallId === null || CyberballGameModel.humanPlayerId === this.model.playerHoldingBallId) {
             console.warn("Attempting CPU throw ball when CPU not holding it?");
         }
-        this.throwBall(this.getNextCpuTarget(this.model.playerHoldingBallId))
+        // Use the pre-determined target if available
+        if (this.nextPlannedTarget !== null) {
+            this.throwBall(this.nextPlannedTarget);
+            this.nextPlannedTarget = null; // Reset after use
+        } else {
+            this.throwBall(this.getNextCpuTarget(this.model.playerHoldingBallId));
+        }
     }
 
     public completeCatch() {
@@ -97,5 +103,20 @@ export default class CyberballGameController {
 
     public reportTimeSinceStart() {
         return Date.now() - this.model.startTime
+    }
+
+    public getNextTarget(thrower: number): number {
+        if (!this.model.remainingCpuPlayerIds.has(thrower) && thrower !== CyberballGameModel.humanPlayerId) {
+            return null;
+        }
+
+        // If we already decided who to throw to, return that
+        if (this.nextPlannedTarget !== null) {
+            return this.nextPlannedTarget;
+        }
+        
+        // Otherwise make a new decision and store it
+        this.nextPlannedTarget = this.getNextCpuTarget(thrower);
+        return this.nextPlannedTarget;
     }
 }
