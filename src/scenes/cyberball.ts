@@ -147,17 +147,20 @@ export class CyberballScene extends Phaser.Scene {
     }
     
 
-
     public createCPU(i: number) {
         let cpuPosition = this.getCPUPosition(i);
         let cpuSprite: Phaser.GameObjects.Sprite = this.playerGroup.create(cpuPosition.x, cpuPosition.y, 'player', 'idle/1.png');
-    
+
+        if (this.settings.computerPlayers[i].tint) {
+            cpuSprite.setTint(parseInt(this.settings.computerPlayers[i].tint.substr(1), 16));
+        }
+        
         cpuSprite.setData('name-object', this.add.text(
             cpuPosition.x, cpuPosition.y + cpuSprite.height / 2 + 10,
             this.settings.computerPlayers[i].name, textStyle
         ).setOrigin(0.5));
     
-        // ✅ Make the CPU Sprite Clickable
+        // Make the CPU Sprite Clickable
         cpuSprite.setInteractive();
         cpuSprite.on('pointerdown', () => {
             console.log(`Clicked on CPU ${i}`);
@@ -165,11 +168,11 @@ export class CyberballScene extends Phaser.Scene {
             if (this.cyberballGameController.model.playerHoldingBallId === CyberballGameModel.humanPlayerId) {
                 console.log(`Throwing ball to CPU ${i}`);
                 this.throwBall(this.playerSprite, cpuSprite);
-                this.cyberballGameController.throwBall(i); // ✅ Trigger the throw in the controller
+                this.cyberballGameController.throwBall(i); // Trigger the throw in the controller
             }
         });
     
-        // ✅ Ensure CPU portraits load correctly
+        // Ensure CPU portraits load correctly
         if (this.settings.computerPlayers[i].portraitBuff) {
             this.load.once('complete', () => {
                 const portraitPosition = this.getCPUPortraitPosition(i, cpuSprite);
@@ -203,7 +206,7 @@ export class CyberballScene extends Phaser.Scene {
         if (this.settings.ballTint)
             this.ballSprite.setTint(parseInt(this.settings.ballTint.substring(1), 16));
     
-        // ✅ Ensure the ball is interactive and can be tracked
+        // Ensure the ball is interactive and can be tracked
         this.ballSprite.setInteractive();
         this.input.setDraggable(this.ballSprite);
     
