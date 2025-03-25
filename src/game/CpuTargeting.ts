@@ -50,7 +50,7 @@ export function convertTextToSchedule(scheduleMap: Map<string, string>): Map<num
     }
 
     schedule.forEach((value, key) => {
-        schedule.set(key, addRandomizationToScheduleNumbers(value).map(num => num -2));
+        schedule.set(key, addRandomizationToScheduleNumbers(value).map(num => num - 2));
     });
 
     return schedule;
