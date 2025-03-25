@@ -41,14 +41,16 @@ export function convertTextToSchedule(scheduleMap: Map<string, string>): Map<num
 
     const lines = Array.from(Object.values(scheduleMap));
     const schedule = new Map<number, number[]>();
-    
+
+    let cpu = 0;
     for (const line of lines) {
-        const [key, ...values] = line.split(',').map(Number);
-        schedule.set(key - 2, values);
+        const values = line.split(',').map(Number);
+        schedule.set(cpu, values);
+        cpu++;
     }
 
     schedule.forEach((value, key) => {
-        schedule.set(key, addRandomizationToScheduleNumbers(value).map(num => num - 2));
+        schedule.set(key, addRandomizationToScheduleNumbers(value).map(num => num -2));
     });
 
     return schedule;
