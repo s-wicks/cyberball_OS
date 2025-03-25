@@ -85,8 +85,8 @@
     <div if.bind="settings.useSchedule" repeat.for="cpu of settings.computerPlayers">
         <div class="inline-container">
             <label>${cpu.name}</label>
-            <textarea value.bind="cpu.scheduleText & updateTrigger:'blur'"></textarea>
-            <label>${cpu.scheduleText}</label>
+            <textarea value.bind="settings.scheduleText[cpu.name] & updateTrigger:'blur'"></textarea>
+            <label>${settings.scheduleText[cpu.name]}</label>
         </div>
     </div>
 
