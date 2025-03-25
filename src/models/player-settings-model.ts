@@ -12,7 +12,7 @@ export class PlayerSettingsModel {
     tint: string = '#ffffff';
 
     portrait?: string;
-    portraitBuff?: ArrayBuffer;
+    portraitBuff?: string;
 
     /** Actions that may trigger a leave by this player. */
     leaveTrigger?: LeaveTrigger = LeaveTrigger.None;

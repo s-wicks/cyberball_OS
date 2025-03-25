@@ -58,20 +58,35 @@ export class CyberballScene extends Phaser.Scene {
 
     public preload() {
         this.load.crossOrigin = 'anonymous';
-
+    
+        // Load ball texture
         this.load.image('ball', `${this.settings.baseUrl}/${this.settings.ballSprite}`);
         this.load.multiatlas('player', `${this.settings.baseUrl}/player.json`, 'assets');
-
+    
+        // Load player portrait
         if (this.settings.player.portraitBuff) {
-            this.textures.addBase64('playerPortrait', this.settings.player.portraitBuff);
+            console.log("Loading player portrait:", this.settings.player.portraitBuff);
+            this.load.image('playerPortrait', this.settings.player.portraitBuff);
         }
-
+    
+        // Load CPU portraits
         this.settings.computerPlayers.forEach((cpu, i) => {
             if (cpu.portraitBuff) {
-                this.textures.addBase64('cpuPortrait' + i, cpu.portraitBuff);
+                console.log(`Loading CPU ${i} portrait:`, cpu.portraitBuff);
+                this.load.image('cpuPortrait' + i, cpu.portraitBuff);
             }
         });
+    
+        // Force Phaser to start loading before `create()`
+        this.load.once('complete', () => {
+            console.log("All assets loaded!");
+        });
+    
+        this.load.start();  // Ensure images are actually loaded
     }
+    
+
+    
 
     public createAnimations() {
         this.anims.create({
@@ -98,81 +113,85 @@ export class CyberballScene extends Phaser.Scene {
 
     public createHumanPlayer() {
         let playerPosition = this.getPlayerPosition();
-
         this.playerGroup = this.physics.add.group({ immovable: true, allowGravity: false });
         this.playerSprite = this.playerGroup.create(playerPosition.x, playerPosition.y, 'player', 'active/1.png');
-
-        if (this.settings.player.tint)
+    
+        if (this.settings.player.tint) {
             this.playerSprite.setTint(parseInt(this.settings.player.tint.substr(1), 16));
-
-        this.playerSprite.setData('name-object', this.add.text(playerPosition.x, playerPosition.y + this.playerSprite.height / 2 + 10, this.settings.player.name, textStyle).setOrigin(0.5));
-
-        if (this.settings.player.portraitBuff) {
-            var portraitPosition = this.getPlayerPortraitPosition(this.playerSprite);
-            var image = this.add.image(portraitPosition.x, portraitPosition.y, 'playerPortrait');
-        
-            // Get original dimensions
-            let originalWidth = image.width;
-            let originalHeight = image.height;
-        
-            // Target dimensions
-            let maxPortraitHeight = this.settings.portraitHeight || 100;  
-            let maxPortraitWidth = 100;  
-        
-            // Calculate scale while maintaining aspect ratio
-            let scale = Math.min(maxPortraitWidth / originalWidth, maxPortraitHeight / originalHeight);
-        
-            image.setScale(scale);
         }
-        
-
+    
+        this.playerSprite.setData('name-object', this.add.text(playerPosition.x, playerPosition.y + this.playerSprite.height / 2 + 10, this.settings.player.name, textStyle).setOrigin(0.5));
+    
         this.sprites.set(CyberballGameModel.humanPlayerId, this.playerSprite);
+    
+        console.log("Human player created with ID:", CyberballGameModel.humanPlayerId);
+    
+        if (this.settings.player.portraitBuff) {
+            this.load.once('complete', () => {
+                console.log("Adding human player portrait to scene:", this.settings.player.portraitBuff);
+    
+                const portraitPosition = this.getPlayerPortraitPosition(this.playerSprite);
+                const image = this.add.image(portraitPosition.x, portraitPosition.y + 10, 'playerPortrait');
+    
+                // Scale the image properly
+                let maxPortraitHeight = this.settings.portraitHeight || 100;
+                let maxPortraitWidth = 100;
+                let scale = Math.min(maxPortraitWidth / image.width, maxPortraitHeight / image.height);
+                image.setScale(scale);
+            });
+    
+            this.load.start();
+        } else {
+            console.warn("No portrait found for human player!");
+        }
     }
+    
 
     public createCPU(i: number) {
         let cpuPosition = this.getCPUPosition(i);
         let cpuSprite: Phaser.GameObjects.Sprite = this.playerGroup.create(cpuPosition.x, cpuPosition.y, 'player', 'idle/1.png');
 
-        cpuSprite.setData('name-object', this.add.text(cpuPosition.x, cpuPosition.y + cpuSprite.height / 2 + 10, this.settings.computerPlayers[i].name, textStyle).setOrigin(0.5));
-
-        if (this.settings.computerPlayers[i].portraitBuff) {
-            var portraitPosition = this.getCPUPortraitPosition(i, cpuSprite);
-            var image = this.add.image(portraitPosition.x, portraitPosition.y, 'cpuPortrait' + i);
-        
-            let originalWidth = image.width;
-            let originalHeight = image.height;
-        
-            let maxPortraitHeight = this.settings.portraitHeight || 100;  
-            let maxPortraitWidth = 100;  
-        
-            let scale = Math.min(maxPortraitWidth / originalWidth, maxPortraitHeight / originalHeight);
-            image.setScale(scale);
+        if (this.settings.computerPlayers[i].tint) {
+            cpuSprite.setTint(parseInt(this.settings.computerPlayers[i].tint.substr(1), 16));
         }
-            
-
-        cpuSprite.flipX = cpuPosition.x > this.playerSprite.x;
-
-        if (this.settings.computerPlayers[i].tint)
-            cpuSprite.setTint(parseInt(this.settings.computerPlayers[i].tint.substring(1), 16));
-
+        
+        cpuSprite.setData('name-object', this.add.text(
+            cpuPosition.x, cpuPosition.y + cpuSprite.height / 2 + 10,
+            this.settings.computerPlayers[i].name, textStyle
+        ).setOrigin(0.5));
+    
+        // Make the CPU Sprite Clickable
         cpuSprite.setInteractive();
-        cpuSprite.on('pointerdown', (e) => {
+        cpuSprite.on('pointerdown', () => {
+            console.log(`Clicked on CPU ${i}`);
+    
             if (this.cyberballGameController.model.playerHoldingBallId === CyberballGameModel.humanPlayerId) {
-
-
-                // Ensure player and ball are facing the correct way on touch devices:
-                this.playerSprite.flipX = this.input.x < this.playerSprite.x;
-
-                let ballPosition = this.getActiveBallPosition(this.playerSprite);
-                this.ballSprite.x = ballPosition.x;
-                this.ballSprite.y = ballPosition.y;
-
-                this.cyberballGameController.throwBall(i)
+                console.log(`Throwing ball to CPU ${i}`);
+                this.throwBall(this.playerSprite, cpuSprite);
+                this.cyberballGameController.throwBall(i); // Trigger the throw in the controller
             }
         });
-
+    
+        // Ensure CPU portraits load correctly
+        if (this.settings.computerPlayers[i].portraitBuff) {
+            this.load.once('complete', () => {
+                const portraitPosition = this.getCPUPortraitPosition(i, cpuSprite);
+                const image = this.add.image(portraitPosition.x, portraitPosition.y - 5, 'cpuPortrait' + i);
+    
+                let maxPortraitHeight = this.settings.portraitHeight || 100;
+                let maxPortraitWidth = 100;
+                let scale = Math.min(maxPortraitWidth / image.width, maxPortraitHeight / image.height);
+                image.setScale(scale);
+    
+                console.log(`CPU ${i} portrait added to scene:`, this.settings.computerPlayers[i].portraitBuff);
+            });
+            this.load.start();
+        }
+    
         this.sprites.set(i, cpuSprite);
     }
+    
+    
 
     public createCPUs() {
         for (let i = 0; i < this.settings.computerPlayers.length; i++) {
@@ -183,16 +202,22 @@ export class CyberballScene extends Phaser.Scene {
     public createBall() {
         let ballPosition = this.getActiveBallPosition(this.playerSprite);
         this.ballSprite = this.physics.add.sprite(ballPosition.x, ballPosition.y, 'ball');
-
+    
         if (this.settings.ballTint)
             this.ballSprite.setTint(parseInt(this.settings.ballTint.substring(1), 16));
-
+    
+        // Ensure the ball is interactive and can be tracked
+        this.ballSprite.setInteractive();
+        this.input.setDraggable(this.ballSprite);
+    
         this.physics.add.overlap(this.ballSprite, this.playerGroup, (_b, receiver) => {
             if (this.cyberballGameController.model.playerHoldingBallId === null && receiver === this.throwTarget) {
+                console.log("Ball caught by target:", receiver);
                 this.cyberballGameController.completeCatch();
             }
         });
     }
+    
 
     public create() {
         this.cameras.main.setBackgroundColor('#ffffff');
@@ -257,7 +282,7 @@ export class CyberballScene extends Phaser.Scene {
         this.throwTarget = receiver;
 
         // Player animation:
-
+        thrower.flipX = receiver.x < thrower.x;
         thrower.play('throw');
         thrower.playAfterRepeat('idle');
 
@@ -273,7 +298,6 @@ export class CyberballScene extends Phaser.Scene {
         receiver.play('catch');
 
         // Ball physics:
-
         let ballPosition = this.getCaughtBallPosition(receiver);
         (this.ballSprite.body as Phaser.Physics.Arcade.Body).reset(ballPosition.x, ballPosition.y);
 
@@ -287,6 +311,14 @@ export class CyberballScene extends Phaser.Scene {
                 }
 
                 receiver.play('active');
+
+                // Determine the next target CPU will throw to
+                const nextTargetId = this.cyberballGameController.getNextTarget(receiverId);
+                if (nextTargetId !== null) {
+                    const nextTarget = this.sprites.get(nextTargetId);
+                    // Update orientation to face the next target
+                    receiver.flipX = nextTarget.x < receiver.x;
+                }
 
                 ballPosition = this.getActiveBallPosition(receiver);
                 this.ballSprite.x = ballPosition.x;
@@ -317,34 +349,47 @@ export class CyberballScene extends Phaser.Scene {
     // Helpers:
 
     getCPUPosition(i: number): Phaser.Geom.Point {
-        // TODO: Increase padding when portaits are enabled.
-        let padding = 75;
-        let extraPadding = this.settings.hasPortraits ? this.settings.portraitHeight + this.settings.portraitPadding * 2 : 0;
-
-        if (this.settings.computerPlayers.length === 1) {
-            return new Phaser.Geom.Point(
-                this.sys.canvas.width / 2,
-                padding + extraPadding
-            );
-        }
-
-        return new Phaser.Geom.Point(
-            // Evenly divide the width of the screen by the number of players.
-            ((this.sys.canvas.width - (padding * 2)) / (this.settings.computerPlayers.length - 1)) * i + padding,
-            // First and last player are closer in the middle, others stand along the edge.
-            i === 0 || i === this.settings.computerPlayers.length - 1
-                ? (this.sys.canvas.height / 2)
-                : padding + extraPadding
-        );
+        
+        let leftMargin = 200;
+        let rightMargin = 200;
+    
+        // if protrait
+        let extraPadding = this.settings.hasPortraits 
+            ? (this.settings.portraitHeight + this.settings.portraitPadding * 2) 
+            : 0;
+    
+        // compute x
+        let step = (this.sys.canvas.width - leftMargin - rightMargin) 
+                 / (this.settings.computerPlayers.length - 1);
+    
+        let x = leftMargin + step * i;
+        let y = i === 0 || i === this.settings.computerPlayers.length - 1
+            ? this.sys.canvas.height / 2
+            : (75 + extraPadding); // y
+    
+        return new Phaser.Geom.Point(x, y);
     }
 
     getCPUPortraitPosition(i: number, sprite: Phaser.GameObjects.Sprite): Phaser.Geom.Point {
         let position = this.getCPUPosition(i);
-
-        return new Phaser.Geom.Point(
-            position.x,
-            position.y - this.settings.portraitHeight + this.settings.portraitPadding * 2 - sprite.height / 2
-        );
+        let x: number, y: number;
+    
+        if (i === 0) {
+        // left
+            x = position.x - sprite.width / 2 - this.settings.portraitPadding - this.settings.portraitHeight / 2;
+        // mid
+            y = position.y;
+        } else if (i === this.settings.computerPlayers.length - 1) {
+        // right
+            x = position.x + sprite.width / 2 + this.settings.portraitPadding + this.settings.portraitHeight / 2;
+            y = position.y;
+        } else {
+        // up
+            x = position.x;
+            y = position.y - this.settings.portraitHeight + this.settings.portraitPadding * 2 - sprite.height / 2;
+        }
+    
+        return new Phaser.Geom.Point(x, y);
     }
 
     getPlayerPosition(): Phaser.Geom.Point {
@@ -386,3 +431,4 @@ export class CyberballScene extends Phaser.Scene {
         return `${this.settings.timeLimitText} ${time.getUTCMinutes()}:${time.getUTCSeconds() < 10 ? '0' : ''}${time.getUTCSeconds()}`;
     }
 }
+

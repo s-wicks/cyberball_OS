@@ -44,21 +44,47 @@
             </form></dialog>
             <input type="color" value.bind="cpu.tint"/>
 
-            <!-- TODO: Reimplement portraits to either use a URL or implement image hosting service -->
-            <!-- <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
+                <!-- Include maximum image size when implemented -->
                 <p>You can insert an image that will be placed by the CPU in the game.</p>
-                <h4>Note</h4>
-                <p>Images must be smaller than 1MB</p>
             </form></dialog>
+        
             <div class="portrait-div">
-                <img class="portrait-img" show.bind="cpu.portraitBuff" src.bind="cpu.portraitBuff">
-                <input type="file" class="upload-buttons" id="cpu-portrait-upload-${$index}" value.bind="cpu.portrait" change.delegate="cpuFileSelected(cpu, $event)"/>
-                <label class="upload-labels" for="cpu-portrait-upload-${$index}">Choose File</label>
-                <button class="upload-labels" click.delegate="clearCPUPortrait(cpu)">Clear</button>
-            </div> -->
+                <img style="width: auto; height: 100px; object-fit: cover;" class="portrait-img" show.bind="cpu.portraitBuff" src.bind="cpu.portraitBuff">
+                <br>
+                <div style="display: flex; align-items: center; gap: 10px; white-space: nowrap;">
+                    <label for="cpuPortraitUrl" style="white-space: nowrap;">Portrait URL:</label>
+                    <input type="text" id="cpuPortraitUrl" value.bind="cpu.portraitBuff" placeholder="Enter image URL">
+                </div>
+                <!-- <button click.delegate="setPlayerPortraitUrl()">Set Image</button> -->
+                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearCPUPortrait(cpu)">Clear</button>
+                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultCpuPortraitModal(cpu, $event)">
+                    Select a default portrait
+                </button>
+            </div>
+            
+                
+            <dialog id="default_cpu_portraits_modal" class="new-sidebar">
+                <form method="dialog">
+                  
+                  <button class="close-btn" autofocus type="submit">X</button>
+                  <h4>Select a default portrait</h4>
+                  <p>Click on the image below to set it as portrait</p>
+              
+                  <div class="portrait-options">
+                    
+                    <img repeat.for="item of settings.defaultPortraits"
+                         src.bind="item"
+                         click.delegate="chooseDefaultCpuPortraitAndClose(item)"
+                         class="default-portrait" 
+                         style="width:auto; height:100px; margin:5px; border:1px solid #ccc;"/>
+                  </div>
+                </form>
+            </dialog>
+
             <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>

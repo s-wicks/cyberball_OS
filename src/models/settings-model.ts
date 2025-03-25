@@ -34,7 +34,7 @@ export class SettingsModel {
     portraitPadding: number = 10;
 
     get hasPortraits(): boolean | ArrayBuffer {
-        return this.player.portraitBuff || this.computerPlayers.some(cpu => cpu.portraitBuff);
+        return !!(this.player.portraitBuff || this.computerPlayers.some(cpu => cpu.portraitBuff));
     }
 
     // Misc
@@ -46,7 +46,24 @@ export class SettingsModel {
     constructor(init?: Partial<SettingsModel>) {
         Object.assign(this, init);
     }
-}
+
+    defaultPortraits: string[] = [
+        'https://i.postimg.cc/W4jQ3j9H/2.jpg',
+        'https://i.postimg.cc/m2vvv77R/1.jpg',
+        'https://i.postimg.cc/NMjS6Dv8/3.webp',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_DlPQf9wjfoyMdPG',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_8IVmkRqv8V9GWLs',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_01DJWLlvQ8DJMbk',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_3dY8AVAWm0815DD',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_djnWjzYvLRhtiaF',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_88OSdwFkStKYFBH',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cCKy6HqbTnpNKLz',
+        
+      ];
+
+      selectedDefaultPortraitIndex?: number = undefined;
+    }
+
 
 export function defaultSettings() {
     return new SettingsModel({

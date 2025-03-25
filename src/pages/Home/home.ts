@@ -7,6 +7,34 @@ import ClipboardJS from 'clipboard';
 
 import {SettingsService} from "../Setting-Service";
 
+function b64EncodeUnicode(str: string): string {
+    return btoa(
+        encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, 
+          (match, p1) => String.fromCharCode(parseInt(p1, 16))
+        )
+    );
+}
+
+function b64DecodeUnicode(str: string): string {
+    let decoded = decodeURIComponent(
+        atob(str)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+    );
+    return decoded.replace(/[\x00-\x1F\x7F]/g, "");
+}
+
+function convertGoogleDriveUrl(url: string): string {
+    // get ID
+    const match = url.match(/\/d\/([^\/]+)\//);
+    if (match && match[1]) {
+        console.log("convertGoogleDriveUrl called with: ", url);
+        // return url
+        return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    }
+    return url; 
+  }
 
 @autoinject()
 export class HomeViewModel {
@@ -21,6 +49,9 @@ export class HomeViewModel {
     presetDescription: string = '';
     fileName: string = '';           // Stores the filename entered by the user
     shouldWarnTargetPref: boolean = false;
+
+    playerPortraitUrl: string = "";
+    currentCpuForDefault: CpuSettingsModel = null;
 
     @bindable sliderValue = this.settings.gameOverOpacity;
 
@@ -51,6 +82,8 @@ export class HomeViewModel {
 
     bind() {
         this.clipboard = new ClipboardJS('#copy');
+
+        console.log("Default Portraits:", this.settings.defaultPortraits);
     }
 
     unbind() {
@@ -101,10 +134,17 @@ export class HomeViewModel {
 
     get url() {
         let url = document.location.origin + document.location.pathname;
-
         url += '#game?settings=';
-        url += btoa(JSON.stringify(this.settings));
 
+        let settingsString = JSON.stringify(this.settings, (key, value) => {
+            if (typeof value === "string") {
+                return value.replace(/[\x00-\x1F\x7F]/g, "");
+            }
+            return value;
+        });
+
+        let base64String = b64EncodeUnicode(settingsString);
+        url += b64EncodeUnicode(settingsString);
         return url;
     }
 
@@ -117,6 +157,31 @@ export class HomeViewModel {
     copyURL() {
         navigator.clipboard.writeText(this.url);
     }
+
+    setPlayerPortraitUrl(url: string) {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+            finalUrl = convertGoogleDriveUrl(finalUrl);
+
+            // finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+        }
+        this.settings.player.portraitBuff = finalUrl;
+    
+        console.log("Set player portrait to:", finalUrl);
+        this.updateUrl();
+    }
+
+    setCpuPortraitUrl(cpu: CpuSettingsModel, url: string): void {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+          finalUrl = convertGoogleDriveUrl(finalUrl);
+          
+          // finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+        }
+        cpu.portraitBuff = finalUrl;
+        console.log("Set CPU portrait for", cpu.name, "to:", finalUrl);
+        this.updateUrl();
+      }
 
  convertStringsToNumbers(obj) {
         for (let key in obj) {
@@ -164,9 +229,14 @@ export class HomeViewModel {
         reader.readAsDataURL(file);
         this.fileName = file.name;
         reader.onload = () => {
-            console.log(reader.result);
-            this.settings.player.portraitBuff = reader.result as ArrayBuffer;
-            this.updateUrl();
+            console.log("Player Portrait Uploaded:", reader.result);
+            if (typeof reader.result === "string") {  // 确保是字符串
+                this.settings.player.portraitBuff = reader.result;
+            } else {
+                console.error("Unexpected portrait data format:", reader.result);
+                this.settings.player.portraitBuff = "";
+        }
+        this.updateUrl();
         };
     }
     cpuFileSelected(cpu:CpuSettingsModel, e:any) {
@@ -181,9 +251,14 @@ export class HomeViewModel {
         reader.readAsDataURL(file);
         this.fileName = file.name;
         reader.onload = () => {
-            console.log(reader.result);
-            cpu.portraitBuff = reader.result as ArrayBuffer;
-            this.updateUrl();
+            console.log("CPU Portrait Uploaded:", reader.result);
+            if (typeof reader.result === "string") {
+                cpu.portraitBuff = reader.result;
+            } else {
+                console.error("Unexpected CPU portrait data format:", reader.result);
+                cpu.portraitBuff = "";
+        }
+        this.updateUrl();
         };
     }
     clearPlayerPortrait() {
@@ -208,9 +283,16 @@ export class HomeViewModel {
 
     attached() {
         if (this.settingsService.settings) {
-            this.settings = this.settingsService.settings;
+          this.settings = this.settingsService.settings;
+          if (!this.settings.defaultPortraits || this.settings.defaultPortraits.length === 0) {
+            
+            this.settings.defaultPortraits = defaultSettings().defaultPortraits;
+          }
         }
         this.previewGame();
+      
+        console.log("Default Portraits:", this.settings.defaultPortraits);
+
     }
 
     convertToMap(str: string): Map<number, number[]> {
@@ -335,9 +417,71 @@ export class HomeViewModel {
     }
 
 
+    openDefaultPortraitModal(event: MouseEvent) {
+        const dialog = document.getElementById("default_portraits_modal") as HTMLDialogElement;
+        if (dialog) {
+          dialog.showModal();
+        }
+    }
+      
+    chooseDefaultPortraitAndClose(url: string) {
+        this.chooseDefaultPortrait(url); //  portraitBuff
+        // close
+        const dialog = document.getElementById("default_portraits_modal") as HTMLDialogElement;
+        if (dialog) {
+          dialog.close();
+        }
+    }
+    
+    chooseDefaultPortrait(url: string) {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+            finalUrl = convertGoogleDriveUrl(finalUrl);
 
-// Example usage:
-// Call this function when a button is clicked or any other event is triggered
+            // finalUrl = "https://api.allorigins.win/raw?url=" + finalUrl;
+        }
+
+        this.settings.player.portraitBuff = finalUrl;
+        console.log("Default portrait chosen:", finalUrl);
+            
+        this.updateUrl();
+    }
+
+    openDefaultCpuPortraitModal(cpu: CpuSettingsModel, event: MouseEvent) {
+        this.currentCpuForDefault = cpu;
+        const dialog = document.getElementById("default_cpu_portraits_modal") as HTMLDialogElement;
+        if (dialog) {
+          dialog.showModal();
+        }
+      }
+      
+      chooseDefaultCpuPortraitAndClose(url: string): void {
+        if (this.currentCpuForDefault) {
+            this.setCpuPortraitUrl(this.currentCpuForDefault, url);
+          } else {
+            console.error("No CPU selected for default portrait");
+          }
+          const dialog = document.getElementById("default_cpu_portraits_modal") as HTMLDialogElement;
+          if (dialog) {
+            dialog.close();
+          }
+        }
+      
+      chooseCpuPortraitUrl(cpu: CpuSettingsModel, url: string): void {
+        let finalUrl = (url || '').trim();
+        if (finalUrl.includes('drive.google.com')) {
+          finalUrl = convertGoogleDriveUrl(finalUrl);
+          
+          // finalUrl = "https://thingproxy.freeboard.io/fetch/" + finalUrl;
+        }
+        cpu.portraitBuff = finalUrl;
+        console.log("Set CPU portrait for", cpu.name, "to:", finalUrl);
+        this.updateUrl();
+      }
+      
+
+     // Example usage:
+    // Call this function when a button is clicked or any other event is triggered
     // sendEmailWithVariable('This is the variable value');
 
 

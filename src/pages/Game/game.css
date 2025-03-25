@@ -24,3 +24,24 @@ phaser-game {
 body {
     margin: 0;
 }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+.router-view, .au-viewport {
+    width: 100%;
+    height: 100%;
+}
+  
+.game-container {
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f0f0f0;
+}
