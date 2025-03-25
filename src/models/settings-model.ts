@@ -15,7 +15,7 @@ export class SettingsModel {
     useSchedule: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
     schedule: Map<number, Array<number>>;
-    scheduleText:string;
+    scheduleText: Array<string> = [];
     selectedGameOverCondition: string = 'throwCount';
     gameOverConditions = [
         { id: 'throwCount', label: 'Throw Count'},
