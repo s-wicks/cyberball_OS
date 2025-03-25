@@ -9,33 +9,33 @@
             <option repeat.for="condition of settings.gameOverConditions" model.bind="condition.id">${condition.label}</option>
         </select>
 
-        <label>Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label if.bind="settings.selectedGameOverCondition === 'throwCount'"> Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
             <p>How many throws between all players before the game ends.</p>
         </form></dialog>
-        <input type="number" value.bind="settings.throwCount | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
+        <input if.bind="settings.selectedGameOverCondition === 'throwCount'" type="number" value.bind="settings.throwCount | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
 
 
-        <label>Time Limit (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label if.bind="settings.selectedGameOverCondition === 'timeLimit'">Time Limit (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
             <p>How long the game is played before it ends.</p>
         </form></dialog>
-        <input type="number" value.bind="settings.timeLimit | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
+        <input if.bind="settings.selectedGameOverCondition === 'timeLimit'" type="number" value.bind="settings.timeLimit | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
 
-        <label>Display Time Limit<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label if.bind="settings.selectedGameOverCondition === 'timeLimit'">Display Time Limit<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
             <p>Allow the participant to see how much time remains in the game at the top right corner of the screen.</p>
         </form></dialog>
-        <input type="checkbox" checked.bind="settings.displayTimeLimit"/>
+        <input if.bind="settings.selectedGameOverCondition === 'timeLimit'" type="checkbox" checked.bind="settings.displayTimeLimit"/>
 
-        <label>Time Limit Label</label>
-        <input type="text" value.bind="settings.timeLimitText" />
+        <label if.bind="settings.selectedGameOverCondition === 'timeLimit'">Time Limit Label</label>
+        <input if.bind="settings.selectedGameOverCondition === 'timeLimit'" type="text" value.bind="settings.timeLimitText" />
 
         <label>Ball Speed <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
@@ -90,7 +90,7 @@
     </div>
 
     <div class="two-column-grid">
-        <label>Schedule Honors Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label if.bind="settings.useSchedule">Schedule Honors Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
@@ -98,7 +98,7 @@
             <h4>Note</h4>
             <p>With this option on, a value of 10 in the Throw Count box, along with 20 values placed in the Schedule, will result in a game with 10 throws that follows a shortened schedule.</p>
         </form></dialog>
-        <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount"/>
+        <input if.bind="settings.useSchedule" type="checkbox" checked.bind="settings.scheduleHonorsThrowCount"/>
 
         <label>Game Over Text <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
