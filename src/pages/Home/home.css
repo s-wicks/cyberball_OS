@@ -324,3 +324,16 @@ input[type="file"] {
     color: red;
     text-align: center;
 }
+
+.inline-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.inline-container textarea {
+    width: 70%;
+    margin-left: 10px;
+}
+

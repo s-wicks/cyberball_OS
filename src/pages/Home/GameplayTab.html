@@ -2,7 +2,7 @@
 <div if.bind="activeTab === 'gameplay'" class="tabcontent">
     <require from="resources/value-converters/integer-value-converter"></require>
     <h2>Gameplay</h2>
-    <div clas="input">
+    <div class="input">
     <div class="two-column-grid">
         <label for="selectedGameOverCondition">Select game end condition:</label>
         <select id="selectedGameOverCondition" value.bind="settings.selectedGameOverCondition">
@@ -79,11 +79,17 @@
             </p>
         </form></dialog>
         <input type="checkbox" checked.bind="settings.useSchedule"/>
-
-        <label if.bind="settings.useSchedule">Schedule</label>
+    </div>
         <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
-        <textarea if.bind="settings.useSchedule" value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
 
+    <div if.bind="settings.useSchedule" repeat.for="cpu of settings.computerPlayers">
+        <div class="inline-container">
+            <label>${cpu.name}</label>
+            <textarea value.bind="settings.scheduleText & updateTrigger:'blur'"></textarea>
+        </div>
+    </div>
+
+    <div class="two-column-grid">
         <label>Schedule Honors Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
