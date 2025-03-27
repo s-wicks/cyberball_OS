@@ -93,7 +93,10 @@
 
     <div if.bind="settings.showBallSettings">
         <div class="two-column-grid">
-            <label style="padding-left: 20%;">Ball Speed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label style="padding-left: 20%;">Color</label>
+            <input type="color" value.bind="settings.ballTint"/>
+            
+            <label style="padding-left: 20%;">Speed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
@@ -104,9 +107,6 @@
             </form></dialog>
             <input type="number" value.bind="settings.ballSpeed | integer & updateTrigger:'blur'"
                     blur.trigger="checkEmptyNumber($event)"/>
-
-            <label style="padding-left: 20%;">Ball Color</label>
-            <input type="color" value.bind="settings.ballTint"/>
         </div>
     </div>
 

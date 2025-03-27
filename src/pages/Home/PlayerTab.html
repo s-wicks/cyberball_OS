@@ -10,64 +10,65 @@
     <dialog class="new-sidebar"><form method="dialog">
         <button class="close-btn" autofocus type="submit">X</button>
         <h3>Information</h3>
-        <p>This is the player the participant in your study will control.</p>
+        <p>This is the player controlled by the participant.</p>
     </form></dialog>
 
     <div class="two-column-grid">
         <label>Name</label>
         <input type="text" value.bind="settings.player.name"/>
 
-
-        <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>You can insert an image that will be placed below the participant in the game.</p>
-                <!-- Include maximum image size when implemented -->
-                <!-- <h4>Note</h4>
-                <p>Images must be smaller than (? X ?)</p> -->
-        </form></dialog>
-        <div class="portrait-div">
-            <img style="width: auto; height: 100px; object-fit: cover;" class="portrait-img" if.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
-            <br>
-            <div style="display: flex; align-items: center; gap: 10px; white-space: nowrap;">
-                <label for="playerPortraitUrl" style="white-space: nowrap;">Portrait URL:</label>
-                <input type="text" id="playerPortraitUrl" value.bind="settings.player.portraitBuff" placeholder="Enter image URL">
-            </div>
-            <!-- <button click.delegate="setPlayerPortraitUrl()">Set Image</button> -->
-            <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearPlayerPortrait()">Clear</button>
-            <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultPortraitModal($event)">
-                Select a default portrait
-            </button>
-        </div>
-        
-            
-          <dialog id="default_portraits_modal" class="new-sidebar">
-            <form method="dialog">
-              
-              <button class="close-btn" autofocus type="submit">X</button>
-              <h4>Select a default portrait</h4>
-              <p>Click on the image below to set it as portrait</p>
-          
-              <div class="portrait-options">
-                
-                <img repeat.for="item of settings.defaultPortraits"
-                     src.bind="item"
-                     click.delegate="chooseDefaultPortraitAndClose(item)"
-                     class="default-portrait ${settings.selectedDefaultPortraitIndex === index ? 'selected' : ''}" 
-                     style="width:auto; height:100px; margin:5px; border:1px solid #ccc;"/>
-              </div>
-            </form>
-          </dialog>
-        <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label>Customize Player?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
-            <p>You can edit the color of the participant’s player by clicking on the box next to <strong>Tint Color</strong> to bring up a color palette.</p>
+            <p>Select to change the color or add portraits to the player.</p>
         </form></dialog>
-        <input type="color" value.bind="settings.player.tint"/>
-
+        <input type="checkbox" checked.bind="settings.displayPlayerCustomizations"/>
     </div>
+
+    <div if.bind="settings.displayPlayerCustomizations">
+        <div class="two-column-grid">
+            <label style="padding-left: 20%;">Color</label>
+            <input type="color" value.bind="settings.player.tint"/>
+            
+            <label style="padding-left: 20%;">Portrait<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>Insert a URL to give the Player a portrait for the game.</p>
+            </form></dialog>
+            <input type="text" id="playerPortraitUrl" value.bind="settings.player.portraitBuff" placeholder="Enter URL">
+
+            <div class="portrait-div">
+                <img style="width: auto; height: 100px; object-fit: cover;" class="portrait-img" if.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
+                <br>
+                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearPlayerPortrait()">Clear</button>
+                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultPortraitModal($event)">
+                    Select a default portrait
+                </button>
+            </div>
+            
+                
+            <dialog id="default_portraits_modal" class="new-sidebar">
+                <form method="dialog">
+                
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h4>Select a default portrait</h4>
+                <p>Click on the image below to set it as portrait</p>
+            
+                <div class="portrait-options">
+                    
+                    <img repeat.for="item of settings.defaultPortraits"
+                        src.bind="item"
+                        click.delegate="chooseDefaultPortraitAndClose(item)"
+                        class="default-portrait ${settings.selectedDefaultPortraitIndex === index ? 'selected' : ''}" 
+                        style="width:auto; height:100px; margin:5px; border:1px solid #ccc;"/>
+                </div>
+                </form>
+            </dialog>
+        </div>
+    </div>
+
     <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
     <dialog class="new-sidebar"><form method="dialog">
         <button class="close-btn" autofocus type="submit">X</button>
@@ -76,6 +77,8 @@
         <h4>Note</h4>
         <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
     </form></dialog>
+
+    <div class="two-column-grid">
     <div class="leave-triggers-grid">
         <input type="checkbox"
                 checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:1"/>
@@ -204,6 +207,7 @@
                 <input type="number" value.bind="settings.player.leaveOtherLeaver | integer & updateTrigger:'blur'"/>
             </label>
         </div>
+    </div>
     </div>
 </div>
 </template>

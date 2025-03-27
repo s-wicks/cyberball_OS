@@ -11,7 +11,9 @@ export class SettingsModel {
     displayTimeLimit: boolean = false;
     timeLimitText: string = 'Time Limit:';
     ballSpeed: number = 500;
+
     displayBallSettings: boolean = false;
+    displayPlayerCustomizations: boolean = false;
 
     useSchedule: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
