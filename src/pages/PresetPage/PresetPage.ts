@@ -35,10 +35,6 @@ export class PresetPage {
             }
         }
     }
-    
-    
-    
-    
 
     public async loadDefaultPresets(): Promise<void> {
         try {
@@ -85,8 +81,6 @@ export class PresetPage {
         this.portraitUrl = '';
     }
     
-    
-
     public loadPresetsFromLocalStorage(): void {
         console.log("Number of items in localStorage:", localStorage.length);
 
@@ -132,16 +126,40 @@ export class PresetPage {
     public deletePreset(presetName: string): void {
         // Remove the preset from local storage
         localStorage.removeItem(presetName);
-
         // Remove the preset from the presets array
         this.presets = this.presets.filter(p => p.name !== presetName);
+    }
+
+    public handleFileUpload(event: any): void {
+        const file = event.target.files[0];
+        if (!file) {
+            console.error("No file chosen");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = (loadEvent: any) => {
+            try {
+                const parsedData = JSON.parse(loadEvent.target.result as string);
+                if (parsedData && parsedData.player && parsedData.player.tint === undefined) {
+                    parsedData.player.tint = "#FFFFFF";
+                }
+
+                if (parsedData) {
+                    this.settingsService.settings = parsedData; // Update the settings in the service without checking for a `settings` property since the file directly contains the settings
+                    this.navigateToConfigurationBuilder();  // Method to navigate to configuration builder
+                } else {
+                    console.error("Invalid file format");
+                }
+            } catch (error) {
+                console.error("Error parsing the file", error);
+            }
+        };
+        reader.readAsText(file);
     }
     
     public navigateToConfigurationBuilder(): void {
         this.router.navigate('home');
     }
-
-
-
-
 }
