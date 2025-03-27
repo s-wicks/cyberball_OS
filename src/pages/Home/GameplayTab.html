@@ -158,7 +158,7 @@
     <div if.bind="settings.useSchedule" repeat.for="cpu of settings.computerPlayers">
         <div class="two-column-grid">
             <label style="padding-left: 20%;">${cpu.name}</label>
-            <input type="string" value.bind="settings.scheduleText[cpu.name] & updateTrigger:'blur'" placeholder="Type Player ${$index + 2}'s Schedule"/>
+            <input type="string" value.bind="settings.scheduleText[cpu.name] & updateTrigger:'blur'" placeholder="type Player ${$index + 2}'s schedule"/>
         </div>
     </div>
 </div>
