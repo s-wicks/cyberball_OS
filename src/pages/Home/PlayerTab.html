@@ -37,27 +37,28 @@
                     <h3>Information</h3>
                     <p>Insert a URL to give the Player a portrait for the game.</p>
             </form></dialog>
+
+            <img style="height: 100px; object-fit: cover;" if.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">         
+            <label if.bind="settings.player.portraitBuff"></label>
+
             <input type="text" id="playerPortraitUrl" value.bind="settings.player.portraitBuff" placeholder="Enter URL">
 
-            <div class="portrait-div">
-                <img style="width: auto; height: 100px; object-fit: cover;" class="portrait-img" if.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">
-                <br>
-                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearPlayerPortrait()">Clear</button>
-                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultPortraitModal($event)">
-                    Select a default portrait
+            <label></label>
+            <div class="two-column-grid">
+                <button class="bottom-buttons" style="height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultPortraitModal($event)">
+                    Select Default
                 </button>
+                <button class="bottom-buttons" style="height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearPlayerPortrait()">Clear</button>
             </div>
-            
                 
             <dialog id="default_portraits_modal" class="new-sidebar">
                 <form method="dialog">
                 
                 <button class="close-btn" autofocus type="submit">X</button>
-                <h4>Select a default portrait</h4>
-                <p>Click on the image below to set it as portrait</p>
+                <h4>Select a Portrait</h4>
+                <p>Select an image below to set it as portrait for the participant.</p>
             
                 <div class="portrait-options">
-                    
                     <img repeat.for="item of settings.defaultPortraits"
                         src.bind="item"
                         click.delegate="chooseDefaultPortraitAndClose(item)"
@@ -69,15 +70,20 @@
         </div>
     </div>
 
-    <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
-    <dialog class="new-sidebar"><form method="dialog">
-        <button class="close-btn" autofocus type="submit">X</button>
-        <h3>Information</h3>
-        <p>When a <strong>Leave Game</strong> button appears that participants can click to end the game.</p>
-        <h4>Note</h4>
-        <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
-    </form></dialog>
+    <div class="two-column-grid">
+        <label>Customize Leave Triggers?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>Select to change the leave triggers for the participant.</p>
+                <p>When a <strong>Leave Game</strong> button appears that participants can click to end the game.</p>
+                <h4>Note</h4>
+                <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
+            </form></dialog>
+            <input type="checkbox" checked.bind="settings.displayPlayerLeaveTriggers"/>
+    </div>
 
+    <div if.bind="settings.displayPlayerLeaveTriggers">
     <div class="two-column-grid">
     <div class="leave-triggers-grid">
         <input type="checkbox"
@@ -207,6 +213,7 @@
                 <input type="number" value.bind="settings.player.leaveOtherLeaver | integer & updateTrigger:'blur'"/>
             </label>
         </div>
+    </div>
     </div>
     </div>
 </div>

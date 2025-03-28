@@ -14,6 +14,7 @@ export class SettingsModel {
 
     displayBallSettings: boolean = false;
     displayPlayerCustomizations: boolean = false;
+    displayPlayerLeaveTriggers: boolean = false;
 
     useSchedule: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
