@@ -32,59 +32,65 @@
 
     <!-- Details for each CPU -->
     <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
+
         <div class="two-column-grid">
             <label>Name</label>
             <input type="text" value.bind="cpu.name"/>
-
-            <label>Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+    
+            <label>Customize CPU?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>You can edit the color of the CPU player by clicking on the box next to <strong>Tint Color</strong> to bring up a color palette.</p>
+                <p>Select to change the color or add portraits to this CPU.</p>
             </form></dialog>
-            <input type="color" value.bind="cpu.tint"/>
-
-            <label>Portrait <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <!-- Include maximum image size when implemented -->
-                <p>You can insert an image that will be placed by the CPU in the game.</p>
-            </form></dialog>
-        
-            <div class="portrait-div">
-                <img style="width: auto; height: 100px; object-fit: cover;" class="portrait-img" show.bind="cpu.portraitBuff" src.bind="cpu.portraitBuff">
-                <br>
-                <div style="display: flex; align-items: center; gap: 10px; white-space: nowrap;">
-                    <label for="cpuPortraitUrl" style="white-space: nowrap;">Portrait URL:</label>
-                    <input type="text" id="cpuPortraitUrl" value.bind="cpu.portraitBuff" placeholder="Enter image URL">
-                </div>
-                <!-- <button click.delegate="setPlayerPortraitUrl()">Set Image</button> -->
-                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearCPUPortrait(cpu)">Clear</button>
-                <button class="bottom-buttons" style="width: 190px; height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultCpuPortraitModal(cpu, $event)">
-                    Select a default portrait
-                </button>
-            </div>
-            
+            <input type="checkbox" checked.bind="settings.displayCPUCustomizations"/>
+        </div>
+    
+        <div if.bind="settings.displayCPUCustomizations">
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Color</label>
+                <input type="color" value.bind="cpu.tint"/>
                 
-            <dialog id="default_cpu_portraits_modal" class="new-sidebar">
-                <form method="dialog">
-                  
-                  <button class="close-btn" autofocus type="submit">X</button>
-                  <h4>Select a default portrait</h4>
-                  <p>Click on the image below to set it as portrait</p>
-              
-                  <div class="portrait-options">
-                    
-                    <img repeat.for="item of settings.defaultPortraits"
-                         src.bind="item"
-                         click.delegate="chooseDefaultCpuPortraitAndClose(item)"
-                         class="default-portrait" 
-                         style="width:auto; height:100px; margin:5px; border:1px solid #ccc;"/>
-                  </div>
-                </form>
-            </dialog>
+                <label style="padding-left: 20%;">Portrait<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>Insert a URL to give this CPU a portrait for the game.</p>
+                </form></dialog>
+    
+                <img style="height: 100px; object-fit: cover;" show.bind="cpu.portraitBuff" src.bind="cpu.portraitBuff">
+                <label if.bind="cpu.portraitBuff"></label>    
 
+                <input type="text" id="cpuPortraitUrl" value.bind="cpu.portraitBuff" placeholder="Enter URL">
+
+                <label></label>
+                <div class="two-column-grid">
+                    <button class="bottom-buttons" style="height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultCpuPortraitModal(cpu, $event)">
+                        Select Default
+                    </button>
+                    <button class="bottom-buttons" style="height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="clearCPUPortrait(cpu)">Clear</button>
+                </div>
+            
+                <dialog id="default_cpu_portraits_modal" class="new-sidebar">
+                    <form method="dialog">
+                      
+                      <button class="close-btn" autofocus type="submit">X</button>
+                      <h4>Select a Portrait</h4>
+                      <p>Select an image below to set it as portrait for this CPU.</p>
+                  
+                      <div class="portrait-options">
+                            <img repeat.for="item of settings.defaultPortraits"
+                                src.bind="item"
+                                click.delegate="chooseDefaultCpuPortraitAndClose(item)"
+                                class="default-portrait" 
+                                style="width:auto; height:100px; margin:5px; border:1px solid #ccc;"/>
+                      </div>
+                    </form>
+                </dialog>
+            </div>
+        </div>
+
+        <div class="two-column-grid">
             <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
@@ -140,45 +146,60 @@
             <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger: 'blur'" blur.trigger="checkTargetPrefTotal(cpu)" />
         </div>
 
-        <h2>Leave Triggers <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>When the CPU will leave the game.</p>
-            <h4>Note</h4>
-            <p><strong>Chance</strong> refers to the probability the CPU will leave at the programmed point. E.g., setting <strong>Chance</strong> for leaving at 50% means the CPU will leave 50% of the time.</p>
-        </form></dialog>
-        <div class="leave-triggers-grid">
-            <input type="checkbox"
-                checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1"/>
-            <label>
-                Throws Elapsed
-                <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-            </label>
+
+
+
+
+        <div class="two-column-grid">
+            <label>Use Leave Game Triggers?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>The number of throws between all players before the CPU leaves.</p>
+                <p>When the CPU will leave the game.</p>
+                <br>
+                <h4>Note</h4>
+                <p><strong>Chance</strong>refers to the probability the CPU will leave at the programmed point. e.g., setting<strong>Chance</strong>for leaving at 50% means the CPU will leave 50% of the time.</p>
             </form></dialog>
-            <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">             
-                <label class="two-column-grid-even">
-                    <span>Leave Threshold</span>
+            <input type="checkbox" checked.bind="settings.displayCPULeaveTriggers"/>
+        </div>
+    
+        <div if.bind="settings.displayCPULeaveTriggers">
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Throws Elapsed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>The number of throws between all players before this CPU leaves.</p>
+                </form></dialog>
+                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1"/>
+            </div>
+    
+            <div if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:1">   
+                <div class="two-column-grid">
+                    <label style="padding-left: 40%;">Leave Threshold</label>
                     <input type='number' value.bind="cpu.leaveTurn | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Variance <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
+    
+                    <label style="padding-left: 40%;">Variance<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
                     <dialog class="new-sidebar"><form method="dialog">
                         <button class="close-btn" autofocus type="submit">X</button>
                         <h3>Information</h3>
                         <p>A variance of 2 means the CPU will leave the game +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
                     </form></dialog>
                     <input type="number" value.bind="cpu.leaveTurnVariance | integer & updateTrigger:'blur'">
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Chance (%)</span>
+                    <label style="padding-left: 40%;">Chance (%)</label>   
                     <input type="number" value.bind="cpu.leaveTurnChance | integer & updateTrigger:'blur'"/>
-                </label>
+                </div>
             </div>
+    
+
+            
+
+    
+        
+
+        
+        <div class="leave-triggers-grid">
+
 
             <input type="checkbox"
                     checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2"/>

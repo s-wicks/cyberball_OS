@@ -13,8 +13,12 @@ export class SettingsModel {
     ballSpeed: number = 500;
 
     displayBallSettings: boolean = false;
+    
     displayPlayerCustomizations: boolean = false;
     displayPlayerLeaveTriggers: boolean = false;
+
+    displayCPUCustomizations: boolean = false;
+    displayCPULeaveTriggers: boolean = false;
 
     useSchedule: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
