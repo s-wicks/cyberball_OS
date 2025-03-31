@@ -91,64 +91,69 @@
         </div>
 
         <div class="two-column-grid">
-            <label>Throw Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label>Update Throw & Catch Delays?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>The amount of time the CPU stands in a “throw-ready” stance before throwing it.</p>
+                <p>How fast this CPU will catch and throw the ball during the game.</p>
             </form></dialog>
-            <input type="number" value.bind="cpu.throwDelay | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"
-                    class="ms-input"/>
-
-            <label>Throw Delay Variance (ms)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>A variance of 200 will result in the CPU standing in a “throw-ready” stance for +/- 200 milliseconds from a 500-millisecond Throw Delay (300 to 700 milliseconds).</p>
-            </form></dialog>
-            <input type="number" value.bind="cpu.throwDelayVariance | integer & updateTrigger:'blur'"
-                    placeholder="Enter delay in milliseconds"/>
-
-            <label>Catch Delay (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>The amount of time the CPU stands in a “caught-ball” stance before preparing to throwing it.</p>
-            </form></dialog>
-            <input type="number" value.bind="cpu.catchDelay | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"
-                   />
-
-            <label>Catch Delay Variance (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>A variance of 200 will result in the CPU standing with the ball for +/- 200-milliseconds from a 500-millisecond Catch Delay (300 to 700 milliseconds).</p>
-            </form></dialog>
-            <input type="number" value.bind="cpu.catchDelayVariance | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"
-                   />
-
-
+            <input type="checkbox" checked.bind="settings.displayCPUThrowCatchDelays"/>
         </div>
 
-        <h2>
-            Target Preference (%) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-            <br />
-            <span show.bind="shouldWarnTargetPref" id="target-pref-total-warning" class="warning">Target Preferences must add up to 100</span>
-        </h2>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>The percentage of throws that the CPU will distribute to other CPUs and the participant.</p>
-        </form></dialog>
-        </h2>
-        <div class="two-column-grid target-preference" repeat.for="pref of cpu.targetPreference">
-            <label>${getPlayerNumber($index, $parent.$index)}</label>
-            <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger: 'blur'" blur.trigger="checkTargetPrefTotal(cpu)" />
+        <div if.bind="settings.displayCPUThrowCatchDelays">
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Throw Delay (ms)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>The amount of time<strong>in milliseconds</strong>the CPU stands in a “throw-ready” stance before throwing it.</p>
+                </form></dialog>
+                <input type="number" value.bind="cpu.throwDelay | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"/>
+
+                <label style="padding-left: 40%;">Variance (ms)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>A variance of 200 will result in the CPU standing in a “throw-ready” stance for +/- 200 milliseconds from a 500-millisecond Throw Delay (300 to 700 milliseconds).</p>
+                </form></dialog>
+                <input type="number" value.bind="cpu.throwDelayVariance | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"/>
+
+                <label style="padding-left: 20%;">Catch Delay (ms)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>The amount of time<strong>in milliseconds</strong>the CPU stands in a “caught-ball” stance before preparing to throwing it.</p>
+                </form></dialog>
+                <input type="number" value.bind="cpu.catchDelay | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"/>
+
+                <label style="padding-left: 40%;">Variance (ms)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>A variance of 200 will result in the CPU standing with the ball for +/- 200-milliseconds from a 500-millisecond Catch Delay (300 to 700 milliseconds).</p>
+                </form></dialog>
+                <input type="number" value.bind="cpu.catchDelayVariance | integer & updateTrigger:'blur'" placeholder="Enter delay in milliseconds"/>
+            </div>
         </div>
 
+        <div class="two-column-grid">
+            <label>Update Target Preference (%)?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>The percentage of throws that the CPU will throw to other CPUs and the participant.</p>
+            </form></dialog>
+            <input type="checkbox" checked.bind="settings.displayCPUTargetPreferences"/>
+            <span style="font-size: 16px;" show.bind="shouldWarnTargetPref" id="target-pref-total-warning" class="warning"><strong>WARNING</strong></span>
+            <span style="font-size: 16px;" show.bind="shouldWarnTargetPref" id="target-pref-total-warning" class="warning"><strong>Target Preferences must add to 100%.</strong></span>
+        </div>
 
-
-
+        <div if.bind="settings.displayCPUTargetPreferences">
+            <div class="two-column-grid" repeat.for="pref of cpu.targetPreference">
+                <label style="padding-left: 20%;">${getPlayerNumber($index, $parent.$index)}</label>
+                <input type="number" value.bind="cpu.targetPreference[$index] | integer & updateTrigger: 'blur'" blur.trigger="checkTargetPrefTotal(cpu)" />
+            </div>
+        </div>
 
         <div class="two-column-grid">
             <label>Use Leave Game Triggers?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
@@ -193,7 +198,7 @@
             </div>
 
             <div class="two-column-grid">
-                <label style="padding-left: 20%;">Time Elapsed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <label style="padding-left: 20%;">Time Elapsed (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
                 <dialog class="new-sidebar"><form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
@@ -235,7 +240,7 @@
             </div>
             
             <div class="two-column-grid">
-                <label style="padding-left: 20%;">Time Ignored<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <label style="padding-left: 20%;">Time Ignored (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
                 <dialog class="new-sidebar"><form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>

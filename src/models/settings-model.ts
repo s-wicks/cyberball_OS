@@ -19,6 +19,8 @@ export class SettingsModel {
 
     displayCPUCustomizations: boolean = false;
     displayCPULeaveTriggers: boolean = false;
+    displayCPUTargetPreferences: boolean = false;
+    displayCPUThrowCatchDelays: boolean = false;
 
     useSchedule: boolean = false;
     scheduleHonorsThrowCount: boolean = false;
