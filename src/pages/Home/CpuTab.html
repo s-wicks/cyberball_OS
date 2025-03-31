@@ -158,7 +158,14 @@
                 <p>When the CPU will leave the game.</p>
                 <br>
                 <h4>Note</h4>
-                <p><strong>Chance</strong>refers to the probability the CPU will leave at the programmed point. e.g., setting<strong>Chance</strong>for leaving at 50% means the CPU will leave 50% of the time.</p>
+                <p>Chance refers to the probability the CPU will leave at the programmed point. e.g., setting Chance for leaving at 50% means the CPU will leave 50% of the time.</p>
+                <br>
+                <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
+                <br>
+                <h4>Examples</h4>
+                <p>A variance of 2 means participants will be given the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
+                <br>
+                <p>A variance of 15 means participants will be given the<strong>Leave Game</strong>button +/- 15 seconds from a 60-second Time Elapsed Threshold (between 45 to 75 seconds).</p>
             </form></dialog>
             <input type="checkbox" checked.bind="settings.displayCPULeaveTriggers"/>
         </div>
@@ -178,142 +185,93 @@
                 <div class="two-column-grid">
                     <label style="padding-left: 40%;">Leave Threshold</label>
                     <input type='number' value.bind="cpu.leaveTurn | integer & updateTrigger:'blur'"/>
-    
-                    <label style="padding-left: 40%;">Variance<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 2 means the CPU will leave the game +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
-                    </form></dialog>
+                    <label style="padding-left: 40%;">Variance</label>
                     <input type="number" value.bind="cpu.leaveTurnVariance | integer & updateTrigger:'blur'">
                     <label style="padding-left: 40%;">Chance (%)</label>   
                     <input type="number" value.bind="cpu.leaveTurnChance | integer & updateTrigger:'blur'"/>
                 </div>
             </div>
-    
 
-            
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Time Elapsed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>How much time<strong>in seconds</strong>passes before the CPU leaves.</p>
+                </form></dialog>
+                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2"/>
+            </div>
 
-    
-        
-
-        
-        <div class="leave-triggers-grid">
-
-
-            <input type="checkbox"
-                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2"/>
-            <label>
-                Time Elapsed
-                <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-            </label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>How much time passes before the CPU leaves.</p>
-            </form></dialog>
-            <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">             
-                <label class="two-column-grid-even">
-                    <span>Leave Threshold (ms)</span>
+            <div if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">   
+                <div class="two-column-grid">
+                    <label style="padding-left: 40%;">Leave Threshold</label>
                     <input type="number" value.bind="cpu.leaveTime | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Variance (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 30 means the CPU will leave the game +/- 30 seconds from a 120-second Time Elapsed Threshold (between 90 to 150 seconds).</p>
-                    </form></dialog>
+                    <label style="padding-left: 40%;">Variance</label>
                     <input type="number" value.bind="cpu.leaveTimeVariance | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Chance (%)</span>
+                    <label style="padding-left: 40%;">Chance (%)</label>   
                     <input type="number" value.bind="cpu.leaveTimeChance | integer & updateTrigger:'blur'"/>
-                </label>
+                </div>
             </div>
 
-            <input type="checkbox"
-                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4"/>
-            <label>
-                Throws Ignored
-                <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-            </label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>How many throws occur only between the other CPUs and participant before the CPU leaves.</p>
-            </form></dialog>
-            <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4">             
-                <label class="two-column-grid-even">
-                    <span>Leave Threshold</span>
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Throws Ignored<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>How many throws occur only between the other CPUs and participant before the CPU leaves.</p>
+                </form></dialog>
+                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4"/>
+            </div>
+
+            <div if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:4">             
+                <div class="two-column-grid">
+                    <label style="padding-left: 40%;">Leave Threshold</label>
                     <input type="number" value.bind="cpu.leaveIgnored | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Variance <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 2 means the CPU will leave the game +/- 2 throws from a 10 Throws Ignored Threshold (8 to 12 throws).</p>
-                    </form></dialog>
+                    <label style="padding-left: 40%;">Variance</label>
                     <input type="number" value.bind="cpu.leaveIgnoredVariance | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Chance (%)</span>
+                    <label style="padding-left: 40%;">Chance (%)</label>   
                     <input type="number" value.bind="cpu.leaveIgnoredChance | integer & updateTrigger:'blur'"/>
-                </label>
+                </div>
+            </div>
+            
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Time Ignored<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>How much time<strong>in seconds</strong>the other CPUs and participant spend only throwing to each other before the CPU leaves.</p>
+                </form></dialog>
+                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16"/>
             </div>
 
-            <input type="checkbox"
-                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16"/>
-            <label>
-                Time Ignored
-                <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-            </label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>How much time the other CPUs and participant spend only throwing to each other before the CPU leaves.</p>
-            </form></dialog>
-            <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">             
-                <label class="two-column-grid-even">
-                    <span>Leave Threshold (ms)</span>
+            <div if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">         
+                <div class="two-column-grid">
+                    <label style="padding-left: 40%;">Leave Threshold</label>
                     <input type="number" value.bind="cpu.leaveTimeIgnored | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Variance (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></span>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 15 means the CPU will leave the game +/- 15 seconds from a 45-second Ignored Time Threshold (30 to 60 seconds).</p>
-                    </form></dialog>
+                    <label style="padding-left: 40%;">Variance</label>
                     <input type="number" value.bind="cpu.leaveTimeIgnoredVariance | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Chance (%)</span>
+                    <label style="padding-left: 40%;">Chance (%)</label>   
                     <input type="number" value.bind="cpu.leaveTimeIgnoredChance | integer & updateTrigger:'blur'"/>
-                </label>
+                </div>
             </div>
 
-            <input type="checkbox"
-                    checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8"/>
-            <label>
-                Other Players Leaving
-                <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-            </label>
-            <dialog class="new-sidebar"><form method="dialog">
-                <button class="close-btn" autofocus type="submit">X</button>
-                <h3>Information</h3>
-                <p>The number of other CPUs that must leave before the CPU leaves.</p>
-            </form></dialog>
-            <div class="column" if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8">
-                <label class="two-column-grid-even">
-                    <span>Leave Threshold</span>
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Others Leaving<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>The number of other CPUs that must leave before the CPU leaves.</p>
+                </form></dialog>
+                <input type="checkbox" checked.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8"/>
+            </div>
+
+            <div if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:8">         
+                <div class="two-column-grid">
+                    <label style="padding-left: 40%;">Leave Threshold</label>
                     <input type="number" value.bind="cpu.leaveOtherLeaver | integer & updateTrigger:'blur'"/>
-                </label>
-                <label class="two-column-grid-even">
-                    <span>Chance (%)</span>
+                    <label style="padding-left: 40%;">Chance (%)</label>   
                     <input type="number" value.bind="cpu.leaveOtherLeaverChance | integer & updateTrigger:'blur'"/>
-                </label>
+                </div>
             </div>
         </div>
     </div>

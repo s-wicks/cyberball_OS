@@ -112,11 +112,11 @@
         </div>
 
         <div class="two-column-grid">
-            <label style="padding-left: 20%;">Time Elapsed (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label style="padding-left: 20%;">Time Elapsed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>How long the game is played before the<strong>Leave Game</strong>button appears.</p>
+                <p>How long the game is played<strong>in seconds</strong>before the<strong>Leave Game</strong>button appears.</p>
             </form></dialog>
             <input type="checkbox" checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2"/>
         </div>
@@ -152,11 +152,11 @@
         </div>
 
         <div class="two-column-grid">
-            <label style="padding-left: 20%;">Time Ignored (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label style="padding-left: 20%;">Time Ignored<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>How much time the CPUs spend throwing to each other before the<strong>Leave Game</strong>button appears for the participant.</p>
+                <p>How much time<strong>in seconds</strong>the CPUs spend throwing to each other before the<strong>Leave Game</strong>button appears for the participant.</p>
             </form></dialog>
             <input type="checkbox" checked.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16"/>
         </div>
