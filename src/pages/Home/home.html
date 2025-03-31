@@ -8,12 +8,14 @@
         <div class="content">
             <iframe id="gamePreview" style="width: 100%; height: 700px;"></iframe>
             <div class="container">
-                <a id="home-button" class="bottom-buttons" href="./">Return to Landing Page</a>
                 <compose view="./PlayerTab.html"></compose>
                 <compose view="./CpuTab.html"></compose>
                 <compose view="./GameplayTab.html"></compose>
                 <compose view="./ButtonTab.html"></compose>
-                <button class="refresh-button bottom-buttons" click.delegate="refreshIframe()">Refresh Iframe</button>
+                <div style="padding-top: 20px;" class="two-column-grid">
+                    <button class="home-page-buttons" click.delegate="refreshIframe()">Preview Game</button>
+                    <a class="home-page-buttons" href="./">Exit</a>
+                </div>
                 <a href="#" if.bind="activeTab !== 'player'" class="previous round" click.delegate="previousTab()">
                     &#8249;
                 </a>
