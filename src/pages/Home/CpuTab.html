@@ -7,32 +7,26 @@
     <require from="resources/value-converters/flag-value-converter"></require>
 
     <div class="tab-container">
-        <button repeat.for="cpu of settings.computerPlayers"
-                class="tab ${$index === activeCPUTab ? 'active' : ''}"
-                click.delegate="activeCPUTab = $index">
+        <button repeat.for="cpu of settings.computerPlayers" class="tab ${$index === activeCPUTab ? 'active' : ''}" click.delegate="activeCPUTab = $index">
             Player ${$index + 2}
         </button>
     </div>
-    <h2>
-        CPUs <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span>
-    </h2>
+
+    <h2>CPUs <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
     <dialog class="new-sidebar"><form method="dialog">
         <button class="close-btn" autofocus type="submit">X</button>
         <h3>Information</h3>
         <p>The computer-controlled players the participant will play virtual ball-toss with.</p>
     </form></dialog>
-    <div class="cpuButtons">
-        <button class="bottom-buttons" click.delegate="addCPU()">+ Add CPU</button>
-        <button class="bottom-buttons ${settings.computerPlayers.length == 1 ? 'disabled' : ''}"
-                click.delegate="removeCPU()">- Remove CPU
-        </button>
+
+    <div style="padding-bottom: 20px;" class="two-column-grid">
+        <button style="height: 30px;" class="home-page-buttons" click.delegate="addCPU()">Add CPU</button>
+        <button class="home-page-buttons ${settings.computerPlayers.length == 1 ? 'disabled' : ''}" click.delegate="removeCPU()">Remove CPU</button>
     </div>
     <!-- Sub-tabs for each CPU -->
 
-
     <!-- Details for each CPU -->
     <div repeat.for="cpu of settings.computerPlayers" if.bind="$index === activeCPUTab">
-
         <div class="two-column-grid">
             <label>Name</label>
             <input type="text" value.bind="cpu.name"/>
@@ -280,5 +274,6 @@
             </div>
         </div>
     </div>
+    <!-- End of Details for each CPU -->
 </div>
 </template>

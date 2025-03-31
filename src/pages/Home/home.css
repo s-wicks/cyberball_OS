@@ -120,8 +120,8 @@ a:hover {
 .description-header {
     font-weight: bold;
     text-decoration: underline;
-    margin-bottom: 8px; /* Add space below the headers */
-    display: block; /* Ensure each header is on a new line */
+    margin-bottom: 8px;
+    display: block;
 }
 
 .column {
@@ -179,10 +179,6 @@ iframe {
     text-align: center;
     line-height: 20px;
     cursor: pointer;
-}
-
-.cpuButtons {
-    margin-bottom: 10px;
 }
 
 .configHeader {

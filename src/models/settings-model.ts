@@ -19,7 +19,7 @@ export class SettingsModel {
 
     displayCPUCustomizations: boolean = false;
     displayCPULeaveTriggers: boolean = false;
-    displayCPUTargetPreferences: boolean = false;
+    displayCPUTargetPreferences: boolean = true;
     displayCPUThrowCatchDelays: boolean = false;
 
     useSchedule: boolean = false;
