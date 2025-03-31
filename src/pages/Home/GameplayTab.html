@@ -44,7 +44,7 @@
                 <label style="padding-left: 20%;">Label</label>
                 <input type="text" value.bind="settings.timeLimitText" />
 
-                <label style="padding-left: 20%;">Game Duration (ms)</label>
+                <label style="padding-left: 20%;">Game Duration (s)</label>
                 <input type="number" value.bind="settings.timeLimit | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
             </div>
         </div>

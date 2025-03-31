@@ -81,6 +81,11 @@
             <br>
             <h4>Note</h4>
             <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
+            <br>
+            <h4>Examples</h4>
+            <p>A variance of 2 means participants will be given the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
+            <br>
+            <p>A variance of 15 means participants will be given the<strong>Leave Game</strong>button +/- 15 seconds from a 60-second Time Elapsed Threshold (between 45 to 75 seconds).</p>
         </form></dialog>
         <input type="checkbox" checked.bind="settings.displayPlayerLeaveTriggers"/>
     </div>
@@ -101,18 +106,13 @@
                 <label style="padding-left: 40%;">Leave Threshold</label>
                 <input type="number" value.bind="settings.player.leaveTurn | integer & updateTrigger:'blur'"/>
 
-                <label style="padding-left: 40%;">Variance<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 2 means participants will be given the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
-                    </form></dialog>
+                <label style="padding-left: 40%;">Variance</label>
                 <input type="number" value.bind="settings.player.leaveTurnVariance | integer & updateTrigger:'blur'"/>
             </div>
         </div>
 
         <div class="two-column-grid">
-            <label style="padding-left: 20%;">Time Elapsed (ms)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label style="padding-left: 20%;">Time Elapsed (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
@@ -126,12 +126,7 @@
                 <label style="padding-left: 40%;">Leave Threshold</label>
                 <input type="number" value.bind="settings.player.leaveTime | integer & updateTrigger:'blur'"/>
 
-                <label style="padding-left: 40%;">Variance<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 30 means participants will be given the<strong>Leave Game</strong>button +/- 30 seconds from a 120-second Time Elapsed Threshold (between 90 to 150 seconds).</p>
-                    </form></dialog>
+                <label style="padding-left: 40%;">Variance</label>
                 <input type="number" value.bind="settings.player.leaveTimeVariance | integer & updateTrigger:'blur'"/>
             </div>
         </div>
@@ -151,18 +146,13 @@
                 <label style="padding-left: 40%;">Leave Threshold</label>
                 <input type="number" value.bind="settings.player.leaveIgnored | integer & updateTrigger:'blur'"/>
 
-                <label style="padding-left: 40%;">Variance<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 2 means participants will be given the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Ignored Threshold (8 to 12 throws).</p>
-                    </form></dialog>
+                <label style="padding-left: 40%;">Variance</label>
                 <input type="number" value.bind="settings.player.leaveIgnoredVariance | integer & updateTrigger:'blur'"/>
             </div>
         </div>
 
         <div class="two-column-grid">
-            <label style="padding-left: 20%;">Time Ignored (ms)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label style="padding-left: 20%;">Time Ignored (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
@@ -176,12 +166,7 @@
                 <label style="padding-left: 40%;">Leave Threshold</label>
                 <input type="number" value.bind="settings.player.leaveTimeIgnored | integer & updateTrigger:'blur'"/>
 
-                <label style="padding-left: 40%;">Variance<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-                    <dialog class="new-sidebar"><form method="dialog">
-                        <button class="close-btn" autofocus type="submit">X</button>
-                        <h3>Information</h3>
-                        <p>A variance of 15 means participants will be given the<strong>Leave Game</strong>button +/- 15 seconds from a 45-second Ignored Time Threshold (30 to 60 seconds).</p>
-                    </form></dialog>
+                <label style="padding-left: 40%;">Variance</label>
                 <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance | integer & updateTrigger:'blur'"/>
             </div>
         </div>
