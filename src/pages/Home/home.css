@@ -63,6 +63,7 @@ a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
     justify-content: center;
+    white-space: nowrap;
 }
 
 .bottom-buttons:hover {
@@ -194,6 +195,7 @@ dialog.new-sidebar {
 
 .close-btn {
     position: absolute;
+    justify-content: center;
     top: 10px;
     right: 10px;
     background-color: #FF0000;
