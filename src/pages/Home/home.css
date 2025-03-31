@@ -1,6 +1,6 @@
 select {
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 4px; /* Add some rounded corners */
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 a {
@@ -17,7 +17,7 @@ a:hover {
     background-color: #ddd;
     color: black;
     position: absolute;
-    top: 50%;  /* This will center the button vertically */
+    top: 50%;
     border-radius: 50%;
 }
 
@@ -27,6 +27,52 @@ a:hover {
 
 .next {
     right: 6px;
+}
+
+.home-page-buttons {
+    display: inline-block;       
+    font-size: 14px;       
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    justify-content: center;
+}
+
+.home-page-buttons:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.home-page-buttons:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+/* need to fix styling for portrait buttons */
+.bottom-buttons {
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+}
+
+.bottom-buttons:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.bottom-buttons:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
 
 .button-container {
@@ -48,6 +94,7 @@ a:hover {
     grid-template-columns: 1fr max-content;
     gap: 0.5em;
 }
+/* end of button styling */
 
 .clipboard-container {
     position: relative;
@@ -82,51 +129,6 @@ a:hover {
     flex-direction: column;
 }
 
-#home-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 5px 10px;
-    font-size: 14px;
-}
-#home-button:hover {
-    color: white;
-}
-
-.bottom-buttons {
-    background-color: #007BFF;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    justify-content: center;
-}
-
-.refresh-button {
-    position: absolute;      /* Positioning relative to the container */
-    bottom: 10px;            /* Distance from the bottom */
-    left: 10px;              /* Distance from the left */
-    padding: 5px 10px;       /* Smaller padding */
-    font-size: 14px;         /* Smaller font size */
-}
-
-.bottom-buttons:hover {
-    background-color: #0056b3;
-}
-
-.bottom-buttons:active {
-    background-color: #003d80;
-}
-
-.bottom-buttons:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
-}
-
-/* Container for the tabs */
 .tab-container {
     margin-top: 20px;
     display: flex;
@@ -134,33 +136,29 @@ a:hover {
     gap: 10px;
 }
 
-/* Individual tabs */
 .tab {
-    padding: 10px 15px; /* Adjust padding to your preference */
+    padding: 10px 15px;
     margin: 0;
     box-sizing: border-box;
-    background-color: #007bff; /* This is a generic blue, replace with your specific blue color */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners for a button-like appearance */
-    color: white; /* White text color for contrast */
-    cursor: pointer; /* Changes the cursor to indicate the tab is clickable */
-    text-align: center; /* Center the text inside the tab/button */
-    font-weight: bold; /* Makes the text bold */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-/* Hover effect for tabs */
 .tab:hover {
-    background-color: #0056b3; /* Darker blue on hover, adjust the color to match your design */
+    background-color: #0056b3;
 }
 
-/* Active tab style */
 .tab.active {
-    background-color: #004080; /* Even darker blue for the active tab */
+    background-color: #004080;
     color: #fff;
 }
 
-/* Responsive adjustment for smaller screens */
 @media (max-width: 600px) {
     .tab {
         flex: 0 0 100%;
