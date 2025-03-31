@@ -21,17 +21,17 @@ export class PlayerSettingsModel {
     leaveTurn?: number = 10;
     leaveTurnVariance?: number = 2;
 
-    /** This player may leave after this much time. (Milliseconds) */
-    leaveTime?: number = 120000;
-    leaveTimeVariance?: number = 30000;
+    /** This player may leave after this much time. */
+    leaveTime?: number = 120;
+    leaveTimeVariance?: number = 30;
 
     /** This player may leave after not catching the ball for this many turns. */
     leaveIgnored?: number = 10;
     leaveIgnoredVariance?: number = 2;
 
-    /** This player may leave after not catching the ball for this much time. (Milliseconds) */
-    leaveTimeIgnored?: number = 45000;
-    leaveTimeIgnoredVariance?: number = 15000;
+    /** This player may leave after not catching the ball for this much time. */
+    leaveTimeIgnored?: number = 45;
+    leaveTimeIgnoredVariance?: number = 15;
 
     /** This player may leave after this many other players leave. */
     leaveOtherLeaver?: number = 2;

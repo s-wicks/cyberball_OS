@@ -23,12 +23,13 @@ export function addThrowCountGameOverTrigger(controller: CyberballGameController
 }
 
 export function addTimeLimitGameOverTrigger(controller: CyberballGameController, timeLimit: number) {
-    if (timeLimit <= 0) {
+    let timeLimitMilliSeconds = timeLimit * 1000;
+    if (timeLimitMilliSeconds <= 0) {
         return;
     }
     setTimeout(() => {
         controller.endGame("global-time-limit");
-    }, timeLimit);
+    }, timeLimitMilliSeconds);
 }
 
 export function addAllCpusLeftGameOverTrigger(controller: CyberballGameController) {
