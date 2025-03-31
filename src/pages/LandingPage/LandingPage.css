@@ -55,7 +55,11 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    width: 40%;
 }
+
 
 .btn:hover {
     background-color: #0056b3;
