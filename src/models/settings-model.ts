@@ -57,6 +57,8 @@ export class SettingsModel {
     }
 
     defaultPortraits: string[] = [
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9AhrIza5kozr9I2',
+        'https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_qrcF7dCMk8DYp1Q',
         'https://i.postimg.cc/W4jQ3j9H/2.jpg',
         'https://i.postimg.cc/m2vvv77R/1.jpg',
         'https://i.postimg.cc/NMjS6Dv8/3.webp',
