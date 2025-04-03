@@ -17,11 +17,11 @@
         <label>Name</label>
         <input type="text" value.bind="settings.player.name"/>
 
-        <label>Customize Player?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label>Customize<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
-            <p>Select to change the color or add portraits to the player.</p>
+            <p>Select to change the color of the player or add portraits to the player.</p>
         </form></dialog>
         <input type="checkbox" checked.bind="settings.displayPlayerCustomizations"/>
     </div>
@@ -35,9 +35,12 @@
             <dialog class="new-sidebar"><form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
-                    <p>Insert a URL to give the Player a portrait for the game.</p>
+                    <p>Insert a URL to give the player a portrait for the game.</p>
+                    <br>
+                    <h4>Note</h4>
+                    <p>Not all URLs are supported by this feature, look into the manual for a detailed description. Any image stored in Qualtrics and any publicly available<strong>direct</strong> URL to the image should work.</p>
             </form></dialog>
-
+ 
             <img style="height: 100px; object-fit: cover;" if.bind="settings.player.portraitBuff" src.bind="settings.player.portraitBuff">         
             <label if.bind="settings.player.portraitBuff"></label>
 
@@ -55,7 +58,7 @@
                 <form method="dialog">
                 
                 <button class="close-btn" autofocus type="submit">X</button>
-                <h4>Select a Portrait</h4>
+                <h4>Portrait Selection</h4>
                 <p>Select an image below to set it as portrait for the participant.</p>
             
                 <div class="portrait-options">
@@ -71,21 +74,17 @@
     </div>
 
     <div class="two-column-grid">
-        <label>Use Leave Game Triggers?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label>Use Leave Game Options?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
-            <p>Select to change the leave game triggers for the participant.</p>
-            <br>
-            <p>When a<strong>Leave Game</strong>button appears the participant can click to end the game.</p>
+            <p>Select to change a trigger to tempt the participant to leave the game. It causes a<strong>Leave Game</strong> button to appear where the participant can click to end the game.</p>
             <br>
             <h4>Note</h4>
-            <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
+            <p>Variance refers to the deviation (+/-) away from the set value.</p>
             <br>
-            <h4>Examples</h4>
-            <p>A variance of 2 means participants will be given the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
-            <br>
-            <p>A variance of 15 means participants will be given the<strong>Leave Game</strong>button +/- 15 seconds from a 60-second Time Elapsed Threshold (between 45 to 75 seconds).</p>
+            <h4>Example</h4>
+            <p>A variance of 2 means the participant is shown the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
         </form></dialog>
         <input type="checkbox" checked.bind="settings.displayPlayerLeaveTriggers"/>
     </div>
@@ -112,7 +111,7 @@
         </div>
 
         <div class="two-column-grid">
-            <label style="padding-left: 20%;">Time Elapsed (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label style="padding-left: 20%;">Time Elapsed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
@@ -152,7 +151,7 @@
         </div>
 
         <div class="two-column-grid">
-            <label style="padding-left: 20%;">Time Ignored (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label style="padding-left: 20%;">Time Ignored<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
