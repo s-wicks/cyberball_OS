@@ -10,9 +10,9 @@
             <h3>Information</h3>
             <p>How the game ends besides the participant leaving.</p>
             <br>
-            <ol><strong>Throw Count:</strong>the game ends after a certain number of throws.</ol>
-            <ol><strong>Time Limit:</strong>the game ends after a certain designated time.</ol>
-            <ol><strong>All CPUs Left:</strong>the game ends after all CPUs leave.</ol>
+            <ol><strong>Throw Count:</strong>game ends after a certain number of throws.</ol>
+            <ol><strong>Time Limit:</strong>game ends after a designated time<strong>in seconds</strong>.</ol>
+            <ol><strong>All CPUs Left:</strong>game ends after all CPUs leave.</ol>
         </form></dialog>
         <select id="selectedGameOverCondition" value.bind="settings.selectedGameOverCondition">
             <option repeat.for="condition of settings.gameOverConditions" model.bind="condition.id">${condition.label}</option>
@@ -44,7 +44,7 @@
                 <label style="padding-left: 20%;">Label</label>
                 <input type="text" value.bind="settings.timeLimitText" />
 
-                <label style="padding-left: 20%;">Game Duration (s)</label>
+                <label style="padding-left: 20%;">Game Duration</label>
                 <input type="number" value.bind="settings.timeLimit | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
             </div>
         </div>
@@ -82,7 +82,7 @@
     </div>
 
     <div class="two-column-grid">
-        <label>Change Ball?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label>Customize Ball<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
