@@ -32,11 +32,11 @@
             <label>Name</label>
             <input type="text" value.bind="cpu.name"/>
     
-            <label>Customize CPU?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label>Customize<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>Select to change the color or add portraits to this CPU.</p>
+                <p>Select to change the color of the CPU or add a portrait to the CPU.</p>
             </form></dialog>
             <input type="checkbox" checked.bind="settings.displayCPUCustomizations"/>
         </div>
@@ -51,6 +51,9 @@
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
                     <p>Insert a URL to give this CPU a portrait for the game.</p>
+                    <br>
+                    <h4>Note</h4>
+                    <p>Not all URLs are supported by this feature, look into the manual for a detailed description. Any image stored in Qualtrics and any publicly available<strong>direct</strong> URL to the image should work.</p>
                 </form></dialog>
     
                 <img style="height: 100px; object-fit: cover;" show.bind="cpu.portraitBuff" src.bind="cpu.portraitBuff">
@@ -86,11 +89,17 @@
         </div>
 
         <div class="two-column-grid">
-            <label>Update Throw & Catch Delays?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label>Throw & Catch Delays<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
                 <p>How fast this CPU will catch and throw the ball during the game.</p>
+                <br>
+                <h4>Note</h4>
+                <p>Variance refers to the deviation (+/-) away from the set value.</p>
+                <br>
+                <h4>Example</h4>
+                <p>A variance of 0.2 means the CPU will vary by +/- 0.2 seconds from the base delay.</p>
             </form></dialog>
             <input type="checkbox" checked.bind="settings.displayCPUThrowCatchDelays"/>
         </div>
@@ -99,61 +108,53 @@
 
         <div if.bind="settings.displayCPUThrowCatchDelays">
             <div class="two-column-grid">
-            <!-- Throw Delay -->
-                <label style="padding-left: 20%;">Throw Delay (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <label style="padding-left: 20%;">Throw Delay<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
                 <dialog class="new-sidebar">
                     <form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
-                    <p>The amount of time in <strong>seconds</strong> the CPU stands in a “throw-ready” stance before throwing it.</p>
+                    <p>The amount of time<strong>in seconds</strong>the CPU stands in a “throw-ready” stance before throwing it.</p>
                     </form>
                 </dialog>
-   
                 <input type="number" value.two-way="cpu.throwDelay | secondsToMilliseconds" placeholder="Enter delay in seconds"/>
-
-                <!-- Throw Delay Variance -->
-                <label style="padding-left: 40%;">Variance (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-                <dialog class="new-sidebar">
-                    <form method="dialog">
-                    <button class="close-btn" autofocus type="submit">X</button>
-                    <h3>Information</h3>
-                    <p>A variance of 0.2 means the CPU's delay will vary by ±0.2 seconds from the base delay.</p>
-                    </form>
-                </dialog>
-                <input type="number" value.two-way="cpu.throwDelayVariance | secondsToMilliseconds" placeholder="Enter variance in seconds"/>
-
-                <!-- Catch Delay -->
-                <label style="padding-left: 20%;">Catch Delay (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-                <dialog class="new-sidebar">
-                    <form method="dialog">
-                    <button class="close-btn" autofocus type="submit">X</button>
-                    <h3>Information</h3>
-                    <p>The amount of time in <strong>seconds</strong> the CPU stands in a “caught-ball” stance before preparing to throw.</p>
-                    </form>
-                </dialog>
+            </div>
                 
-                <input type="number" value.two-way="cpu.catchDelay | secondsToMilliseconds" placeholder="Enter delay in seconds"/>
+            <div class="two-column-grid">
+                <label style="padding-left: 40%;">Variance</label>
+                <input type="number" value.two-way="cpu.throwDelayVariance | secondsToMilliseconds" placeholder="Enter variance in seconds"/>
+            </div>
 
-                <!-- Catch Delay Variance -->
-                <label style="padding-left: 40%;">Variance (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Catch Delay<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
                 <dialog class="new-sidebar">
-                <form method="dialog">
+                    <form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
-                    <p>A variance of 0.2 means the CPU's catch delay will vary by ±0.2 seconds from the base delay.</p>
-                </form>
+                    <p>The amount of time<strong>in seconds</strong>the CPU stands in a “caught-ball” stance before preparing to throw.</p>
+                    </form>
                 </dialog>
+                <input type="number" value.two-way="cpu.catchDelay | secondsToMilliseconds" placeholder="Enter delay in seconds"/>
+            </div>
+
+            <div class="two-column-grid">
+                <label style="padding-left: 40%;">Variance</label>
                 <input type="number" value.two-way="cpu.catchDelayVariance | secondsToMilliseconds" placeholder="Enter variance in seconds"/>
             </div>
         </div>
 
 
         <div class="two-column-grid">
-            <label>Update Target Preference (%)?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label>Target Preferences<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>The percentage of throws that the CPU will throw to other CPUs and the participant.</p>
+                <p>A percentage that indicates how bias a CPU will be in throwing to a specific target.</p>
+                <br>
+                <h4>Note</h4>
+                <p>This percentage must equal<strong>exactly</strong>100% between all potential targets (Human and CPUs).</p>
+                <br>
+                <h4>Example</h4>
+                <p>A 33 for Human and a 67 for CPU Player 3 means that CPU Player 2 has a 67% chance to throw to CPU Player 3 each time (and a 33% chance to throw to Human).</p>
             </form></dialog>
             <input type="checkbox" checked.bind="settings.displayCPUTargetPreferences"/>
             <span style="font-size: 16px;" show.bind="shouldWarnTargetPref" id="target-pref-total-warning" class="warning"><strong>WARNING</strong></span>
@@ -168,21 +169,23 @@
         </div>
 
         <div class="two-column-grid">
-            <label>Use Leave Game Triggers?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <label>Leave Game Options<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
             <dialog class="new-sidebar"><form method="dialog">
                 <button class="close-btn" autofocus type="submit">X</button>
                 <h3>Information</h3>
-                <p>When the CPU will leave the game.</p>
+                <p>Select to change a trigger for when the CPU will leave the game.</p>
                 <br>
                 <h4>Note</h4>
-                <p>Chance refers to the probability the CPU will leave at the programmed point. e.g., setting Chance for leaving at 50% means the CPU will leave 50% of the time.</p>
+                <p>Chance refers to the probability the CPU will leave at the thresold point.</p>
                 <br>
-                <p>“Variance” refers to the ability to deviate (+/-) away from the set value.</p>
+                <h4>Example</h4>
+                <p>Setting Chance at 50% means the CPU will leave 50% of the time.</p>
                 <br>
-                <h4>Examples</h4>
-                <p>A variance of 2 means participants will be given the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
+                <h4>Note</h4>
+                <p>Variance refers to the deviation (+/-) away from the set value.</p>
                 <br>
-                <p>A variance of 15 means participants will be given the<strong>Leave Game</strong>button +/- 15 seconds from a 60-second Time Elapsed Threshold (between 45 to 75 seconds).</p>
+                <h4>Example</h4>
+                <p>A variance of 2 means the participant is shown the<strong>Leave Game</strong>button +/- 2 throws from a 10 Throws Elapsed Threshold (8 to 12 throws).</p>
             </form></dialog>
             <input type="checkbox" checked.bind="settings.displayCPULeaveTriggers"/>
         </div>
@@ -210,7 +213,7 @@
             </div>
 
             <div class="two-column-grid">
-                <label style="padding-left: 20%;">Time Elapsed (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <label style="padding-left: 20%;">Time Elapsed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
                 <dialog class="new-sidebar"><form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
@@ -252,7 +255,7 @@
             </div>
             
             <div class="two-column-grid">
-                <label style="padding-left: 20%;">Time Ignored (s)<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <label style="padding-left: 20%;">Time Ignored<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
                 <dialog class="new-sidebar"><form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
