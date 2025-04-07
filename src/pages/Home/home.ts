@@ -53,6 +53,9 @@ export class HomeViewModel {
     playerPortraitUrl: string = "";
     currentCpuForDefault: CpuSettingsModel = null;
 
+    copiedEmbed = false;
+    copiedURL = false;
+
     @bindable sliderValue = this.settings.gameOverOpacity;
 
     updateOpacity() {
@@ -156,6 +159,9 @@ export class HomeViewModel {
 
     copyURL() {
         navigator.clipboard.writeText(this.url);
+
+        this.copiedURL = true;
+        setTimeout(() => this.copiedURL = false, 1500);
     }
 
     setPlayerPortraitUrl(url: string) {
@@ -183,17 +189,17 @@ export class HomeViewModel {
         this.updateUrl();
       }
 
- convertStringsToNumbers(obj) {
-        for (let key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                if (typeof obj[key] === 'string' && !isNaN(obj[key]) && obj[key].trim() !== '') {
-                    obj[key] = Number(obj[key]);
-                } else if (obj[key] instanceof Object) {
-                    this.convertStringsToNumbers(obj[key]);
+    convertStringsToNumbers(obj) {
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    if (typeof obj[key] === 'string' && !isNaN(Number(obj[key])) && obj[key].trim() !== '') {
+                        obj[key] = Number(obj[key]);
+                    } else if (obj[key] instanceof Object) {
+                        this.convertStringsToNumbers(obj[key]);
+                    }
                 }
             }
         }
-    }
 
     get clipboardText() {
         return JSON.stringify(this.settings, null, 2);
@@ -203,6 +209,9 @@ export class HomeViewModel {
     copyIframeToClipboard(): void {
         const iframeString = `<iframe id="cyberball" width="100%" height="580" src="${this.url}"></iframe>`;
         navigator.clipboard.writeText(iframeString);
+
+        this.copiedEmbed = true;
+        setTimeout(() => this.copiedEmbed = false, 1500);
     }
 
     checkEmptyNumber(e: FocusEvent): void {
