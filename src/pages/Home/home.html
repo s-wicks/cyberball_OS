@@ -12,7 +12,7 @@
                 <compose view="./CpuTab.html"></compose>
                 <compose view="./GameplayTab.html"></compose>
                 <compose view="./ButtonTab.html"></compose>
-                <div style="padding-top: 20px;" class="two-column-grid">
+                <div if.bind="activeTab !== 'buttons'" style="padding-top: 20px;" class="two-column-grid">
                     <button class="home-page-buttons" click.delegate="refreshIframe()">Preview Game</button>
                     <a class="home-page-buttons" href="./">Exit</a>
                 </div>
