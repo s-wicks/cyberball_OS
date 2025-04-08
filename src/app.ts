@@ -9,12 +9,12 @@ export class App {
         config.title = 'Cyberball';
 
         config.map([
-            { route: ['', 'LandingPage'], name: 'LandingPage', moduleId: 'pages/LandingPage/LandingPage' },
+            { route: ['', 'landing'], name: 'LandingPage', moduleId: 'pages/LandingPage/LandingPage' },
             { route: 'home', name: 'home', moduleId: 'pages/Home/home' },
             { route: 'game', name: 'game', moduleId: 'pages/Game/game' },
-            { route: 'PresetPage', name: 'PresetPage', moduleId: 'pages/PresetPage/PresetPage' },
-            { route: 'message-test', name: 'message-test', moduleId: 'pages/message-test' }
+            { route: 'preset', name: 'PresetPage', moduleId: 'pages/PresetPage/PresetPage' },
+            { route: 'message-test', name: 'message-test', moduleId: 'pages/message-test' },
+            { route: 'help', name: 'HelpPage', moduleId: 'pages/HelpPage/HelpPage' }
         ]);
-
     }
 }

@@ -8,7 +8,7 @@ export class LandingPage {
         this.router = router;
     }
 
-    startFromScratch() {
+    loadCreateNew() {
         // Navigate to the home route
         console.log(this.router);
         this.router.navigateToRoute('home');
@@ -20,9 +20,10 @@ export class LandingPage {
         this.router.navigateToRoute('PresetPage');
     }
 
-    openManual() {
-        // Logic to open the manual
-        console.log("Opening manual...");
+    loadHelp() {
+        // Navigate to help
+        console.log(this.router);
+        this.router.navigateToRoute('HelpPage');
     }
 }
 
