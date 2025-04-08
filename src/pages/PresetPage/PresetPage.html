@@ -7,63 +7,70 @@
     <require from="./PresetPage.css"></require>
     <require from="../LandingPage/LandingPage.css"></require>
 
+    <div class="landing-page">
+        <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
+        <h1>Cyberball Presets</h1>
+        <div class="content">
+            <div style="width: 1200px; margin: 0 auto;" class="container">
+                <div class="tabs">
+                    <button class="tab-button ${isPresetsActive ? 'active' : ''}" click.delegate="showTab('presets')">Presets</button>
+                    <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Games</button>
+                    <button class="tab-button ${isLoadFromFile ? 'active' : ''}" click.delegate="showTab('load-file')">Load File</button>
+                </div>
 
-        <div class="landing-page">
-            <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
-            <h1>Cyberball Presets</h1>
-            <div id="home-button-container"><a id="home-button" href="./">Return to Landing Page</a></div>
-            <div class="tabs">
+                <div css.bind="isPresetsActive ? 'display: block;' : 'display: none;'">
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Video</th>
+                        </tr>
+                        <tr repeat.for="defaultPreset of defaultPresets" click.trigger="loadPresetAndNavigate(defaultPreset)">
+                            <td>${defaultPreset.name}</td>
+                            <td>${defaultPreset.description}</td>
+                            <td>
+                                <video width="320" height="240" loop autoplay muted>
+                                    <source src="${defaultPreset.video}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                <button class="tab-button ${isPresetsActive ? 'active' : ''}" click.delegate="showTab('presets')">Presets</button>
-                <button class="tab-button ${isYourPresetsActive ? 'active' : ''}" click.delegate="showTab('your-presets')">Your Games</button>
-                <button class="tab-button ${isLoadFromFile ? 'active' : ''}" click.delegate="showTab('load-file')">Load File</button>
-            </div>
-            <div class="container preset-container" id="presets" css.bind="isPresetsActive ? 'display: block;' : 'display: none;'">
-            <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Video</th>
-                    </tr>
-                    <tr repeat.for="defaultPreset of defaultPresets" click.trigger="loadPresetAndNavigate(defaultPreset)">
+                <div css.bind="isYourPresetsActive && presets.length > 0 ? 'display: block;' : 'display: none;'">
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                        <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset)">
+                            <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${preset.name}</td>
+                            <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${preset.description}</td>
+                            <td style="display: flex; justify-content: flex-end; align-items: center;">
+                                <button class="delete-btn" click.trigger="deletePreset(preset.name)">X</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                        <td>${defaultPreset.name}</td>
-                        <td>${defaultPreset.description}</td>
-                        <td>
-                            <video width="320" height="240" loop autoplay muted>
-                                <source src="${defaultPreset.video}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </td>
+                <div style="text-align: center; padding-top: 20px;" if.bind="isYourPresetsActive && presets.length === 0">
+                    <p>There are no games currently saved here.</p>
+                </div>
+            
+                <div css.bind="isLoadFromFile ? 'display: block;' : 'display: none;'">
+                    <div style="display: flex; justify-content: center; padding-top: 20px;">
+                        <input type="file" id="fileUpload" change.delegate="handleFileUpload($event)">
+                    </div>
+                </div>
 
-                    </tr>
-
-                </table>
-            </div>
-            <div class="container preset-container" id="your-presets" css.bind="isYourPresetsActive ? 'display: block;' : 'display: none;'">
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th></th>
-                    </tr>
-
-                    <tr repeat.for="preset of presets" click.trigger="loadPresetAndNavigate(preset)">
-                        <td>${preset.name}</td>
-                        <td>${preset.description}</td>
-                        <td>
-                            <button class="delete-btn" click.trigger="deletePreset(preset.name)">X</button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="container preset-container" id="load-file" css.bind="isLoadFromFile ? 'display: block;' : 'display: none;'">
-                <div>
-                    <input type="file" id="fileUpload" change.delegate="handleFileUpload($event)">
+                <div style="display: flex; justify-content: center; padding-top: 20px;">
+                    <a class="preset-button" href="./">Exit</a>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 
