@@ -1,8 +1,4 @@
 export class HelpPage {
-    showManual = false;
-  
-    toggleManual() {
-      this.showManual = !this.showManual;
-    }
+    // nothing to do here
   }
   
