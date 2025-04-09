@@ -17,7 +17,7 @@
         <label>Name</label>
         <input type="text" value.bind="settings.player.name"/>
 
-        <label>Customize<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+        <label style="margin-bottom: 16px;">Customize<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
         <dialog class="new-sidebar"><form method="dialog">
             <button class="close-btn" autofocus type="submit">X</button>
             <h3>Information</h3>
@@ -47,7 +47,14 @@
             <input type="text" id="playerPortraitUrl" value.bind="settings.player.portraitBuff" placeholder="Enter URL">
 
             <label></label>
-            <div class="two-column-grid">
+            <button type="button" class="bottom-buttons"
+                style="height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;"
+                onclick="window.open('https://postimages.org/', '_blank');">
+                Convert image to URL
+            </button>
+        
+            <label></label>
+            <div class="two-column-grid" style="margin: 0;">
                 <button class="bottom-buttons" style="height: 24px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center;" click.delegate="openDefaultPortraitModal($event)">
                     Select Default
                 </button>
