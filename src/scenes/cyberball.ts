@@ -230,25 +230,6 @@ export class CyberballScene extends Phaser.Scene {
             this.timeLimitText = this.add.text(this.sys.canvas.width - 10, 10, this.getTimeString(), textStyle);
             this.timeLimitText.setOrigin(1, 0);
         }
-
-        const buttonWidth = 120;
-        const buttonHeight = 30; 
-        const marginRight = 20;   
-        const marginBottom = 20; 
-        const x = this.sys.canvas.width - marginRight - buttonWidth / 2;
-        const y = this.sys.canvas.height - marginBottom - buttonHeight / 2;
-    
-    this.leaveButton = this.add.dom(x, y, 'button', 
-      'width: 120px; height: 50px; background-color: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer;',
-      'Leave Game'
-    );
-    
-    this.leaveButton.setScrollFactor(0);
-
-    this.leaveButton.addListener('click');
-    this.leaveButton.on('click', () => {
-        this.cyberballGameController.endGame('player-leave');
-    });
     }
 
     public updateAnimations() {
