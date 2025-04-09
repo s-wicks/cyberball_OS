@@ -27,7 +27,7 @@
     "debounce": "^1.2.1",
     "eslint": "^9.23.0",
     "glob-watcher": "^6.0.0",
-    "gulp": "^4.0.0",
+    "gulp": "^5.0.0",
     "gulp-cli": "^3.0.0",
     "gulp-notify": "^5.0.0",
     "gulp-plumber": "^1.2.1",
