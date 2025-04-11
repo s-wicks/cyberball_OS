@@ -133,8 +133,14 @@ a:hover {
 .tab-container {
     margin-top: 20px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+
+.tab-container::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
@@ -371,3 +377,13 @@ input[type="file"] {
       grid-template-columns: 1fr;
     }
   }
+
+.scrollbar {
+    overflow-y: scroll;
+    /* scrollbar-width: none; */
+    /* -ms-overflow-style: none;    */
+}
+
+/* .scrollbar:-webkit-scrollbar {
+  display: none;
+} */
