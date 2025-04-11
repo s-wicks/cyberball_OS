@@ -48,7 +48,7 @@ export class CyberballScene extends Phaser.Scene {
     }
     
     private showLeaveButton() {
-        this.leaveButton = this.add.dom(600, 400, 'button', 'width: 100px; height: 50px', 'Leave');
+        this.leaveButton = this.add.dom(0, 0, 'button', 'position: absolute; bottom: 20px; right: 20px; width: 100px; height: 50px;', 'Leave');
         this.leaveButton.addListener('click');
         this.leaveButton.on('click', () => {
             this.cyberballGameController.endGame('player-leave');
@@ -84,8 +84,6 @@ export class CyberballScene extends Phaser.Scene {
     
         this.load.start();  // Ensure images are actually loaded
     }
-    
-
     
 
     public createAnimations() {
