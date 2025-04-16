@@ -1,6 +1,7 @@
 <template>
 <div if.bind="activeTab === 'gameplay'" class="tabcontent" style="width: 600px;">
     <require from="resources/value-converters/integer-value-converter"></require>
+    <require from="resources/value-converters/seconds-to-milliseconds-value-converter"></require>
     <h2>Gameplay</h2>
     
     <!-- <div class="scrollbar" style="height: 250px;"> -->
@@ -102,13 +103,13 @@
                 <dialog class="new-sidebar"><form method="dialog">
                     <button class="close-btn" autofocus type="submit">X</button>
                     <h3>Information</h3>
-                    <p>The speed at which the ball travels between players.</p>
+                    <p>The speed<strong>in seconds</strong>at which the ball travels between players.</p>
                     <br>
                     <h4>Note</h4>
                     <p>A higher value will result in the ball moving faster between players.</p>
                 </form></dialog>
-                <input type="number" value.bind="settings.ballSpeed | integer & updateTrigger:'blur'"
-                        blur.trigger="checkEmptyNumber($event)"/>
+                <input type="number" value.bind="settings.ballSpeed | secondsToMilliseconds & updateTrigger:'blur'"
+                     step="any" blur.trigger="checkEmptyNumber($event)"/>
             </div>
         </div>
 

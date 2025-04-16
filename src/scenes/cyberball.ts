@@ -285,9 +285,8 @@ export class CyberballScene extends Phaser.Scene {
         thrower.playAfterRepeat('idle');
 
         // Ball physics:
-
         let ballTargetPosition = this.getCaughtBallPosition(receiver);
-        this.physics.moveTo(this.ballSprite, ballTargetPosition.x, ballTargetPosition.y, this.settings.ballSpeed);
+        this.physics.moveTo(this.ballSprite, ballTargetPosition.x, ballTargetPosition.y,  this.settings.ballSpeed);
     }
 
 
