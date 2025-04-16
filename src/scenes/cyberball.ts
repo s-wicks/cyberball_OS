@@ -422,7 +422,7 @@ export class CyberballScene extends Phaser.Scene {
     }
 
     getTimeString(): string {
-        let timeRemaining = this.settings.timeLimit * 1000 - this.cyberballGameController.reportTimeSinceStart();
+        let timeRemaining = this.settings.timeLimit - this.cyberballGameController.reportTimeSinceStart();
         let time = new Date(timeRemaining < 0 ? 0 : timeRemaining);
 
         return `${this.settings.timeLimitText} ${time.getUTCMinutes()}:${time.getUTCSeconds() < 10 ? '0' : ''}${time.getUTCSeconds()}`;

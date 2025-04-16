@@ -110,8 +110,6 @@
                 <input type="checkbox" checked.bind="settings.displayCPUThrowCatchDelays"/>
             </div>
 
-            <require from="resources/value-converters/seconds-to-milliseconds-value-converter"></require>
-
             <div if.bind="settings.displayCPUThrowCatchDelays">
                 <div class="two-column-grid">
                     <label style="padding-left: 20%;">Throw Delay<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
@@ -122,12 +120,14 @@
                         <p>The amount of time<strong>in seconds</strong>the CPU stands in a “throw-ready” stance before throwing it.</p>
                         </form>
                     </dialog>
-                    <input type="number" value.two-way="cpu.throwDelay | secondsToMilliseconds" placeholder="Enter delay in seconds"/>
+                    <input type="number" value.bind="cpu.throwDelay | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
                 </div>
                     
                 <div class="two-column-grid">
                     <label style="padding-left: 40%;">Variance</label>
-                    <input type="number" value.two-way="cpu.throwDelayVariance | secondsToMilliseconds" placeholder="Enter variance in seconds"/>
+                    <input type="number" value.bind="cpu.throwDelayVariance | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
                 </div>
 
                 <div class="two-column-grid">
@@ -139,12 +139,14 @@
                         <p>The amount of time<strong>in seconds</strong>the CPU stands in a “caught-ball” stance before preparing to throw.</p>
                         </form>
                     </dialog>
-                    <input type="number" value.two-way="cpu.catchDelay | secondsToMilliseconds" placeholder="Enter delay in seconds"/>
+                    <input type="number" value.bind="cpu.catchDelay | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
                 </div>
 
                 <div class="two-column-grid">
                     <label style="padding-left: 40%;">Variance</label>
-                    <input type="number" value.two-way="cpu.catchDelayVariance | secondsToMilliseconds" placeholder="Enter variance in seconds"/>
+                    <input type="number" value.bind="cpu.catchDelayVariance | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
                 </div>
             </div>
 
@@ -231,9 +233,11 @@
                 <div if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:2">   
                     <div class="two-column-grid">
                         <label style="padding-left: 40%;">Leave Threshold</label>
-                        <input type="number" value.bind="cpu.leaveTime | integer & updateTrigger:'blur'"/>
+                        <input type="number" value.bind="cpu.leaveTime | secondsToMilliseconds & updateTrigger:'blur'"
+                        step="any"/>
                         <label style="padding-left: 40%;">Variance</label>
-                        <input type="number" value.bind="cpu.leaveTimeVariance | integer & updateTrigger:'blur'"/>
+                        <input type="number" value.bind="cpu.leaveTimeVariance | secondsToMilliseconds & updateTrigger:'blur'"
+                        step="any"/>
                         <label style="padding-left: 40%;">Chance (%)</label>   
                         <input type="number" value.bind="cpu.leaveTimeChance | integer & updateTrigger:'blur'"/>
                     </div>
@@ -273,9 +277,11 @@
                 <div if.bind="cpu.leaveTrigger | flag:cpu.leaveTrigger:16">         
                     <div class="two-column-grid">
                         <label style="padding-left: 40%;">Leave Threshold</label>
-                        <input type="number" value.bind="cpu.leaveTimeIgnored | integer & updateTrigger:'blur'"/>
+                        <input type="number" value.bind="cpu.leaveTimeIgnored | secondsToMilliseconds & updateTrigger:'blur'"
+                        step="any"/>
                         <label style="padding-left: 40%;">Variance</label>
-                        <input type="number" value.bind="cpu.leaveTimeIgnoredVariance | integer & updateTrigger:'blur'"/>
+                        <input type="number" value.bind="cpu.leaveTimeIgnoredVariance | secondsToMilliseconds & updateTrigger:'blur'"
+                        step="any"/>
                         <label style="padding-left: 40%;">Chance (%)</label>   
                         <input type="number" value.bind="cpu.leaveTimeIgnoredChance | integer & updateTrigger:'blur'"/>
                     </div>

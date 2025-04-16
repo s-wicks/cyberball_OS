@@ -5,6 +5,7 @@
     <require from="resources/value-converters/number-value-converter"></require>
     <require from="resources/value-converters/integer-array-value-converter"></require>
     <require from="resources/value-converters/flag-value-converter"></require>
+    <require from="resources/value-converters/seconds-to-milliseconds-value-converter"></require>
 
     <h2>Human <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
     <dialog class="new-sidebar"><form method="dialog">
@@ -130,10 +131,12 @@
             <div if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:2">
                 <div class="two-column-grid">
                     <label style="padding-left: 40%;">Leave Threshold</label>
-                    <input type="number" value.bind="settings.player.leaveTime | integer & updateTrigger:'blur'"/>
+                    <input type="number" value.bind="settings.player.leaveTime | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
 
                     <label style="padding-left: 40%;">Variance</label>
-                    <input type="number" value.bind="settings.player.leaveTimeVariance | integer & updateTrigger:'blur'"/>
+                    <input type="number" value.bind="settings.player.leaveTimeVariance | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
                 </div>
             </div>
 
@@ -170,10 +173,12 @@
             <div if.bind="settings.player.leaveTrigger | flag:settings.player.leaveTrigger:16">
                 <div class="two-column-grid">
                     <label style="padding-left: 40%;">Leave Threshold</label>
-                    <input type="number" value.bind="settings.player.leaveTimeIgnored | integer & updateTrigger:'blur'"/>
-
+                    <input type="number" value.bind="settings.player.leaveTimeIgnored | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
+                    
                     <label style="padding-left: 40%;">Variance</label>
-                    <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance | integer & updateTrigger:'blur'"/>
+                    <input type="number" value.bind="settings.player.leaveTimeIgnoredVariance | secondsToMilliseconds & updateTrigger:'blur'"
+                    step="any"/>
                 </div>
             </div>
 
