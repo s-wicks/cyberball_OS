@@ -6,11 +6,11 @@ export class SettingsModel {
     computerPlayers: Array<CpuSettingsModel>;
 
     // Gameplay
-    throwCount: number = 10;
-    timeLimit: number = 0;
+    throwCount: number = 30;
+    timeLimit: number = 120000;
     displayTimeLimit: boolean = false;
     timeLimitText: string = 'Time Limit:';
-    ballSpeed: number = 500;
+    ballSpeed: number = 400;
 
     displayBallSettings: boolean = false;
     
