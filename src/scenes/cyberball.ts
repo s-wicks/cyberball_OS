@@ -126,20 +126,26 @@ export class CyberballScene extends Phaser.Scene {
     
         if (this.settings.player.portraitBuff) {
             this.load.once('complete', () => {
-                console.log("Adding human player portrait to scene:", this.settings.player.portraitBuff);
-    
-                const portraitPosition = this.getPlayerPortraitPosition(this.playerSprite);
-                const image = this.add.image(portraitPosition.x, portraitPosition.y + 10, 'playerPortrait');
-    
-                // Scale the image properly
-                let maxPortraitHeight = this.settings.portraitHeight || 100;
-                let maxPortraitWidth = 100;
-                let scale = Math.min(maxPortraitWidth / image.width, maxPortraitHeight / image.height);
-                image.setScale(scale);
+              const pos = this.getPlayerPortraitPosition(this.playerSprite);
+              const maxW = 100;
+              const maxH = 100;
+              const container = document.createElement('div');
+              container.style.width   = `${maxW}px`;
+              container.style.height  = `${maxH}px`;
+
+              const img = document.createElement('img');
+              img.src = this.settings.player.portraitBuff;
+
+              img.style.objectFit   = 'contain';
+              img.style.width       = '100%';
+              img.style.height      = '100%';
+              img.style.background  = '#fff';
+
+              container.appendChild(img);
+              this.add.dom(pos.x, pos.y, container);
             });
-    
             this.load.start();
-        } else {
+          } else {
             console.warn("No portrait found for human player!");
         }
     }
@@ -173,18 +179,23 @@ export class CyberballScene extends Phaser.Scene {
         // Ensure CPU portraits load correctly
         if (this.settings.computerPlayers[i].portraitBuff) {
             this.load.once('complete', () => {
-                const portraitPosition = this.getCPUPortraitPosition(i, cpuSprite);
-                const image = this.add.image(portraitPosition.x, portraitPosition.y - 5, 'cpuPortrait' + i);
-    
-                let maxPortraitHeight = this.settings.portraitHeight || 100;
-                let maxPortraitWidth = 100;
-                let scale = Math.min(maxPortraitWidth / image.width, maxPortraitHeight / image.height);
-                image.setScale(scale);
-    
-                console.log(`CPU ${i} portrait added to scene:`, this.settings.computerPlayers[i].portraitBuff);
+              const pos = this.getCPUPortraitPosition(i, cpuSprite);
+              const maxW = 100;
+              const maxH = this.settings.portraitHeight || 100;
+              const container = document.createElement('div');
+              container.style.width  = `${maxW}px`;
+              container.style.height = `${maxH}px`;
+              const img = document.createElement('img');
+              img.src            = this.settings.computerPlayers[i].portraitBuff!;
+              img.style.objectFit  = 'contain';
+              img.style.width      = '100%';
+              img.style.height     = '100%';
+              img.style.background = '#fff'; 
+              container.appendChild(img);
+              this.add.dom(pos.x, pos.y, container);
             });
             this.load.start();
-        }
+          }
     
         this.sprites.set(i, cpuSprite);
     }
