@@ -18,7 +18,7 @@
             </div>
         </form></dialog>
 
-        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190; Download</span></button>
+        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190; Download Game</span></button>
         <dialog class="new-sidebar" id="file_modal"><form method="dialog">
             <button class="close-btn" autofocus click.delegate="cancelFileSave()">X</button>
             <h2>Save As</h2>
@@ -31,6 +31,8 @@
               <button click.delegate="confirmFileSave()">Save</button>
             </div>
         </form></dialog>
+
+        <a style="text-align: center" class="bottom-buttons" href ="../../../assets/cyberball_qualtrics.qsf" download>&#128190; Download QSF</a>
 
         <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">
             <span>${copiedEmbed ? 'Copied!' : '⧉ Copy Embed Code'}</span>
