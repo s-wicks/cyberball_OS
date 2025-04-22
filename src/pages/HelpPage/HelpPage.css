@@ -27,7 +27,7 @@
     color: #2a7ae2;
 }
 
-.faq-item p {
+.faq-item p, ul, li {
     margin: 0.5rem 0 0 0;
     line-height: 1.5;
 }  
