@@ -27,7 +27,27 @@ Qualtrics.SurveyEngine.addOnload(function() {
     this.hideNextButton();
 });
 
-new JavaScript being tested
+Qualtrics.SurveyEngine.addOnReady(function() {
+    let that = this;
+
+    function handleSurveyMessage(msg) {
+		
+        for (const [key, value] of Object.entries(msg.data)) {
+            if (key === "player_throws_list") {
+                for (const [throwPath, numThrows] of Object.entries(value)) {
+                    Qualtrics.SurveyEngine.setEmbeddedData(throwPath, numThrows);
+                }
+            } else {
+                Qualtrics.SurveyEngine.setEmbeddedData(key, JSON.stringify(value));
+            }
+        }
+		
+		setTimeout(() => { 
+			that.clickNextButton();
+		}, 3000);
+    }
+    window.addEventListener('message', handleSurveyMessage, { once: true });
+});
 ```
 
 Additionally, you need to setup the embedded data fields inside Qualtrics.
