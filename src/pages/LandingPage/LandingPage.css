@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-    width: clamp(20%, max-content, 80%);
+    width: clamp(20%, max-content, 70%);
     background-color: #ffffff;
     padding: 50px;
     border-radius: 10px;
@@ -55,6 +55,9 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    width: 40%;
 }
 
 .btn:hover {

@@ -6,14 +6,16 @@
         <img src="../../../assets/player.png" alt="Cyberball Sprite" class="welcome-image">
         <h1 class="configHeader">Cyberball Configuration Builder</h1>
         <div class="content">
-            <iframe id="gamePreview"></iframe>
+            <iframe id="gamePreview" class="preview-frame"></iframe>
             <div class="container">
-                <a id="home-button" class="bottom-buttons" href="./">Return to Landing Page</a>
                 <compose view="./PlayerTab.html"></compose>
                 <compose view="./CpuTab.html"></compose>
                 <compose view="./GameplayTab.html"></compose>
                 <compose view="./ButtonTab.html"></compose>
-                <button class="refresh-button bottom-buttons" click.delegate="refreshIframe()">Refresh Iframe</button>
+                <div if.bind="activeTab !== 'buttons'" style="padding-top: 20px;" class="two-column-grid">
+                    <button class="home-page-buttons" click.delegate="refreshIframe()">Preview Game</button>
+                    <a class="home-page-buttons" href="./">Exit</a>
+                </div>
                 <a href="#" if.bind="activeTab !== 'player'" class="previous round" click.delegate="previousTab()">
                     &#8249;
                 </a>

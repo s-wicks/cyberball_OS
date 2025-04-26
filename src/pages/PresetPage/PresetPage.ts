@@ -8,7 +8,8 @@ export class PresetPage {
     defaultPresets: Array<{name: string, description: string, video: string, settings: any}> = [];
     public activeTab: string = 'presets';
     settings: any;
-
+    portraitUrl: string = '';
+    selectedPlayer: string = 'human';
     constructor(private router: Router, private settingsService: SettingsService) {}
 
 
@@ -19,6 +20,20 @@ export class PresetPage {
     attached() {
         this.loadDefaultPresets();
         this.loadPresetsFromLocalStorage();
+    
+        // Load stored portraits from Local Storage
+        const savedHumanPortrait = localStorage.getItem('humanPortrait');
+        if (savedHumanPortrait) {
+            this.settingsService.settings.player.portraitBuff = savedHumanPortrait;
+            this.portraitUrl = savedHumanPortrait;
+        }
+    
+        for (let i = 0; i < this.settingsService.settings.computerPlayers.length; i++) {
+            const savedCpuPortrait = localStorage.getItem(`cpuPortrait${i}`);
+            if (savedCpuPortrait) {
+                this.settingsService.settings.computerPlayers[i].portraitBuff = savedCpuPortrait;
+            }
+        }
     }
 
     public async loadDefaultPresets(): Promise<void> {
@@ -31,6 +46,41 @@ export class PresetPage {
         }
     }
 
+    setPortraitUrl(): void {
+        if (this.portraitUrl.trim() !== '') {
+            if (this.selectedPlayer === 'human') {
+                this.settingsService.settings.player.portraitBuff = this.portraitUrl;
+                localStorage.setItem('humanPortrait', this.portraitUrl); // Store in local storage
+                console.log("Human player image URL set:", this.portraitUrl);
+            } else {
+                const cpuIndex = parseInt(this.selectedPlayer);
+                if (!isNaN(cpuIndex) && this.settingsService.settings.computerPlayers[cpuIndex]) {
+                    this.settingsService.settings.computerPlayers[cpuIndex].portraitBuff = this.portraitUrl;
+                    localStorage.setItem(`cpuPortrait${cpuIndex}`, this.portraitUrl); // Store in local storage
+                    console.log(`CPU ${cpuIndex} image URL set:`, this.portraitUrl);
+                }
+            }
+        } else {
+            console.error("No URL provided");
+        }
+    }
+    
+    clearPortrait(): void {
+        if (this.selectedPlayer === 'human') {
+            this.settingsService.settings.player.portraitBuff = null;
+            localStorage.removeItem('humanPortrait');
+            console.log("Human player portrait cleared");
+        } else {
+            const cpuIndex = parseInt(this.selectedPlayer);
+            if (!isNaN(cpuIndex) && this.settingsService.settings.computerPlayers[cpuIndex]) {
+                this.settingsService.settings.computerPlayers[cpuIndex].portraitBuff = null;
+                localStorage.removeItem(`cpuPortrait${cpuIndex}`);
+                console.log(`CPU ${cpuIndex} portrait cleared`);
+            }
+        }
+        this.portraitUrl = '';
+    }
+    
     public loadPresetsFromLocalStorage(): void {
         console.log("Number of items in localStorage:", localStorage.length);
 
@@ -76,10 +126,10 @@ export class PresetPage {
     public deletePreset(presetName: string): void {
         // Remove the preset from local storage
         localStorage.removeItem(presetName);
-
         // Remove the preset from the presets array
         this.presets = this.presets.filter(p => p.name !== presetName);
     }
+
     public handleFileUpload(event: any): void {
         const file = event.target.files[0];
         if (!file) {
@@ -106,14 +156,10 @@ export class PresetPage {
                 console.error("Error parsing the file", error);
             }
         };
-
         reader.readAsText(file);
     }
+    
     public navigateToConfigurationBuilder(): void {
         this.router.navigate('home');
     }
-
-
-
-
 }

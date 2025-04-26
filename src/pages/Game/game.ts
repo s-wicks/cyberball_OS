@@ -16,7 +16,7 @@ export class GameViewModel {
 
     game: PhaserGameCustomElement;
 
-    gameWidth = 800;
+    gameWidth = 900;
     gameHeight = 460;
 
     gameConfig: Phaser.Types.Core.GameConfig;
@@ -48,7 +48,8 @@ export class GameViewModel {
             width: this.gameWidth,
             height: this.gameHeight,
             scale: {
-                mode: Scale.ScaleModes.FIT
+                mode: Scale.ScaleModes.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
             },
             scene,
             physics: {

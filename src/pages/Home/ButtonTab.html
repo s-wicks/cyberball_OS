@@ -1,35 +1,48 @@
 <template>
-<div if.bind="activeTab === 'buttons'" class="tabcontent">
+<div if.bind="activeTab === 'buttons'" class="tabcontent" style="width: 600px;">
     <div class="button-container">
-        <button class="bottom-buttons" click.delegate="testGame()"><span>&#129514;</span><span>Open Game Preview</span></button>
-        
-
-        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190;</span><span>Save Preset</span></button>
+        <button class="bottom-buttons" click.delegate="testGame()"><span>&#129514; Open Game Preview</span></button>
+        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190; Save Preset</span></button>
         <dialog class="new-sidebar" id="preset_modal"><form method="dialog">
             <button class="close-btn" autofocus click.delegate="cancelPresetSave()">X</button>
             <h2>Save Preset</h2>
-            <div class="input">
-                <label>Preset Name:</label>
+            <div class="two-column-grid">
+                <label>Name</label>
                 <input type="text" value.bind="presetName">
+                <label>Description</label>
+                <input type="text" value.bind="presetDescription">
             </div>
-            <div class="input">
-                <label>Description:</label>
-                <textarea value.bind="presetDescription"></textarea>
+            <br>
+            <div style="display: flex; justify-content: flex-end;">
+                <button click.delegate="confirmPresetSave()">Save</button>
             </div>
-            <button click.delegate="confirmPresetSave()">Save</button>
         </form></dialog>
 
-        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190;</span><span>Download</span></button>
+        <button class="bottom-buttons" click.delegate="openModal($event)"><span>&#128190; Download Game</span></button>
         <dialog class="new-sidebar" id="file_modal"><form method="dialog">
             <button class="close-btn" autofocus click.delegate="cancelFileSave()">X</button>
             <h2>Save As</h2>
-            <label>File Name:</label>
-            <input type="text" value.bind="fileName" placeholder="Enter filename">
-            <button click.delegate="confirmFileSave()">Save</button>
+            <div class="two-column-grid">
+                <label>File Name</label>
+                <input type="text" value.bind="fileName">
+            </div>
+            <br>
+            <div style="display: flex; justify-content: flex-end;">
+              <button click.delegate="confirmFileSave()">Save</button>
+            </div>
         </form></dialog>
 
-        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()"><span>&#10697;</span><span>Copy Embed Code</span></button>
-        <button class="bottom-buttons" click.delegate="copyURL()"><span>&#10697;</span><span>Copy Game URL</span></button>
+        <a style="text-align: center" class="bottom-buttons" href ="../../../assets/cyberball_qualtrics.qsf" download>&#128190; Download Cyberball Qualtrics Survey Template (QSF)</a>
+
+        <button class="bottom-buttons" click.delegate="copyIframeToClipboard()">
+            <span>${copiedEmbed ? 'Copied!' : '⧉ Copy Embed Code'}</span>
+        </button>
+
+        <button class="bottom-buttons" click.delegate="copyURL()">
+            <span>${copiedURL ? 'Copied!' : '⧉  Copy Game URL'}</span>
+        </button>
+        
+        <a style="text-align: center" class="bottom-buttons" href="./">Exit</a>
     </div>
 </div>
 </template>

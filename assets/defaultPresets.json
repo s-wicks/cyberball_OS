@@ -1,50 +1,91 @@
 [
     {
         "name": "Ostracized Game",
-        "description": "Player will receive the ball just twice early on, and then never get the ball.",
+        "description": "Participant will receive the ball twice towards the beginning of the game and then never again (e.g., Wirth, Hales, & Buelow, 2024, EJSP; Wirth & Williams, 2009, GPIR).",
         "video": "../../../assets/ostracized.mp4",
         "settings": {
             "player": {
+              "tint": "#ffffff",
               "leaveTrigger": 0,
               "leaveTurn": 10,
               "leaveTurnVariance": 2,
-              "leaveTime": 120,
-              "leaveTimeVariance": 30,
+              "leaveTime": 120000,
+              "leaveTimeVariance": 40000,
               "leaveIgnored": 10,
               "leaveIgnoredVariance": 2,
-              "leaveTimeIgnored": 45,
-              "leaveTimeIgnoredVariance": 15,
-              "leaveOtherLeaver": 2,
-              "name": "Player 1 (You)",
-              "tint": "#ffffff"
+              "leaveTimeIgnored": 45000,
+              "leaveTimeIgnoredVariance": 15000,
+              "leaveOtherLeaver": 1,
+              "name": "Player 1"
             },
             "throwCount": 30,
-            "timeLimit": 0,
+            "timeLimit": 120000,
             "displayTimeLimit": false,
             "timeLimitText": "Time Limit:",
-            "ballSpeed": 350,
+            "ballSpeed": 500,
+            "displayBallSettings": false,
             "useSchedule": true,
-            "changeColor": false,
             "scheduleHonorsThrowCount": true,
+            "scheduleText": {
+              "Player 2": "13,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3",
+              "Player 3": "12,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2"
+            },
+            "selectedGameOverCondition": "throwCount",
+            "gameOverConditions": [
+              {
+                "id": "throwCount",
+                "label": "Throw Count"
+              },
+              {
+                "id": "timeLimit",
+                "label": "Time Limit"
+              },
+              {
+                "id": "allCPUsLeft",
+                "label": "All CPUs Left"
+              }
+            ],
             "baseUrl": "./assets",
             "ballSprite": "ball.png",
+            "ballTint": "#ffffff",
             "portraitHeight": 75,
             "portraitPadding": 10,
             "chatEnabled": false,
             "gameOverText": "Game Over",
             "gameOverOpacity": 0.5,
+            "defaultPortraits": [
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_FD4MuyE9xvXsw4N",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9WAB10zvcNpYCay",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9N8Q6TidKIbmmCG",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_50COcfLIQHBGGRo",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cNkphviD8lW6Aui",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_eaO3Q2E2zIHGilU",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cCulSSpb7ydhO8S",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_0Gtm9MRNwNePo90",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_eA0WUiP4s6xfelg",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_5mSCyUoqClgL5fo",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_elhZ8gV4ra10TIy",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_dcKcMkN46o0bxeC",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_7WhGUn4IfqKl7qm",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_0qayRbawfVh3SfA",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_b2FWU72a1pAPBfU",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_4TujTNJGvEa9jfM",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_80UFyMIwRPvlhbw",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9yrharkWwnbCR7g"
+            ],
             "computerPlayers": [
               {
+                "tint": "#ffffff",
                 "leaveTrigger": 0,
                 "leaveTurn": 10,
                 "leaveTurnVariance": 2,
-                "leaveTime": 120,
-                "leaveTimeVariance": 30,
+                "leaveTime": 120000,
+                "leaveTimeVariance": 30000,
                 "leaveIgnored": 10,
                 "leaveIgnoredVariance": 2,
-                "leaveTimeIgnored": 45,
-                "leaveTimeIgnoredVariance": 15,
-                "leaveOtherLeaver": 2,
+                "leaveTimeIgnored": 45000,
+                "leaveTimeIgnoredVariance": 15000,
+                "leaveOtherLeaver": 1,
                 "targetPreference": [
                   50,
                   50
@@ -62,16 +103,17 @@
                 "portrait": ""
               },
               {
+                "tint": "#ffffff",
                 "leaveTrigger": 0,
                 "leaveTurn": 10,
                 "leaveTurnVariance": 2,
-                "leaveTime": 120,
-                "leaveTimeVariance": 30,
+                "leaveTime": 120000,
+                "leaveTimeVariance": 30000,
                 "leaveIgnored": 10,
                 "leaveIgnoredVariance": 2,
-                "leaveTimeIgnored": 45,
-                "leaveTimeIgnoredVariance": 15,
-                "leaveOtherLeaver": 2,
+                "leaveTimeIgnored": 45000,
+                "leaveTimeIgnoredVariance": 15000,
+                "leaveOtherLeaver": 1,
                 "targetPreference": [
                   50,
                   50
@@ -89,54 +131,93 @@
                 "portrait": ""
               }
             ],
-            "scheduleText": "2,13,3,3,3,3,3,3,3,3,3,3,3,3,3\n3,12,2,2,2,2,2,2,2,2,2,2,2,2,2"
+            "showBallSettings": false
           }
     },
     {
         "name": "Inclusion Game",
-        "description": "Player is included in the game normally",
+        "description": "Participant will receive the ball throughout the game, 33% of the time (e.g., Wirth, Hales, & Buelow, 2024, EJSP; Wirth & Williams, 2009, GPIR).",
         "video": "../../../assets/inclusion.mp4",
         "settings": {
             "player": {
+              "tint": "#ffffff",
               "leaveTrigger": 0,
               "leaveTurn": 10,
               "leaveTurnVariance": 2,
-              "leaveTime": 120,
-              "leaveTimeVariance": 30,
+              "leaveTime": 120000,
+              "leaveTimeVariance": 30000,
               "leaveIgnored": 10,
               "leaveIgnoredVariance": 2,
-              "leaveTimeIgnored": 45,
-              "leaveTimeIgnoredVariance": 15,
-              "leaveOtherLeaver": 2,
-              "name": "Player 1 (You)"
+              "leaveTimeIgnored": 45000,
+              "leaveTimeIgnoredVariance": 15000,
+              "leaveOtherLeaver": 1,
+              "name": "Player 1"
             },
             "throwCount": 30,
-            "timeLimit": 0,
+            "timeLimit": 120000,
             "displayTimeLimit": false,
             "timeLimitText": "Time Limit:",
-            "ballSpeed": 350,
-            "useSchedule": true,
-            "changeColor": false,
-            "scheduleHonorsThrowCount": true,
+            "ballSpeed": 500,
+            "displayBallSettings": false,
+            "useSchedule": false,
+            "scheduleHonorsThrowCount": false,
+            "scheduleText": {},
+            "selectedGameOverCondition": "throwCount",
+            "gameOverConditions": [
+              {
+                "id": "throwCount",
+                "label": "Throw Count"
+              },
+              {
+                "id": "timeLimit",
+                "label": "Time Limit"
+              },
+              {
+                "id": "allCPUsLeft",
+                "label": "All CPUs Left"
+              }
+            ],
             "baseUrl": "./assets",
             "ballSprite": "ball.png",
+            "ballTint": "#ffffff",
             "portraitHeight": 75,
             "portraitPadding": 10,
             "chatEnabled": false,
             "gameOverText": "Game Over",
             "gameOverOpacity": 0.5,
+            "defaultPortraits": [
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_FD4MuyE9xvXsw4N",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9WAB10zvcNpYCay",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9N8Q6TidKIbmmCG",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_50COcfLIQHBGGRo",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cNkphviD8lW6Aui",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_eaO3Q2E2zIHGilU",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cCulSSpb7ydhO8S",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_0Gtm9MRNwNePo90",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_eA0WUiP4s6xfelg",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_5mSCyUoqClgL5fo",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_elhZ8gV4ra10TIy",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_dcKcMkN46o0bxeC",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_7WhGUn4IfqKl7qm",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_0qayRbawfVh3SfA",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_b2FWU72a1pAPBfU",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_4TujTNJGvEa9jfM",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_80UFyMIwRPvlhbw",
+              "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9yrharkWwnbCR7g"
+            ],
             "computerPlayers": [
               {
+                "tint": "#ffffff",
                 "leaveTrigger": 0,
                 "leaveTurn": 10,
                 "leaveTurnVariance": 2,
-                "leaveTime": 120,
-                "leaveTimeVariance": 30,
+                "leaveTime": 120000,
+                "leaveTimeVariance": 30000,
                 "leaveIgnored": 10,
                 "leaveIgnoredVariance": 2,
-                "leaveTimeIgnored": 45,
-                "leaveTimeIgnoredVariance": 15,
-                "leaveOtherLeaver": 2,
+                "leaveTimeIgnored": 45000,
+                "leaveTimeIgnoredVariance": 15000,
+                "leaveOtherLeaver": 1,
                 "targetPreference": [
                   50,
                   50
@@ -154,16 +235,17 @@
                 "portrait": ""
               },
               {
+                "tint": "#ffffff",
                 "leaveTrigger": 0,
                 "leaveTurn": 10,
                 "leaveTurnVariance": 2,
-                "leaveTime": 120,
-                "leaveTimeVariance": 30,
+                "leaveTime": 120000,
+                "leaveTimeVariance": 30000,
                 "leaveIgnored": 10,
                 "leaveIgnoredVariance": 2,
-                "leaveTimeIgnored": 45,
-                "leaveTimeIgnoredVariance": 15,
-                "leaveOtherLeaver": 2,
+                "leaveTimeIgnored": 45000,
+                "leaveTimeIgnoredVariance": 15000,
+                "leaveOtherLeaver": 1,
                 "targetPreference": [
                   50,
                   50
@@ -181,7 +263,139 @@
                 "portrait": ""
               }
             ],
-            "scheduleText": "2,13,13,13,13,13,13,13,13\n3,12,12,12,12,12,12,12,12"
+            "showBallSettings": false
           }
-    }
+    },
+    {
+      "name": "Slow Player Game",
+      "description": "One computer-controlled player will hold onto the ball 16 seconds before throwing (e.g., Wesselmann, Wirth, Pryor, Reeder, & Williams, 2013, SPPS).",
+      "video": "../../../assets/slow_player.mp4",
+      "settings": {
+          "player": {
+            "tint": "#ffffff",
+            "leaveTrigger": 0,
+            "leaveTurn": 10,
+            "leaveTurnVariance": 2,
+            "leaveTime": 120000,
+            "leaveTimeVariance": 30000,
+            "leaveIgnored": 10,
+            "leaveIgnoredVariance": 2,
+            "leaveTimeIgnored": 45000,
+            "leaveTimeIgnoredVariance": 15000,
+            "leaveOtherLeaver": 1,
+            "name": "Player 1"
+          },
+          "throwCount": 45,
+          "timeLimit": 120000,
+          "displayTimeLimit": false,
+          "timeLimitText": "Time Limit:",
+          "ballSpeed": 500,
+          "displayBallSettings": false,
+          "useSchedule": false,
+          "scheduleHonorsThrowCount": false,
+          "scheduleText": {},
+          "selectedGameOverCondition": "throwCount",
+          "gameOverConditions": [
+            {
+              "id": "throwCount",
+              "label": "Throw Count"
+            },
+            {
+              "id": "timeLimit",
+              "label": "Time Limit"
+            },
+            {
+              "id": "allCPUsLeft",
+              "label": "All CPUs Left"
+            }
+          ],
+          "baseUrl": "./assets",
+          "ballSprite": "ball.png",
+          "ballTint": "#ffffff",
+          "portraitHeight": 75,
+          "portraitPadding": 10,
+          "chatEnabled": false,
+          "gameOverText": "Game Over",
+          "gameOverOpacity": 0.5,
+          "defaultPortraits": [
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_FD4MuyE9xvXsw4N",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9WAB10zvcNpYCay",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9N8Q6TidKIbmmCG",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_50COcfLIQHBGGRo",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cNkphviD8lW6Aui",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_eaO3Q2E2zIHGilU",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_cCulSSpb7ydhO8S",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_0Gtm9MRNwNePo90",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_eA0WUiP4s6xfelg",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_5mSCyUoqClgL5fo",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_elhZ8gV4ra10TIy",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_dcKcMkN46o0bxeC",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_7WhGUn4IfqKl7qm",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_0qayRbawfVh3SfA",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_b2FWU72a1pAPBfU",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_4TujTNJGvEa9jfM",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_80UFyMIwRPvlhbw",
+            "https://osunewarkcotc.pdx1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9yrharkWwnbCR7g"
+          ],
+          "computerPlayers": [
+            {
+              "tint": "#ffffff",
+              "leaveTrigger": 0,
+              "leaveTurn": 10,
+              "leaveTurnVariance": 2,
+              "leaveTime": 120000,
+              "leaveTimeVariance": 30000,
+              "leaveIgnored": 10,
+              "leaveIgnoredVariance": 2,
+              "leaveTimeIgnored": 45000,
+              "leaveTimeIgnoredVariance": 15000,
+              "leaveOtherLeaver": 1,
+              "targetPreference": [
+                50,
+                50
+              ],
+              "throwDelay": 4000,
+              "throwDelayVariance": 1000,
+              "catchDelay": 500,
+              "catchDelayVariance": 200,
+              "leaveTurnChance": 100,
+              "leaveTimeChance": 100,
+              "leaveIgnoredChance": 100,
+              "leaveTimeIgnoredChance": 100,
+              "leaveOtherLeaverChance": 50,
+              "name": "Player 2",
+              "portrait": ""
+            },
+            {
+              "tint": "#ffffff",
+              "leaveTrigger": 0,
+              "leaveTurn": 10,
+              "leaveTurnVariance": 2,
+              "leaveTime": 120000,
+              "leaveTimeVariance": 30000,
+              "leaveIgnored": 10,
+              "leaveIgnoredVariance": 2,
+              "leaveTimeIgnored": 45000,
+              "leaveTimeIgnoredVariance": 15000,
+              "leaveOtherLeaver": 1,
+              "targetPreference": [
+                50,
+                50
+              ],
+              "throwDelay": 16000,
+              "throwDelayVariance": 0,
+              "catchDelay": 500,
+              "catchDelayVariance": 200,
+              "leaveTurnChance": 100,
+              "leaveTimeChance": 100,
+              "leaveIgnoredChance": 100,
+              "leaveTimeIgnoredChance": 100,
+              "leaveOtherLeaverChance": 50,
+              "name": "Player 3",
+              "portrait": ""
+            }
+          ],
+          "showBallSettings": false
+        }
+  }
 ]

@@ -1,126 +1,169 @@
 <template>
-<div if.bind="activeTab === 'gameplay'" class="tabcontent">
+<div if.bind="activeTab === 'gameplay'" class="tabcontent" style="width: 600px;">
     <require from="resources/value-converters/integer-value-converter"></require>
+    <require from="resources/value-converters/seconds-to-milliseconds-value-converter"></require>
     <h2>Gameplay</h2>
-    <div clas="input">
-    <div class="two-column-grid">
-        <label for="selectedGameOverCondition">Select game end condition:</label>
-        <select id="selectedGameOverCondition" value.bind="settings.selectedGameOverCondition">
-            <option repeat.for="condition of settings.gameOverConditions" model.bind="condition.id">${condition.label}</option>
-        </select>
+    
+    <!-- <div class="scrollbar" style="height: 250px;"> -->
+        <div class="input">
+            <div class="two-column-grid">
+                <label for="selectedGameOverCondition"> Game End Condition:<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>How the game ends besides the participant leaving.</p>
+                    <br>
+                    <ol><strong>Throw Count:</strong>game ends after a certain number of throws.</ol>
+                    <ol><strong>Time Limit:</strong>game ends after a designated time<strong>in seconds</strong>.</ol>
+                    <ol><strong>All CPUs Left:</strong>game ends after all CPUs leave.</ol>
+                </form></dialog>
+                <select id="selectedGameOverCondition" value.bind="settings.selectedGameOverCondition">
+                    <option repeat.for="condition of settings.gameOverConditions" model.bind="condition.id">${condition.label}</option>
+                </select>
+            </div>
 
-        <label>Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>How many throws between all players before the game ends.</p>
-        </form></dialog>
-        <input type="number" value.bind="settings.throwCount | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
+            <div if.bind="settings.selectedGameOverCondition === 'throwCount'">
+                <div class="two-column-grid">
+                    <label style="padding-left: 20%;"> Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                    <dialog class="new-sidebar"><form method="dialog">
+                        <button class="close-btn" autofocus type="submit">X</button>
+                        <h3>Information</h3>
+                        <p>How many total throws in the game before ending.</p>
+                    </form></dialog>
+                    <input type="number" value.bind="settings.throwCount | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
+                </div>
+            </div>
 
+            <div if.bind="settings.selectedGameOverCondition === 'timeLimit'">
+                <div class="two-column-grid">
+                    <label style="padding-left: 20%;">Display Time<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                    <dialog class="new-sidebar"><form method="dialog">
+                        <button class="close-btn" autofocus type="submit">X</button>
+                        <h3>Information</h3>
+                        <p>Allow the participant to see how much time remains in the top right corner of the screen.</p>
+                    </form></dialog>
+                    <input type="checkbox" checked.bind="settings.displayTimeLimit"/>
 
-        <label>Time Limit (ms) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>How long the game is played before it ends.</p>
-        </form></dialog>
-        <input type="number" value.bind="settings.timeLimit | integer & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
+                    <label style="padding-left: 20%;">Label</label>
+                    <input type="text" value.bind="settings.timeLimitText" />
 
-        <label>Display Time Limit<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>Allow the participant to see how much time remains in the game at the top right corner of the screen.</p>
-        </form></dialog>
-        <input type="checkbox" checked.bind="settings.displayTimeLimit"/>
-
-        <label>Time Limit Label</label>
-        <input type="text" value.bind="settings.timeLimitText" />
-
-        <label>Ball Speed <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>The speed at which the ball travels between players.</p>
-            <h4>Note</h4>
-            <p>A higher value will result in the ball moving faster between players.</p>
-        </form></dialog>
-        <input type="number" value.bind="settings.ballSpeed | integer & updateTrigger:'blur'"
-                blur.trigger="checkEmptyNumber($event)"/>
-
-        <label>Ball Tint Color <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>You can edit the color of the ball by clicking on the box next to <strong>Ball Tint Color</strong> to bring up a color palette.</p>
-        </form></dialog>
-        <input type="color" value.bind="settings.ballTint"/>
-
-        <!-- TODO: Reimplement portraits to either use a URL or implement image hosting service -->
-        <!-- <label>Portrait Height (px) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>Adjusts the portrait size of all players.</p>
-        </form></dialog>
-        <input type="number" value.bind="settings.portraitHeight | integer & updateTrigger:'blur'"
-                blur.trigger="checkEmptyNumber($event)"/> -->
-
-        <label>Use Schedule <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>Allows you to decide on a throw-by-throw basis when each player will receive the ball.</p>
-            <p>Each CPU player needs to be given a schedule starting with 2 then 3 etc. A schedule should contain rows of text in the following form:</p>
-            <code>2,13,3,3,3,3</code>
-            <p>
-                The first number indicates which player the schedule is for. The subsequent numbers indicate which players the CPU will throw to. 
-                For example, <code style="display: inline;">13</code> in the example above means that CPU 2 will throw to player 1 (the human player) and player 3 in their first 2 throws (with a randomized order).
-            </p>
-        </form></dialog>
-        <input type="checkbox" checked.bind="settings.useSchedule"/>
-
-        <label if.bind="settings.useSchedule">Schedule</label>
-        <!-- <textarea value.bind="settings.schedule | integerArray & updateTrigger:'blur'"></textarea> -->
-        <textarea if.bind="settings.useSchedule" value.bind="settings.scheduleText  & updateTrigger:'blur'"></textarea>
-
-        <label>Schedule Honors Throw Count <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>Sets the value in the throw count to override the number of throws placed in scheduler while allowing the order of the scheduler’s values to also occur.</p>
-            <h4>Note</h4>
-            <p>With this option on, a value of 10 in the Throw Count box, along with 20 values placed in the Schedule, will result in a game with 10 throws that follows a shortened schedule.</p>
-        </form></dialog>
-        <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount"/>
-
-        <label>Game Over Text <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>The text that will appear when the game ends.</p>
-        </form></dialog>
-        <input type="text" value.bind="settings.gameOverText"/>
-
-        <label>Game Over Opacity (%) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
-        <dialog class="new-sidebar"><form method="dialog">
-            <button class="close-btn" autofocus type="submit">X</button>
-            <h3>Information</h3>
-            <p>How transparent the background behind the Game Over text is.</p>
-            <h4>Note</h4>
-            <p>A higher percentage will result in more of the screen behind the Game Over text to be less visible. The background will be less transparent.</p>
-        </form></dialog>
-        <div class="range-container">
-            <input
-                type="range"
-                min="0"
-                max="100"
-                step="1"
-                value.bind="sliderValue"
-                change.delegate="updateOpacity()"
-            />
-            <span class="range-value">${sliderValue}%</span>
+                    <label style="padding-left: 20%;">Game Duration</label>
+                    <input type="number" value.bind="settings.timeLimit | secondsToMilliseconds & updateTrigger:'blur'" blur.trigger="checkEmptyNumber($event)"/>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <div class="two-column-grid">
+            <label>Game Over Text <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>The text that will appear when the game ends.</p>
+            </form></dialog>
+            <input type="text" value.bind="settings.gameOverText"/>
+
+            <label>Game Over Opacity (%) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>How transparent the background behind the Game Over text is.</p>
+                <br>
+                <h4>Note</h4>
+                <p>A higher percentage will result in more of the screen behind the Game Over text to be less visible. The background will be less transparent.</p>
+            </form></dialog>
+            <div class="range-container">
+                <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value.bind="sliderValue"
+                    change.delegate="updateOpacity()"
+                />
+                <span class="range-value">${sliderValue}%</span>
+            </div>
+        </div>
+
+        <div class="two-column-grid">
+            <label>Customize Ball<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>Select to change the color and speed of the ball.</p>
+            </form></dialog>
+            <input type="checkbox" checked.bind="settings.showBallSettings">
+        </div>
+
+        <div if.bind="settings.showBallSettings">
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">Color</label>
+                <input type="color" value.bind="settings.ballTint"/>
+                
+                <label style="padding-left: 20%;">Speed<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                <dialog class="new-sidebar"><form method="dialog">
+                    <button class="close-btn" autofocus type="submit">X</button>
+                    <h3>Information</h3>
+                    <p>The speed<strong>in seconds</strong>at which the ball travels between players.</p>
+                    <br>
+                    <h4>Note</h4>
+                    <p>A higher value will result in the ball moving faster between players.</p>
+                </form></dialog>
+                <input type="number" value.bind="settings.ballSpeed | secondsToMilliseconds & updateTrigger:'blur'"
+                     step="any" blur.trigger="checkEmptyNumber($event)"/>
+            </div>
+        </div>
+
+            <!-- TODO: Reimplement portraits to either use a URL or implement image hosting service -->
+            <!-- <label>Portrait Height (px) <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>Adjusts the portrait size of all players.</p>
+            </form></dialog>
+            <input type="number" value.bind="settings.portraitHeight | integer & updateTrigger:'blur'"
+                    blur.trigger="checkEmptyNumber($event)"/> -->
+
+        <div class="two-column-grid">
+            <label>Use Schedule?<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+            <dialog class="new-sidebar"><form method="dialog">
+                <button class="close-btn" autofocus type="submit">X</button>
+                <h3>Information</h3>
+                <p>Select to set a predetermined throw ordering for the CPUs—controlling when each player receives the ball.</p>
+                <br>
+                <p>A sample schedule for Player 2 is provided:<code>3,13,1,3,3</code></p>
+                <br>
+                <p> The numbers indicate which players the CPU will throw to. "1" means Player 1 and "3" means Player 3. </p>
+                <br>
+                <p> <code style="display: inline;">13</code> means that Player 2 will throw to Player 1 (participant) and Player 3 (CPU) in their first 2 throws (with a randomized order).</p>
+                <br>
+                <p>So, in this case, Player 2 throws to Player 3 first, then to Player 1 or Player 3, then to the one it didn't throw to, then to Player 1, then to Player 3 two more times before the schedule is over.</p>
+            </form></dialog>
+            <input type="checkbox" checked.bind="settings.useSchedule"/>
+        </div>
+
+        <div if.bind="settings.useSchedule">
+            <div if.bind="settings.selectedGameOverCondition === 'throwCount'">
+                <div class="two-column-grid">
+                    <label style="padding-left: 20%;" >Honor Game End<span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></label>
+                    <dialog class="new-sidebar"><form method="dialog">
+                        <button class="close-btn" autofocus type="submit">X</button>
+                        <h3>Information</h3>
+                        <p>Sets the value in the Throw Count to override the number of throws placed in the Schedules while allowing the order of the Schedules' values to occur.</p>
+                        <br>
+                        <h4>Note</h4>
+                        <p>With this option on, a value of 10 in Throw Count, along with 20 values in the Schedule, will result in a game with 10 throws that follows a shortened schedule.</p>
+                    </form></dialog>
+                    <input type="checkbox" checked.bind="settings.scheduleHonorsThrowCount"/>
+                </div>
+            </div>
+        </div>
+
+        <div if.bind="settings.useSchedule" repeat.for="cpu of settings.computerPlayers">
+            <div class="two-column-grid">
+                <label style="padding-left: 20%;">${cpu.name}</label>
+                <input type="string" value.bind="settings.scheduleText[cpu.name] & updateTrigger:'blur'" placeholder="type Player ${$index + 2}'s schedule"/>
+            </div>
+        </div>
+    <!-- </div> -->
 </div>
 </template>
