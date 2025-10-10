@@ -23,7 +23,7 @@ export function addThrowCountGameOverTrigger(controller: CyberballGameController
 }
 
 export function addTimeLimitGameOverTrigger(controller: CyberballGameController, timeLimit: number) {
-    let timeLimitMilliSeconds = timeLimit * 1000;
+    let timeLimitMilliSeconds = timeLimit;
     if (timeLimitMilliSeconds <= 0) {
         return;
     }
