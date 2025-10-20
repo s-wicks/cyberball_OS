@@ -2,7 +2,12 @@
 <div if.bind="activeTab === 'gameplay'" class="tabcontent" style="width: 600px;">
     <require from="resources/value-converters/integer-value-converter"></require>
     <require from="resources/value-converters/seconds-to-milliseconds-value-converter"></require>
-    <h2>Gameplay</h2>
+    <h2>Gameplay <span class="tooltip-icon h2-tooltip" click.delegate="openModal($event)">?</span></h2>
+    <dialog class="new-sidebar"><form method="dialog">
+        <button class="close-btn" autofocus type="submit">X</button>
+        <h3>Information</h3>
+        <p>Configure how the game ends, what appears afterwards, ball color and speed, and predetermined throwing order for CPUs.</p>
+    </form></dialog>
     
     <!-- <div class="scrollbar" style="height: 250px;"> -->
         <div class="input">
